@@ -1,0 +1,156 @@
+@import '../../../../../assets/scss/global.scss';
+
+.search-wrapper {
+
+  .search-input-btn-wrapper {
+    background-color: $primary;
+    padding: 0.6em;
+
+    .search-input-wrapper {
+      width: 79%;
+
+      input {
+        width: 100%;
+        outline: none;
+        border: none;
+        background-color: #a380e0;
+        color: #eee;
+        padding: 1.2em;
+        font-size: 1rem;
+        box-sizing : border-box;
+        border-radius: 2px;
+      }
+
+      input::placeholder {
+        color: #eee;
+      }
+
+    }
+
+    .search-btn-wrapper {
+      width: 20%;
+
+      button,
+      button:focus {
+        background-color: #fff;
+        color: $primary;
+        padding: 1.2em;
+        border: none;
+        border-radius: 2px;
+        outline: none;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      button:hover {
+        color: #000;
+      }
+    }
+
+  }
+
+  .search-filter-wrapper {
+    margin-top: 40px;
+
+    mat-form-field {
+      width: 100%;
+      position: relative;
+
+      .mat-form-field-infix {
+        background-color: #fff;
+        border-top: 0;
+        border: solid 1px rgba(0,0,0,.12);;
+        padding: 0.6em;
+
+        mat-select {
+          .mat-select-value {
+            color: $primary;
+          }
+        }
+
+        input {
+          color: $primary;
+        }
+      }
+
+      .mat-form-field-suffix {
+        position: absolute;
+        right: 0;
+      }
+      
+    }
+
+    mat-button-toggle-group {
+      width: 100%;
+
+      mat-button-toggle {
+        width: 20%;
+        color: #a9a9a9;
+      }
+
+      .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+        line-height: 35px;
+      }
+
+      .mat-button-toggle-appearance-standard .mat-button-toggle-button {
+        border: solid 1px rgba(0,0,0,0);
+      }
+
+      .mat-button-toggle-appearance-standard.mat-button-toggle-checked .mat-button-toggle-button {
+        background-color: #fff;
+        color: $primary;
+        border: solid 1px $primary
+      } 
+
+      .mat-button-toggle-appearance-standard .mat-button-toggle-focus-overlay,
+      .mat-button-toggle-appearance-standard .mat-ripple.mat-button-toggle-ripple {
+        display: none;
+      }
+
+    }
+
+    .btn-save-search {
+      background-color: #fff;
+      color: #a9a9a9;
+      font-size: 1rem;
+      border: solid 1px rgba(0,0,0,.12);
+      outline: none;
+      line-height: 35px;
+      position: absolute;
+      text-align: center;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .btn-save-search:hover {
+      color: $primary;
+      border-color: $primary;
+    }
+
+    .filter-block {
+      position: relative;
+    }
+
+  }
+
+}
+
+mat-option {
+  .mat-option-text {
+    color: #a9a9a9;
+    font-weight: normal;
+  }
+}
+
+mat-option.mat-selected {
+  .mat-option-text {
+    color: $primary;
+  }
+}
+

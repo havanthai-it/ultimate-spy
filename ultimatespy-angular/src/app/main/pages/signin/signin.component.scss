@@ -1,0 +1,72 @@
+@import './../../../../assets/scss/global.scss';
+
+.signin-page {
+  background-image: url('../../../../assets/img/bg-signin.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-height: 100vh;
+  width: 100%;
+
+  .signin-form {
+    max-width: 400px;
+    min-height: 480px;
+    display: block;
+    margin: auto;
+    margin-top: max(calc((100vh - 480px) / 2), 50px);
+    padding: 30px 50px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+
+      h1 {
+        color: $primary;
+        font-weight: bold;
+      }
+
+      form {
+        margin-bottom: 10px;
+
+        mat-form-field {
+          width: 100%;
+
+          mat-icon {
+            color: $primary;
+          }
+        }
+        .error-text {
+          color: $warn;
+          min-height: 2.5em;
+          margin-top: -1.2em;
+        }
+
+        .btn-signin {
+          text-align: center;
+          width: 160px;
+          padding: 4px;
+          position: relative;
+
+          .mat-progress-spinner {
+            position: absolute;
+            right: 16px;
+            top: 8px;
+          }
+
+          .mat-progress-spinner circle, .mat-spinner circle {
+            stroke: #fff !important;
+          }
+        }
+        
+      }
+
+      .bottom-link {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .bottom-link:hover {
+        text-decoration: underline;
+      }
+  }
+
+}

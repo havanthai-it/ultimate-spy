@@ -1,4 +1,100 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/scss/global.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  min-height: 100vh;
+  height: auto;
+}
+body {
+  color: #333;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+div, input, button {
+  box-sizing: border-box;
+}
+
+.mat-typography {
+  font: 400 16px/32px Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* START SITE CONTAINER */
+.g-site-content {
+  min-height: calc(100vh - 200px);
+}
+
+.g-site-container {
+  max-width: 1600px;
+  width: 86%;
+  display: block;
+  margin: auto;
+}
+
+@media screen and (max-width: 960px) {
+  .g-site-container {
+    width: 98%;
+  }
+}
+/* END SITE CONTAINER */
+
+/* START LIST */
+.g-list-style-none {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.g-display-none {
+  display: none;
+}
+/* END LIST */
+
+/* START FLOAT */
+.g-float-left {
+  float: left;
+}
+
+.g-float-right {
+  float: right;
+}
+
+.g-float-wrapper::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+/* END FLOAT */
+
+/* START TEXT */
+.g-text-sm {
+  font-size: 0.86rem;
+}
+.g-text-lg {
+  font-size: 1.2rem;
+}
+.g-text-blur {
+  color: #999;
+}
+/* END TEXT */
+
+/* START ANGULAR MATERIAL */
+.mat-form-field-appearance-outline:hover .mat-form-field-outline-thick { // Border color when hover
+  color: rgba(0,0,0,.12);
+}
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick { // Border color when focused
+  color: $primary;
+}
+.mat-form-field-appearance-outline .mat-form-field-infix { // Padding => height
+  padding: 0.4em 0.4em 0.8em 0.4em;
+}
+.mat-form-field-appearance-outline .mat-form-field-label-wrapper { // Label
+  top: -1.5em;
+}
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label { // Label
+  transform: translateY(-1.0em) scale(.75);
+  width: 133.33333%;
+}
+.mat-form-field-appearance-outline .mat-form-field-prefix,
+.mat-form-field-appearance-outline .mat-form-field-suffix { // Prefix & suffix
+  top: .35em !important;
+}
+/* END ANGULAR MATERIAL */

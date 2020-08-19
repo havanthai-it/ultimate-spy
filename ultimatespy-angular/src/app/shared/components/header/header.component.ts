@@ -9,6 +9,22 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
+  lstLanguages: any[] = [
+    {
+      label: 'English',
+      value: 'EN'
+    },
+    {
+      label: 'France',
+      value: 'FR'
+    },
+    {
+      label: 'Vietnamese',
+      value: 'VI'
+    }
+  ];
+  selectedLang: string = this.lstLanguages[0].value;
+
   ngOnInit(): void {
   }
 

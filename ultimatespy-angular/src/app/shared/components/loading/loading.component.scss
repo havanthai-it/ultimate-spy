@@ -1,0 +1,13 @@
+.spinner-wrapper {
+  padding: 10px 40px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 99;
+  background-color: #fff;
+
+  mat-spinner {
+    display: block;
+    margin: auto;
+  }
+}

@@ -1,1 +1,37 @@
-<p>header works!</p>
+<header>
+  <div class="g-site-container">
+    <div class="topbar">
+
+    </div>
+
+    <div class="site-header g-float-wrapper">
+      <div class="site-logo header-inner g-float-left">
+        <a href="/">ULTIMATE SPY</a>
+      </div>
+      <div class="site-lang header-inner g-float-left">
+        <mat-form-field appearance="none">
+          <mat-select #select [(value)]="selectedLang">
+            <mat-select-trigger>
+              {{ select.value }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let lang of lstLanguages" [value]="lang.value">
+              {{lang.label + ' (' + lang.value + ')'}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="site-nav header-inner g-float-left">
+        <ul class="g-list-style-none g-float-wrapper">
+          <li class="g-float-left"><a href="#">Home</a></li>
+          <li class="g-float-left"><a href="#">Ads Spy</a></li>
+          <li class="g-float-left"><a href="#">Pricing</a></li>
+          <li class="g-float-left"><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="site-user header-inner g-float-right">
+        <button mat-button color="warn">SIGN IN</button>
+        <button mat-button color="accent">SIGN OUT</button>
+      </div>
+    </div>
+  </div>
+</header>
