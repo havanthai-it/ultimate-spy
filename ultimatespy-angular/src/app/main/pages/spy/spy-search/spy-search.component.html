@@ -29,8 +29,8 @@
       <!-- CREATIVE -->
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
         <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.creative" placeholder="Creative" multiple>
-            <mat-option *ngFor="let item of lstCreatives" [value]="item.value">
+          <mat-select #select [(value)]="query.type" placeholder="Creative" multiple>
+            <mat-option *ngFor="let item of lstTypes" [value]="item.value">
               {{item.label}}
             </mat-option>
           </mat-select>
@@ -79,8 +79,8 @@
       <!-- LANGUAGE -->
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
         <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.ecomWebsite" placeholder="Ecomerce Website" multiple>
-            <mat-option *ngFor="let item of lstEcomWebsites" [value]="item.value">
+          <mat-select #select [(value)]="query.ecomPlatform" placeholder="Ecomerce Platform" multiple>
+            <mat-option *ngFor="let item of lstEcomPlatforms" [value]="item.value">
               {{item.label}}
             </mat-option>
           </mat-select>
@@ -96,7 +96,7 @@
       <!-- FROM DATE -->
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
         <mat-form-field appearance="none">
-          <input matInput [matDatepicker]="fromDatePicker" placeholder="From Date" readonly>
+          <input matInput [(ngModel)]="query.fromDate" [matDatepicker]="fromDatePicker" placeholder="From Date" readonly>
           <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #fromDatePicker></mat-datepicker>
         </mat-form-field>
@@ -105,7 +105,7 @@
       <!-- TO DATE -->
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
         <mat-form-field appearance="none">
-          <input matInput [matDatepicker]="toDatePicker" placeholder="To Date" readonly>
+          <input matInput [(ngModel)]="query.toDate" [matDatepicker]="toDatePicker" placeholder="To Date" readonly>
           <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #toDatePicker></mat-datepicker>
         </mat-form-field>
@@ -113,7 +113,7 @@
 
       <!-- DATE GROUP -->
       <div class="filter-block" fxFlex="49%" fxFlex.sm="100%">
-        <mat-button-toggle-group name="dateGroup" aria-label="DATE GROUP">
+        <mat-button-toggle-group [(value)]="dateGroup" name="dateGroup" aria-label="DATE GROUP">
           <mat-button-toggle value="7">7 Days</mat-button-toggle>
           <mat-button-toggle value="30">30 Days</mat-button-toggle>
           <mat-button-toggle value="90">90 Days</mat-button-toggle>
@@ -146,7 +146,7 @@
           Save search
         </button>
         <mat-form-field appearance="none" style="width: 70%; margin-left: 30%">
-          <mat-select #select [(value)]="query.ecomWebsite" placeholder="Saved Search Query" multiple>
+          <mat-select #select [(value)]="searchQuery" placeholder="Saved Search Query" multiple>
             <mat-optgroup *ngFor="let group of lstSearchQueries" [label]="group.label">
               <mat-option *ngFor="let item of group.value" [value]="item.value">
                 {{item.label}}

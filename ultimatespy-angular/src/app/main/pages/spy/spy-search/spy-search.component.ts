@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { SpyService } from '../../../../core/services/spy.service';
+import { FacebookPostQuery } from '../../../../core/models/FacebookPostQuery';
 
 @Component({
   selector: 'app-spy-search',
@@ -7,21 +9,34 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class SpySearchComponent implements OnInit {
+  @Output() searchResult = new EventEmitter<any[]>();
 
-  constructor() { }
+  constructor(private spyService: SpyService) { }
 
-  query: any = {
+  searchQuery: string;
+  dateGroup: string;
+  submited: boolean = false;
+
+  query: FacebookPostQuery = {
+    fromDate: '',
+    toDate: '',
+    page: 0,
+    pageSize: 30,
     keyword: '',
     category: '',
-    creative: '',
+    type: '',
     country: '',
-    language: ''
+    language: '',
+    ecomSoftware: '',
+    ecomPlatform: '',
+    sort: ''
   }
+
   lstCategories: any[] = [
     { label: 'Clothes', value: 'Clothes' },
     { label: 'Technology', value: 'Technology' }
   ];
-  lstCreatives: any[] = [
+  lstTypes: any[] = [
     { label: 'Image', value: 'Image' },
     { label: 'Video', value: 'Video' }
   ];
@@ -38,7 +53,7 @@ export class SpySearchComponent implements OnInit {
     { label: 'Shopify', value: 'VN' }
   ];
   
-  lstEcomWebsites: any[] = [
+  lstEcomPlatforms: any[] = [
     { label: 'Anazon', value: 'EN' },
     { label: 'Ebay', value: 'VN' }
   ];
@@ -66,7 +81,18 @@ export class SpySearchComponent implements OnInit {
   }
 
   search(): void {
-
+    if (this.submited) return;
+    this.submited = true;
+    this.spyService.searchFacebookPost(this.query).subscribe(
+      data => {
+        this.searchResult.emit(data);
+        this.submited = false;
+      },
+      error => {
+        console.log(error);
+        this.submited = false;
+      }
+    )
   }
 
   saveSearchQuery(): void {

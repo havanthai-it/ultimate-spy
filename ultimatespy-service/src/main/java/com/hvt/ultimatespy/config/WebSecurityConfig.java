@@ -2,6 +2,7 @@ package com.hvt.ultimatespy.config;
 
 import com.hvt.ultimatespy.config.enums.RoleEnum;
 import com.hvt.ultimatespy.controllers.jwt.JwtAuthenticationEntryPoint;
+import com.hvt.ultimatespy.filters.cors.CorsFilter;
 import com.hvt.ultimatespy.filters.jwt.JwtRequestFilter;
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -62,6 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // All other requests need to be authenticated
                 .antMatchers("/api/admin").hasRole(RoleEnum.ADMIN.getRole())
                 .anyRequest().authenticated().and()
+                .addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
                 // Make sure we use stateless session; session won't be used to
                 // store user's state.
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()

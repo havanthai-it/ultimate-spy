@@ -12,16 +12,26 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+    private static final Logger logger = Logger.getLogger(JwtUserDetailsService.class.getName());
 
     @Autowired
     private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.hvt.ultimatespy.models.user.User user = userService.getByEmail(username);
+        com.hvt.ultimatespy.models.user.User user = null;
+        try {
+            user = userService.getByEmail(username).get();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "", e);
+        }
+
         if (user != null) {
             Collection<GrantedAuthority> lstGa = new ArrayList<>();
             if (user.getRole() != null) {
