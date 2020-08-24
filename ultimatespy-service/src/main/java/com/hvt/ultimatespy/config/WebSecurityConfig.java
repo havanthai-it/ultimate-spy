@@ -1,6 +1,6 @@
 package com.hvt.ultimatespy.config;
 
-import com.hvt.ultimatespy.config.enums.RoleEnum;
+import com.hvt.ultimatespy.utils.enums.RoleEnum;
 import com.hvt.ultimatespy.controllers.jwt.JwtAuthenticationEntryPoint;
 import com.hvt.ultimatespy.filters.cors.CorsFilter;
 import com.hvt.ultimatespy.filters.jwt.JwtRequestFilter;

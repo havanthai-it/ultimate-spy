@@ -2,10 +2,9 @@ package com.hvt.ultimatespy.controllers.post;
 
 import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.post.FacebookPost;
-import com.hvt.ultimatespy.models.post.FacebookPostQuery;
+import com.hvt.ultimatespy.models.post.FacebookPostParams;
 import com.hvt.ultimatespy.services.post.FacebookPostService;
 import com.hvt.ultimatespy.utils.Constants;
-import org.bouncycastle.util.Times;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping(value = "/api/post/facebook")
+@RequestMapping(value = Constants.ROUTE_POST_FACEBOOK)
 public class FacebookPostGetController {
 
     private static final Logger logger = Logger.getLogger(FacebookPostGetController.class.getName());
@@ -71,7 +69,7 @@ public class FacebookPostGetController {
                 "ecomPlatform=" + ecomPlatform
         );
 
-        FacebookPostQuery facebookPostQuery = new FacebookPostQuery(
+        FacebookPostParams facebookPostParams = new FacebookPostParams(
                 fromDate,
                 toDate,
                 page,
@@ -85,7 +83,7 @@ public class FacebookPostGetController {
                 ecomPlatform);
         BaseList<FacebookPost> baseList = new BaseList<>();
         try {
-            baseList = facebookPostService.list(facebookPostQuery).get();
+            baseList = facebookPostService.list(facebookPostParams).get();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }

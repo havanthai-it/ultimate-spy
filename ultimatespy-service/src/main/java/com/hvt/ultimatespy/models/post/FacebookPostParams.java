@@ -2,7 +2,7 @@ package com.hvt.ultimatespy.models.post;
 
 import java.sql.Timestamp;
 
-public class FacebookPostQuery {
+public class FacebookPostParams {
     private Timestamp fromDate;
     private Timestamp toDate;
     private int page;
@@ -15,10 +15,10 @@ public class FacebookPostQuery {
     private String ecomSoftware;
     private String ecomPlatform;
 
-    public FacebookPostQuery() {
+    public FacebookPostParams() {
     }
 
-    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, int page, int pageSize, String keyword, String category, String type, String country, String language, String ecomSoftware, String ecomPlatform) {
+    public FacebookPostParams(Timestamp fromDate, Timestamp toDate, int page, int pageSize, String keyword, String category, String type, String country, String language, String ecomSoftware, String ecomPlatform) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.page = page;

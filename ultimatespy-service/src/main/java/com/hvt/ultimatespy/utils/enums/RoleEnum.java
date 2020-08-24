@@ -1,4 +1,4 @@
-package com.hvt.ultimatespy.config.enums;
+package com.hvt.ultimatespy.utils.enums;
 
 public enum RoleEnum {
     ADMIN("ADMIN"),

@@ -3,8 +3,7 @@ package com.hvt.ultimatespy.services.post;
 import com.hvt.ultimatespy.ds.Datasource;
 import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.post.FacebookPost;
-import com.hvt.ultimatespy.models.post.FacebookPostQuery;
-import com.mysql.cj.MysqlType;
+import com.hvt.ultimatespy.models.post.FacebookPostParams;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -17,7 +16,7 @@ public class FacebookPostService {
 
     private static final Logger logger = Logger.getLogger(FacebookPostService.class.getName());
 
-    public CompletableFuture<BaseList<FacebookPost>> list (FacebookPostQuery facebookPostQuery) {
+    public CompletableFuture<BaseList<FacebookPost>> list (FacebookPostParams facebookPostParams) {
         return CompletableFuture.supplyAsync(() -> {
             BaseList<FacebookPost> baseList = new BaseList<>();
             Connection conn = null;
@@ -27,17 +26,17 @@ public class FacebookPostService {
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
-                cs.setTimestamp(1, facebookPostQuery.getFromDate());
-                cs.setTimestamp(2, facebookPostQuery.getToDate());
-                cs.setInt(3, facebookPostQuery.getPage());
-                cs.setInt(4, facebookPostQuery.getPageSize());
-                cs.setString(5, facebookPostQuery.getKeyword());
-                cs.setString(6, facebookPostQuery.getCategory());
-                cs.setString(7, facebookPostQuery.getType());
-                cs.setString(8, facebookPostQuery.getCountry());
-                cs.setString(9, facebookPostQuery.getLanguage());
-                cs.setString(10, facebookPostQuery.getEcomSoftware());
-                cs.setString(11, facebookPostQuery.getEcomPlatform());
+                cs.setTimestamp(1, facebookPostParams.getFromDate());
+                cs.setTimestamp(2, facebookPostParams.getToDate());
+                cs.setInt(3, facebookPostParams.getPage());
+                cs.setInt(4, facebookPostParams.getPageSize());
+                cs.setString(5, facebookPostParams.getKeyword());
+                cs.setString(6, facebookPostParams.getCategory());
+                cs.setString(7, facebookPostParams.getType());
+                cs.setString(8, facebookPostParams.getCountry());
+                cs.setString(9, facebookPostParams.getLanguage());
+                cs.setString(10, facebookPostParams.getEcomSoftware());
+                cs.setString(11, facebookPostParams.getEcomPlatform());
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
                     FacebookPost facebookPost = new FacebookPost();
@@ -79,7 +78,7 @@ public class FacebookPostService {
 
             long total = 0L;
             try {
-                total = total(facebookPostQuery).get();
+                total = total(facebookPostParams).get();
                 logger.info("[FacebookPostService.list] total=" + total);
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "", e);
@@ -89,7 +88,7 @@ public class FacebookPostService {
         });
     }
 
-    public CompletableFuture<Long> total(FacebookPostQuery facebookPostQuery) {
+    public CompletableFuture<Long> total(FacebookPostParams facebookPostParams) {
         return CompletableFuture.supplyAsync(() -> {
             long total = 0L;
             Connection conn = null;
@@ -99,15 +98,15 @@ public class FacebookPostService {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
                 cs.registerOutParameter(1, Types.BIGINT);
-                cs.setTimestamp(2, facebookPostQuery.getFromDate());
-                cs.setTimestamp(3, facebookPostQuery.getToDate());
-                cs.setString(4, facebookPostQuery.getKeyword());
-                cs.setString(5, facebookPostQuery.getCategory());
-                cs.setString(6, facebookPostQuery.getType());
-                cs.setString(7, facebookPostQuery.getCountry());
-                cs.setString(8, facebookPostQuery.getLanguage());
-                cs.setString(9, facebookPostQuery.getEcomSoftware());
-                cs.setString(10, facebookPostQuery.getEcomPlatform());
+                cs.setTimestamp(2, facebookPostParams.getFromDate());
+                cs.setTimestamp(3, facebookPostParams.getToDate());
+                cs.setString(4, facebookPostParams.getKeyword());
+                cs.setString(5, facebookPostParams.getCategory());
+                cs.setString(6, facebookPostParams.getType());
+                cs.setString(7, facebookPostParams.getCountry());
+                cs.setString(8, facebookPostParams.getLanguage());
+                cs.setString(9, facebookPostParams.getEcomSoftware());
+                cs.setString(10, facebookPostParams.getEcomPlatform());
                 cs.execute();
 
                 total = cs.getLong(1);

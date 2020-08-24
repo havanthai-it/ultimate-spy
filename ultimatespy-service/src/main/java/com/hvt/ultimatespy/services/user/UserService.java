@@ -17,8 +17,25 @@ public class UserService {
 
     public CompletableFuture<User> get(String id) {
         return CompletableFuture.supplyAsync(() -> {
-            User user = new User();
-            user.setFullName("HA VAN THAI");
+            User user = null;
+            Connection conn = null;
+            CallableStatement cs = null;
+            ResultSet rs = null;
+            String sql = "SELECT * FROM tb_user WHERE s_id = ?";
+            try {
+                conn = Datasource.getConnection();
+                cs = conn.prepareCall(sql);
+                cs.setString(1, id);
+                rs = cs.executeQuery();
+                if (rs != null && rs.next()) {
+                    user = bindUser(rs);
+                }
+            } catch (SQLException e) {
+                logger.log(Level.SEVERE, "", e);
+            } finally {
+                Datasource.close(conn, cs, rs);
+            }
+
             return user;
         });
     }
@@ -36,16 +53,12 @@ public class UserService {
                 cs.setString(1, email);
                 rs = cs.executeQuery();
                 if (rs != null && rs.next()) {
-                    user = new User();
-                    user.setId(rs.getString("S_ID"));
-                    user.setGoogleId(rs.getString("S_GOOGLE_ID"));
-                    user.setFullName(rs.getString("S_FULL_NAME"));
-                    user.setEmail(rs.getString("S_EMAIL"));
-                    user.setPassword(rs.getString("S_PASSWORD"));
-                    user.setRole(rs.getString("S_ROLE"));
+                    user = bindUser(rs);
                 }
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "", e);
+            } finally {
+                Datasource.close(conn, cs, rs);
             }
 
             return user;
@@ -55,7 +68,6 @@ public class UserService {
     public CompletableFuture<User> insert(User user) {
         Connection conn = null;
         CallableStatement cs = null;
-        ResultSet rs = null;
         try {
             conn = Datasource.getConnection();
             cs = conn.prepareCall("INSERT INTO " +
@@ -69,7 +81,20 @@ public class UserService {
             cs.executeQuery();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "", e);
+        } finally {
+            Datasource.close(conn, cs, null);
         }
         return getByEmail(user.getEmail());
+    }
+
+    private static User bindUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getString("S_ID"));
+        user.setGoogleId(rs.getString("S_GOOGLE_ID"));
+        user.setFullName(rs.getString("S_FULL_NAME"));
+        user.setEmail(rs.getString("S_EMAIL"));
+        user.setPassword(rs.getString("S_PASSWORD"));
+        user.setRole(rs.getString("S_ROLE"));
+        return user;
     }
 }
