@@ -2,12 +2,11 @@ package com.hvt.ultimatespy.utils;
 
 public class FuncUtils {
 
-    public static String randomString(int length, boolean hasUpper, boolean hasLower, boolean hasNumber, boolean hasSpecial) {
+    public static String randomString(int length, boolean hasUpper, boolean hasLower, boolean hasNumber) {
         StringBuilder pool = new StringBuilder();
         if (hasLower) pool.append("abcdefghijklmnopqrstuvxyz");
         if (hasUpper) pool.append("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         if (hasNumber) pool.append("0123456789");
-        if (hasSpecial) pool.append("!@#$%^&?_+-*/");
 
         StringBuilder sb = new StringBuilder(length);
 

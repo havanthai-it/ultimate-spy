@@ -4,10 +4,16 @@ import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.user.UserService;
 import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.Errors;
+import com.hvt.ultimatespy.utils.FuncUtils;
 import com.hvt.ultimatespy.utils.mail.MailUtils;
+import com.hvt.ultimatespy.utils.user.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sun.security.provider.MD5;
+
+import java.security.MessageDigest;
+import java.util.Base64;
 
 @RestController
 @RequestMapping(value = Constants.ROUTE_RESET_PASSWORD)
@@ -24,9 +30,11 @@ public class UserResetPasswordPutController {
 
         User user = userService.getByEmail(mail).get();
         if (user != null) {
-            String newPassword = "abc123";
+            String newPassword = FuncUtils.randomString(8, true, true, true);
+            String salt = FuncUtils.randomString(8, true, true, true);
+            String encryptedPassword = UserUtils.encryptPassword(newPassword, salt);
 
-            MailUtils.send(mail, "Reset Password", "mail body");
+            MailUtils.send(mail, "Reset Password", "encryptedPassword = " + encryptedPassword);
         }
 
         return ResponseEntity.ok(null);
