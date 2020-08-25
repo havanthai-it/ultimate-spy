@@ -1,15 +1,13 @@
 package com.hvt.ultimatespy.utils.enums;
 
-public enum RoleEnum {
-    ADMIN("ADMIN"),
-    FREE("FREE"),
-    BASIC("BASIC"),
-    STANDARD("STANDARD"),
-    PREMIUM("PREMIUM");
+public enum StatusEnum {
+    CREATED("CREATED"),
+    ACTIVE("ACTIVE"),
+    INACTIVE("INACTIVE");
 
     private String value;
 
-    RoleEnum(String value) {
+    StatusEnum(String value) {
         this.value = value;
     }
 

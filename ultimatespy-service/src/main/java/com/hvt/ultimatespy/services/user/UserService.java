@@ -87,6 +87,27 @@ public class UserService {
         return getByEmail(user.getEmail());
     }
 
+    public CompletableFuture updateStatus(String id, String status) {
+        return CompletableFuture.supplyAsync(() -> {
+            Connection conn = null;
+            CallableStatement cs = null;
+            String sql = "UPDATE tb_user SET s_status = ? WHERE s_id = ?";
+            try {
+                conn = Datasource.getConnection();
+                cs = conn.prepareCall(sql);
+                cs.setString(1, status);
+                cs.setString(2, id);
+                cs.execute();
+            } catch (SQLException e) {
+                logger.log(Level.SEVERE, "", e);
+            } finally {
+                Datasource.close(conn, cs, null);
+            }
+
+            return null;
+        });
+    }
+
     private static User bindUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getString("S_ID"));

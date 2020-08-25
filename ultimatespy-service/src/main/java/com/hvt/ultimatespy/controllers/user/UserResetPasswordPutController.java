@@ -31,8 +31,7 @@ public class UserResetPasswordPutController {
         User user = userService.getByEmail(mail).get();
         if (user != null) {
             String newPassword = FuncUtils.randomString(8, true, true, true);
-            String salt = FuncUtils.randomString(8, true, true, true);
-            String encryptedPassword = UserUtils.encryptPassword(newPassword, salt);
+            String encryptedPassword = UserUtils.encryptPassword(newPassword);
 
             MailUtils.send(mail, "Reset Password", "encryptedPassword = " + encryptedPassword);
         }

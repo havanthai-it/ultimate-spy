@@ -40,7 +40,7 @@ public class Datasource {
             logger.info("[Datasouce] getNumActive=" + String.valueOf(ds.getNumActive()));
             logger.info("[Datasouce] getNumIdle=" + String.valueOf(ds.getNumIdle()));
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "[DATA SOURCE] Can not get connection", e);
+            logger.log(Level.SEVERE, "[DATA SOURCE] Can not value connection", e);
         }
         return conn;
     }

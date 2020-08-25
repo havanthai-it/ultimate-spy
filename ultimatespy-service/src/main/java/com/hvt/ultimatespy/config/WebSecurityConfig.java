@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
                 // All other requests need to be authenticated
-                .antMatchers("/api/admin").hasRole(RoleEnum.ADMIN.getRole())
+                .antMatchers("/api/admin").hasRole(RoleEnum.ADMIN.value())
                 .anyRequest().authenticated().and()
                 .addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
                 // Make sure we use stateless session; session won't be used to

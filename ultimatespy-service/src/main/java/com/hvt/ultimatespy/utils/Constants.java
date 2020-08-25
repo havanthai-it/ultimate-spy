@@ -3,6 +3,7 @@ package com.hvt.ultimatespy.utils;
 public class Constants {
 
     public static final String ROUTE_USER = "/api/user";
+    public static final String ROUTE_USER_ID = "/api/user/{id}";
     public static final String ROUTE_RESET_PASSWORD = "/api/reset-password/{mail}";
     public static final String ROUTE_POST_FACEBOOK = "/api/post-facebook";
     public static final String ROUTE_PAYMENT = "/api/payment";
