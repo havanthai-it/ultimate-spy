@@ -1,4 +1,4 @@
-package com.hvt.ultimatespy.filters.cors;
+package com.hvt.ultimatespy.filters;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;

@@ -27,7 +27,6 @@ export class SpySearchComponent implements OnInit {
     type: '',
     country: '',
     language: '',
-    ecomSoftware: '',
     ecomPlatform: '',
     sort: ''
   }

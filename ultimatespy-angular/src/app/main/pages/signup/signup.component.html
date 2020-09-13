@@ -1,53 +1,69 @@
 <div class="signup-page">
   <div style="height: 1px; margin-top: -1px;"></div>
-  <div class="signup-form">
-    <h1>Sign up</h1>
+
+  <div class="signup-form" *ngIf="!signupComplete">
     <div>
-      <button mat-raised-button (click)="signInWithGoogle()">G</button>
-    </div>
-    <div class="g-text-sm g-text-blur">
-      <p>or use your email account</p>
-    </div>
-    <form [formGroup]="signupForm" (ngSubmit)="signup()">
+      <h1>Sign up</h1>
       <div>
-        <mat-form-field appearance="outline">
-          <mat-icon matPrefix>person</mat-icon>
-          <input matInput [(ngModel)]="user.fullName" placeholder="Name" formControlName="fullName" required>
-        </mat-form-field>
+        <button mat-raised-button (click)="signInWithGoogle()">G</button>
       </div>
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-icon matPrefix>email</mat-icon>
-          <input matInput [(ngModel)]="user.username" placeholder="Email" formControlName="username" required>
-        </mat-form-field>
+      <div class="g-text-sm g-text-blur">
+        <p>or use your email account</p>
       </div>
+      <form [formGroup]="signupForm" (ngSubmit)="signup()">
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput [(ngModel)]="user.fullName" placeholder="Name" formControlName="fullName" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>email</mat-icon>
+            <input matInput [(ngModel)]="user.email" placeholder="Email" formControlName="email" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput [(ngModel)]="user.password" placeholder="Password" formControlName="password"
+              type="password" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput [(ngModel)]="user.rePassword" placeholder="Confirm password" formControlName="rePassword"
+              type="password" required (keyup)="onChangeRePassword()">
+            <mat-error *ngIf="user.rePassword && !rePasswordMatched">Password and confirm password does not match
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="error-text g-text-sm">{{errorMessage}}</div>
+
+        <div>
+          <button type="submit" mat-raised-button color="primary" class="btn-signup">
+            Sign up <mat-spinner *ngIf="loading" [diameter]="26"></mat-spinner>
+          </button>
+        </div>
+      </form>
+
       <div>
-        <mat-form-field appearance="outline">
-          <mat-icon matPrefix>lock</mat-icon>
-          <input matInput [(ngModel)]="user.password" placeholder="Password" formControlName="password"
-            type="password" required>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-icon matPrefix>lock</mat-icon>
-          <input matInput [(ngModel)]="user.rePassword" placeholder="Confirm password" formControlName="rePassword"
-            type="password" required (keyup)="onChangeRePassword()">
-          <mat-error *ngIf="user.rePassword && !rePasswordMatched">Password and confirm password does not match</mat-error>
-        </mat-form-field>
+        <a href="/signin" class="bottom-link">Already have an account? Sign in</a>
       </div>
 
-      <div class="error-text g-text-sm">{{errorMessage}}</div>
-
-      <div>
-        <button type="submit" mat-raised-button color="primary" class="btn-signup">
-          Sign up <mat-spinner *ngIf="loading" [diameter]="30"></mat-spinner>
-        </button>
-      </div>
-    </form>
-
-    <div>
-      <a href="/signin" class="bottom-link">Already have an account? Sign in</a>
     </div>
   </div>
+
+  <div class="signup-complete" *ngIf="signupComplete">
+    <h1>Email confirmation</h1>
+    <div><mat-icon class="mail-icon">mail_outline</mat-icon></div>
+    <div>Thanks you for sign up. Please open your mail box and confirm your email address by clicking to the activation link.</div>
+    <div>
+      <a href="/"><button mat-raised-button color="primary" class="btn-redirect">Back to home page</button></a>
+    </div>
+  </div>
+
+  <div style="height: 1px; margin-top: -1px;"></div>
 </div>

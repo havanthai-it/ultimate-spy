@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
-import { JwtService } from '../../../core/services/jwt.service';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private jwtService: JwtService,
+    private userService: UserService,
     private authService: SocialAuthService
     ) { }
 
@@ -23,25 +23,23 @@ export class SignupComponent implements OnInit {
   errorMessage: string;
   loading: boolean = false;
   rePasswordMatched: boolean = false;
+  signupComplete = false;
 
   signupForm = new FormGroup({
     fullName: new FormControl(''),
-    username: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
     rePassword: new FormControl('')
   });
 
   user: any = {
     fuleName: '',
-    username: '',
+    email: '',
     password: '',
     rePassword: ''
   }
 
   ngOnInit(): void {
-    // reset login status
-    // this.jwtService.signout();
-
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
@@ -50,21 +48,24 @@ export class SignupComponent implements OnInit {
     if (!this.user.fullName || !this.user.email || !this.user.password || !this.user.rePassword) {
       return;
     }
+    if (this.user.password !== this.user.rePassword) {
+      return;
+    }
     this.loading = true;
-    this.jwtService.authenticate(this.user).subscribe(
+    let requestData = {
+      fullName: this.user.fullName,
+      email: this.user.email,
+      password: btoa(this.user.password)
+    }
+    this.userService.signup(requestData).subscribe(
       data => {
         console.log(data);
-        localStorage.setItem('jwtToken', data.jwtToken);
         this.loading = false;
-        this.router.navigateByUrl(this.returnUrl);
+        this.signupComplete = true;
       },
       error => {
         console.log(error);
-        if (error.status === 401) {
-          this.errorMessage = 'Email or password is incorrect!'
-        } else {
-          this.errorMessage = 'Sorry, something wrong!'
-        }
+        this.errorMessage = error.error.message ? error.error.message : 'Sorry, an error occurred while processing your request';
         this.loading = false;
       }
     );

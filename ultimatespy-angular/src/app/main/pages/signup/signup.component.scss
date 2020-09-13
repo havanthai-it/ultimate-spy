@@ -6,68 +6,105 @@
   background-size: 100% 100%;
   min-height: 100vh;
   width: 100%;
-  margin-top: -max(calc((100vh - 560px) / 2), 50px);
 
   .signup-form {
     max-width: 400px;
     min-height: 560px;
     display: block;
     margin: auto;
-    margin-top: max(calc((100vh - 560px) / 2), 50px);
-    padding: 30px 50px;
+    margin-top: max(calc((100vh - 560px) / 2), 40px);
+    margin-bottom: max(calc((100vh - 560px) / 2), 40px);
+    padding: 20px 50px;
     border-radius: 20px;
     background-color: #ffffff;
     text-align: center;
     overflow: hidden;
 
-      h1 {
-        color: $primary;
-        font-weight: bold;
-      }
+    h1 {
+      color: $primary;
+      font-weight: bold;
+    }
 
-      form {
-        margin-bottom: 10px;
+    form {
+      margin-bottom: 10px;
 
-        mat-form-field {
-          width: 100%;
+      mat-form-field {
+        width: 100%;
+        margin-top: -1em;
 
-          mat-icon {
-            color: $primary;
-          }
+        mat-icon {
+          color: $primary;
         }
-        .error-text {
-          color: $warn;
-          min-height: 2.5em;
-          margin-top: -1.2em;
+      }
+      .error-text {
+        color: $warn;
+        min-height: 2.5em;
+        margin-top: -1.2em;
+        line-height: 1.2em;
+      }
+
+      .btn-signup {
+        text-align: center;
+        width: 160px;
+        padding: 4px;
+        position: relative;
+
+        .mat-progress-spinner {
+          position: absolute;
+          right: 16px;
+          top: 8px;
         }
 
-        .btn-signup {
-          text-align: center;
-          width: 160px;
-          padding: 4px;
-          position: relative;
-
-          .mat-progress-spinner {
-            position: absolute;
-            right: 16px;
-            top: 8px;
-          }
-
-          .mat-progress-spinner circle, .mat-spinner circle {
-            stroke: #fff !important;
-          }
+        .mat-progress-spinner circle, .mat-spinner circle {
+          stroke: #fff !important;
         }
-        
       }
+      
+    }
 
-      .bottom-link {
-        color: inherit;
-        text-decoration: none;
-      }
+    .bottom-link {
+      color: inherit;
+      text-decoration: none;
+    }
 
-      .bottom-link:hover {
-        text-decoration: underline;
-      }
+    .bottom-link:hover {
+      text-decoration: underline;
+    }
+
+  }
+
+  .signup-complete {
+    max-width: 400px;
+    min-height: 360px;
+    display: block;
+    margin: auto;
+    margin-top: max(calc((100vh - 360px) / 2), 40px);
+    margin-bottom: max(calc((100vh - 360px) / 2), 40px);
+    padding: 40px 50px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+
+    h1 {
+      font-weight: strong;
+      font-size: 2em;
+    }
+
+    .mail-icon {
+      color: $primary;
+      font-size: 3.2em;
+      width: auto;
+      height: auto;
+    }
+
+    .btn-redirect {
+      text-align: center;
+      width: 160px;
+      padding: 4px;
+      position: relative;
+      margin-top: 20px;
+    }
   }
 
 }

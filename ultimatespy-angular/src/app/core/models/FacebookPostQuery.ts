@@ -8,7 +8,6 @@ export class FacebookPostQuery {
   type: string;
   country: string;
   language: string;
-  ecomSoftware: string;
   ecomPlatform: string;
   sort: string;
 }

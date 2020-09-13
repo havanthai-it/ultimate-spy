@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { JwtService } from 'src/app/core/services/jwt.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
@@ -15,10 +15,12 @@ export class SigninComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private jwtService: JwtService,
+    private userService: UserService,
     private authService: SocialAuthService
     ) { }
 
+  username: string;
+  password: string;
   returnUrl: string;
   errorMessage: string;
   loading: boolean = false;
@@ -27,11 +29,6 @@ export class SigninComponent implements OnInit {
     username: new FormControl(''),
     password: new FormControl(''),
   });
-
-  jwtRequest: any = {
-    username: '',
-    password: ''
-  }
 
   ngOnInit(): void {
     // reset login status
@@ -42,11 +39,11 @@ export class SigninComponent implements OnInit {
   }
 
   signin(): void {
-    if (!this.jwtRequest.username || !this.jwtRequest.password) {
+    if (!this.username || !this.password) {
       return;
     }
     this.loading = true;
-    this.jwtService.authenticate(this.jwtRequest).subscribe(
+    this.userService.authenticate(this.username, btoa(this.password)).subscribe(
       data => {
         console.log(data);
         localStorage.setItem('jwtToken', data.jwtToken);
@@ -58,7 +55,7 @@ export class SigninComponent implements OnInit {
         if (error.status === 401) {
           this.errorMessage = 'Email or password is incorrect!'
         } else {
-          this.errorMessage = 'Sorry, something wrong!'
+          this.errorMessage = error.error.message ? error.error.message : 'Sorry, an error occurred while processing your request';
         }
         this.loading = false;
       }

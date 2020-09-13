@@ -1,4 +1,4 @@
-package com.hvt.ultimatespy.filters.jwt;
+package com.hvt.ultimatespy.filters;
 
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
 import com.hvt.ultimatespy.utils.jwt.JwtTokenUtils;

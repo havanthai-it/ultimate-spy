@@ -2,34 +2,36 @@ package com.hvt.ultimatespy.models.post;
 
 import java.sql.Timestamp;
 
-public class FacebookPostParams {
+public class FacebookPostQuery {
     private Timestamp fromDate;
     private Timestamp toDate;
     private int page;
     private int pageSize;
+    private String pixelId;
     private String keyword;
     private String category;
     private String type;
     private String country;
     private String language;
-    private String ecomSoftware;
-    private String ecomPlatform;
+    private String website;
+    private String platform;
 
-    public FacebookPostParams() {
+    public FacebookPostQuery() {
     }
 
-    public FacebookPostParams(Timestamp fromDate, Timestamp toDate, int page, int pageSize, String keyword, String category, String type, String country, String language, String ecomSoftware, String ecomPlatform) {
+    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, int page, int pageSize, String pixelId, String keyword, String category, String type, String country, String language, String website, String platform) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.page = page;
         this.pageSize = pageSize;
+        this.pixelId = pixelId;
         this.keyword = keyword;
         this.category = category;
         this.type = type;
         this.country = country;
         this.language = language;
-        this.ecomSoftware = ecomSoftware;
-        this.ecomPlatform = ecomPlatform;
+        this.website = website;
+        this.platform = platform;
     }
 
     public Timestamp getFromDate() {
@@ -62,6 +64,14 @@ public class FacebookPostParams {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String getPixelId() {
+        return pixelId;
+    }
+
+    public void setPixelId(String pixelId) {
+        this.pixelId = pixelId;
     }
 
     public String getKeyword() {
@@ -104,19 +114,19 @@ public class FacebookPostParams {
         this.language = language;
     }
 
-    public String getEcomSoftware() {
-        return ecomSoftware;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setEcomSoftware(String ecomSoftware) {
-        this.ecomSoftware = ecomSoftware;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
-    public String getEcomPlatform() {
-        return ecomPlatform;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setEcomPlatform(String ecomPlatform) {
-        this.ecomPlatform = ecomPlatform;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 }

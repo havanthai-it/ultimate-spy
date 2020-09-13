@@ -2,8 +2,11 @@ package com.hvt.ultimatespy.controllers.jwt;
 
 import com.hvt.ultimatespy.models.jwt.JwtRequest;
 import com.hvt.ultimatespy.models.jwt.JwtResponse;
+import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
+import com.hvt.ultimatespy.services.user.UserService;
 import com.hvt.ultimatespy.utils.Errors;
+import com.hvt.ultimatespy.utils.enums.StatusEnum;
 import com.hvt.ultimatespy.utils.jwt.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,9 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> authorize(@RequestBody JwtRequest jwtRequest) throws Exception {
         if (jwtRequest.getUsername() == null || jwtRequest.getPassword() == null) {
@@ -47,6 +53,13 @@ public class JwtAuthenticationController {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
+        }
+
+        User user = userService.getByEmail(jwtRequest.getUsername()).get();
+        if (user.getStatus().equals(StatusEnum.CREATED.value())) {
+            throw Errors.USER_NOT_CONFIRMED_EXCEPTION;
+        } else if (user.getStatus().equals(StatusEnum.INACTIVE.value())) {
+            throw Errors.USER_INACTIVE_EXCEPTION;
         }
 
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(jwtRequest.getUsername());

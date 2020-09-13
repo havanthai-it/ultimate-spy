@@ -28,7 +28,6 @@ export class SpyService {
                   + '&type=' + (query.type ? query.type : '')
                   + '&country=' + (query.country ? query.country : '')
                   + '&language=' + (query.language ? query.language : '')
-                  + '&ecomSoftware=' + (query.ecomSoftware ? query.ecomSoftware : '')
                   + '&ecomPlatform=' + (query.ecomPlatform ? query.ecomPlatform : '')
     return this.http.get(url, { headers: this.headersGet() });
   }

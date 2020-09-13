@@ -2,6 +2,7 @@ package com.hvt.ultimatespy.models.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,6 +14,8 @@ public class User {
     private String password;
     private String role;
     private String status;
+    private Timestamp createDate;
+    private Timestamp updateDate;
 
     public String getId() {
         return id;
@@ -68,5 +71,21 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
     }
 }

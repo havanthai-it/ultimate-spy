@@ -6,14 +6,11 @@ public class FacebookPost {
     private String id;
     private String postId;
     private String adsId;
+    private String pixelId;
     private String facebookPageId;
     private String images;
     private String videos;
     private String content;
-    private String actionText;
-    private String actionSubtext;
-    private String actionLink;
-    private String actionButtonText;
     private String type;
     private String category;
     private String country;
@@ -24,8 +21,8 @@ public class FacebookPost {
     private int views;
     private String status;
     private String links;
-    private String ecomSoftware;
-    private String ecomPlatform;
+    private String website;
+    private String platform;
     private Timestamp adsFromDate;
     private Timestamp adsToDate;
     private Timestamp publishDate;
@@ -54,6 +51,14 @@ public class FacebookPost {
 
     public void setAdsId(String adsId) {
         this.adsId = adsId;
+    }
+
+    public String getPixelId() {
+        return pixelId;
+    }
+
+    public void setPixelId(String pixelId) {
+        this.pixelId = pixelId;
     }
 
     public String getFacebookPageId() {
@@ -86,38 +91,6 @@ public class FacebookPost {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getActionText() {
-        return actionText;
-    }
-
-    public void setActionText(String actionText) {
-        this.actionText = actionText;
-    }
-
-    public String getActionSubtext() {
-        return actionSubtext;
-    }
-
-    public void setActionSubtext(String actionSubtext) {
-        this.actionSubtext = actionSubtext;
-    }
-
-    public String getActionLink() {
-        return actionLink;
-    }
-
-    public void setActionLink(String actionLink) {
-        this.actionLink = actionLink;
-    }
-
-    public String getActionButtonText() {
-        return actionButtonText;
-    }
-
-    public void setActionButtonText(String actionButtonText) {
-        this.actionButtonText = actionButtonText;
     }
 
     public String getType() {
@@ -200,20 +173,20 @@ public class FacebookPost {
         this.links = links;
     }
 
-    public String getEcomSoftware() {
-        return ecomSoftware;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setEcomSoftware(String ecomSoftware) {
-        this.ecomSoftware = ecomSoftware;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
-    public String getEcomPlatform() {
-        return ecomPlatform;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setEcomPlatform(String ecomPlatform) {
-        this.ecomPlatform = ecomPlatform;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
     public Timestamp getAdsFromDate() {

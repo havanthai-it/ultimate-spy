@@ -23,7 +23,7 @@ public class UserResetPasswordPutController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity put(@PathVariable("mail") String mail) throws Exception {
+    public ResponseEntity<?> put(@PathVariable("mail") String mail) throws Exception {
         if (mail == null || mail.trim().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }

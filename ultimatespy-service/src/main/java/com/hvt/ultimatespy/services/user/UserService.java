@@ -78,7 +78,7 @@ public class UserService {
             cs.setString(3, user.getEmail());
             cs.setString(4, user.getPassword());
             cs.setString(5, user.getRole());
-            cs.executeQuery();
+            cs.execute();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "", e);
         } finally {
@@ -116,6 +116,9 @@ public class UserService {
         user.setEmail(rs.getString("S_EMAIL"));
         user.setPassword(rs.getString("S_PASSWORD"));
         user.setRole(rs.getString("S_ROLE"));
+        user.setStatus(rs.getString("S_STATUS"));
+        user.setCreateDate(rs.getTimestamp("D_CREATE"));
+        user.setUpdateDate(rs.getTimestamp("D_UPDATE"));
         return user;
     }
 }

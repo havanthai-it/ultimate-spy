@@ -65,22 +65,22 @@
     <!-- START ROW -->
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left">
 
-      <!-- ECOM SOFTWARE -->
+      <!-- ECOM PLATFORM -->
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
         <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.ecomSoftware" placeholder="Ecomerce Software" multiple>
-            <mat-option *ngFor="let item of lstEcomSoftwares" [value]="item.value">
+          <mat-select #select [(value)]="query.ecomPlatform" placeholder="Ecomerce Platform" multiple>
+            <mat-option *ngFor="let item of lstEcomPlatforms" [value]="item.value">
               {{item.label}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
-      <!-- LANGUAGE -->
+      <!-- SORT -->
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
         <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.ecomPlatform" placeholder="Ecomerce Platform" multiple>
-            <mat-option *ngFor="let item of lstEcomPlatforms" [value]="item.value">
+          <mat-select #select [(value)]="query.sort" placeholder="Sort">
+            <mat-option *ngFor="let item of lstSorts" [value]="item.value">
               {{item.label}}
             </mat-option>
           </mat-select>
@@ -128,15 +128,7 @@
     <!-- START ROW -->
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left">
 
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
-        <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.sort" placeholder="Sort">
-            <mat-option *ngFor="let item of lstSorts" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%"></div>
 
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="0%"></div>
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { JwtService } from './services/jwt.service';
+import { UserService } from './services/user.service';
 import { AuthGuard } from './guards/AuthGuard';
 
 
@@ -13,7 +13,7 @@ import { AuthGuard } from './guards/AuthGuard';
   ],
   providers: [
     AuthGuard,
-    JwtService
+    UserService
   ]
 })
 export class CoreModule { }

@@ -2,7 +2,7 @@ package com.hvt.ultimatespy.controllers.post;
 
 import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.post.FacebookPost;
-import com.hvt.ultimatespy.models.post.FacebookPostParams;
+import com.hvt.ultimatespy.models.post.FacebookPostQuery;
 import com.hvt.ultimatespy.services.post.FacebookPostService;
 import com.hvt.ultimatespy.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +35,14 @@ public class FacebookPostGetController {
         Timestamp toDate = params.containsKey(Constants.TO_DATE) && !params.get(Constants.TO_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.TO_DATE).trim()).getTime()) : null;
         int page = params.containsKey(Constants.PAGE) ? Integer.parseInt(params.get(Constants.PAGE).trim()) : 0;
         int pageSize = params.containsKey(Constants.PAGE_SIZE) ? Integer.parseInt(params.get(Constants.PAGE_SIZE).trim()) : 30;
+        String pixelId = params.containsKey(Constants.PIXEL_ID) ? params.get(Constants.PIXEL_ID).trim() : Constants.BLANK;
         String keyword = params.containsKey(Constants.KEYWORD) ? params.get(Constants.KEYWORD).trim() : Constants.BLANK;
         String category = params.containsKey(Constants.CATEGORY) ? params.get(Constants.CATEGORY).trim() : Constants.BLANK;
         String type = params.containsKey(Constants.TYPE) ? params.get(Constants.TYPE).trim() : Constants.BLANK;
         String country = params.containsKey(Constants.COUNTRY) ? params.get(Constants.COUNTRY).trim() : Constants.BLANK;
         String language = params.containsKey(Constants.LANGUAGE) ? params.get(Constants.LANGUAGE).trim() : Constants.BLANK;
-        String ecomSoftware = params.containsKey(Constants.ECOM_SOFTWARE) ? params.get(Constants.ECOM_SOFTWARE).trim() : Constants.BLANK;
-        String ecomPlatform = params.containsKey(Constants.ECOM_PLATFORM) ? params.get(Constants.ECOM_PLATFORM).trim() : Constants.BLANK;
+        String website = params.containsKey(Constants.WEBSITE) ? params.get(Constants.WEBSITE).trim() : Constants.BLANK;
+        String platform = params.containsKey(Constants.PLATFORM) ? params.get(Constants.PLATFORM).trim() : Constants.BLANK;
 
         // Add '+' before every word in keyword
         keyword = keyword.replaceAll(" +", " +");
@@ -60,30 +61,32 @@ public class FacebookPostGetController {
                 "toDate=" + sdf.format(toDate) + ", " +
                 "page=" + page + ", " +
                 "pageSize=" + pageSize + ", " +
+                "pixelId=" + pixelId + ", " +
                 "keyword=" + keyword + ", " +
                 "category=" + category + ", " +
                 "type=" + type + ", " +
                 "country=" + country + ", " +
                 "language=" + language + ", " +
-                "ecomSoftware=" + ecomSoftware + ", " +
-                "ecomPlatform=" + ecomPlatform
+                "website=" + website + ", " +
+                "platform=" + platform
         );
 
-        FacebookPostParams facebookPostParams = new FacebookPostParams(
+        FacebookPostQuery facebookPostQuery = new FacebookPostQuery(
                 fromDate,
                 toDate,
                 page,
                 pageSize,
+                pixelId,
                 keyword,
                 category,
                 type,
                 country,
                 language,
-                ecomSoftware,
-                ecomPlatform);
+                website,
+                platform);
         BaseList<FacebookPost> baseList = new BaseList<>();
         try {
-            baseList = facebookPostService.list(facebookPostParams).get();
+            baseList = facebookPostService.list(facebookPostQuery).get();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }

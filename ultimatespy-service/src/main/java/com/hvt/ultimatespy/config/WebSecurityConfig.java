@@ -1,13 +1,15 @@
 package com.hvt.ultimatespy.config;
 
+import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.enums.RoleEnum;
 import com.hvt.ultimatespy.controllers.jwt.JwtAuthenticationEntryPoint;
-import com.hvt.ultimatespy.filters.cors.CorsFilter;
-import com.hvt.ultimatespy.filters.jwt.JwtRequestFilter;
+import com.hvt.ultimatespy.filters.CorsFilter;
+import com.hvt.ultimatespy.filters.JwtRequestFilter;
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -57,10 +59,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example 
         httpSecurity.csrf().disable()
-
                 // Don't authenticate this particular request
                 .authorizeRequests()
-                .antMatchers("/api/authenticate").permitAll()
+                .antMatchers(Constants.ROUTE_AUTHENTICATE).permitAll()
+                .antMatchers(HttpMethod.POST, Constants.ROUTE_USER).permitAll()
                 // All other requests need to be authenticated
                 .antMatchers("/api/admin").hasRole(RoleEnum.ADMIN.value())
                 .anyRequest().authenticated().and()

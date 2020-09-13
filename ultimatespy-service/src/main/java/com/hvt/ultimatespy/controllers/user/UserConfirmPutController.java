@@ -23,7 +23,7 @@ public class UserConfirmPutController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity put(@PathVariable("id") String id) throws Exception {
+    public ResponseEntity<?> put(@PathVariable("id") String id) throws Exception {
         if (id == null || id.trim().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }

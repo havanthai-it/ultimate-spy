@@ -1,6 +1,8 @@
 package com.hvt.ultimatespy.services.jwt;
 
 import com.hvt.ultimatespy.services.user.UserService;
+import com.hvt.ultimatespy.utils.Errors;
+import com.hvt.ultimatespy.utils.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

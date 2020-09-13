@@ -12,13 +12,13 @@
       <div>
         <mat-form-field appearance="outline">
           <mat-icon matPrefix>email</mat-icon>
-          <input matInput [(ngModel)]="jwtRequest.username" placeholder="Email" formControlName="username" required>
+          <input matInput [(ngModel)]="username" placeholder="Email" formControlName="username" required>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="outline">
           <mat-icon matPrefix>lock</mat-icon>
-          <input matInput [(ngModel)]="jwtRequest.password" placeholder="Password" formControlName="password"
+          <input matInput [(ngModel)]="password" placeholder="Password" formControlName="password"
             type="password" required>
         </mat-form-field>
       </div>
@@ -27,7 +27,7 @@
 
       <div>
         <button type="submit" mat-raised-button color="primary" class="btn-signin">
-          Sign in <mat-spinner *ngIf="loading" [diameter]="30"></mat-spinner>
+          Sign in <mat-spinner *ngIf="loading" [diameter]="26"></mat-spinner>
         </button>
       </div>
     </form>
