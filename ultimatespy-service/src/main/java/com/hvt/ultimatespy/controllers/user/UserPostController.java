@@ -37,6 +37,7 @@ public class UserPostController {
         user.setPassword(encryptedPassword);
 
         User result = userService.insert(user).get();
+        result.setPassword(null);
         return ResponseEntity.ok(result);
     }
 

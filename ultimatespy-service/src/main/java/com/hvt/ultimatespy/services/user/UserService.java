@@ -71,13 +71,37 @@ public class UserService {
         try {
             conn = Datasource.getConnection();
             cs = conn.prepareCall("INSERT INTO " +
-                    " tb_user(S_ID,S_FULL_NAME,S_EMAIL,S_PASSWORD,S_ROLE) " +
-                    " VALUES(?,?,?,?,?)");
+                    " tb_user(S_ID,S_FULL_NAME,S_EMAIL,S_PASSWORD,S_ROLE, S_REFERRER_ID) " +
+                    " VALUES(?,?,?,?,?,?)");
             cs.setString(1, user.getId());
             cs.setString(2, user.getFullName());
             cs.setString(3, user.getEmail());
             cs.setString(4, user.getPassword());
             cs.setString(5, user.getRole());
+            cs.setString(6, user.getReferrerId());
+            cs.execute();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "", e);
+        } finally {
+            Datasource.close(conn, cs, null);
+        }
+        return getByEmail(user.getEmail());
+    }
+
+    public CompletableFuture<User> update(User user) {
+        Connection conn = null;
+        CallableStatement cs = null;
+        try {
+            conn = Datasource.getConnection();
+            cs = conn.prepareCall("UPDATE tb_user SET " +
+                    " S_FULL_NAME = ?, " +
+                    " S_PASSWORD = ?, " +
+                    " S_ROLE = ? " +
+                    " WHERE S_ID = ?");
+            cs.setString(1, user.getFullName());
+            cs.setString(2, user.getPassword());
+            cs.setString(3, user.getRole());
+            cs.setString(4, user.getId());
             cs.execute();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "", e);

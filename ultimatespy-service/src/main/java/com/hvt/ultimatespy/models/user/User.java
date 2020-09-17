@@ -14,6 +14,7 @@ public class User {
     private String password;
     private String role;
     private String status;
+    private String referrerId;
     private Timestamp createDate;
     private Timestamp updateDate;
 
@@ -67,6 +68,14 @@ public class User {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getReferrerId() {
+        return referrerId;
+    }
+
+    public void setReferrerId(String referrerId) {
+        this.referrerId = referrerId;
     }
 
     public void setStatus(String status) {

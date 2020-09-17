@@ -7,7 +7,11 @@ public class Constants {
     public static final String ROUTE_USER_ID = "/api/user/{id}";
     public static final String ROUTE_RESET_PASSWORD = "/api/reset-password/{mail}";
     public static final String ROUTE_POST_FACEBOOK = "/api/post-facebook";
+    public static final String ROUTE_PRODUCT_SUBSCRIPTION_PLAN = "/api/product/subscription-plan";
+    public static final String ROUTE_INVOICE = "/api/invoice";
+    public static final String ROUTE_INVOICE_ID = "/api/invoice/{id}";
     public static final String ROUTE_PAYMENT = "/api/payment";
+    public static final String ROUTE_PAYMENT_ID = "/api/payment/{id}";
 
     public static final String FROM_DATE = "fromDate";
     public static final String TO_DATE = "toDate";

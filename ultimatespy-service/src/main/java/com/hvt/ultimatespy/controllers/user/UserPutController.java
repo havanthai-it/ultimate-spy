@@ -26,7 +26,8 @@ public class UserPutController {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
 
-        User result = null;
+        User result = userService.update(user).get();
+        result.setPassword(null);
         return ResponseEntity.ok(result);
     }
 
