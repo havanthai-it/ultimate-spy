@@ -16,6 +16,11 @@ public class Constants {
 
     public static final String ROUTE_ADMIN = "/api/admin";
 
+    public static final String USER_ID_PREFIX = "usr_";
+    public static final String INVOICE_ID_PREFIX = "inv_";
+    public static final String PAYMENT_ID_PREFIX = "pay_";
+    public static final String PRODUCT_ID_PREFIX = "prd_";
+
     public static final String FROM_DATE = "fromDate";
     public static final String TO_DATE = "toDate";
     public static final String PAGE = "page";
