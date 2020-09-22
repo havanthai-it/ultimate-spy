@@ -2,10 +2,13 @@ package com.hvt.ultimatespy.services.user;
 
 import com.hvt.ultimatespy.ds.Datasource;
 import com.hvt.ultimatespy.models.user.User;
+import com.hvt.ultimatespy.models.user.UserSubscription;
 import com.hvt.ultimatespy.utils.Errors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +17,9 @@ import java.util.logging.Logger;
 public class UserService {
 
     private static final Logger logger = Logger.getLogger(UserService.class.getName());
+
+    @Autowired
+    private UserSubscriptionService userSubscriptionService;
 
     public CompletableFuture<User> get(String id) {
         return CompletableFuture.supplyAsync(() -> {
@@ -29,8 +35,10 @@ public class UserService {
                 rs = cs.executeQuery();
                 if (rs != null && rs.next()) {
                     user = bindUser(rs);
+                    List<UserSubscription> lstUserSubscription = userSubscriptionService.list(user.getId()).get();
+                    user.setLstSubscriptions(lstUserSubscription);
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 logger.log(Level.SEVERE, "", e);
             } finally {
                 Datasource.close(conn, cs, rs);
@@ -54,8 +62,10 @@ public class UserService {
                 rs = cs.executeQuery();
                 if (rs != null && rs.next()) {
                     user = bindUser(rs);
+                    List<UserSubscription> lstUserSubscription = userSubscriptionService.list(user.getId()).get();
+                    user.setLstSubscriptions(lstUserSubscription);
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 logger.log(Level.SEVERE, "", e);
             } finally {
                 Datasource.close(conn, cs, rs);

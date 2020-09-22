@@ -1,10 +1,7 @@
 package com.hvt.ultimatespy.models.user;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class User {
     private String id;
@@ -17,6 +14,8 @@ public class User {
     private String referrerId;
     private Timestamp createDate;
     private Timestamp updateDate;
+
+    private List<UserSubscription> lstSubscriptions;
 
     public String getId() {
         return id;
@@ -96,5 +95,13 @@ public class User {
 
     public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public List<UserSubscription> getLstSubscriptions() {
+        return lstSubscriptions;
+    }
+
+    public void setLstSubscriptions(List<UserSubscription> lstSubscriptions) {
+        this.lstSubscriptions = lstSubscriptions;
     }
 }

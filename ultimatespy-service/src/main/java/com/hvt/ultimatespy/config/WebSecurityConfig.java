@@ -1,5 +1,6 @@
 package com.hvt.ultimatespy.config;
 
+import com.hvt.ultimatespy.filters.UserSubscriptionFilter;
 import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.enums.RoleEnum;
 import com.hvt.ultimatespy.controllers.jwt.JwtAuthenticationEntryPoint;
@@ -35,6 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
+
+    @Autowired
+    private UserSubscriptionFilter userSubscriptionFilter;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -74,5 +78,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterAfter(userSubscriptionFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

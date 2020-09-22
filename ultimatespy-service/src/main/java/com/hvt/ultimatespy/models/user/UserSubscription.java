@@ -2,7 +2,7 @@ package com.hvt.ultimatespy.models.user;
 
 import java.sql.Timestamp;
 
-public class UserSubscriptionPlan {
+public class UserSubscription {
     private String id;
     private String userId;
     private String productId;

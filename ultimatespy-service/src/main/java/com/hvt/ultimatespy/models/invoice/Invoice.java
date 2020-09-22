@@ -6,7 +6,6 @@ public class Invoice {
     private String id;
     private String userId;
     private String productId;
-    private String productType;
     private String desc;
     private Double amount;
     private Double fee;
@@ -37,14 +36,6 @@ public class Invoice {
 
     public void setProductId(String productId) {
         this.productId = productId;
-    }
-
-    public String getProductType() {
-        return productType;
-    }
-
-    public void setProductType(String productType) {
-        this.productType = productType;
     }
 
     public String getDesc() {

@@ -27,8 +27,8 @@ public class UserPostController {
             || user.getPassword() == null || user.getPassword().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
-        user.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-        user.setRole(RoleEnum.FREE.value());
+        user.setId(Constants.USER_ID_PREFIX + UUID.randomUUID().toString().replaceAll("-", ""));
+        user.setRole(RoleEnum.NORMAL.value());
 
         // Password was base64 encoded on the client side before send to server
         // Server continue encrypt with BCryptEncoder
