@@ -1,6 +1,8 @@
 package com.hvt.ultimatespy.models.product;
 
-public class SubscriptionPlan {
+import java.sql.Timestamp;
+
+public class Subscription {
     private String id;
     private String name;
     private String days;
@@ -11,6 +13,8 @@ public class SubscriptionPlan {
     private String timeUnit;
     private String desc;
     private String status;
+    private Timestamp createDate;
+    private Timestamp updateDate;
 
     public String getId() {
         return id;
@@ -90,5 +94,21 @@ public class SubscriptionPlan {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
     }
 }

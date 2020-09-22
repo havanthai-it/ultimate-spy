@@ -7,31 +7,37 @@ public class FacebookPostQuery {
     private Timestamp toDate;
     private int page;
     private int pageSize;
-    private String pixelId;
     private String keyword;
+    private String pixelId;
+    private String facebookPageId;
     private String category;
     private String type;
     private String country;
     private String language;
     private String website;
     private String platform;
+    private long minLikes;
+    private long maxLikes;
 
     public FacebookPostQuery() {
     }
 
-    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, int page, int pageSize, String pixelId, String keyword, String category, String type, String country, String language, String website, String platform) {
+    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, int page, int pageSize, String keyword, String pixelId, String facebookPageId, String category, String type, String country, String language, String website, String platform, long minLikes, long maxLikes) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.page = page;
         this.pageSize = pageSize;
-        this.pixelId = pixelId;
         this.keyword = keyword;
+        this.pixelId = pixelId;
+        this.facebookPageId = facebookPageId;
         this.category = category;
         this.type = type;
         this.country = country;
         this.language = language;
         this.website = website;
         this.platform = platform;
+        this.minLikes = minLikes;
+        this.maxLikes = maxLikes;
     }
 
     public Timestamp getFromDate() {
@@ -128,5 +134,29 @@ public class FacebookPostQuery {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+    }
+
+    public String getFacebookPageId() {
+        return facebookPageId;
+    }
+
+    public void setFacebookPageId(String facebookPageId) {
+        this.facebookPageId = facebookPageId;
+    }
+
+    public long getMinLikes() {
+        return minLikes;
+    }
+
+    public void setMinLikes(long minLikes) {
+        this.minLikes = minLikes;
+    }
+
+    public long getMaxLikes() {
+        return maxLikes;
+    }
+
+    public void setMaxLikes(long maxLikes) {
+        this.maxLikes = maxLikes;
     }
 }

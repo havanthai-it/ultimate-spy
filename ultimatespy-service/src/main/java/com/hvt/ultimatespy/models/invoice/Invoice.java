@@ -6,14 +6,14 @@ public class Invoice {
     private String id;
     private String userId;
     private String productId;
-    private String productType;
-    private String desc;
     private Double amount;
     private Double fee;
     private Double tax;
     private Double originAmount;
-    private Timestamp time;
-    private Timestamp status;
+    private Timestamp createDate;
+    private Timestamp updateDate;
+    private String desc;
+    private String status;
 
     public String getId() {
         return id;
@@ -37,14 +37,6 @@ public class Invoice {
 
     public void setProductId(String productId) {
         this.productId = productId;
-    }
-
-    public String getProductType() {
-        return productType;
-    }
-
-    public void setProductType(String productType) {
-        this.productType = productType;
     }
 
     public String getDesc() {
@@ -87,19 +79,19 @@ public class Invoice {
         this.originAmount = originAmount;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getUpdateDate() {
+        return updateDate;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
     }
 
-    public Timestamp getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Timestamp status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

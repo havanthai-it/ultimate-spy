@@ -22,7 +22,7 @@ public class FacebookPostService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "CALL search_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "CALL search_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -30,14 +30,17 @@ public class FacebookPostService {
                 cs.setTimestamp(2, facebookPostQuery.getToDate());
                 cs.setInt(3, facebookPostQuery.getPage());
                 cs.setInt(4, facebookPostQuery.getPageSize());
-                cs.setString(5, facebookPostQuery.getPixelId());
-                cs.setString(6, facebookPostQuery.getKeyword());
-                cs.setString(7, facebookPostQuery.getCategory());
-                cs.setString(8, facebookPostQuery.getType());
-                cs.setString(9, facebookPostQuery.getCountry());
-                cs.setString(10, facebookPostQuery.getLanguage());
-                cs.setString(11, facebookPostQuery.getWebsite());
-                cs.setString(12, facebookPostQuery.getPlatform());
+                cs.setString(5, facebookPostQuery.getKeyword());
+                cs.setString(6, facebookPostQuery.getPixelId());
+                cs.setString(7, facebookPostQuery.getFacebookPageId());
+                cs.setString(8, facebookPostQuery.getCategory());
+                cs.setString(9, facebookPostQuery.getType());
+                cs.setString(10, facebookPostQuery.getCountry());
+                cs.setString(11, facebookPostQuery.getLanguage());
+                cs.setString(12, facebookPostQuery.getWebsite());
+                cs.setString(13, facebookPostQuery.getPlatform());
+                cs.setLong(14, facebookPostQuery.getMinLikes());
+                cs.setLong(15, facebookPostQuery.getMaxLikes());
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
                     FacebookPost facebookPost = new FacebookPost();
@@ -53,19 +56,25 @@ public class FacebookPostService {
                     facebookPost.setCategory(rs.getString("S_CATEGORY"));
                     facebookPost.setCountry(rs.getString("S_COUNTRY"));
                     facebookPost.setLanguage(rs.getString("S_LANGUAGE"));
-                    facebookPost.setLikes(rs.getObject("N_LIKES") != null ? rs.getInt("N_LIKES") : 0);
-                    facebookPost.setComments(rs.getObject("N_COMMENTS") != null ? rs.getInt("N_COMMENTS") : 0);facebookPost.setLikes(rs.getObject("S_LIKES") != null ? rs.getInt("S_LIKES") : 0);
-                    facebookPost.setShares(rs.getObject("N_SHARES") != null ? rs.getInt("N_SHARES") : 0);
-                    facebookPost.setViews(rs.getObject("N_VIEWS") != null ? rs.getInt("N_VIEWS") : 0);
+                    facebookPost.setLikes(rs.getObject("N_LIKES") != null ? rs.getLong("N_LIKES") : 0);
+                    facebookPost.setComments(rs.getObject("N_COMMENTS") != null ? rs.getLong("N_COMMENTS") : 0);
+                    facebookPost.setShares(rs.getObject("N_SHARES") != null ? rs.getLong("N_SHARES") : 0);
+                    facebookPost.setViews(rs.getObject("N_VIEWS") != null ? rs.getLong("N_VIEWS") : 0);
                     facebookPost.setStatus(rs.getString("S_STATUS"));
                     facebookPost.setLinks(rs.getString("S_LINKS"));
                     facebookPost.setWebsite(rs.getString("S_WEBSITE"));
                     facebookPost.setPlatform(rs.getString("S_PLATFORM"));
-                    facebookPost.setAdsFromDate(rs.getTimestamp("D_ADS_FROM"));
-                    facebookPost.setAdsToDate(rs.getTimestamp("D_ADS_TO"));
                     facebookPost.setPublishDate(rs.getTimestamp("D_PUBLISH"));
                     facebookPost.setCreateDate(rs.getTimestamp("D_CREATE"));
                     facebookPost.setUpdateDate(rs.getTimestamp("D_UPDATE"));
+
+                    // Page information
+                    facebookPost.setPageName(rs.getString("S_PAGE_NAME"));
+                    facebookPost.setPageUsername(rs.getString("S_PAGE_USERNAME"));
+                    facebookPost.setPageThumbnail(rs.getString("S_PAGE_THUMBNAIL"));
+                    facebookPost.setPageLikes(rs.getObject("N_PAGE_LIKES") != null ? rs.getLong("N_PAGE_LIKES") : 0);
+                    facebookPost.setPageFollows(rs.getObject("N_PAGE_FOLLOWS") != null ? rs.getLong("N_PAGE_FOLLOWS") : 0);
+                    facebookPost.setPagePublishDate(rs.getTimestamp("D_PAGE_PUBLISH"));
                     baseList.add(facebookPost);
                 }
             } catch (SQLException e) {
@@ -91,21 +100,24 @@ public class FacebookPostService {
             long total = 0L;
             Connection conn = null;
             CallableStatement cs = null;
-            String sql = "CALL total_facebook_post(?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "CALL total_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
                 cs.registerOutParameter(1, Types.BIGINT);
                 cs.setTimestamp(2, facebookPostQuery.getFromDate());
                 cs.setTimestamp(3, facebookPostQuery.getToDate());
-                cs.setString(4, facebookPostQuery.getPixelId());
-                cs.setString(5, facebookPostQuery.getKeyword());
-                cs.setString(6, facebookPostQuery.getCategory());
-                cs.setString(7, facebookPostQuery.getType());
-                cs.setString(8, facebookPostQuery.getCountry());
-                cs.setString(9, facebookPostQuery.getLanguage());
-                cs.setString(10, facebookPostQuery.getWebsite());
-                cs.setString(11, facebookPostQuery.getPlatform());
+                cs.setString(4, facebookPostQuery.getKeyword());
+                cs.setString(5, facebookPostQuery.getPixelId());
+                cs.setString(6, facebookPostQuery.getFacebookPageId());
+                cs.setString(7, facebookPostQuery.getCategory());
+                cs.setString(8, facebookPostQuery.getType());
+                cs.setString(9, facebookPostQuery.getCountry());
+                cs.setString(10, facebookPostQuery.getLanguage());
+                cs.setString(11, facebookPostQuery.getWebsite());
+                cs.setString(12, facebookPostQuery.getPlatform());
+                cs.setLong(13, facebookPostQuery.getMinLikes());
+                cs.setLong(14, facebookPostQuery.getMaxLikes());
                 cs.execute();
 
                 total = cs.getLong(1);

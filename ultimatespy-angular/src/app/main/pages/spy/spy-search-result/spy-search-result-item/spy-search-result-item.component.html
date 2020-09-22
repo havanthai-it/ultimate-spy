@@ -20,15 +20,20 @@
       <div class="ssri-content-line"><mat-icon>notes</mat-icon>Best keyboard of 2020. Sale off 50% today! Shop now.</div>
     </div>
 
-    <div class="ssri-thumbnail">
+    <div class="ssri-thumbnail" (click)="detail()">
       <img src="../../../../../../assets/img/bg-signin.jpg">
+      <div class="ssri-thumbnail-overlay">
+        <div><mat-icon class="icon-view-more">visibility</mat-icon></div>
+        <div class="text-view-more">View more</div>
+        
+      </div>
     </div>
 
     <div class="ssri-performance g-float-wrapper">
-      <div class="ssri-performance-view g-float-left"><mat-icon>visibility</mat-icon> 100</div>
-      <div class="ssri-performance-like g-float-left"><mat-icon>thumb_up</mat-icon> 100</div>
-      <div class="ssri-performance-comment g-float-left"><mat-icon>comment</mat-icon> 100</div>
-      <div class="ssri-performance-share g-float-left"><mat-icon>share</mat-icon> 100</div>
+      <!-- <div class="ssri-performance-view g-float-left"><mat-icon>visibility</mat-icon> 100</div> -->
+      <div class="ssri-performance-icon ssri-performance-like g-float-left"><mat-icon>thumb_up</mat-icon> 100</div>
+      <div class="ssri-performance-icon ssri-performance-share g-float-right"><mat-icon>share</mat-icon> 100</div>
+      <div class="ssri-performance-icon ssri-performance-comment g-float-right"><mat-icon>comment</mat-icon> 100</div>
     </div>
 
   </div>

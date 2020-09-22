@@ -23,11 +23,16 @@ export class SpySearchComponent implements OnInit {
     page: 0,
     pageSize: 30,
     keyword: '',
+    pixelId: '',
+    facebookPageId: '',
     category: '',
     type: '',
     country: '',
     language: '',
-    ecomPlatform: '',
+    website: '',
+    platform: '',
+    minLikes: undefined,
+    maxLikes: undefined,
     sort: ''
   }
 
@@ -47,12 +52,7 @@ export class SpySearchComponent implements OnInit {
     { label: 'England', value: 'EN' },
     { label: 'Vietnam', value: 'VN' }
   ];
-  lstEcomSoftwares: any[] = [
-    { label: 'Woocommerce', value: 'EN' },
-    { label: 'Shopify', value: 'VN' }
-  ];
-  
-  lstEcomPlatforms: any[] = [
+  lstPlatforms: any[] = [
     { label: 'Anazon', value: 'EN' },
     { label: 'Ebay', value: 'VN' }
   ];

@@ -61,10 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 // Don't authenticate this particular request
                 .authorizeRequests()
-                .antMatchers(Constants.ROUTE_AUTHENTICATE).permitAll()
+                .antMatchers(HttpMethod.POST, Constants.ROUTE_AUTHENTICATE).permitAll()
                 .antMatchers(HttpMethod.POST, Constants.ROUTE_USER).permitAll()
+                .antMatchers(HttpMethod.GET, Constants.ROUTE_POST_FACEBOOK).permitAll()
                 // All other requests need to be authenticated
-                .antMatchers("/api/admin").hasRole(RoleEnum.ADMIN.value())
+                .antMatchers(Constants.ROUTE_ADMIN).hasRole(RoleEnum.ADMIN.value())
                 .anyRequest().authenticated().and()
                 .addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
                 // Make sure we use stateless session; session won't be used to

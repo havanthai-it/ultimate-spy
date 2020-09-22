@@ -48,11 +48,11 @@
         </mat-form-field>
       </div>
 
-      <!-- LANGUAGE -->
+      <!-- ECOM PLATFORM -->
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
         <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.language" placeholder="Language" multiple>
-            <mat-option *ngFor="let item of lstLanguages" [value]="item.value">
+          <mat-select #select [(value)]="query.platform" placeholder="Platform" multiple>
+            <mat-option *ngFor="let item of lstPlatforms" [value]="item.value">
               {{item.label}}
             </mat-option>
           </mat-select>
@@ -64,34 +64,6 @@
 
     <!-- START ROW -->
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left">
-
-      <!-- ECOM PLATFORM -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
-        <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.ecomPlatform" placeholder="Ecomerce Platform" multiple>
-            <mat-option *ngFor="let item of lstEcomPlatforms" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <!-- SORT -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
-        <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.sort" placeholder="Sort">
-            <mat-option *ngFor="let item of lstSorts" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-    </div>
-    <!-- END ROW -->
-
-    <!-- START ROW -->
-    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left" style="margin-bottom: 1.34375em;">
 
       <!-- FROM DATE -->
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
@@ -113,7 +85,7 @@
 
       <!-- DATE GROUP -->
       <div class="filter-block" fxFlex="49%" fxFlex.sm="100%">
-        <mat-button-toggle-group [(value)]="dateGroup" name="dateGroup" aria-label="DATE GROUP">
+        <mat-button-toggle-group [(value)]="dateGroup" name="dateGroup" aria-label="DATE GROUP" style="margin-bottom: 1.34375em;">
           <mat-button-toggle value="7">7 Days</mat-button-toggle>
           <mat-button-toggle value="30">30 Days</mat-button-toggle>
           <mat-button-toggle value="90">90 Days</mat-button-toggle>
@@ -128,7 +100,16 @@
     <!-- START ROW -->
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left">
 
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%"></div>
+      <!-- SORT -->
+      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
+        <mat-form-field appearance="none">
+          <mat-select #select [(value)]="query.sort" placeholder="Sort">
+            <mat-option *ngFor="let item of lstSorts" [value]="item.value">
+              {{item.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
       <div class="filter-block" fxFlex="24.25%" fxFlex.sm="0%"></div>
 

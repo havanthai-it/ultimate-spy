@@ -4,10 +4,15 @@ export class FacebookPostQuery {
   page: number;
   pageSize: number;
   keyword: string;
+  pixelId: string;
+  facebookPageId: string;
   category: string;
   type: string;
   country: string;
   language: string;
-  ecomPlatform: string;
+  website: string;
+  platform: string;
+  minLikes: number;
+  maxLikes: number;
   sort: string;
 }

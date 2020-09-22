@@ -15,7 +15,8 @@ public class Payment {
     private Double amount;
     private Double fee;
     private Double originAmount;
-    private Timestamp time;
+    private Timestamp createDate;
+    private Timestamp updateDate;
     private String status;
 
     public String getId() {
@@ -114,12 +115,20 @@ public class Payment {
         this.originAmount = originAmount;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getCreateDate() {
+        return createDate;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
     }
 
     public String getStatus() {

@@ -1,18 +1,13 @@
 package com.hvt.ultimatespy.services.invoice;
 
 import com.hvt.ultimatespy.ds.Datasource;
-import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.invoice.Invoice;
-import com.hvt.ultimatespy.models.product.SubscriptionPlan;
-import com.hvt.ultimatespy.services.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;

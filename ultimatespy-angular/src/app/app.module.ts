@@ -26,6 +26,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SpySearchResultItemComponent } from './main/pages/spy/spy-search-result/spy-search-result-item/spy-search-result-item.component';
+import { SpySearchResultItemDialogComponent } from './main/pages/spy/spy-search-result/spy-search-result-item/spy-search-result-item-dialog/spy-search-result-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SpySearchResultItemComponent } from './main/pages/spy/spy-search-result
     SpyComponent,
     SpySearchComponent,
     SpySearchResultComponent,
-    SpySearchResultItemComponent
+    SpySearchResultItemComponent,
+    SpySearchResultItemDialogComponent
   ],
   imports: [
     BrowserModule,

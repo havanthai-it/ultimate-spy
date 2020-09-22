@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Base64;
 
 @RestController
-@RequestMapping(value = Constants.ROUTE_RESET_PASSWORD)
+@RequestMapping(value = Constants.ROUTE_CHANGE_PASSWORD)
 public class UserChangePasswordPutController {
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> put(@RequestBody UserChangePassword userChangePassword) throws Exception {
+    public ResponseEntity<?> put(@PathVariable String id, @RequestBody UserChangePassword userChangePassword) throws Exception {
         if (userChangePassword == null
+            || id == null || id.isEmpty()
             || userChangePassword.getUserId() == null || userChangePassword.getUserId().isEmpty()
             || userChangePassword.getOldPassword() == null || userChangePassword.getOldPassword().isEmpty()
             || userChangePassword.getNewPassword() == null || userChangePassword.getNewPassword().isEmpty()) {

@@ -10,7 +10,6 @@ import com.hvt.ultimatespy.utils.user.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.security.provider.MD5;
 
 import java.security.MessageDigest;
 import java.util.Base64;

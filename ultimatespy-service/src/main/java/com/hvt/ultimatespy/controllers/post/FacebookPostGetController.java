@@ -35,14 +35,17 @@ public class FacebookPostGetController {
         Timestamp toDate = params.containsKey(Constants.TO_DATE) && !params.get(Constants.TO_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.TO_DATE).trim()).getTime()) : null;
         int page = params.containsKey(Constants.PAGE) ? Integer.parseInt(params.get(Constants.PAGE).trim()) : 0;
         int pageSize = params.containsKey(Constants.PAGE_SIZE) ? Integer.parseInt(params.get(Constants.PAGE_SIZE).trim()) : 30;
-        String pixelId = params.containsKey(Constants.PIXEL_ID) ? params.get(Constants.PIXEL_ID).trim() : Constants.BLANK;
         String keyword = params.containsKey(Constants.KEYWORD) ? params.get(Constants.KEYWORD).trim() : Constants.BLANK;
+        String pixelId = params.containsKey(Constants.PIXEL_ID) ? params.get(Constants.PIXEL_ID).trim() : Constants.BLANK;
+        String facebookPageId = params.containsKey(Constants.FACEBOOK_PAGE_ID) ? params.get(Constants.FACEBOOK_PAGE_ID).trim() : Constants.BLANK;
         String category = params.containsKey(Constants.CATEGORY) ? params.get(Constants.CATEGORY).trim() : Constants.BLANK;
         String type = params.containsKey(Constants.TYPE) ? params.get(Constants.TYPE).trim() : Constants.BLANK;
         String country = params.containsKey(Constants.COUNTRY) ? params.get(Constants.COUNTRY).trim() : Constants.BLANK;
         String language = params.containsKey(Constants.LANGUAGE) ? params.get(Constants.LANGUAGE).trim() : Constants.BLANK;
         String website = params.containsKey(Constants.WEBSITE) ? params.get(Constants.WEBSITE).trim() : Constants.BLANK;
         String platform = params.containsKey(Constants.PLATFORM) ? params.get(Constants.PLATFORM).trim() : Constants.BLANK;
+        long minLikes = params.containsKey(Constants.MIN_LIKES) && !params.get(Constants.MIN_LIKES).trim().isEmpty() ? Long.parseLong(params.get(Constants.MIN_LIKES)) : 0;
+        long maxLikes = params.containsKey(Constants.MAX_LIKES) && !params.get(Constants.MAX_LIKES).trim().isEmpty() ? Long.parseLong(params.get(Constants.MAX_LIKES)) : 999999999999L;
 
         // Add '+' before every word in keyword
         keyword = keyword.replaceAll(" +", " +");
@@ -61,14 +64,17 @@ public class FacebookPostGetController {
                 "toDate=" + sdf.format(toDate) + ", " +
                 "page=" + page + ", " +
                 "pageSize=" + pageSize + ", " +
-                "pixelId=" + pixelId + ", " +
                 "keyword=" + keyword + ", " +
+                "pixelId=" + pixelId + ", " +
+                "facebookPageId=" + facebookPageId + ", " +
                 "category=" + category + ", " +
                 "type=" + type + ", " +
                 "country=" + country + ", " +
                 "language=" + language + ", " +
                 "website=" + website + ", " +
-                "platform=" + platform
+                "platform=" + platform + ", " +
+                "minLikes=" + minLikes + ", " +
+                "maxLikes=" + maxLikes
         );
 
         FacebookPostQuery facebookPostQuery = new FacebookPostQuery(
@@ -76,14 +82,17 @@ public class FacebookPostGetController {
                 toDate,
                 page,
                 pageSize,
-                pixelId,
                 keyword,
+                pixelId,
+                facebookPageId,
                 category,
                 type,
                 country,
                 language,
                 website,
-                platform);
+                platform,
+                minLikes,
+                maxLikes);
         BaseList<FacebookPost> baseList = new BaseList<>();
         try {
             baseList = facebookPostService.list(facebookPostQuery).get();

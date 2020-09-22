@@ -15,19 +15,25 @@ public class FacebookPost {
     private String category;
     private String country;
     private String language;
-    private int likes;
-    private int comments;
-    private int shares;
-    private int views;
+    private long likes;
+    private long comments;
+    private long shares;
+    private long views;
     private String status;
     private String links;
     private String website;
     private String platform;
-    private Timestamp adsFromDate;
-    private Timestamp adsToDate;
     private Timestamp publishDate;
     private Timestamp createDate;
     private Timestamp updateDate;
+
+    // Page information
+    private String pageName;
+    private String pageUsername;
+    private String pageThumbnail;
+    private long pageLikes;
+    private long pageFollows;
+    private Timestamp pagePublishDate;
 
     public String getId() {
         return id;
@@ -125,35 +131,35 @@ public class FacebookPost {
         this.language = language;
     }
 
-    public int getLikes() {
+    public long getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(long likes) {
         this.likes = likes;
     }
 
-    public int getComments() {
+    public long getComments() {
         return comments;
     }
 
-    public void setComments(int comments) {
+    public void setComments(long comments) {
         this.comments = comments;
     }
 
-    public int getShares() {
+    public long getShares() {
         return shares;
     }
 
-    public void setShares(int shares) {
+    public void setShares(long shares) {
         this.shares = shares;
     }
 
-    public int getViews() {
+    public long getViews() {
         return views;
     }
 
-    public void setViews(int views) {
+    public void setViews(long views) {
         this.views = views;
     }
 
@@ -189,22 +195,6 @@ public class FacebookPost {
         this.platform = platform;
     }
 
-    public Timestamp getAdsFromDate() {
-        return adsFromDate;
-    }
-
-    public void setAdsFromDate(Timestamp adsFromDate) {
-        this.adsFromDate = adsFromDate;
-    }
-
-    public Timestamp getAdsToDate() {
-        return adsToDate;
-    }
-
-    public void setAdsToDate(Timestamp adsToDate) {
-        this.adsToDate = adsToDate;
-    }
-
     public Timestamp getPublishDate() {
         return publishDate;
     }
@@ -227,5 +217,53 @@ public class FacebookPost {
 
     public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getPageName() {
+        return pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
+    }
+
+    public String getPageUsername() {
+        return pageUsername;
+    }
+
+    public void setPageUsername(String pageUsername) {
+        this.pageUsername = pageUsername;
+    }
+
+    public String getPageThumbnail() {
+        return pageThumbnail;
+    }
+
+    public void setPageThumbnail(String pageThumbnail) {
+        this.pageThumbnail = pageThumbnail;
+    }
+
+    public long getPageLikes() {
+        return pageLikes;
+    }
+
+    public void setPageLikes(long pageLikes) {
+        this.pageLikes = pageLikes;
+    }
+
+    public long getPageFollows() {
+        return pageFollows;
+    }
+
+    public void setPageFollows(long pageFollows) {
+        this.pageFollows = pageFollows;
+    }
+
+    public Timestamp getPagePublishDate() {
+        return pagePublishDate;
+    }
+
+    public void setPagePublishDate(Timestamp pagePublishDate) {
+        this.pagePublishDate = pagePublishDate;
     }
 }

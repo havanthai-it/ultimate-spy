@@ -13,6 +13,10 @@ div, input, button {
   box-sizing: border-box;
 }
 
+img {
+  user-select: none;
+}
+
 .mat-typography {
   font: 400 16px/32px Roboto, "Helvetica Neue", sans-serif;
 }
@@ -96,5 +100,14 @@ div, input, button {
 .mat-form-field-appearance-outline .mat-form-field-prefix,
 .mat-form-field-appearance-outline .mat-form-field-suffix { // Prefix & suffix
   top: .35em !important;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mat-icon {
+  user-select: none;
 }
 /* END ANGULAR MATERIAL */

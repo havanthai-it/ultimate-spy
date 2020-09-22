@@ -2,9 +2,7 @@ package com.hvt.ultimatespy.services.product;
 
 import com.hvt.ultimatespy.ds.Datasource;
 import com.hvt.ultimatespy.models.BaseList;
-import com.hvt.ultimatespy.models.product.SubscriptionPlan;
-import com.hvt.ultimatespy.models.user.User;
-import com.hvt.ultimatespy.services.user.UserService;
+import com.hvt.ultimatespy.models.product.Subscription;
 import org.springframework.stereotype.Service;
 
 import java.sql.CallableStatement;
@@ -22,10 +20,10 @@ public class SubscriptionPlanService {
 
     private static final Logger logger = Logger.getLogger(SubscriptionPlanService.class.getName());
 
-    public CompletableFuture<BaseList<SubscriptionPlan>> list() {
+    public CompletableFuture<BaseList<Subscription>> list() {
         return CompletableFuture.supplyAsync(() -> {
-            BaseList<SubscriptionPlan> baseList = new BaseList<>();
-            List<SubscriptionPlan> list = new ArrayList<>();
+            BaseList<Subscription> baseList = new BaseList<>();
+            List<Subscription> list = new ArrayList<>();
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
@@ -48,8 +46,8 @@ public class SubscriptionPlanService {
         });
     }
 
-    private static SubscriptionPlan bindSubscriptionPlan(ResultSet rs) {
-        SubscriptionPlan sp = new SubscriptionPlan();
+    private static Subscription bindSubscriptionPlan(ResultSet rs) {
+        Subscription sp = new Subscription();
 
         return sp;
     }

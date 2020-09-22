@@ -1,3 +1,5 @@
+@import '../../../../../assets/scss/global.scss';
+
 .spy-search-result {
 
   .spy-search-result-total {
@@ -5,6 +7,26 @@
   }
 
   .spy-search-result-wrapper {
+    width: 102%;
+    margin-left: -1%;
+    margin-right: -1%;
+
+    .spy-search-result-item-wrapper {
+      width: 98%;
+      margin: 1%;
+    }
+
+    @media only screen and (min-width: $breakpoint-tablet) {
+      .spy-search-result-item-wrapper {
+        width: 48%;
+      }
+    }
+
+    @media only screen and (min-width: $breakpoint-desktop) {
+      .spy-search-result-item-wrapper {
+        width: 31.33%;
+      }
+    }
   }
 
 }
