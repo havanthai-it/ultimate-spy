@@ -5,9 +5,12 @@ html, body {
   height: auto;
 }
 body {
+  background-color: #fff;
   color: #333;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+body, button, mat-form-field {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
 }
 div, input, button {
   box-sizing: border-box;
@@ -15,10 +18,6 @@ div, input, button {
 
 img {
   user-select: none;
-}
-
-.mat-typography {
-  font: 400 16px/32px Roboto, "Helvetica Neue", sans-serif;
 }
 
 /* START SITE CONTAINER */
@@ -78,36 +77,71 @@ img {
 .g-text-blur {
   color: #999;
 }
+.g-text-left {
+  text-align: left;
+}
+.g-text-center {
+  text-align: center;
+}
+.g-text-right {
+  text-align: right;
+}
 /* END TEXT */
 
+/* START BOOTSTRAP */
+button:focus, .btn:focus {
+  outline: none;
+}
+.container .row div[class^="col-"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+/* END BOOTSTRAP */
+
 /* START ANGULAR MATERIAL */
-.mat-form-field-appearance-outline:hover .mat-form-field-outline-thick { // Border color when hover
+
+// Border color when hover
+.mat-form-field-appearance-outline:hover .mat-form-field-outline-thick { 
   color: rgba(0,0,0,.12);
 }
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick { // Border color when focused
-  color: $primary;
+
+// Border color when focused
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick { 
+  color: $primary1;
 }
-.mat-form-field-appearance-outline .mat-form-field-infix { // Padding => height
+
+// Padding => height
+.mat-form-field-appearance-outline .mat-form-field-infix { 
   padding: 0.4em 0.4em 0.8em 0.4em;
 }
-.mat-form-field-appearance-outline .mat-form-field-label-wrapper { // Label
+
+// Label
+.mat-form-field-appearance-outline .mat-form-field-label-wrapper { 
   top: -1.5em;
 }
-.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label { // Label
+
+// Label
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
   transform: translateY(-1.0em) scale(.75);
   width: 133.33333%;
 }
+
+// Prefix & suffix
 .mat-form-field-appearance-outline .mat-form-field-prefix,
-.mat-form-field-appearance-outline .mat-form-field-suffix { // Prefix & suffix
+.mat-form-field-appearance-outline .mat-form-field-suffix { 
   top: .35em !important;
 }
 
-.mat-dialog-container {
+// dialog
+.mat-dialog-container { 
   padding: 0 !important;
   margin: 0 !important;
 }
 
-.mat-icon {
+// mat icon
+.mat-icon { 
   user-select: none;
 }
+
+
 /* END ANGULAR MATERIAL */

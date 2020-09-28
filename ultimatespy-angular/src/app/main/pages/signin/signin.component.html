@@ -1,41 +1,37 @@
 <div class="signin-page">
-  <div style="height: 1px; margin-top: -1px;"></div>
-  <div class="signin-form">
-    <h1>Sign in</h1>
-    <div>
-      <button mat-raised-button (click)="signInWithGoogle()">G</button>
-    </div>
-    <div class="g-text-sm g-text-blur">
-      <p>or use your email account</p>
-    </div>
-    <form [formGroup]="signinForm" (ngSubmit)="signin()">
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-icon matPrefix>email</mat-icon>
-          <input matInput [(ngModel)]="username" placeholder="Email" formControlName="username" required>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-icon matPrefix>lock</mat-icon>
-          <input matInput [(ngModel)]="password" placeholder="Password" formControlName="password"
-            type="password" required>
-        </mat-form-field>
-      </div>
 
-      <div class="error-text g-text-sm">{{errorMessage}}</div>
-
+  <form class="form-signin" [formGroup]="signinForm" (ngSubmit)="signin()">
+    <div class=" text-center mb-4">
+      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
+        height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
       <div>
-        <button type="submit" mat-raised-button color="primary" class="btn-signin">
-          Sign in <mat-spinner *ngIf="loading" [diameter]="26"></mat-spinner>
-        </button>
+        <button class="btn" (click)="signInWithGoogle()">G</button>
       </div>
-    </form>
-
-    <div>
-      <a href="/forgot-password" class="bottom-link">Forgot password?</a>
-      <br />
-      <a href="/signup" class="bottom-link">Create a new account</a>
     </div>
-  </div>
+    <div class="form-label-group">
+      <label for="inputEmail">Email address</label>
+      <input type="email" id="inputEmail" class="form-control" [(ngModel)]="username" formControlName="username" required="" autofocus="">
+    </div>
+
+    <div class="form-label-group">
+      <div class="g-float-wrapper">
+        <label for="inputPassword" class="g-float-left">Password</label>
+        <a href="/forgot-password" class="g-float-right">Forgot password?</a>
+      </div>
+      <input type="password" id="inputPassword" class="form-control" [(ngModel)]="password" formControlName="password"
+        required="">
+    </div>
+
+    <div class="error-text g-text-sm">{{errorMessage}}</div>
+
+    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
+      Sign in <mat-spinner *ngIf="loading" [diameter]="26"></mat-spinner>
+    </button>
+
+    <div class="signup-redirect text-center">
+      New to UltimateSpy? <a href="/signup">Create an account</a>
+    </div>
+  </form>
+
 </div>

@@ -1,0 +1,35 @@
+@import '../../../../assets/scss/global.scss';
+
+.home-page {
+  .section-intro {
+    background-image: url('../../../../assets/img/bg-signin.jpg');
+    height: 100vh;
+
+    h1 {
+      width: 80%;
+      max-width: 800px;
+      margin: auto;
+      margin-top: 15vh;
+    }
+
+    p {
+      width: 90%;
+      max-width: 900px;
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      font-size: 1.4em;
+    }
+
+    .btn-search-now {
+      background-color: $primary3;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.4rem;
+      padding: 0.2em 0.8em 0.4em 0.8em;
+      &:hover {
+        background-color: #090b1b;
+      }
+    }
+  }
+}

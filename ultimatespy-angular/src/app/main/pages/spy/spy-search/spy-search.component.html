@@ -1,91 +1,76 @@
 <div class="search-wrapper">
-  <div class="search-input-btn-wrapper g-float-wrapper">
-    <div class="search-input-wrapper g-float-left">
-      <input [(ngModel)]="query.keyword" placeholder="Enter a keyword">
-    </div>
+  <div class="container section-search">
 
-    <div class="search-btn-wrapper g-float-right">
-      <button class="btn-search" (click)="search()">
-        Search
-      </button>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-label-group filter-block input-search-wrapper">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control input-search" [(ngModel)]="query.keyword"
+              placeholder="Enter a keyword" aria-describedby="input-search">
+            <div class="input-group-append">
+              <span class="input-group-text" id="input-search" (click)="search()">Search</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12"></div>
     </div>
   </div>
-
-  <div class="search-filter-wrapper">
-    <!-- START ROW -->
-    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left">
-
-      <!-- CATEGORY -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
-        <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.category" placeholder="Category" multiple>
-            <mat-option *ngFor="let item of lstCategories" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+  <div class="container section-filter">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="filter-block">
+          <select class="selectpicker" [(value)]="query.category" title="Category">
+            <option *ngFor="let item of lstCategories" value="{{item.value}}">{{item.label}}</option>
+          </select>
+        </div>
       </div>
-
-      <!-- CREATIVE -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
-        <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.type" placeholder="Creative" multiple>
-            <mat-option *ngFor="let item of lstTypes" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="filter-block">
+          <select class="selectpicker" [(value)]="query.type" title="Creative">
+            <option *ngFor="let item of lstTypes" value="{{item.value}}">{{item.label}}</option>
+          </select>
+        </div>
       </div>
-
-      <!-- COUNTRY -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
-        <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.country" placeholder="Country" multiple>
-            <mat-option *ngFor="let item of lstCountries" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="filter-block">
+          <select class="selectpicker" [(value)]="query.country" title="Country">
+            <option *ngFor="let item of lstCountries" value="{{item.value}}">{{item.label}}</option>
+          </select>
+        </div>
       </div>
-
-      <!-- ECOM PLATFORM -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
-        <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.platform" placeholder="Platform" multiple>
-            <mat-option *ngFor="let item of lstPlatforms" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="filter-block">
+          <select class="selectpicker" [(value)]="query.platform" title="Platform">
+            <option *ngFor="let item of lstPlatforms" value="{{item.value}}">{{item.label}}</option>
+          </select>
+        </div>
       </div>
-
     </div>
-    <!-- END ROW -->
 
-    <!-- START ROW -->
-    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left">
-
+    <div class="row">
       <!-- FROM DATE -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
+      <div class="col-lg-3 col-md-3 col-sm-6">
         <mat-form-field appearance="none">
-          <input matInput [(ngModel)]="query.fromDate" [matDatepicker]="fromDatePicker" placeholder="From Date" readonly>
+          <input matInput [(ngModel)]="query.fromDate" [matDatepicker]="fromDatePicker" placeholder="From Date">
           <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #fromDatePicker></mat-datepicker>
         </mat-form-field>
       </div>
 
       <!-- TO DATE -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
+      <div class="col-lg-3 col-md-3 col-sm-6">
         <mat-form-field appearance="none">
-          <input matInput [(ngModel)]="query.toDate" [matDatepicker]="toDatePicker" placeholder="To Date" readonly>
+          <input matInput [(ngModel)]="query.toDate" [matDatepicker]="toDatePicker" placeholder="To Date">
           <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #toDatePicker></mat-datepicker>
         </mat-form-field>
       </div>
 
       <!-- DATE GROUP -->
-      <div class="filter-block" fxFlex="49%" fxFlex.sm="100%">
-        <mat-button-toggle-group [(value)]="dateGroup" name="dateGroup" aria-label="DATE GROUP" style="margin-bottom: 1.34375em;">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <mat-button-toggle-group [(value)]="dateGroup" name="dateGroup" aria-label="DATE GROUP"
+          style="margin-bottom: 1.34375em;">
           <mat-button-toggle value="7">7 Days</mat-button-toggle>
           <mat-button-toggle value="30">30 Days</mat-button-toggle>
           <mat-button-toggle value="90">90 Days</mat-button-toggle>
@@ -93,44 +78,38 @@
           <mat-button-toggle value="">All Time</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
-
     </div>
-    <!-- END ROW -->
 
-    <!-- START ROW -->
-    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left">
-
+    <div class="row">
       <!-- SORT -->
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="49%">
-        <mat-form-field appearance="none">
-          <mat-select #select [(value)]="query.sort" placeholder="Sort">
-            <mat-option *ngFor="let item of lstSorts" [value]="item.value">
-              {{item.label}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="filter-block">
+          <select class="selectpicker" [(value)]="query.sort" title="Sort">
+            <option *ngFor="let item of lstSorts" value="{{item.value}}">{{item.label}}</option>
+          </select>
+        </div>
       </div>
 
-      <div class="filter-block" fxFlex="24.25%" fxFlex.sm="0%"></div>
+      <div class="col-lg-3 col-md-3 col-sm-6"></div>
 
       <!-- SEARCH QUERY -->
-      <div class="filter-block" fxFlex="49%" fxFlex.sm="49%">
-        <button class="btn-save-search" (click)="saveSearchQuery()" style="width: 29%">
-          Save search
-        </button>
-        <mat-form-field appearance="none" style="width: 70%; margin-left: 30%">
-          <mat-select #select [(value)]="searchQuery" placeholder="Saved Search Query" multiple>
-            <mat-optgroup *ngFor="let group of lstSearchQueries" [label]="group.label">
-              <mat-option *ngFor="let item of group.value" [value]="item.value">
-                {{item.label}}
-              </mat-option>
-            </mat-optgroup>
-          </mat-select>
-        </mat-form-field>
+      <div class="col-lg-6 col-md-6 col-sm-12 g-float-wrapper">
+        <div class="filter-block g-float-left" style="width: 120px; margin-right: 10px;">
+          <button class="btn btn-save-search" (click)="saveSearchQuery()">
+            Save search
+          </button>
+        </div>
+        <div class="filter-block g-float-left" style="width: calc(100% - 130px);">
+          <select class="selectpicker" [(value)]="query.platform" title="Saved search">
+            <optgroup *ngFor="let group of lstSearchQueries" label="{{group.label}}">
+              <option *ngFor="let item of group.value" value="{{item.value}}">{{item.label}}</option>
+            </optgroup>
+          </select>
+        </div>
       </div>
-
     </div>
-    <!-- END ROW -->
 
   </div>
+
+
 </div>

@@ -2,155 +2,164 @@
 
 .search-wrapper {
 
-  .search-input-btn-wrapper {
-    background-color: $primary;
-    padding: 0.6em;
-
-    .search-input-wrapper {
-      width: 79%;
-
-      input {
-        width: 100%;
-        outline: none;
-        border: none;
-        background-color: #a380e0;
-        color: #eee;
-        padding: 1.2em;
-        font-size: 1rem;
-        box-sizing : border-box;
-        border-radius: 2px;
-      }
-
-      input::placeholder {
-        color: #eee;
-      }
-
-    }
-
-    .search-btn-wrapper {
-      width: 20%;
-
-      button,
-      button:focus {
-        background-color: #fff;
-        color: $primary;
-        padding: 1.2em;
-        border: none;
-        border-radius: 2px;
-        outline: none;
-        cursor: pointer;
-        width: 100%;
-        text-align: center;
-        font-size: 1rem;
-        font-weight: bold;
-      }
-
-      button:hover {
-        color: #000;
-      }
-    }
-
+  .section-search, .section-filter {
+    margin-bottom: 30px;
+    padding: 15px 15px 0 15px;
   }
 
-  .search-filter-wrapper {
-    margin-top: 40px;
+  .container {
+    &>.row {
+      margin-left: -20px;
+      margin-right: -20px;
+    
+      &>div[class^="col"] {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
 
-    mat-form-field {
-      width: 100%;
-      position: relative;
+      .filter-block {
+        margin-bottom: 1em;
 
-      .mat-form-field-infix {
-        background-color: #fff;
-        border-top: 0;
-        border: solid 1px rgba(0,0,0,.12);;
-        padding: 0.6em;
+        .btn-save-search {
+          width: 100%;
+          color: $primary2;
+          background-color: #fff;
+          border: solid 1px $primary2;
+        }
+      }
 
-        mat-select {
-          .mat-select-value {
-            color: $primary;
+      .input-search-wrapper {
+        .input-search {
+          &::placeholder {
+            color: #999;
           }
         }
+        .input-group-append {
+          .input-group-text {
+            cursor: pointer;
+            background-color: $primary1;
+            border-color: $primary1;
+            color: #fff;
+            font-weight: 500;
+            &:hover {
+              background-color: $primary1;
+              border-color: $primary1;
+            }
+          }
+        }
+      }
+    }
+  }
 
-        input {
-          color: $primary;
+  .form-label-group, .bootstrap-select {
+    width: 100% !important;
+  }  
+
+  .bootstrap-select {
+    .dropdown-toggle {
+      background-color: #fff;
+      border-color: $borderColor;
+      &:focus {
+        background-color: #fff;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      &.btn-light {
+        color: $primary1;
+      }
+      &.bs-placeholder {
+        color: #999;
+      }
+    }
+    .dropdown-menu {
+      li.disabled:first-child {
+        display: none;
+      }
+      li {
+        a.dropdown-item {
+          &:focus {
+            background-color: #f8f9fa;
+            color: inherit;
+            outline: none;
+          }
+
+          &.active, &:active {
+            color: $primary1;
+            background-color: #fff;
+          }
+
+          .check-mark:after {
+            color: $primary1;
+          }
+
+        }
+      }
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+    position: relative;
+
+    .mat-form-field-infix {
+      background-color: #fff;
+      border-top: 0;
+      border: solid 1px $borderColor;
+      border-radius: .25rem;
+      padding: 0.56em;
+
+      mat-select {
+        .mat-select-value {
+          color: $primary1;
         }
       }
 
-      .mat-form-field-suffix {
-        position: absolute;
-        right: 0;
+      input {
+        color: $primary1;
+        font-size: 1rem;
       }
-      
     }
 
-    mat-button-toggle-group {
-      width: 100%;
-
-      mat-button-toggle {
-        width: 20%;
-        color: #a9a9a9;
-      }
-
-      .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
-        line-height: 35px;
-      }
-
-      .mat-button-toggle-appearance-standard .mat-button-toggle-button {
-        border: solid 1px rgba(0,0,0,0);
-      }
-
-      .mat-button-toggle-appearance-standard.mat-button-toggle-checked .mat-button-toggle-button {
-        background-color: #fff;
-        color: $primary;
-        border: solid 1px $primary
-      } 
-
-      .mat-button-toggle-appearance-standard .mat-button-toggle-focus-overlay,
-      .mat-button-toggle-appearance-standard .mat-ripple.mat-button-toggle-ripple {
-        display: none;
-      }
-
-    }
-
-    .btn-save-search {
-      background-color: #fff;
-      color: #a9a9a9;
-      font-size: 1rem;
-      border: solid 1px rgba(0,0,0,.12);
-      outline: none;
-      line-height: 35px;
+    .mat-form-field-suffix {
       position: absolute;
-      text-align: center;
-      cursor: pointer;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
+      right: 0;
+    }
+    
+  }
+
+  mat-button-toggle-group {
+    width: 100%;
+    border: solid 1px $borderColor !important;
+    border-left: solid 0 $borderColor !important;
+
+    mat-button-toggle {
+      width: 20%;
+      color: #a9a9a9;
     }
 
-    .btn-save-search:hover {
-      color: $primary;
-      border-color: $primary;
+    .mat-button-toggle {
+      border-left: solid 1px $borderColor !important;
     }
 
-    .filter-block {
-      position: relative;
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+      line-height: 35px;
+    }
+
+    .mat-button-toggle-appearance-standard .mat-button-toggle-button {
+      border: solid 1px rgba(0,0,0,0);
+    }
+
+    .mat-button-toggle-appearance-standard.mat-button-toggle-checked .mat-button-toggle-button {
+      background-color: #fff;
+      color: $primary1;
+      border: solid 1px $primary1
+    } 
+
+    .mat-button-toggle-appearance-standard .mat-button-toggle-focus-overlay,
+    .mat-button-toggle-appearance-standard .mat-ripple.mat-button-toggle-ripple {
+      display: none;
     }
 
   }
 
 }
-
-mat-option {
-  .mat-option-text {
-    color: #a9a9a9;
-    font-weight: normal;
-  }
-}
-
-mat-option.mat-selected {
-  .mat-option-text {
-    color: $primary;
-  }
-}
-

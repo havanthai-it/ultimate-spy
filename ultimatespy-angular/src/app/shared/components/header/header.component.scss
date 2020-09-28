@@ -1,63 +1,39 @@
 @import '../../../../assets/scss/global.scss';
 
+.header-placeholder {
+  height: 70px;
+}
+
 header {
-  background-color: $primary;
-  color: #ffffff;
+  .navbar {
+    z-index: 9;
+    padding: 15px 0px;
 
-  .site-header {
-    height: 60px;
-    padding: 10px 0px;
+    a {
+      font-weight: 500;
+      color: rgba(255,255,255,.5);
 
-    .header-inner {
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .site-logo {
-      font-size: 28px;
-      padding: 3px 0px;
-      margin-right: 30px;
-      
-      a {
-        color: #ffffff;
-        text-decoration: none;
+      &:hover {
+        color: rgba(255,255,255,.8);
       }
     }
 
-    .site-lang {
-      height: 30px;
-      margin: 5px 0px;
-      padding-left: 30px;
-      border-left: solid 1px #ffffff;
+    .btn-signup {
+      background-color: $primary3;
+      color: $primary2;
+      border: solid 1px $primary2;
+      font-weight: 500;
 
-      mat-form-field {
-        width: 60px;
-        margin-top: -20px;
-
-        ::ng-deep .mat-select-value {
-          color: #ffffff;
-        }
-
-        ::ng-deep .mat-select-arrow {
-          color: #ffffff;
-        }
+      &:hover {
+        background-color: $primary2;
+        color: rgba(255,255,255,1);
+        font-weight: 500;
       }
     }
 
-    .site-nav {
-      margin-left: 30px;
-      ul {
-        li {
-          margin: 0px 16px;
-          padding: 3px 0px;
-
-          a {
-            text-decoration: none;
-            color: inherit;
-          }
-        }
-      }
+    &.fixed-top {
+      background-color: #1b1f3b;
+      // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
     }
-
   }
 }

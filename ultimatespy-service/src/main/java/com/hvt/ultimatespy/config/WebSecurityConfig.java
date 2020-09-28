@@ -65,19 +65,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 // Don't authenticate this particular request
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, Constants.ROUTE_AUTHENTICATE).permitAll()
-                .antMatchers(HttpMethod.POST, Constants.ROUTE_USER).permitAll()
-                .antMatchers(HttpMethod.GET, Constants.ROUTE_POST_FACEBOOK).permitAll()
-                // All other requests need to be authenticated
+                .antMatchers(Constants.ROUTE_AUTHENTICATE).permitAll()
+                .antMatchers(Constants.ROUTE_USER).permitAll()
+                .antMatchers(Constants.ROUTE_POST_FACEBOOK).permitAll()
                 .antMatchers(Constants.ROUTE_ADMIN).hasRole(RoleEnum.ADMIN.value())
+                // All other requests need to be authenticated
                 .anyRequest().authenticated().and()
-                .addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
                 // Make sure we use stateless session; session won't be used to
                 // store user's state.
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        // Add a filter to validate the tokens with every request
+        httpSecurity.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class);
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.addFilterAfter(userSubscriptionFilter, UsernamePasswordAuthenticationFilter.class);
     }

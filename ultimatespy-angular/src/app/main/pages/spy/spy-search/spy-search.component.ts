@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { SpyService } from '../../../../core/services/spy.service';
 import { FacebookPostQuery } from '../../../../core/models/FacebookPostQuery';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-spy-search',
@@ -10,8 +11,9 @@ import { FacebookPostQuery } from '../../../../core/models/FacebookPostQuery';
 })
 export class SpySearchComponent implements OnInit {
   @Output() searchResult = new EventEmitter<any[]>();
-
-  constructor(private spyService: SpyService) { }
+  
+  constructor(private spyService: SpyService) {
+  }
 
   searchQuery: string;
   dateGroup: string;
@@ -31,8 +33,8 @@ export class SpySearchComponent implements OnInit {
     language: '',
     website: '',
     platform: '',
-    minLikes: undefined,
-    maxLikes: undefined,
+    minLikes: 0,
+    maxLikes: 100000,
     sort: ''
   }
 

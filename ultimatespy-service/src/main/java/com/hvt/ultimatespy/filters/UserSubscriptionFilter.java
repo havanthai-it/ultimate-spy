@@ -6,6 +6,7 @@ import com.hvt.ultimatespy.utils.enums.RoleEnum;
 import com.hvt.ultimatespy.utils.jwt.JwtTokenUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -26,39 +27,40 @@ public class UserSubscriptionFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        final String requestTokenHeader = request.getHeader("Authorization");
+        if (request.getRequestURI().equals("path_need_to_check_subscription")) {
 
-        String username = null;
-        String jwtToken = null;
-        // JWT Token is in the form "Bearer token". Remove Bearer word and value
-        // only the Token
-        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-            jwtToken = requestTokenHeader.substring(7);
-            try {
-                username = jwtTokenUtils.getUsernameFromToken(jwtToken);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Unable to value JWT Token");
-            } catch (ExpiredJwtException e) {
-                System.out.println("JWT Token has expired");
+            final String requestTokenHeader = request.getHeader("Authorization");
+
+            String username = null;
+            String jwtToken = null;
+            // JWT Token is in the form "Bearer token". Remove Bearer word and value
+            // only the Token
+            if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+                jwtToken = requestTokenHeader.substring(7);
+                try {
+                    username = jwtTokenUtils.getUsernameFromToken(jwtToken);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Unable to value JWT Token");
+                } catch (ExpiredJwtException e) {
+                    System.out.println("JWT Token has expired");
+                }
+            } else {
+                logger.warn("JWT Token does not begin with Bearer String");
             }
-        } else {
-            logger.warn("JWT Token does not begin with Bearer String");
-        }
 
-        User user = null;
-        try {
-            user = userService.getByEmail(username).get();
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        }
-        if (user == null)   return;
-        if (user.getRole().equals(RoleEnum.ADMIN.value())) {
-            chain.doFilter(request, response);
-        } else if (user.getLstSubscriptions() != null && user.getLstSubscriptions().size() > 0) {
-            chain.doFilter(request, response);
-        } else {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        }
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() != null) {
 
+                User user = null;
+                try {
+                    user = userService.getByEmail(username).get();
+                    if (!user.getRole().equals(RoleEnum.ADMIN.value()) && (user.getLstSubscriptions() == null || user.getLstSubscriptions().size() == 0)) {
+                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    }
+                } catch (Exception e) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                }
+            }
+        }
+        chain.doFilter(request, response);
     }
 }

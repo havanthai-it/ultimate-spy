@@ -22,21 +22,21 @@ export class SignupComponent implements OnInit {
   returnUrl: string;
   errorMessage: string;
   loading: boolean = false;
-  rePasswordMatched: boolean = false;
+  confirmPasswordMatched: boolean = false;
   signupComplete = false;
 
   signupForm = new FormGroup({
     fullName: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
-    rePassword: new FormControl('')
+    confirmPassword: new FormControl('')
   });
 
   user: any = {
     fuleName: '',
     email: '',
     password: '',
-    rePassword: ''
+    confirmPassword: ''
   }
 
   ngOnInit(): void {
@@ -45,10 +45,10 @@ export class SignupComponent implements OnInit {
   }
 
   signup(): void {
-    if (!this.user.fullName || !this.user.email || !this.user.password || !this.user.rePassword) {
+    if (!this.user.fullName || !this.user.email || !this.user.password || !this.user.confirmPassword) {
       return;
     }
-    if (this.user.password !== this.user.rePassword) {
+    if (this.user.password !== this.user.confirmPassword) {
       return;
     }
     this.loading = true;
@@ -81,13 +81,13 @@ export class SignupComponent implements OnInit {
       });
   }
 
-  onChangeRePassword(): void {
-    if (this.user.rePassword === this.user.password) {
-      this.rePasswordMatched = true;
-      this.signupForm.controls['rePassword'].setErrors(null);
+  onChangeConfirmPassword(): void {
+    if (this.user.confirmPassword === this.user.password) {
+      this.confirmPasswordMatched = true;
+      this.signupForm.controls['confirmPassword'].setErrors(null);
     } else {
-      this.rePasswordMatched = false;
-      this.signupForm.controls['rePassword'].setErrors([{'REPASSWORD_NOT_MATCHED': ''}])
+      this.confirmPasswordMatched = false;
+      this.signupForm.controls['confirmPassword'].setErrors([{'CONFIRM_PASSWORD_NOT_MATCHED': ''}])
     }
   }
 
