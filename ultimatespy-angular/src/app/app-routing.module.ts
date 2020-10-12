@@ -7,6 +7,8 @@ import { AuthGuard } from './core/guards/AuthGuard';
 import { SignupComponent } from './main/pages/signup/signup.component';
 import { ForgotPasswordComponent } from './main/pages/forgot-password/forgot-password.component';
 import { SpyComponent } from './main/pages/spy/spy.component';
+import { CheckoutComponent } from './main/pages/checkout/checkout.component';
+import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -27,7 +29,14 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
-      { path: 'spy', component: SpyComponent, canActivate: [AuthGuard] }
+      { path: 'spy', component: SpyComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+      { path: 'checkout', component: CheckoutComponent, pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        children: [
+        ]
+      }
     ]
   }
 ];

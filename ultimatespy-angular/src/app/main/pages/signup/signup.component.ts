@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
 import { UserService } from '../../../core/services/user.service';
@@ -19,17 +19,17 @@ export class SignupComponent implements OnInit {
     private authService: SocialAuthService
     ) { }
 
-  returnUrl: string;
+  redirect: string;
   errorMessage: string;
   loading: boolean = false;
   confirmPasswordMatched: boolean = false;
   signupComplete = false;
 
   signupForm = new FormGroup({
-    fullName: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl('')
+    fullName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required])
   });
 
   user: any = {
@@ -39,16 +39,22 @@ export class SignupComponent implements OnInit {
     confirmPassword: ''
   }
 
+  get f() {
+    return this.signupForm.controls;
+  }
+
   ngOnInit(): void {
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.redirect = this.route.snapshot.queryParams['redirect'] || '/';
   }
 
   signup(): void {
     if (!this.user.fullName || !this.user.email || !this.user.password || !this.user.confirmPassword) {
+      this.errorMessage = 'Please fill in all the information';
       return;
     }
     if (this.user.password !== this.user.confirmPassword) {
+      this.errorMessage = 'Confirm password does not match';
       return;
     }
     this.loading = true;

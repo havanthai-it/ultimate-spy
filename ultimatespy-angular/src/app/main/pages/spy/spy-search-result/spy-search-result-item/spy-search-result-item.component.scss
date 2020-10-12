@@ -109,28 +109,18 @@
       padding-top: 10px;
       color: #666;
       user-select: none;
+      position: relative;
 
       .ssri-performance-icon {
-        padding-left: 1.6em;
-        position: relative;
+        margin-right: 20px;
 
-        mat-icon {
-          font-size: 1.3em;
-          position: absolute;
-          left: 0;
-          top: 6px;
+        &.ssri-performance-like {
+          .fa {
+            color: #2471A3;
+          }
         }
       }
 
-      .g-float-right {
-        margin-left: 16px;
-      }
-
-      .ssri-performance-like {
-        mat-icon {
-          color: #2471A3;
-        }
-      }
     }
   }
 

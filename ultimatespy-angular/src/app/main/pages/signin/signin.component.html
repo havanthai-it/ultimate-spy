@@ -1,17 +1,15 @@
 <div class="signin-page">
 
   <form class="form-signin" [formGroup]="signinForm" (ngSubmit)="signin()">
-    <div class=" text-center mb-4">
-      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
-        height="72">
+    <div class=" text-center mb-2">
+      <img class="mb-2" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="40"
+        height="40">
       <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
-      <div>
-        <button class="btn" (click)="signInWithGoogle()">G</button>
-      </div>
     </div>
     <div class="form-label-group">
       <label for="inputEmail">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" [(ngModel)]="username" formControlName="username" required="" autofocus="">
+      <input type="email" id="inputEmail" class="form-control" [(ngModel)]="username" formControlName="username"
+      required="" [ngClass]="{'error-form-control': f.username.touched && f.username.errors}">
     </div>
 
     <div class="form-label-group">
@@ -20,17 +18,28 @@
         <a href="/forgot-password" class="g-float-right">Forgot password?</a>
       </div>
       <input type="password" id="inputPassword" class="form-control" [(ngModel)]="password" formControlName="password"
-        required="">
+        required="" [ngClass]="{'error-form-control': f.password.touched && f.password.errors}">
     </div>
 
-    <div class="error-text g-text-sm">{{errorMessage}}</div>
+    <div class="error-text g-text-sm mb-2">&nbsp;{{errorMessage}}</div>
 
-    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
+    <button class="btn btn-primary btn-block btn-signin" type="submit">
       Sign in <mat-spinner *ngIf="loading" [diameter]="26"></mat-spinner>
     </button>
 
+    <div class="line-separator">
+      <hr>
+      <span>or</span>
+    </div>
+
+    <button class="btn btn-google" type="submit">
+      <i class="fa fa-google"></i>
+      &nbsp;
+      Sign in with Google
+    </button>
+
     <div class="signup-redirect text-center">
-      New to UltimateSpy? <a href="/signup">Create an account</a>
+      Don't have an account? <a href="/signup">Sign up</a>
     </div>
   </form>
 

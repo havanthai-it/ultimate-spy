@@ -27,6 +27,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SpySearchResultItemComponent } from './main/pages/spy/spy-search-result/spy-search-result-item/spy-search-result-item.component';
 import { SpySearchResultItemDialogComponent } from './main/pages/spy/spy-search-result/spy-search-result-item/spy-search-result-item-dialog/spy-search-result-item-dialog.component';
+import { CheckoutComponent } from './main/pages/checkout/checkout.component';
+import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { SpySearchResultItemDialogComponent } from './main/pages/spy/spy-search-
     SpySearchComponent,
     SpySearchResultComponent,
     SpySearchResultItemComponent,
-    SpySearchResultItemDialogComponent
+    SpySearchResultItemDialogComponent,
+    CheckoutComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

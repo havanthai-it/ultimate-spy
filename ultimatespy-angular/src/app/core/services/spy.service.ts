@@ -13,7 +13,7 @@ export class SpyService {
 
   headersGet(): HttpHeaders {
     return new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     });
   }
 

@@ -1,5 +1,7 @@
 <div class="search-wrapper">
-  <div class="container section-search">
+
+  <!-- SEARCH SECTION -->
+  <div class="container section-search g-box-shadow">
 
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
@@ -13,10 +15,13 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-12"></div>
     </div>
   </div>
-  <div class="container section-filter">
+
+  <!-- SEARCH FILTER -->
+  <div class="container section-filter g-box-shadow">
+
+    <!-- ROW -->
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-6">
         <div class="filter-block">
@@ -49,6 +54,24 @@
     </div>
 
     <div class="row">
+
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="filter-block">
+          <input type="text" class="form-control" [(ngModel)]="minMaxLikes" placeholder="Min - Max">
+          <i class="fa fa-thumbs-o-up"></i>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 col-sm-6">
+        <div class="filter-block">
+          <input type="text" class="form-control" [(ngModel)]="minMaxComments" placeholder="Min - Max">
+          <i class="fa fa-commenting-o"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW -->
+    <div class="row">
       <!-- FROM DATE -->
       <div class="col-lg-3 col-md-3 col-sm-6">
         <mat-form-field appearance="none">
@@ -69,8 +92,7 @@
 
       <!-- DATE GROUP -->
       <div class="col-lg-6 col-md-6 col-sm-12">
-        <mat-button-toggle-group [(value)]="dateGroup" name="dateGroup" aria-label="DATE GROUP"
-          style="margin-bottom: 1.34375em;">
+        <mat-button-toggle-group [(value)]="dateGroup" name="dateGroup" aria-label="DATE GROUP">
           <mat-button-toggle value="7">7 Days</mat-button-toggle>
           <mat-button-toggle value="30">30 Days</mat-button-toggle>
           <mat-button-toggle value="90">90 Days</mat-button-toggle>
@@ -80,6 +102,11 @@
       </div>
     </div>
 
+  </div>
+
+
+  <div class="container section-save">
+    <!-- ROW -->
     <div class="row">
       <!-- SORT -->
       <div class="col-lg-3 col-md-3 col-sm-6">
@@ -92,14 +119,14 @@
 
       <div class="col-lg-3 col-md-3 col-sm-6"></div>
 
-      <!-- SEARCH QUERY -->
+      <!-- SAVE QUERY -->
       <div class="col-lg-6 col-md-6 col-sm-12 g-float-wrapper">
-        <div class="filter-block g-float-left" style="width: 120px; margin-right: 10px;">
+        <div class="filter-block g-float-left" style="width: 130px; margin-right: 10px;">
           <button class="btn btn-save-search" (click)="saveSearchQuery()">
             Save search
           </button>
         </div>
-        <div class="filter-block g-float-left" style="width: calc(100% - 130px);">
+        <div class="filter-block g-float-left" style="width: calc(100% - 140px);">
           <select class="selectpicker" [(value)]="query.platform" title="Saved search">
             <optgroup *ngFor="let group of lstSearchQueries" label="{{group.label}}">
               <option *ngFor="let item of group.value" value="{{item.value}}">{{item.label}}</option>
@@ -108,8 +135,10 @@
         </div>
       </div>
     </div>
-
   </div>
+
+
+
 
 
 </div>

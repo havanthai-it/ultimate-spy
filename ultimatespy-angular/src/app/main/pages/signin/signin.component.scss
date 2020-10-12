@@ -1,9 +1,10 @@
 @import './../../../../assets/scss/global.scss';
 
 .signin-page {
-  background-color: #f5f5f5;
+  //background-color: #f5f5f5;
   min-height: 100vh;
   width: 100%;
+  padding-bottom: 1rem;
 
   .form-signin {
     width: 100%;
@@ -17,15 +18,34 @@
 
       label {
         font-weight: 500;
+        margin-bottom: 0.2rem;
+      }
+
+      .form-control.error-form-control {
+        border-color: $errorColor;
+      }
+
+      a {
+        color: $primary1;
       }
     }
 
+    .error-text {
+      color: $errorColor;
+      margin-top: -0.4rem;
+    }
+
     .signup-redirect {
-      margin-top: 2em;
+      margin-top: 1rem;
+
+      a {
+        color: $primary1;
+      }
     }
 
     .btn-signin {
       position: relative;
+      background-color: $primary1;
       
       .mat-progress-spinner {
         position: absolute;
@@ -37,6 +57,26 @@
         stroke: #fff !important;
       }
     }
+
+    .btn-google {
+      background-color: #DD4B39;
+      color: #fff;
+      width: 100%;
+    }
+
+    .line-separator {
+      position: relative;
+      text-align: center;
+      span {
+        position: absolute;
+        z-index: 2;
+        background-color: $bgColor;
+        padding: 0 4px;
+        margin-left: -4px;
+        margin-top: -1.9rem;
+      }
+    }
+
   }
 
 }

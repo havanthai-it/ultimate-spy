@@ -23,9 +23,29 @@
             <a class="nav-link" href="#">Contact</a>
           </li>
         </ul>
-        <a href="#">
-          <button class="btn btn-signup my-2 my-sm-0" type="submit">Sign up</button>
-        </a>
+
+        <div *ngIf="!user">
+          <a href="/signin" class="link-signin">Sign in</a>
+          <a href="/signup">
+            <button class="btn btn-signup my-2 my-sm-0" type="submit">Sign up</button>
+          </a>
+        </div>
+
+        <div class="dropdown profile-dropdown" *ngIf="user">
+          <button class="btn btn-profile dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hi, {{user.fullName}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="profileDropdown">
+            <a class="dropdown-item dropdown-item-top" href="#">
+              <div>{{user.fullName}}</div>
+              <div><span class="current-plan">FREE</span></div>
+            </a>
+            <a class="dropdown-item" href="/dashboard/profile">Profile</a>
+            <a class="dropdown-item" href="/dashboard/plan">My plan</a>
+            <a class="dropdown-item" href="/dashboard/saved">My saved</a>
+            <a class="dropdown-item dropdown-item-signout" (click)="signout()">Sign out</a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>

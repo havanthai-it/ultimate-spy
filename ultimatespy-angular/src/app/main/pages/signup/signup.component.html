@@ -1,44 +1,51 @@
 <div class="signup-page">
   <div style="height: 1px;margin-top: -1px;"></div>
   <form class="form-signup" [formGroup]="signupForm" (ngSubmit)="signup()" *ngIf="!signupComplete">
-    <div class=" text-center mb-4">
-      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
-        height="72">
+    <div class=" text-center mb-2">
+      <img class="mb-2" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="50"
+        height="50">
       <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
-      <div>
-        <button class="btn" (click)="signInWithGoogle()">G</button>
-      </div>
     </div>
     <div class="form-label-group">
       <label for="inputName">Full name</label>
       <input type="text" id="inputName" class="form-control" [(ngModel)]="user.fullName" formControlName="fullName"
-        required="" autofocus="">
+        required="" [ngClass]="{'error-form-control': f.fullName.touched && f.fullName.errors}">
     </div>
     <div class="form-label-group">
       <label for="inputEmail">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" [(ngModel)]="user.email" formControlName="fullName"
-        required="" autofocus="">
+      <input type="email" id="inputEmail" class="form-control" [(ngModel)]="user.email" formControlName="email"
+        required="" [ngClass]="{'error-form-control': f.email.touched && f.email.errors}">
     </div>
     <div class="form-label-group">
       <label for="inputPassword" class="g-float-left">Password</label>
       <input type="password" id="inputPassword" class="form-control" [(ngModel)]="user.password"
-        formControlName="password" required="">
+        formControlName="password" required="" [ngClass]="{'error-form-control': f.password.touched && f.password.errors}">
     </div>
     <div class="form-label-group">
       <label for="inputConfirmPassword" class="g-float-left">Confirm Password</label>
       <input type="password" id="inputConfirmPassword" class="form-control" [(ngModel)]="user.confirmPassword"
-        formControlName="confirmPassword" required="">
-      <p *ngIf="user.confirmPassword && !confirmPasswordMatched">Password and confirm password does not match</p>
+        formControlName="confirmPassword" required="" [ngClass]="{'error-form-control': f.confirmPassword.touched && f.confirmPassword.errors}">
     </div>
 
-    <div class="error-text g-text-sm">{{errorMessage}}</div>
+    <div class="error-text g-text-sm mb-2">&nbsp;{{errorMessage}}</div>
 
-    <button class="btn btn-lg btn-primary btn-block btn-signup" type="submit">
+    <button class="btn btn-primary btn-block btn-signup" type="submit">
       Sign up <mat-spinner *ngIf="loading" [diameter]="26"></mat-spinner>
     </button>
 
-    <div class="signin-redirect text-center">
-      New to UltimateSpy? <a href="/signin">Create an account</a>
+    <div class="line-separator">
+      <hr>
+      <span>or</span>
+    </div>
+
+    <button class="btn btn-google" type="submit">
+      <i class="fa fa-google"></i>
+      &nbsp;
+      Sign up with Google
+    </button>
+
+    <div class="signup-redirect text-center">
+      Already have an account? <a href="/signin">Sign in</a>
     </div>
   </form>
 

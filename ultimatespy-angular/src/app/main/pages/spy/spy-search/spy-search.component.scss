@@ -2,10 +2,23 @@
 
 .search-wrapper {
 
-  .section-search, .section-filter {
-    margin-bottom: 30px;
-    padding: 15px 15px 0 15px;
+  .section-search {
+    margin-bottom: 20px;
+    padding: 0px 30px 15px 30px;
+    background-color: #fff;
+
+    .filter-block,
+    .mb-3 {
+      margin-bottom: 0 !important;
+    }
   }
+
+  .section-filter {
+    padding: 0px 30px 0px 30px;
+    background-color: #fff;
+    margin-bottom: 5px;
+  }
+  
 
   .container {
     &>.row {
@@ -18,13 +31,31 @@
       }
 
       .filter-block {
-        margin-bottom: 1em;
+        margin: 15px 0;
+        position: relative;
 
         .btn-save-search {
           width: 100%;
-          color: $primary2;
+          color: $primary1;
           background-color: #fff;
-          border: solid 1px $primary2;
+          border: solid 1px $primary1;
+        }
+
+        .fa {
+          position: absolute;
+          right: 0.45em;
+          top: 0.3em;
+          font-size: 1.4em;
+          color: #757575;
+        }
+
+        input {
+          padding-right: 2.4em;
+          color: $primary1;
+        }
+
+        input::placeholder {
+          color: #999;
         }
       }
 
@@ -124,6 +155,11 @@
       position: absolute;
       right: 0;
     }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 15px;
+      padding-top: 15px;
+    }
     
   }
 
@@ -131,6 +167,7 @@
     width: 100%;
     border: solid 1px $borderColor !important;
     border-left: solid 0 $borderColor !important;
+    margin: 15px 0;
 
     mat-button-toggle {
       width: 20%;
@@ -142,7 +179,7 @@
     }
 
     .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
-      line-height: 35px;
+      line-height: 37px;
     }
 
     .mat-button-toggle-appearance-standard .mat-button-toggle-button {
@@ -160,6 +197,15 @@
       display: none;
     }
 
+  }
+
+  .section-save {
+    .bootstrap-select .dropdown-toggle {
+      background-color: rgba(255,255,255,0) !important;
+    }
+    .btn-save-search {
+      background-color: rgba(255,255,255,0) !important;
+    }
   }
 
 }

@@ -1,6 +1,7 @@
 @import '../../../../assets/scss/global.scss';
 
 .home-page {
+
   .section-intro {
     background-image: url('../../../../assets/img/bg-signin.jpg');
     height: 100vh;
@@ -10,6 +11,7 @@
       max-width: 800px;
       margin: auto;
       margin-top: 15vh;
+      color: $textColor1;
     }
 
     p {
@@ -24,12 +26,120 @@
     .btn-search-now {
       background-color: $primary3;
       color: #fff;
-      font-weight: 500;
-      font-size: 1.4rem;
-      padding: 0.2em 0.8em 0.4em 0.8em;
+      font-weight: 400;
+      font-size: 1rem;
+      padding: 0.4em 1.2em 0.6em 2.4em;
+      position: relative;
+      text-transform: uppercase;
+      border-radius: 1.6em;
       &:hover {
         background-color: #090b1b;
       }
+
+      .fa-search {
+        position: absolute;
+        font-size: 0.9em;
+        left: 1.3em;
+        top: 0.78em;
+      }
     }
   }
+
+  .section {
+    .section-title {
+      text-align: center;
+      color: $textColor1;
+      margin-top: 100px;
+      margin-bottom: 100px;
+    }
+  }
+
+  .section-feature {
+
+    .feature-item {
+      margin-bottom: 50px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .feature-item-logo {
+        margin-bottom: 20px;
+        color: $primary1;
+      }
+      .feature-item-content {
+        
+      }
+    }
+  }
+
+  .section-testimonial {
+    .testimonial-item {
+      text-align: center;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .testimonial-item-image {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        border-radius: 100%;
+        margin: auto;
+        margin-bottom: 20px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .testimonial-item-content {
+        margin-bottom: 15px;
+        color: #666;
+        font-style: italic;
+      }
+      .testimonial-item-name {
+        font-weight: 500;
+        font-size: 1.1em;
+      }
+    }
+  }
+
+  .section-pricing {
+
+    .card-wrapper {
+      padding-left: 20px;
+      padding-right: 20px;
+
+      .card-body {
+
+        .pricing-card-title {
+          color: $primary1;
+        }
+
+        li {
+          .fa {
+            color: $primary1;
+            margin-right: 0.5em;
+          }
+
+          &.g-text-blur .fa {
+            color: inherit;
+          }
+        }
+
+        .btn-outline-primary {
+          color: $primary1;
+          outline-color: $primary1;
+
+          &:hover {
+            color: #fff;
+            background-color: $primary1;
+          }
+        }
+      }
+
+      .btn-primary {
+        background-color: $primary1;
+      }
+    }
+
+  }
+
 }

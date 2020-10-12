@@ -44,8 +44,10 @@ public class FacebookPostGetController {
         String language = params.containsKey(Constants.LANGUAGE) ? params.get(Constants.LANGUAGE).trim() : Constants.BLANK;
         String website = params.containsKey(Constants.WEBSITE) ? params.get(Constants.WEBSITE).trim() : Constants.BLANK;
         String platform = params.containsKey(Constants.PLATFORM) ? params.get(Constants.PLATFORM).trim() : Constants.BLANK;
-        long minLikes = params.containsKey(Constants.MIN_LIKES) && !params.get(Constants.MIN_LIKES).trim().isEmpty() ? Long.parseLong(params.get(Constants.MIN_LIKES)) : 0;
-        long maxLikes = params.containsKey(Constants.MAX_LIKES) && !params.get(Constants.MAX_LIKES).trim().isEmpty() ? Long.parseLong(params.get(Constants.MAX_LIKES)) : 999999999999L;
+        int minLikes = params.containsKey(Constants.MIN_LIKES) && !params.get(Constants.MIN_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MIN_LIKES)) : 0;
+        int maxLikes = params.containsKey(Constants.MAX_LIKES) && !params.get(Constants.MAX_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MAX_LIKES)) : Integer.MAX_VALUE;
+        int minComments = params.containsKey(Constants.MIN_LIKES) && !params.get(Constants.MIN_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MIN_COMMENTS)) : 0;
+        int maxComments = params.containsKey(Constants.MAX_LIKES) && !params.get(Constants.MAX_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MAX_COMMENTS)) : Integer.MAX_VALUE;
 
         // Add '+' before every word in keyword
         keyword = keyword.replaceAll(" +", " +");
@@ -74,7 +76,9 @@ public class FacebookPostGetController {
                 "website=" + website + ", " +
                 "platform=" + platform + ", " +
                 "minLikes=" + minLikes + ", " +
-                "maxLikes=" + maxLikes
+                "maxLikes=" + maxLikes + ", " +
+                "minComments=" + minComments + ", " +
+                "maxComments=" + maxComments
         );
 
         FacebookPostQuery facebookPostQuery = new FacebookPostQuery(
@@ -92,7 +96,9 @@ public class FacebookPostGetController {
                 website,
                 platform,
                 minLikes,
-                maxLikes);
+                maxLikes,
+                minComments,
+                maxComments);
         BaseList<FacebookPost> baseList = new BaseList<>();
         try {
             baseList = facebookPostService.list(facebookPostQuery).get();

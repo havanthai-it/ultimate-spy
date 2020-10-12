@@ -26,7 +26,11 @@ public class UserSubscriptionService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "";
+            String sql = "SELECT * " +
+                    " FROM tb_user_subscription " +
+                    " WHERE s_user_id = ? " +
+                    "       AND d_to >= CURRENT_TIMESTAMP() " +
+                    "       AND s_status = 'APPROVED' ";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);

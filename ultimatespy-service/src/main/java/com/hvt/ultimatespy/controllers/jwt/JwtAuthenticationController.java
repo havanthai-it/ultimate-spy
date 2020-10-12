@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/authenticate")
@@ -66,7 +68,10 @@ public class JwtAuthenticationController {
 
         final String token = jwtTokenUtils.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("user", user);
+        responseMap.put("token", token);
+        return ResponseEntity.ok(responseMap);
     }
 
 }

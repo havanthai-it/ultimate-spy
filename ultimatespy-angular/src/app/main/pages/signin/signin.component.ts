@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
 
@@ -21,34 +21,45 @@ export class SigninComponent implements OnInit {
 
   username: string;
   password: string;
-  returnUrl: string;
+  redirect: string;
   errorMessage: string;
   loading: boolean = false;
 
   signinForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
   });
+
+  get f() {
+    return this.signinForm.controls;
+  }
 
   ngOnInit(): void {
     // reset login status
     // this.jwtService.signout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.redirect = this.route.snapshot.queryParams['redirect'] || '/';
   }
 
   signin(): void {
     if (!this.username || !this.password) {
+      this.errorMessage = "Please fill in all the information";
       return;
     }
     this.loading = true;
     this.userService.authenticate(this.username, btoa(this.password)).subscribe(
       data => {
-        console.log(data);
-        localStorage.setItem('jwtToken', data.jwtToken);
+        const userInfo = {
+          id: data.user.id,
+          email: data.user.email,
+          fullName: data.user.fullName,
+          status: data.user.status
+        };
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(userInfo));
         this.loading = false;
-        this.router.navigateByUrl(this.returnUrl);
+        this.router.navigateByUrl(this.redirect);
       },
       error => {
         console.log(error);

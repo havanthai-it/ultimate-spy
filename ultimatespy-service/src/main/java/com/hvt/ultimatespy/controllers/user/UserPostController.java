@@ -27,6 +27,11 @@ public class UserPostController {
             || user.getPassword() == null || user.getPassword().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
+
+        if (userService.getByEmail(user.getEmail()).get() != null) {
+            throw Errors.EMAIL_EXIST_EXCEPTION;
+        }
+
         user.setId(Constants.USER_ID_PREFIX + UUID.randomUUID().toString().replaceAll("-", ""));
         user.setRole(RoleEnum.NORMAL.value());
 

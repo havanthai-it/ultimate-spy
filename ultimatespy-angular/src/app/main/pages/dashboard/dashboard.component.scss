@@ -1,0 +1,38 @@
+@import '../../../../assets/scss/global.scss';
+
+.dashboard-page {
+
+  .t-sidebar {
+    background-color: #fff;
+    padding: 0;
+    border-right: solid 1px $borderColor;
+    min-height: calc(100vh - 75px);
+
+    .nav {
+      .nav-item {
+        .nav-link {
+          color: #333;
+
+          &.active {
+            // background-color: $primary1;
+            font-weight: 500;
+            color: $primary1;
+          }
+
+          &:hover {
+          }
+        }
+        &:last-child {
+          .nav-link {
+          }
+        }
+      }
+    }
+  }
+
+  .t-content {
+    background-color: #fff;
+    padding: 0;
+    min-height: calc(100vh - 75px);
+  }
+}

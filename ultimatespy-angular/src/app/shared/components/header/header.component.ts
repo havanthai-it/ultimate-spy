@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../../../core/models/User';
 
 @Component({
   selector: 'app-header',
@@ -7,25 +9,20 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  lstLanguages: any[] = [
-    {
-      label: 'English',
-      value: 'EN'
-    },
-    {
-      label: 'France',
-      value: 'FR'
-    },
-    {
-      label: 'Vietnamese',
-      value: 'VI'
-    }
-  ];
-  selectedLang: string = this.lstLanguages[0].value;
-
+  user: User = null;
   ngOnInit(): void {
+    if (localStorage.getItem('token') && localStorage.getItem('user')) {
+      // logged in so return true
+      this.user = JSON.parse(localStorage.getItem('user'));
+    }
+  }
+
+  signout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = '/';
   }
 
 }

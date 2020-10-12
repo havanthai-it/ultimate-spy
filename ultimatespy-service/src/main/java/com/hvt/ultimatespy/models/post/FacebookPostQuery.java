@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 public class FacebookPostQuery {
     private Timestamp fromDate;
     private Timestamp toDate;
-    private int page;
-    private int pageSize;
+    private Integer page;
+    private Integer pageSize;
     private String keyword;
     private String pixelId;
     private String facebookPageId;
@@ -16,13 +16,15 @@ public class FacebookPostQuery {
     private String language;
     private String website;
     private String platform;
-    private long minLikes;
-    private long maxLikes;
+    private Integer minLikes;
+    private Integer maxLikes;
+    private Integer minComments;
+    private Integer maxComments;
 
     public FacebookPostQuery() {
     }
 
-    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, int page, int pageSize, String keyword, String pixelId, String facebookPageId, String category, String type, String country, String language, String website, String platform, long minLikes, long maxLikes) {
+    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, Integer page, Integer pageSize, String keyword, String pixelId, String facebookPageId, String category, String type, String country, String language, String website, String platform, Integer minLikes, Integer maxLikes, Integer minComments, Integer maxComments) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.page = page;
@@ -38,6 +40,8 @@ public class FacebookPostQuery {
         this.platform = platform;
         this.minLikes = minLikes;
         this.maxLikes = maxLikes;
+        this.minComments = minComments;
+        this.maxComments = maxComments;
     }
 
     public Timestamp getFromDate() {
@@ -56,20 +60,28 @@ public class FacebookPostQuery {
         this.toDate = toDate;
     }
 
-    public int getPage() {
+    public Integer getPage() {
         return page;
     }
 
-    public void setPage(int page) {
+    public void setPage(Integer page) {
         this.page = page;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public String getPixelId() {
@@ -80,12 +92,12 @@ public class FacebookPostQuery {
         this.pixelId = pixelId;
     }
 
-    public String getKeyword() {
-        return keyword;
+    public String getFacebookPageId() {
+        return facebookPageId;
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setFacebookPageId(String facebookPageId) {
+        this.facebookPageId = facebookPageId;
     }
 
     public String getCategory() {
@@ -136,27 +148,35 @@ public class FacebookPostQuery {
         this.platform = platform;
     }
 
-    public String getFacebookPageId() {
-        return facebookPageId;
-    }
-
-    public void setFacebookPageId(String facebookPageId) {
-        this.facebookPageId = facebookPageId;
-    }
-
-    public long getMinLikes() {
+    public Integer getMinLikes() {
         return minLikes;
     }
 
-    public void setMinLikes(long minLikes) {
+    public void setMinLikes(Integer minLikes) {
         this.minLikes = minLikes;
     }
 
-    public long getMaxLikes() {
+    public Integer getMaxLikes() {
         return maxLikes;
     }
 
-    public void setMaxLikes(long maxLikes) {
+    public void setMaxLikes(Integer maxLikes) {
         this.maxLikes = maxLikes;
+    }
+
+    public Integer getMinComments() {
+        return minComments;
+    }
+
+    public void setMinComments(Integer minComments) {
+        this.minComments = minComments;
+    }
+
+    public Integer getMaxComments() {
+        return maxComments;
+    }
+
+    public void setMaxComments(Integer maxComments) {
+        this.maxComments = maxComments;
     }
 }

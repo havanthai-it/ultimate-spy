@@ -18,6 +18,15 @@ header {
       }
     }
 
+    .link-signin {
+      margin-right: 1rem;
+      color: $primary2;
+
+      &:hover {
+        color: $primary2;
+      }
+    }
+
     .btn-signup {
       background-color: $primary3;
       color: $primary2;
@@ -35,5 +44,46 @@ header {
       background-color: #1b1f3b;
       // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
     }
+
+    .profile-dropdown {
+
+      .btn-profile {
+        color: rgba(255,255,255,.5);
+        
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+
+      .dropdown-menu {
+        padding: 0;
+
+        .dropdown-item {
+          color: #333;
+          font-weight: 400;
+          padding: 0.5rem 1.5rem;
+          cursor: pointer;
+        }
+
+        .dropdown-item-top {
+          border-bottom: solid 1px $borderColor;
+          font-weight: 500;
+
+          .current-plan {
+            border: solid 1px $primary2;
+            color: $primary2;
+            font-weight: 400;
+            padding: 0.1rem 0.2rem;
+            font-size: 0.8em;
+          }
+        }
+
+        .dropdown-item-signout {
+          border-top: solid 1px $borderColor;
+        }
+      }
+    }
+    
   }
 }

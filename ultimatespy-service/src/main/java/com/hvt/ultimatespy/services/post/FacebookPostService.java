@@ -22,7 +22,7 @@ public class FacebookPostService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "CALL search_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "{ CALL search_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -39,8 +39,11 @@ public class FacebookPostService {
                 cs.setString(11, facebookPostQuery.getLanguage());
                 cs.setString(12, facebookPostQuery.getWebsite());
                 cs.setString(13, facebookPostQuery.getPlatform());
-                cs.setLong(14, facebookPostQuery.getMinLikes());
-                cs.setLong(15, facebookPostQuery.getMaxLikes());
+                cs.setInt(14, facebookPostQuery.getMinLikes());
+                cs.setInt(15, facebookPostQuery.getMaxLikes());
+                cs.setInt(16, facebookPostQuery.getMinComments());
+                cs.setInt(17, facebookPostQuery.getMaxComments());
+
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
                     FacebookPost facebookPost = new FacebookPost();
@@ -100,7 +103,7 @@ public class FacebookPostService {
             long total = 0L;
             Connection conn = null;
             CallableStatement cs = null;
-            String sql = "CALL total_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "{ CALL total_facebook_post2(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -116,8 +119,10 @@ public class FacebookPostService {
                 cs.setString(10, facebookPostQuery.getLanguage());
                 cs.setString(11, facebookPostQuery.getWebsite());
                 cs.setString(12, facebookPostQuery.getPlatform());
-                cs.setLong(13, facebookPostQuery.getMinLikes());
-                cs.setLong(14, facebookPostQuery.getMaxLikes());
+                cs.setInt(13, facebookPostQuery.getMinLikes());
+                cs.setInt(14, facebookPostQuery.getMaxLikes());
+                cs.setInt(15, facebookPostQuery.getMinComments());
+                cs.setInt(16, facebookPostQuery.getMaxComments());
                 cs.execute();
 
                 total = cs.getLong(1);

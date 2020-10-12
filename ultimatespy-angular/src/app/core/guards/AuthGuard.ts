@@ -9,13 +9,13 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('jwtToken')) {
+        if (localStorage.getItem('token') && localStorage.getItem('user')) {
             // logged in so return true
             return true;
         }
 
         // not logged in so redirect to login page with the return url and return false
-        this.router.navigate(['signin'], { queryParams: { returnUrl: state.url }});
+        this.router.navigate(['signin'], { queryParams: { redirect: state.url }});
         return false;
     }
 }

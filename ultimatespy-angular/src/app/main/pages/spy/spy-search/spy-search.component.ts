@@ -18,6 +18,8 @@ export class SpySearchComponent implements OnInit {
   searchQuery: string;
   dateGroup: string;
   submited: boolean = false;
+  minMaxLikes: string;
+  minMaxComments: string;
 
   query: FacebookPostQuery = {
     fromDate: '',
@@ -33,8 +35,10 @@ export class SpySearchComponent implements OnInit {
     language: '',
     website: '',
     platform: '',
-    minLikes: 0,
-    maxLikes: 100000,
+    minLikes: '',
+    maxLikes: '',
+    minComments: '',
+    maxComments: '',
     sort: ''
   }
 

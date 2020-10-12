@@ -12,7 +12,9 @@ export class FacebookPostQuery {
   language: string;
   website: string;
   platform: string;
-  minLikes: number;
-  maxLikes: number;
+  minLikes: string;
+  maxLikes: string;
+  minComments: string;
+  maxComments: string;
   sort: string;
 }

@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
@@ -13,10 +11,7 @@ import { UserService } from '../../../core/services/user.service';
 export class ForgotPasswordComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private userService: UserService,
-    private authService: SocialAuthService
+    private userService: UserService
     ) { }
 
   email: string;
@@ -24,15 +19,19 @@ export class ForgotPasswordComponent implements OnInit {
   loading: boolean = false;
 
   forgotPasswordForm = new FormGroup({
-    email: new FormControl('')
+    email: new FormControl('', [Validators.required])
   });
 
+  get f() {
+    return this.forgotPasswordForm.controls;
+  }
 
   ngOnInit(): void {
   }
 
   forgotPassword(): void {
     if (!this.email) {
+      this.errorMessage = 'Please fill in all the information';
       return;
     }
     this.loading = true;
