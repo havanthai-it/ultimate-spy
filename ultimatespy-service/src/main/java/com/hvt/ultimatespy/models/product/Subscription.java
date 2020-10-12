@@ -8,6 +8,7 @@ public class Subscription {
     private String days;
     private String months;
     private String price;
+    private String currency;
     private String percentDiscount;
     private String amountDiscount;
     private String timeUnit;
@@ -54,6 +55,14 @@ public class Subscription {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getPercentDiscount() {

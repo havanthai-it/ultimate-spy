@@ -14,6 +14,7 @@ public class Invoice {
     private Timestamp updateDate;
     private String desc;
     private String status;
+    private String currency;
 
     public String getId() {
         return id;
@@ -79,12 +80,12 @@ public class Invoice {
         this.originAmount = originAmount;
     }
 
-    public Timestamp getUpdateDate() {
-        return updateDate;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getStatus() {

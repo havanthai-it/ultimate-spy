@@ -3,7 +3,10 @@ package com.hvt.ultimatespy.utils.enums;
 public enum StatusEnum {
     CREATED("CREATED"),
     ACTIVE("ACTIVE"),
-    INACTIVE("INACTIVE");
+    INACTIVE("INACTIVE"),
+    SETTLED("SETTLED"),
+    UNSETTLED("UNSETTLED");
+
 
     private String value;
 

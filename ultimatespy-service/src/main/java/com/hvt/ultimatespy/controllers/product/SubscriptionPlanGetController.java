@@ -2,7 +2,7 @@ package com.hvt.ultimatespy.controllers.product;
 
 import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.product.Subscription;
-import com.hvt.ultimatespy.services.product.SubscriptionPlanService;
+import com.hvt.ultimatespy.services.product.SubscriptionService;
 import com.hvt.ultimatespy.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class SubscriptionPlanGetController {
 
     @Autowired
-    private SubscriptionPlanService subscriptionPlanService;
+    private SubscriptionService subscriptionService;
 
     @RequestMapping(method = RequestMethod.GET)
+
     public ResponseEntity<BaseList<Subscription>> get() throws Exception {
         BaseList<Subscription> baseList = subscriptionPlanService.list().get();
         return ResponseEntity.ok(baseList);

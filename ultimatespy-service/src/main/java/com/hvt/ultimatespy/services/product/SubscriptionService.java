@@ -16,9 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class SubscriptionPlanService {
+public class SubscriptionService {
 
-    private static final Logger logger = Logger.getLogger(SubscriptionPlanService.class.getName());
+    private static final Logger logger = Logger.getLogger(SubscriptionService.class.getName());
 
     public CompletableFuture<BaseList<Subscription>> list() {
         return CompletableFuture.supplyAsync(() -> {
@@ -27,13 +27,13 @@ public class SubscriptionPlanService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM tb_subscription_plan";
+            String sql = "SELECT * FROM tb_subscription";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
-                    list.add(bindSubscriptionPlan(rs));
+                    list.add(bindSubscription(rs));
                 }
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "", e);
@@ -46,7 +46,7 @@ public class SubscriptionPlanService {
         });
     }
 
-    private static Subscription bindSubscriptionPlan(ResultSet rs) {
+    private static Subscription bindSubscription(ResultSet rs) {
         Subscription sp = new Subscription();
 
         return sp;
