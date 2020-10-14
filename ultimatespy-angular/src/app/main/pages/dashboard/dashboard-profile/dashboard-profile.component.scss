@@ -1,0 +1,11 @@
+@import '../../../../../assets/scss/global.scss';
+
+.field-block {
+  position: relative;
+  .icon-edit-profile {
+    position: absolute;
+    right: 15px;
+    color: $primary1;
+    cursor: pointer;
+  }
+}

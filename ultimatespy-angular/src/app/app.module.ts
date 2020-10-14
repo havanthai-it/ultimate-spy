@@ -29,6 +29,8 @@ import { SpySearchResultItemComponent } from './main/pages/spy/spy-search-result
 import { SpySearchResultItemDialogComponent } from './main/pages/spy/spy-search-result/spy-search-result-item/spy-search-result-item-dialog/spy-search-result-item-dialog.component';
 import { CheckoutComponent } from './main/pages/checkout/checkout.component';
 import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
+import { DashboardProfileComponent } from './main/pages/dashboard/dashboard-profile/dashboard-profile.component';
+import { DashboardPlanComponent } from './main/pages/dashboard/dashboard-plan/dashboard-plan.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
     SpySearchResultItemComponent,
     SpySearchResultItemDialogComponent,
     CheckoutComponent,
-    DashboardComponent
+    DashboardComponent,
+    DashboardProfileComponent,
+    DashboardPlanComponent
   ],
   imports: [
     BrowserModule,

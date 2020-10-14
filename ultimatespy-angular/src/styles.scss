@@ -99,6 +99,9 @@ img {
 /* END OTHERS */
 
 /* START BOOTSTRAP */
+.btn-primary, .btn-primary:hover, .btn-primary:focus {
+  background-color: $primary1;
+}
 button:focus, .btn:focus {
   outline: none;
 }
@@ -151,3 +154,8 @@ button:focus, .btn:focus {
 
 
 /* END ANGULAR MATERIAL */
+
+app-dashboard-profile,
+app-dashboard-plan {
+  width: 100%;
+}

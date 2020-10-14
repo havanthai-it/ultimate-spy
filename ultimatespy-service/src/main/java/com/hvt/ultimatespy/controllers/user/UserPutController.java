@@ -19,10 +19,9 @@ public class UserPutController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<User> post(@RequestBody User user) throws Exception {
+    public ResponseEntity<User> put(@RequestBody User user) throws Exception {
         if (user.getFullName() == null || user.getFullName().isEmpty()
-                || user.getEmail() == null || user.getEmail().isEmpty()
-                || user.getPassword() == null || user.getPassword().isEmpty()) {
+                || user.getEmail() == null || user.getEmail().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
 

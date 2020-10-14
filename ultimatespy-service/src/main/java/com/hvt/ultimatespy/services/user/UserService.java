@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
@@ -104,14 +105,10 @@ public class UserService {
         try {
             conn = Datasource.getConnection();
             cs = conn.prepareCall("UPDATE tb_user SET " +
-                    " S_FULL_NAME = ?, " +
-                    " S_PASSWORD = ?, " +
-                    " S_ROLE = ? " +
+                    " S_FULL_NAME = ? " +
                     " WHERE S_ID = ?");
             cs.setString(1, user.getFullName());
-            cs.setString(2, user.getPassword());
-            cs.setString(3, user.getRole());
-            cs.setString(4, user.getId());
+            cs.setString(2, user.getId());
             cs.execute();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "", e);
@@ -151,8 +148,10 @@ public class UserService {
         user.setPassword(rs.getString("S_PASSWORD"));
         user.setRole(rs.getString("S_ROLE"));
         user.setStatus(rs.getString("S_STATUS"));
-        user.setCreateDate(rs.getTimestamp("D_CREATE"));
-        user.setUpdateDate(rs.getTimestamp("D_UPDATE"));
+        user.setCreateDate(rs.getTimestamp("D_CREATE") != null ? sdf.format(rs.getTimestamp("D_CREATE")) : "");
+        user.setUpdateDate(rs.getTimestamp("D_UPDATE") != null ? sdf.format(rs.getTimestamp("D_UPDATE")) : "");
         return user;
     }
+
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
 }

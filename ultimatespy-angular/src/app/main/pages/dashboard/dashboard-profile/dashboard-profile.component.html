@@ -1,0 +1,37 @@
+<div class="container">
+
+  <form>
+    <div class="row">
+      <div class="col-md-6 mb-3 field-block">
+        <label for="fullName">Name</label>
+        <i class="fa fa-pencil icon-edit-profile" title="Edit profile" *ngIf="!isEditting" (click)="isEditting = true"></i>
+        <input type="text" class="form-control" id="fullName" [(ngModel)]="user.fullName" [readonly]="!isEditting" [ngModelOptions]="{standalone: true}" required="">
+        <div class="invalid-feedback">
+          Valid name is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" [(ngModel)]="user.email" [readonly]="true" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="createDate">Joined Date</label>
+        <input type="text" class="form-control" id="createDate" [(ngModel)]="user.createDate" [readonly]="true" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3 mt-4">
+        <button class="btn btn-block btn-primary" type="submit" *ngIf="isEditting" (click)="save()">Save</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>

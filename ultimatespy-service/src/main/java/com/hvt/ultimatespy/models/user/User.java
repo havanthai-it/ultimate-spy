@@ -1,6 +1,5 @@
 package com.hvt.ultimatespy.models.user;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public class User {
@@ -18,8 +17,8 @@ public class User {
     private String role;
     private String status;
     private String referrerId;
-    private Timestamp createDate;
-    private Timestamp updateDate;
+    private String createDate;
+    private String updateDate;
 
     private List<UserSubscription> lstSubscriptions;
 
@@ -135,19 +134,19 @@ public class User {
         this.status = status;
     }
 
-    public Timestamp getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Timestamp getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Timestamp updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

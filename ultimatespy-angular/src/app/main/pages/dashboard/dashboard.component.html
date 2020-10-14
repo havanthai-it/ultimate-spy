@@ -1,26 +1,26 @@
-<div class="dashboard-page container">
+<div class="dashboard-page">
 
-  <div class="row">
+  <div class="container">
+    <div class="row dashboard-title">
+      <h2>Ha Van Thai</h2>
+    </div>
+  </div>
 
-    <div class="col-md-3 t-sidebar">
-      <ul class="nav flex-column">
+  <div class="container dashboard-content">
+
+    <div class="row">
+      <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Ha Van Thai</a>
+          <a class="nav-link active" href="/dashboard/profile">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">My plan</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">My saved</a>
+          <a class="nav-link" href="/dashboard/plan">My plan</a>
         </li>
       </ul>
     </div>
 
-    <div class="col-md-9 t-content">
-bv
+    <div class="row tab-content">
+      <router-outlet></router-outlet>
     </div>
 
   </div>

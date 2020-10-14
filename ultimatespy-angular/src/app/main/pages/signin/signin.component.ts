@@ -54,7 +54,8 @@ export class SigninComponent implements OnInit {
           id: data.user.id,
           email: data.user.email,
           fullName: data.user.fullName,
-          status: data.user.status
+          status: data.user.status,
+          createDate: data.user.createDate
         };
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(userInfo));

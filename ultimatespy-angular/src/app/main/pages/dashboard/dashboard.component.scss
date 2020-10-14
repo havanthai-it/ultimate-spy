@@ -1,38 +1,32 @@
 @import '../../../../assets/scss/global.scss';
 
 .dashboard-page {
+  padding-top: 80px;
 
-  .t-sidebar {
+  .dashboard-title {
+    padding: 15px 15px;
+  }
+
+  .dashboard-content {
+    padding: 0 15px;
     background-color: #fff;
-    padding: 0;
-    border-right: solid 1px $borderColor;
-    min-height: calc(100vh - 75px);
 
-    .nav {
+    .nav-tabs {
+      width: 100%;
+
       .nav-item {
-        .nav-link {
+        a {
           color: #333;
-
           &.active {
-            // background-color: $primary1;
             font-weight: 500;
-            color: $primary1;
-          }
-
-          &:hover {
-          }
-        }
-        &:last-child {
-          .nav-link {
           }
         }
       }
     }
+
+    .tab-content {
+      padding: 30px;
+    }
   }
 
-  .t-content {
-    background-color: #fff;
-    padding: 0;
-    min-height: calc(100vh - 75px);
-  }
 }

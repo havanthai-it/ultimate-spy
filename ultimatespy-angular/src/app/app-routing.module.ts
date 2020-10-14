@@ -9,6 +9,8 @@ import { ForgotPasswordComponent } from './main/pages/forgot-password/forgot-pas
 import { SpyComponent } from './main/pages/spy/spy.component';
 import { CheckoutComponent } from './main/pages/checkout/checkout.component';
 import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
+import { DashboardProfileComponent } from './main/pages/dashboard/dashboard-profile/dashboard-profile.component';
+import { DashboardPlanComponent } from './main/pages/dashboard/dashboard-plan/dashboard-plan.component';
 
 const routes: Routes = [
   {
@@ -35,6 +37,8 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         children: [
+          { path: 'profile', component: DashboardProfileComponent, pathMatch: 'full' },
+          { path: 'plan', component: DashboardPlanComponent, pathMatch: 'full' }
         ]
       }
     ]

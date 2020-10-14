@@ -16,12 +16,17 @@ public class UserGetController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<User> get(@RequestParam String id) throws Exception {
-        if (id == null || id.trim().isEmpty()) {
+    public ResponseEntity<User> get(@RequestParam String id, @RequestParam String email) throws Exception {
+        User user = null;
+
+        if (id != null && !id.trim().isEmpty()) {
+            user = userService.get(id).get();
+        } else if (email != null & !email.trim().isEmpty()) {
+            user = userService.getByEmail(email).get();
+        } else {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
 
-        User user = userService.get(id).get();
         user.setPassword(null);
         return ResponseEntity.ok(user);
     }
