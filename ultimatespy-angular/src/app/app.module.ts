@@ -31,6 +31,7 @@ import { CheckoutComponent } from './main/pages/checkout/checkout.component';
 import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
 import { DashboardProfileComponent } from './main/pages/dashboard/dashboard-profile/dashboard-profile.component';
 import { DashboardPlanComponent } from './main/pages/dashboard/dashboard-plan/dashboard-plan.component';
+import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { DashboardPlanComponent } from './main/pages/dashboard/dashboard-plan/da
     SocialLoginModule,
     FormsModule,
     ReactiveFormsModule,
+    Ng5SliderModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

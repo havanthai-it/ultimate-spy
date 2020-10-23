@@ -16,10 +16,35 @@ export class SpySearchComponent implements OnInit {
   }
 
   searchQuery: string;
-  dateGroup: string;
   submited: boolean = false;
   minMaxLikes: string;
   minMaxComments: string;
+
+  likeRange: any = {
+    from: 100,
+    to: 10000,
+    options: {
+      floor: 0,
+      ceil: 100000,
+      // step: 100,
+      disabled: false,
+      hideLimitLabels: true,
+      hidePointerLabels: true
+    }
+  };
+
+  commentRange: any = {
+    from: 100,
+    to: 10000,
+    options: {
+      floor: 0,
+      ceil: 10000,
+      // step: 100,
+      disabled: false,
+      hideLimitLabels: true,
+      hidePointerLabels: true
+    }
+  }
 
   query: FacebookPostQuery = {
     fromDate: '',
@@ -43,26 +68,32 @@ export class SpySearchComponent implements OnInit {
   }
 
   lstCategories: any[] = [
+    { label: 'All', value: '' },
     { label: 'Clothes', value: 'Clothes' },
     { label: 'Technology', value: 'Technology' }
   ];
   lstTypes: any[] = [
+    { label: 'All', value: '' },
     { label: 'Image', value: 'Image' },
     { label: 'Video', value: 'Video' }
   ];
   lstLanguages: any[] = [
+    { label: 'All', value: '' },
     { label: 'English', value: 'EN' },
     { label: 'Vietnamese', value: 'VI' }
   ];
   lstCountries: any[] = [
+    { label: 'All', value: '' },
     { label: 'England', value: 'EN' },
     { label: 'Vietnam', value: 'VN' }
   ];
   lstPlatforms: any[] = [
+    { label: 'All', value: '' },
     { label: 'Anazon', value: 'EN' },
     { label: 'Ebay', value: 'VN' }
   ];
   lstSorts: any[] = [
+    { label: 'All', value: '' },
     { label: 'Date', value: 'EN' },
     { label: 'Performance', value: 'VN' }
   ];

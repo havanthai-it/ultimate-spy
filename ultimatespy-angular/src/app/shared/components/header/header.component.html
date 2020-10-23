@@ -1,12 +1,35 @@
 <header>
-<!--  fixed-top  bg-dark -->
-  <nav class="navbar navbar-expand-md navbar-light fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!--  fixed-top navbar-expand-md bg-dark -->
+  <nav class="navbar navbar-dark fixed-top">
+    <div class="container-fluid">
+      <div>
+        <button class="navbar-toggler order-first" type="button" data-toggle="collapse"
+          data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Navbar</a>
+      </div>
+      <div class="dropdown profile-dropdown" *ngIf="user">
+        <button class="btn btn-profile dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{user.fullName}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="profileDropdown">
+          <a class="dropdown-item dropdown-item-top" href="#">
+            <div>{{user.fullName}}</div>
+            <div><span class="current-plan">FREE</span></div>
+          </a>
+          <a class="dropdown-item" href="/dashboard/profile">Profile</a>
+          <a class="dropdown-item" href="/dashboard/plan">My plan</a>
+          <a class="dropdown-item" href="/dashboard/saved">My saved</a>
+          <a class="dropdown-item dropdown-item-signout" (click)="signout()">Sign out</a>
+        </div>
+      </div>
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#account"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-user"></i>
+      </button> -->
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -31,21 +54,6 @@
           </a>
         </div>
 
-        <div class="dropdown profile-dropdown" *ngIf="user">
-          <button class="btn btn-profile dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Hi, {{user.fullName}}
-          </button>
-          <div class="dropdown-menu" aria-labelledby="profileDropdown">
-            <a class="dropdown-item dropdown-item-top" href="#">
-              <div>{{user.fullName}}</div>
-              <div><span class="current-plan">FREE</span></div>
-            </a>
-            <a class="dropdown-item" href="/dashboard/profile">Profile</a>
-            <a class="dropdown-item" href="/dashboard/plan">My plan</a>
-            <a class="dropdown-item" href="/dashboard/saved">My saved</a>
-            <a class="dropdown-item dropdown-item-signout" (click)="signout()">Sign out</a>
-          </div>
-        </div>
       </div>
     </div>
   </nav>

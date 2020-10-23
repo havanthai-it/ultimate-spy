@@ -3,103 +3,87 @@
 .search-wrapper {
 
   .section-search {
-    margin-bottom: 20px;
-    padding: 0px 30px 15px 30px;
-    background-color: #fff;
 
-    .filter-block,
-    .mb-3 {
-      margin-bottom: 0 !important;
+    .input-search-wrapper {
+      position: fixed;
+      top: 0;
+      z-index: 99;
+      width: 50%;
+      left: 25%;
+      right: 25%;
+      input {
+        border-radius: 1.2rem;
+        height: 38px;
+      }
     }
-  }
-
-  .section-filter {
-    padding: 0px 30px 0px 30px;
-    background-color: #fff;
-    margin-bottom: 5px;
   }
   
+  .row-one {
+    background-color: #fff;
+    box-shadow: 0px 0px 4px rgba(0,0,0,.2);
+    z-index: 1;
+    position: relative;
+  }
 
-  .container {
-    &>.row {
-      margin-left: -20px;
-      margin-right: -20px;
-    
-      &>div[class^="col"] {
-        padding-left: 5px;
-        padding-right: 5px;
-      }
+  .row-two {
+    background-color: #fbfbfb;
+    box-shadow: 0px 0px 4px rgba(0,0,0,.1);
+    z-index: 0;
+    position: relative;
+  }
+  
+  .filter-block {
+    margin: 15px 15px 15px 15px ;
+    position: relative;
+    display: inline-block;
 
-      .filter-block {
-        margin: 15px 0;
-        position: relative;
+    .btn-save-search {
+      width: 100%;
+      color: $primary1;
+      background-color: #fff;
+      border: solid 1px $primary1;
+    }
 
-        .btn-save-search {
-          width: 100%;
-          color: $primary1;
-          background-color: #fff;
-          border: solid 1px $primary1;
-        }
+    .fa {
+      position: absolute;
+      right: 0.6em;
+      top: 0.4em;
+      font-size: 1.3em;
+      color: #ddd;
+    }
 
-        .fa {
-          position: absolute;
-          right: 0.45em;
-          top: 0.3em;
-          font-size: 1.4em;
-          color: #757575;
-        }
+    input {
+      padding-right: 2.4em;
+      color: $primary1;
+    }
 
-        input {
-          padding-right: 2.4em;
-          color: $primary1;
-        }
-
-        input::placeholder {
-          color: #999;
-        }
-      }
-
-      .input-search-wrapper {
-        .input-search {
-          &::placeholder {
-            color: #999;
-          }
-        }
-        .input-group-append {
-          .input-group-text {
-            cursor: pointer;
-            background-color: $primary1;
-            border-color: $primary1;
-            color: #fff;
-            font-weight: 500;
-            &:hover {
-              background-color: $primary1;
-              border-color: $primary1;
-            }
-          }
-        }
-      }
+    input::placeholder {
+      color: #999;
     }
   }
 
-  .form-label-group, .bootstrap-select {
-    width: 100% !important;
-  }  
+  label {
+    text-align: right;
+    font-weight: 500;
+    margin-right: 10px;
+    width: 90px;
+  } 
 
   .bootstrap-select {
+    width: 150px !important;
+    
     .dropdown-toggle {
       background-color: #fff;
       border-color: $borderColor;
+      // padding: 0.375rem 0.75rem;
+
       &:focus {
         background-color: #fff;
         outline: none !important;
         box-shadow: none !important;
       }
-      &.btn-light {
-        color: $primary1;
-      }
       &.bs-placeholder {
-        color: #999;
+        color: $textColor1;
       }
     }
     .dropdown-menu {
@@ -115,7 +99,7 @@
           }
 
           &.active, &:active {
-            color: $primary1;
+            color: $primary2;
             background-color: #fff;
           }
 
@@ -129,7 +113,7 @@
   }
 
   mat-form-field {
-    width: 100%;
+    width: 150px;
     position: relative;
 
     .mat-form-field-infix {
@@ -137,23 +121,16 @@
       border-top: 0;
       border: solid 1px $borderColor;
       border-radius: .25rem;
-      padding: 0.56em;
-
-      mat-select {
-        .mat-select-value {
-          color: $primary1;
-        }
-      }
-
-      input {
-        color: $primary1;
-        font-size: 1rem;
-      }
+      padding: .55rem .75rem;
     }
 
     .mat-form-field-suffix {
       position: absolute;
       right: 0;
+
+      .mat-datepicker-toggle-active svg path {
+        color: $primary2 !important;
+      }
     }
 
     .mat-form-field-wrapper {
@@ -163,49 +140,80 @@
     
   }
 
-  mat-button-toggle-group {
-    width: 100%;
-    border: solid 1px $borderColor !important;
-    border-left: solid 0 $borderColor !important;
-    margin: 15px 0;
+  .filter-range-block {
+    padding: 15px 15px 15px 15px;
 
-    mat-button-toggle {
-      width: 20%;
-      color: #a9a9a9;
+    .input-fit {
+      display: inline-block;
+      width: 80px;
+      height: auto;
+      // padding: .375rem .75rem;
+      text-align: center;
     }
 
-    .mat-button-toggle {
-      border-left: solid 1px $borderColor !important;
+    .ng5-slider {
+      margin: 0px 10px !important;
+      width: calc(100% - 2*80px - 120px);
     }
-
-    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
-      line-height: 37px;
+    
+    .ng5-slider-pointer {
+      width: 12px !important;
+      height: 12px !important;
+      top: -5px !important;
+      background-color: $primary2 !important;
+      outline: none !important;
+      -webkit-transition: all linear .0s !important;
+      transition: all linear .0s !important;
     }
-
-    .mat-button-toggle-appearance-standard .mat-button-toggle-button {
-      border: solid 1px rgba(0,0,0,0);
+    
+    .ng5-slider-pointer::after {
+      position: absolute !important;
+      top: -9px !important;
+      left: -9px !important;
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 50% !important;
+      transform: scale(0) !important;
+      opacity: 0 !important;
+      transition: transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1) !important;
     }
-
-    .mat-button-toggle-appearance-standard.mat-button-toggle-checked .mat-button-toggle-button {
-      background-color: #fff;
-      color: $primary1;
-      border: solid 1px $primary1
-    } 
-
-    .mat-button-toggle-appearance-standard .mat-button-toggle-focus-overlay,
-    .mat-button-toggle-appearance-standard .mat-ripple.mat-button-toggle-ripple {
-      display: none;
+    
+    .ng5-slider-pointer.ng5-slider-active::after {
+      transform: scale(1) !important;
+      opacity: 1 !important;
+      background-color: rgba(255,64,129,.2) !important;
+    }
+    
+    .ng5-slider-bar-wrapper {
+      height: auto !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      -webkit-transition: all linear .0s !important;
+      transition: all linear .0s !important;
+    }
+    
+    .ng5-slider-selection {
+      background-color: $primary2 !important;
+    }
+    .ng5-slider-bar {
+      height: 2px !important;
+    }
+    .ng5-slider[disabled] .ng5-slider-pointer{
+      background-color: #C4C4C4 !important;
+    }
+    
+    .ng5-slider[disabled] .ng5-slider-selection{
+      background-color: #C4C4C4 !important;
+    }
+    
+    .ng5-slider[disabled] .ng5-slider-bar{
+      background-color: #C4C4C4 !important;
     }
 
   }
 
-  .section-save {
-    .bootstrap-select .dropdown-toggle {
-      background-color: rgba(255,255,255,0) !important;
-    }
-    .btn-save-search {
-      background-color: rgba(255,255,255,0) !important;
-    }
+  .btn-search {
+    padding: .375rem 1rem;
   }
 
 }

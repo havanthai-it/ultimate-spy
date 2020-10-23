@@ -1,21 +1,33 @@
 @import '../../../../assets/scss/global.scss';
 
 .header-placeholder {
-  height: 70px;
+  height: 65px;
 }
 
 header {
   .navbar {
     z-index: 9;
-    padding: 15px 0px;
+    padding: 11px 0px;
 
     a {
       font-weight: 500;
-      color: rgba(255,255,255,.5);
+      color: #fff;
 
       &:hover {
-        color: rgba(255,255,255,.8);
+        color: #fff;
       }
+    }
+
+    .fa {
+      color: #fff;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+
+    .navbar-toggler {
+      border-color: rgba(255,255,255,0);
     }
 
     .link-signin {
@@ -28,27 +40,27 @@ header {
     }
 
     .btn-signup {
-      background-color: $primary3;
+      background-color: $primary1;
       color: $primary2;
       border: solid 1px $primary2;
       font-weight: 500;
 
       &:hover {
         background-color: $primary2;
-        color: rgba(255,255,255,1);
+        color: #fff;
         font-weight: 500;
       }
     }
 
     &.fixed-top {
-      background-color: #1b1f3b;
+      background-color: $primary1;
       // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
     }
 
     .profile-dropdown {
 
       .btn-profile {
-        color: rgba(255,255,255,.5);
+        color: #fff;
         
         &:focus {
           outline: none;

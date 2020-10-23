@@ -1,144 +1,120 @@
 <div class="search-wrapper">
 
   <!-- SEARCH SECTION -->
-  <div class="container section-search g-box-shadow">
-
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-label-group filter-block input-search-wrapper">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control input-search" [(ngModel)]="query.keyword"
-              placeholder="Enter a keyword" aria-describedby="input-search">
-            <div class="input-group-append">
-              <span class="input-group-text" id="input-search" (click)="search()">Search</span>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="section-search">
+    <div class="form-label-group filter-block input-search-wrapper">
+      <input type="text" class="form-control input-search" [(ngModel)]="query.keyword">
+      <i class="fa fa-search"></i>
     </div>
   </div>
 
   <!-- SEARCH FILTER -->
-  <div class="container section-filter g-box-shadow">
+  <div class="section-filter">
 
     <!-- ROW -->
-    <div class="row">
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="filter-block">
-          <select class="selectpicker" [(value)]="query.category" title="Category">
-            <option *ngFor="let item of lstCategories" value="{{item.value}}">{{item.label}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="filter-block">
-          <select class="selectpicker" [(value)]="query.type" title="Creative">
-            <option *ngFor="let item of lstTypes" value="{{item.value}}">{{item.label}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="filter-block">
-          <select class="selectpicker" [(value)]="query.country" title="Country">
-            <option *ngFor="let item of lstCountries" value="{{item.value}}">{{item.label}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="filter-block">
-          <select class="selectpicker" [(value)]="query.platform" title="Platform">
-            <option *ngFor="let item of lstPlatforms" value="{{item.value}}">{{item.label}}</option>
-          </select>
+    <div class="row-one">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-8 col-md-12">
+            <div class="filter-block">
+              <label for="select-category">Category</label>
+              <select class="selectpicker" id="select-category" [(value)]="query.category">
+                <option *ngFor="let item of lstCategories" value="{{item.value}}">{{item.label}}</option>
+              </select>
+            </div>
+            <!-- </div>
+          <div class="col-md-3 col-sm-12"> -->
+            <div class="filter-block">
+              <label for="select-creative">Creative</label>
+              <select class="selectpicker" id="select-creative" [(value)]="query.type">
+                <option *ngFor="let item of lstTypes" value="{{item.value}}">{{item.label}}</option>
+              </select>
+            </div>
+            <!-- </div>
+          <div class="col-md-3 col-sm-12"> -->
+            <div class="filter-block">
+              <label for="select-platform">Platform</label>
+              <select class="selectpicker" id="select-platform" [(value)]="query.platform">
+                <option *ngFor="let item of lstPlatforms" value="{{item.value}}">{{item.label}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-12">
+            <label>Date</label>
+
+            <mat-form-field appearance="none">
+              <input matInput [(ngModel)]="query.fromDate" [matDatepicker]="fromDatePicker" placeholder="From">
+              <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromDatePicker></mat-datepicker>
+            </mat-form-field>
+
+            <!-- <label>To</label> -->
+            <mat-form-field appearance="none" style="margin-left: 10px;">
+              <input matInput [(ngModel)]="query.toDate" [matDatepicker]="toDatePicker" placeholder="To">
+              <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #toDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row-two">
+      <div class="container-fluid">
+        <div class="row">
 
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="filter-block">
-          <input type="text" class="form-control" [(ngModel)]="minMaxLikes" placeholder="Min - Max">
-          <i class="fa fa-thumbs-o-up"></i>
-        </div>
-      </div>
+          <div class="col-lg-5 col-sm-12">
+            <div class="filter-range-block">
+              <label>Like</label>
+              <input type="text" class="form-control input-fit" [(ngModel)]="likeRange.from">
+              <ng5-slider [(value)]="likeRange.from" [(highValue)]="likeRange.to" [options]="likeRange.options"></ng5-slider>
+              <input type="text" class="form-control input-fit" [(ngModel)]="likeRange.to">
+            </div>
+          </div>
 
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="filter-block">
-          <input type="text" class="form-control" [(ngModel)]="minMaxComments" placeholder="Min - Max">
-          <i class="fa fa-commenting-o"></i>
+          <div class="col-lg-5 col-sm-12">
+            <div class="filter-range-block">
+              <label>Comment</label>
+              <input type="text" class="form-control input-fit" [(ngModel)]="commentRange.from">
+              <ng5-slider [(value)]="commentRange.from" [(highValue)]="commentRange.to" [options]="commentRange.options"></ng5-slider>
+              <input type="text" class="form-control input-fit" [(ngModel)]="commentRange.to">
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-sm-12">
+            <div class="filter-block">
+              <button class="btn btn-block btn-primary btn-search">Search</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <!-- ROW -->
-    <div class="row">
-      <!-- FROM DATE -->
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <mat-form-field appearance="none">
-          <input matInput [(ngModel)]="query.fromDate" [matDatepicker]="fromDatePicker" placeholder="From Date">
-          <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #fromDatePicker></mat-datepicker>
-        </mat-form-field>
-      </div>
+    <div class="container section-save">
+      <!-- ROW -->
+      <div class="row">
+        <!-- SORT -->
+        <div class="col-lg-3 col-md-3 col-sm-6">
+          <div class="filter-block">
+            <select class="selectpicker" [(value)]="query.sort" title="Sort">
+              <option *ngFor="let item of lstSorts" value="{{item.value}}">{{item.label}}</option>
+            </select>
+          </div>
+        </div>
 
-      <!-- TO DATE -->
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <mat-form-field appearance="none">
-          <input matInput [(ngModel)]="query.toDate" [matDatepicker]="toDatePicker" placeholder="To Date">
-          <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #toDatePicker></mat-datepicker>
-        </mat-form-field>
-      </div>
+        <div class="col-lg-3 col-md-3 col-sm-6"></div>
 
-      <!-- DATE GROUP -->
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <mat-button-toggle-group [(value)]="dateGroup" name="dateGroup" aria-label="DATE GROUP">
-          <mat-button-toggle value="7">7 Days</mat-button-toggle>
-          <mat-button-toggle value="30">30 Days</mat-button-toggle>
-          <mat-button-toggle value="90">90 Days</mat-button-toggle>
-          <mat-button-toggle value="365">1 Year</mat-button-toggle>
-          <mat-button-toggle value="">All Time</mat-button-toggle>
-        </mat-button-toggle-group>
+        <!-- SAVE QUERY -->
+        <div class="col-lg-6 col-md-6 col-sm-12">
+        </div>
       </div>
     </div>
+
+
+
+
 
   </div>
-
-
-  <div class="container section-save">
-    <!-- ROW -->
-    <div class="row">
-      <!-- SORT -->
-      <div class="col-lg-3 col-md-3 col-sm-6">
-        <div class="filter-block">
-          <select class="selectpicker" [(value)]="query.sort" title="Sort">
-            <option *ngFor="let item of lstSorts" value="{{item.value}}">{{item.label}}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-3 col-sm-6"></div>
-
-      <!-- SAVE QUERY -->
-      <div class="col-lg-6 col-md-6 col-sm-12 g-float-wrapper">
-        <div class="filter-block g-float-left" style="width: 130px; margin-right: 10px;">
-          <button class="btn btn-save-search" (click)="saveSearchQuery()">
-            Save search
-          </button>
-        </div>
-        <div class="filter-block g-float-left" style="width: calc(100% - 140px);">
-          <select class="selectpicker" [(value)]="query.platform" title="Saved search">
-            <optgroup *ngFor="let group of lstSearchQueries" label="{{group.label}}">
-              <option *ngFor="let item of group.value" value="{{item.value}}">{{item.label}}</option>
-            </optgroup>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-</div>

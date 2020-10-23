@@ -3,10 +3,10 @@
 html, body {
   min-height: 100vh;
   height: auto;
-  font-size: 18px;
+  font-size: 16px;
 }
 body {
-  background-color: #f3f1f8;
+  background-color: #f3f3f3;
   color: #333;
   margin: 0;
 }
@@ -99,11 +99,21 @@ img {
 /* END OTHERS */
 
 /* START BOOTSTRAP */
-.btn-primary, .btn-primary:hover, .btn-primary:focus {
-  background-color: $primary1;
+.container-fluid {
+  max-width: 1340px;
 }
-button:focus, .btn:focus {
-  outline: none;
+.btn-primary, .btn-primary:focus {
+  background-color: $primary2 !important;
+  border-color: $primary2 !important;
+}
+.btn-primary:hover {
+  background-color: $primary21 !important;
+  border-color: $primary21 !important;
+}
+.btn:hover, .btn:focus, .btn:active,
+button:hover, button:focus, button:active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 /* END BOOTSTRAP */
 
@@ -150,6 +160,11 @@ button:focus, .btn:focus {
 // mat icon
 .mat-icon { 
   user-select: none;
+}
+
+// calendar
+.mat-calendar-body-selected {
+  background-color: $primary2 !important;
 }
 
 
