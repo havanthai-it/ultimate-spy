@@ -3,37 +3,58 @@
 .search-wrapper {
 
   .section-search {
+    background-color: #fff;
 
     .input-search-wrapper {
-      position: fixed;
-      top: 0;
-      z-index: 99;
-      width: 50%;
-      left: 25%;
-      right: 25%;
+      width: 100%;
+
       input {
-        border-radius: 1.2rem;
-        height: 38px;
+        display: inline-block;
+        width: calc(100% - 100px);
+      }
+
+      @media screen and (min-width: 768px) {
+        position: fixed;
+        top: 0;
+        z-index: 99;
+        width: 50%;
+        left: 25%;
+        right: 25%;
+        input {
+          border-radius: 1.2rem;
+          height: 38px;
+          width: 100%;
+        }
+        label {
+          display: none;
+        }
       }
     }
   }
   
   .row-one {
-    background-color: #fff;
-    box-shadow: 0px 0px 4px rgba(0,0,0,.2);
     z-index: 1;
     position: relative;
+    background-color: #fff;
+
+    @media screen and (min-width: 1200px) {
+      box-shadow: 0px 0px 4px rgba(0,0,0,.2);
+    }
   }
 
   .row-two {
-    background-color: #fbfbfb;
-    box-shadow: 0px 0px 4px rgba(0,0,0,.1);
     z-index: 0;
     position: relative;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px rgba(0,0,0,.1);
+
+    @media screen and (min-width: 1200px) {
+      background-color: #fbfbfb;
+    }
   }
   
   .filter-block {
-    margin: 15px 15px 15px 15px ;
+    margin: 15px 0;
     position: relative;
     display: inline-block;
 
@@ -67,10 +88,19 @@
     font-weight: 500;
     margin-right: 10px;
     width: 90px;
-  } 
+  }
+  
+  .bootstrap-select-wrapper {
+    @media screen and (max-width: 767px) {
+      width: 100% !important;
+    }
+    @media screen and (min-width: 768px) {
+      width: 33.33% !important;
+    }
+  }
 
   .bootstrap-select {
-    width: 150px !important;
+    width: calc(100% - 100px) !important;
     
     .dropdown-toggle {
       background-color: #fff;
@@ -113,7 +143,8 @@
   }
 
   mat-form-field {
-    width: 150px;
+    width: calc((100% - 100px - 42px) / 2);
+    max-width: 296px;
     position: relative;
 
     .mat-form-field-infix {
@@ -141,19 +172,19 @@
   }
 
   .filter-range-block {
-    padding: 15px 15px 15px 15px;
+    padding: 15px 0;
 
     .input-fit {
       display: inline-block;
       width: 80px;
       height: auto;
-      // padding: .375rem .75rem;
+      padding: .375rem .25rem;
       text-align: center;
     }
 
     .ng5-slider {
       margin: 0px 10px !important;
-      width: calc(100% - 2*80px - 120px);
+      width: calc(100% - 2*80px - 90px - 3*10px); // 2 input 80px, 1 label 90px, 3 margin 10px
     }
     
     .ng5-slider-pointer {
@@ -214,6 +245,15 @@
 
   .btn-search {
     padding: .375rem 1rem;
+  }
+
+  .bottom-row {
+    padding: 60px 0px 0px 0px;
+  }
+
+  .total-result {
+    font-weight: 500;
+    padding: .375rem 0;
   }
 
 }

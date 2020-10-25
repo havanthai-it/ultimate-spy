@@ -2,42 +2,32 @@
 
 .spy-search-result {
 
-  .container {
+  .spy-search-result-grid.row {
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    
+    padding: 15px;
 
-    .spy-search-result-total {
-      margin-bottom: 20px;
-    }
-
-    .spy-search-result-grid.row {
-      margin-left: -20px !important;
-      margin-right: -20px !important;
-      
-      padding: 15px;
-      background-color: #fff;
-  
-      &>div[class^="col-"] {
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-      
-      .pagination-wrapper {
-        display: block;
-        margin: auto;
-        margin-top: 30px;
-
-        .page-link {
-          color: $primary1;
-        }
-
-        .page-item.active .page-link {
-          background-color: $primary1;
-          border-color: $primary1;
-          color: #fff;
-        }
-      }
+    &>div[class^="col-"] {
+      padding-left: 5px;
+      padding-right: 5px;
     }
   }
 
-  
+  .pagination-wrapper {
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+
+    .page-link {
+      color: $primary1;
+    }
+
+    .page-item.active .page-link {
+      background-color: $primary1;
+      border-color: $primary1;
+      color: #fff;
+    }
+  }
 
 }

@@ -16,9 +16,8 @@ export class SpySearchComponent implements OnInit {
   }
 
   searchQuery: string;
+  total: number = 0;
   submited: boolean = false;
-  minMaxLikes: string;
-  minMaxComments: string;
 
   likeRange: any = {
     from: 100,
@@ -38,7 +37,7 @@ export class SpySearchComponent implements OnInit {
     to: 10000,
     options: {
       floor: 0,
-      ceil: 10000,
+      ceil: 100000,
       // step: 100,
       disabled: false,
       hideLimitLabels: true,
@@ -64,7 +63,7 @@ export class SpySearchComponent implements OnInit {
     maxLikes: '',
     minComments: '',
     maxComments: '',
-    sort: ''
+    sort: 'date'
   }
 
   lstCategories: any[] = [
@@ -77,11 +76,6 @@ export class SpySearchComponent implements OnInit {
     { label: 'Image', value: 'Image' },
     { label: 'Video', value: 'Video' }
   ];
-  lstLanguages: any[] = [
-    { label: 'All', value: '' },
-    { label: 'English', value: 'EN' },
-    { label: 'Vietnamese', value: 'VI' }
-  ];
   lstCountries: any[] = [
     { label: 'All', value: '' },
     { label: 'England', value: 'EN' },
@@ -93,34 +87,27 @@ export class SpySearchComponent implements OnInit {
     { label: 'Ebay', value: 'VN' }
   ];
   lstSorts: any[] = [
-    { label: 'All', value: '' },
-    { label: 'Date', value: 'EN' },
-    { label: 'Performance', value: 'VN' }
-  ];
-  lstSearchQueries: any[] = [
-    {
-      label: 'Suggest',
-      value: [
-        { label: 'POD', value: 'EN' },
-        { label: 'Dropship', value: 'VN' }
-      ]
-    },
-    {
-      label: 'Your Saved',
-      value: [
-        { label: 'My search', value: 'EN' }
-      ]
-    }
+    { label: 'Date', value: 'date' },
+    { label: 'Like', value: 'like' },
+    { label: 'comment', value: 'comment' }
   ];
 
+  
+  now: Date = new Date();
+  fromDate: Date = new Date();
+  toDate: Date = new Date();
+
   ngOnInit(): void {
+    this.fromDate.setDate(this.now.getDate() - 365);
   }
 
   search(): void {
+    console.log(this.query);
     if (this.submited) return;
     this.submited = true;
     this.spyService.searchFacebookPost(this.query).subscribe(
       data => {
+        this.total = data.total;
         this.searchResult.emit(data);
         this.submited = false;
       },
@@ -133,6 +120,22 @@ export class SpySearchComponent implements OnInit {
 
   saveSearchQuery(): void {
     
+  }
+
+  numericOnly(event): boolean {    
+    let pattern = /^([0-9])$/;
+    let result = pattern.test(event.key);
+    return result;
+  }
+
+  onLikeToChange(event): void {
+    let value = event.target.value ? parseInt(event.target.value.replace(/\D/g,'')) : 0
+    this.likeRange.to = value;
+  }
+
+  onCommentToChange(event): void {
+    let value = event.target.value ? parseInt(event.target.value.replace(/\D/g,'')) : 0
+    this.commentRange.to = value;
   }
 
 }

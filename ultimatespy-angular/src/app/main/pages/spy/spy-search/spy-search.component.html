@@ -2,9 +2,12 @@
 
   <!-- SEARCH SECTION -->
   <div class="section-search">
-    <div class="form-label-group filter-block input-search-wrapper">
-      <input type="text" class="form-control input-search" [(ngModel)]="query.keyword">
-      <i class="fa fa-search"></i>
+    <div class="container-fluid">
+      <div class="form-label-group filter-block input-search-wrapper">
+        <label for="input-keyword">Keyword</label>
+        <input type="text" class="form-control input-search" id="input-keyword" [(ngModel)]="query.keyword">
+        <i class="fa fa-search"></i>
+      </div>
     </div>
   </div>
 
@@ -15,43 +18,43 @@
     <div class="row-one">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-8 col-md-12">
-            <div class="filter-block">
+          <div class="col-xl-8 col-lg-12">
+            <div class="filter-block bootstrap-select-wrapper">
               <label for="select-category">Category</label>
-              <select class="selectpicker" id="select-category" [(value)]="query.category">
+              <select class="selectpicker" id="select-category" [(ngModel)]="query.category">
                 <option *ngFor="let item of lstCategories" value="{{item.value}}">{{item.label}}</option>
               </select>
             </div>
             <!-- </div>
           <div class="col-md-3 col-sm-12"> -->
-            <div class="filter-block">
+            <div class="filter-block bootstrap-select-wrapper">
               <label for="select-creative">Creative</label>
-              <select class="selectpicker" id="select-creative" [(value)]="query.type">
+              <select class="selectpicker" id="select-creative" [(ngModel)]="query.type">
                 <option *ngFor="let item of lstTypes" value="{{item.value}}">{{item.label}}</option>
               </select>
             </div>
             <!-- </div>
           <div class="col-md-3 col-sm-12"> -->
-            <div class="filter-block">
+            <div class="filter-block bootstrap-select-wrapper">
               <label for="select-platform">Platform</label>
-              <select class="selectpicker" id="select-platform" [(value)]="query.platform">
+              <select class="selectpicker" id="select-platform" [(ngModel)]="query.platform">
                 <option *ngFor="let item of lstPlatforms" value="{{item.value}}">{{item.label}}</option>
               </select>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-12">
-            <label>Date</label>
+          <div class="col-xl-4 col-lg-12">
+            <label>From</label>
 
             <mat-form-field appearance="none">
-              <input matInput [(ngModel)]="query.fromDate" [matDatepicker]="fromDatePicker" placeholder="From">
+              <input matInput [(ngModel)]="fromDate" [matDatepicker]="fromDatePicker" placeholder="From">
               <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #fromDatePicker></mat-datepicker>
             </mat-form-field>
 
-            <!-- <label>To</label> -->
+            <span style="margin-left: 10px; font-weight: 500;">To</span>
             <mat-form-field appearance="none" style="margin-left: 10px;">
-              <input matInput [(ngModel)]="query.toDate" [matDatepicker]="toDatePicker" placeholder="To">
+              <input matInput [(ngModel)]="toDate" [matDatepicker]="toDatePicker" placeholder="To">
               <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #toDatePicker></mat-datepicker>
             </mat-form-field>
@@ -68,24 +71,24 @@
           <div class="col-lg-5 col-sm-12">
             <div class="filter-range-block">
               <label>Like</label>
-              <input type="text" class="form-control input-fit" [(ngModel)]="likeRange.from">
+              <input type="text" class="form-control input-fit" [ngModel]="likeRange.from | number" (ngModelChange)="likeRange.from=$event" (keypress)="numericOnly($event)">
               <ng5-slider [(value)]="likeRange.from" [(highValue)]="likeRange.to" [options]="likeRange.options"></ng5-slider>
-              <input type="text" class="form-control input-fit" [(ngModel)]="likeRange.to">
+              <input type="text" class="form-control input-fit" value="{{likeRange.to | number}}{{likeRange.to >= likeRange.options.ceil ? '+' : ''}}" (change)="onLikeToChange($event)" (keypress)="numericOnly($event)">
             </div>
           </div>
 
           <div class="col-lg-5 col-sm-12">
             <div class="filter-range-block">
               <label>Comment</label>
-              <input type="text" class="form-control input-fit" [(ngModel)]="commentRange.from">
+              <input type="text" class="form-control input-fit" [ngModel]="commentRange.from | number" (ngModelChange)="commentRange.from=$event" (keypress)="numericOnly($event)">
               <ng5-slider [(value)]="commentRange.from" [(highValue)]="commentRange.to" [options]="commentRange.options"></ng5-slider>
-              <input type="text" class="form-control input-fit" [(ngModel)]="commentRange.to">
+              <input type="text" class="form-control input-fit" value="{{commentRange.to | number}}{{commentRange.to >= commentRange.options.ceil ? '+' : ''}}" (change)="onCommentToChange($event)" (keypress)="numericOnly($event)">
             </div>
           </div>
 
-          <div class="col-lg-2 col-sm-12">
+          <div class="col-lg-2 col-sm-12 g-text-center">
             <div class="filter-block">
-              <button class="btn btn-block btn-primary btn-search">Search</button>
+              <button class="btn btn-block btn-primary btn-search" (click)="search()">Search</button>
             </div>
           </div>
 
@@ -93,28 +96,21 @@
       </div>
     </div>
 
-    <div class="container section-save">
-      <!-- ROW -->
-      <div class="row">
-        <!-- SORT -->
-        <div class="col-lg-3 col-md-3 col-sm-6">
-          <div class="filter-block">
-            <select class="selectpicker" [(value)]="query.sort" title="Sort">
-              <option *ngFor="let item of lstSorts" value="{{item.value}}">{{item.label}}</option>
-            </select>
-          </div>
+    <div class="container-fluid">
+      <div class="g-float-wrapper bottom-row">
+
+        <div class="total-result g-float-left">
+          <span>{{total | number}} results</span>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-sm-6"></div>
-
-        <!-- SAVE QUERY -->
-        <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="g-float-right">
+          <label for="select-sort">Sort</label>
+          <select class="selectpicker" id="select-sort" [(ngModel)]="query.sort">
+            <option *ngFor="let item of lstSorts" value="{{item.value}}">{{item.label}}</option>
+          </select>
         </div>
+
       </div>
     </div>
-
-
-
-
 
   </div>
