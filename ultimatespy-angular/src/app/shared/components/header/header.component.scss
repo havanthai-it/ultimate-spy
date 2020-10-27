@@ -7,7 +7,15 @@
 header {
   .navbar {
     z-index: 9;
-    padding: 11px 0px;
+    padding: 13px 0px;
+
+    ul li a {
+      padding-left: 16px;
+      
+      &:hover, &:focus {
+        text-decoration: underline;
+      }
+    }
 
     a {
       font-weight: 500;
@@ -32,23 +40,23 @@ header {
 
     .link-signin {
       margin-right: 1rem;
-      color: $primary2;
+      color: #fff;
 
       &:hover {
-        color: $primary2;
+        color: #fff;
       }
     }
 
     .btn-signup {
       background-color: $primary1;
-      color: $primary2;
-      border: solid 1px $primary2;
+      color: $primary21;
+      border: solid 1px $primary21;
       font-weight: 500;
 
       &:hover {
-        background-color: $primary2;
+        background-color: $primary21;
         color: #fff;
-        font-weight: 500;
+        border: solid 1px $primary21;
       }
     }
 

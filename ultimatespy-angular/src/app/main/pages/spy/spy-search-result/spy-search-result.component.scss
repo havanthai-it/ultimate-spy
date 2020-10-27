@@ -1,11 +1,9 @@
 @import '../../../../../assets/scss/global.scss';
 
 .spy-search-result {
+  padding-bottom: 60px;
 
-  .spy-search-result-grid.row {
-    margin-left: -20px !important;
-    margin-right: -20px !important;
-    
+  .spy-search-result-grid.row {    
     padding: 15px;
 
     &>div[class^="col-"] {
@@ -15,19 +13,21 @@
   }
 
   .pagination-wrapper {
-    display: block;
-    margin: auto;
-    margin-top: 30px;
+    margin-top: 20px;
 
-    .page-link {
-      color: $primary1;
-    }
-
-    .page-item.active .page-link {
-      background-color: $primary1;
-      border-color: $primary1;
-      color: #fff;
+    nav {
+      display: table;
+      margin: auto;
+      
+      .page-link {
+        color: $textColor1;
+      }
+  
+      .page-item.active .page-link {
+        background-color: $primary21;
+        border-color: $primary21;
+        color: #fff;
+      }
     }
   }
-
 }

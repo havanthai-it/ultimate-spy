@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="form-label-group filter-block input-search-wrapper">
         <label for="input-keyword">Keyword</label>
-        <input type="text" class="form-control input-search" id="input-keyword" [(ngModel)]="query.keyword">
+        <input type="text" class="form-control input-search" id="input-keyword" [(ngModel)]="query.keyword" (keyup.enter)="search()">
         <i class="fa fa-search"></i>
       </div>
     </div>
@@ -103,7 +103,7 @@
           <span>{{total | number}} results</span>
         </div>
 
-        <div class="g-float-right">
+        <div class="select-sort g-float-right">
           <label for="select-sort">Sort</label>
           <select class="selectpicker" id="select-sort" [(ngModel)]="query.sort">
             <option *ngFor="let item of lstSorts" value="{{item.value}}">{{item.label}}</option>

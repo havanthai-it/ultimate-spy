@@ -1,4 +1,4 @@
-<div class="dialog-wrapper">
+<div #dialogWrapper class="dialog-wrapper" id="dialog-wrapper">
   <div class="dialog-header">
     <div><h3 class="g-text-lg">Ad Details</h3></div>
     <div class="dialog-icon-close g-text-blur"><mat-icon (click)="close()">close</mat-icon></div>
@@ -10,64 +10,61 @@
         
         <div class="post-origin-header g-float-wrapper">
           <div class="post-origin-header-image g-float-left">
-            <img src="../../../../../../../assets/img/ssri-header-image.png">
+            <img src="{{data.pageThumbnail}}">
           </div>
           <div class="post-origin-header-title g-float-left">
-            <h5>Special Creative</h5>
+            <h5>{{data.pageName}}</h5>
             <div class="post-origin-publish-time g-text-sm g-text-blur">
-              <div><mat-icon class="icon-clock">access_time</mat-icon> 3 days ago</div>
+              <div><mat-icon class="icon-clock">access_time</mat-icon> {{Moment(data.publishDate).fromNow()}}</div>
             </div>
           </div>
         </div>
 
         <div class="post-origin-body">
-          <div class="post-origin-content">
-            Best keyboard of 2020. Sale off 50% today! Shop now.
-          </div>
-
+          <div class="post-origin-content" [innerHtml]="data.content"></div>
           <div class="post-origin-thumbnail">
-            <img src="../../../../../../../assets/img/bg-signin.jpg">
+            <img src="{{data.images.split(',')[0]}}">
           </div>
 
           <div class="post-origin-performance g-float-wrapper">
-            <div class="post-origin-performance-icon post-origin-performance-like g-float-left"><i class="fa fa-thumbs-o-up"></i> 100</div>
-            <div class="post-origin-performance-icon post-origin-performance-comment g-float-left"><i class="fa fa-commenting-o"></i> 100</div>
-            <div class="post-origin-performance-icon post-origin-performance-share g-float-left"><i class="fa fa-share-square-o"></i> 100</div>
+            <div class="post-origin-performance-icon post-origin-performance-like g-float-left"><i class="fa fa-thumbs-o-up"></i> {{data.likes | number}}</div>
+            <div class="post-origin-performance-icon post-origin-performance-comment g-float-left"><i class="fa fa-commenting-o"></i> {{data.comments | number}}</div>
+            <div class="post-origin-performance-icon post-origin-performance-share g-float-left"><i class="fa fa-share-square-o"></i> {{data.shares | number}}</div>
           </div>
         </div>
 
       </div>
       <div class="col-post-info g-float-right col-md-6">
-        <div class="post-info-item g-float-wrapper post-info-platform">
+        <div class="post-info-item g-float-wrapper post-info-platform" *ngIf="data.platform">
           <div class="post-info-label g-float-left">Platform:</div>
-          <div class="post-info-value g-float-left"><span>Shopify</span></div>
+          <div class="post-info-value g-float-left"><span>{{data.platform}}</span></div>
         </div>
-        <div class="post-info-item g-float-wrapper">
-          <div class="post-info-label g-float-left">Website:</div>
-          <div class="post-info-value g-float-left"><span><a href="#">https://abcxyz.com/</a></span></div>
-        </div>
-        <div class="post-info-item g-float-wrapper">
-          <div class="post-info-label g-float-left">Link:</div>
-          <div class="post-info-value g-float-left"><span><a href="#">https://bitly.com/abc123/</a></span></div>
-        </div>
-        <div class="post-info-item">
+        <div class="post-info-item g-float-wrapper" *ngIf="data.category">
           <div class="post-info-label g-float-left">Category:</div>
-          <div class="post-info-value g-float-left"><span>Clothing</span></div>
+          <div class="post-info-value g-float-left"><span>{{data.category}}</span></div>
         </div>
-        <div class="post-info-item">
+        <div class="post-info-item g-float-wrapper" *ngIf="data.creative">
           <div class="post-info-label g-float-left">Creative:</div>
-          <div class="post-info-value g-float-left"><span>Image</span></div>
+          <div class="post-info-value g-float-left"><span>{{data.type}}</span></div>
         </div>
-        <div class="post-info-item g-float-wrapper">
+        <div class="post-info-item g-float-wrapper" *ngIf="data.website">
+          <div class="post-info-label g-float-left">Website:</div>
+          <div class="post-info-value g-float-left"><span><a href="#">{{data.website}}</a></span></div>
+        </div>
+        <div class="post-info-item g-float-wrapper" *ngIf="data.link">
+          <div class="post-info-label g-float-left">Link:</div>
+          <div class="post-info-value g-float-left"><span><a href="#">{{data.link}}</a></span></div>
+        </div>
+        <div class="post-info-item g-float-wrapper" *ngIf="data.pixelId">
           <div class="post-info-label g-float-left">Pixel:</div>
-          <div class="post-info-value g-float-left"><span><a href="#">123654879878945</a></span></div>
+          <div class="post-info-value g-float-left"><span><a href="#">{{data.pixelId}}</a></span></div>
         </div>
-        <div class="post-info-item">
+        <div class="post-info-item g-float-wrapper" *ngIf="data.country">
           <div class="post-info-label g-float-left">Country:</div>
-          <div class="post-info-value g-float-left"><span>Vietnam</span></div>
+          <div class="post-info-value g-float-left"><span>{{data.country}}</span></div>
         </div>
         <div>
-          <button class="post-info-btn post-info-btn-detail"><mat-icon>facebook</mat-icon> See on Facebook</button>
+          <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}"><button class="post-info-btn post-info-btn-detail"><mat-icon>facebook</mat-icon> See on Facebook</button></a>
           <button class="post-info-btn post-info-btn-save"><mat-icon>add_to_photos</mat-icon> Save</button>
         </div>
       </div>

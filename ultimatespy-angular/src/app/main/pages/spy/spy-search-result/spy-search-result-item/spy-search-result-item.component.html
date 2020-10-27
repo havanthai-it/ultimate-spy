@@ -2,39 +2,38 @@
 
   <div class="ssri-header g-float-wrapper">
     <div class="ssri-header-image g-float-left">
-      <img src="../../../../../../assets/img/ssri-header-image.png">
+      <img src="{{post.pageThumbnail}}">
     </div>
     <div class="ssri-header-title g-float-left">
-      <h5>Special Creative</h5>
+      <h5>{{post.pageName}}</h5>
       <div class="ssri-publish-time g-text-sm g-text-blur">
-        <div><mat-icon class="icon-clock">access_time</mat-icon> 3 days ago</div>
+        <div><mat-icon class="icon-clock">access_time</mat-icon> {{Moment(post.publishDate).fromNow()}}</div>
       </div>
     </div>
   </div>
 
   <div class="ssri-body">
     <div class="srri-content">
-      <div class="ssri-content-line"><mat-icon>code</mat-icon><a href="#">123456789012345</a></div>
-      <div class="ssri-content-line"><mat-icon>language</mat-icon><a href="#">https://quickreview.vn</a></div>
-      <div class="ssri-content-line"><mat-icon>link</mat-icon><a href="#">https://quickreview.vn</a></div>
-      <div class="ssri-content-line"><mat-icon>notes</mat-icon>Best keyboard of 2020. Sale off 50% today! Shop now.</div>
+      <div class="ssri-content-line"><mat-icon>code</mat-icon><a href="#">{{post.pixelId}}</a></div>
+      <div class="ssri-content-line"><mat-icon>language</mat-icon><a href="#">{{post.website}}</a></div>
+      <div class="ssri-content-line"><mat-icon>link</mat-icon><a href="#">{{post.link}}</a></div>
+      <div class="ssri-content-line"><mat-icon>notes</mat-icon>{{extractContent(post.content)}}</div>
     </div>
 
     <div class="ssri-thumbnail" (click)="detail()">
-      <img src="../../../../../../assets/img/bg-signin.jpg">
+      <img src="{{post.images.split(',')[0]}}">
       <div class="ssri-thumbnail-overlay">
         <div>
           <mat-icon class="icon-view-more">visibility</mat-icon>
         </div>
         <div class="text-view-more">View more</div>
-        
       </div>
     </div>
 
     <div class="ssri-performance g-float-wrapper">
-      <div class="ssri-performance-icon ssri-performance-like g-float-left"><i class="fa fa-thumbs-o-up"></i> 100</div>
-      <div class="ssri-performance-icon ssri-performance-comment g-float-left"><i class="fa fa-commenting-o"></i> 100</div>
-      <div class="ssri-performance-icon ssri-performance-share g-float-left"><i class="fa fa-share-square-o"></i> 100</div>
+      <div class="ssri-performance-icon ssri-performance-like g-float-left"><i class="fa fa-thumbs-o-up"></i> {{post.likes | number}}</div>
+      <div class="ssri-performance-icon ssri-performance-comment g-float-left"><i class="fa fa-commenting-o"></i> {{post.comments | number}}</div>
+      <div class="ssri-performance-icon ssri-performance-share g-float-left"><i class="fa fa-share-square-o"></i> {{post.shares | number}}</div>
     </div>
 
   </div>

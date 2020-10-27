@@ -3,14 +3,18 @@
 .home-page {
 
   .section-intro {
-    background-image: url('../../../../assets/img/bg-signin.jpg');
+    background-image: url('../../../../assets/img/bg-laptop-mockup.jpg');
+    background-position: center top;
+    background-size: cover;
     height: 100vh;
+    max-height: 768px;
+    overflow: hidden;
+    position: relative;
 
     h1 {
       width: 80%;
       max-width: 800px;
       margin: auto;
-      margin-top: 15vh;
       color: $textColor1;
     }
 
@@ -33,7 +37,7 @@
       text-transform: uppercase;
       border-radius: 1.6em;
       &:hover {
-        background-color: #090b1b;
+        background-color: rgba(0,0,0,1);
       }
 
       .fa-search {
@@ -46,15 +50,17 @@
   }
 
   .section {
+    padding-top: 60px;
+
     .section-title {
       text-align: center;
       color: $textColor1;
-      margin-top: 100px;
-      margin-bottom: 100px;
+      margin-bottom: 60px;
     }
   }
 
   .section-feature {
+    background-color: #fff;
 
     .feature-item {
       margin-bottom: 50px;
@@ -63,7 +69,7 @@
 
       .feature-item-logo {
         margin-bottom: 20px;
-        color: $primary1;
+        color: $primary21;
       }
       .feature-item-content {
         
@@ -72,6 +78,7 @@
   }
 
   .section-testimonial {
+    padding-bottom: 60px;
     .testimonial-item {
       text-align: center;
       padding-left: 20px;
@@ -102,6 +109,7 @@
   }
 
   .section-pricing {
+    background-color: #fff;
 
     .card-wrapper {
       padding-left: 20px;
@@ -110,12 +118,12 @@
       .card-body {
 
         .pricing-card-title {
-          color: $primary1;
+          color: $primary21;
         }
 
         li {
           .fa {
-            color: $primary1;
+            color: $primary21;
             margin-right: 0.5em;
           }
 
@@ -125,18 +133,25 @@
         }
 
         .btn-outline-primary {
-          color: $primary1;
-          outline-color: $primary1;
+          color: $primary21;
+          outline-color: $primary21;
+          border-color: $primary21;
 
           &:hover {
             color: #fff;
-            background-color: $primary1;
+            background-color: $primary21;
           }
         }
       }
 
-      .btn-primary {
-        background-color: $primary1;
+    }
+
+    .btn-primary {
+      background-color: $primary21 !important;
+      border-color: $primary21 !important;
+
+      &:hover {
+        background-color: $primary21 !important;
       }
     }
 

@@ -20,8 +20,8 @@ export class SpySearchComponent implements OnInit {
   submited: boolean = false;
 
   likeRange: any = {
-    from: 100,
-    to: 10000,
+    from: 0,
+    to: 100000,
     options: {
       floor: 0,
       ceil: 100000,
@@ -33,8 +33,8 @@ export class SpySearchComponent implements OnInit {
   };
 
   commentRange: any = {
-    from: 100,
-    to: 10000,
+    from: 0,
+    to: 100000,
     options: {
       floor: 0,
       ceil: 100000,
@@ -49,7 +49,7 @@ export class SpySearchComponent implements OnInit {
     fromDate: '',
     toDate: '',
     page: 0,
-    pageSize: 30,
+    pageSize: 20,
     keyword: '',
     pixelId: '',
     facebookPageId: '',
@@ -99,6 +99,7 @@ export class SpySearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.fromDate.setDate(this.now.getDate() - 365);
+    this.search();
   }
 
   search(): void {
@@ -108,7 +109,7 @@ export class SpySearchComponent implements OnInit {
     this.spyService.searchFacebookPost(this.query).subscribe(
       data => {
         this.total = data.total;
-        this.searchResult.emit(data);
+        this.searchResult.emit(data.list);
         this.submited = false;
       },
       error => {

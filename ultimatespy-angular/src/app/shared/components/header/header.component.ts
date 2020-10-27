@@ -8,11 +8,16 @@ import { User } from '../../../core/models/User';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  isAppPage: boolean = false;
+  user: User = null;
 
   constructor(private router: Router) { }
 
-  user: User = null;
   ngOnInit(): void {
+    if (this.router.url.startsWith('/app')) {
+      this.isAppPage = true;
+    }
+
     if (localStorage.getItem('token') && localStorage.getItem('user')) {
       // logged in so return true
       this.user = JSON.parse(localStorage.getItem('user'));

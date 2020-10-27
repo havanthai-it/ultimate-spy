@@ -2,8 +2,9 @@
   border: solid 1px rgba(0,0,0,.12);
   background-color: #fff;
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   padding: 1em;
+  margin-bottom: 10px;
   overflow: hidden;
   position: relative;
 
@@ -14,6 +15,12 @@
       height: 50px;
       border-radius: 50%;
       overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .ssri-header-title {
@@ -22,15 +29,19 @@
 
       h5 {
         color: #000;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-bottom: .3rem;
       }
 
       .ssri-publish-time {
-        padding-left: 24px;
+        padding-left: 25px;
 
         .icon-clock {
           position: absolute;
-          margin-left: -24px;
-          margin-top: 2px;
+          margin-left: -25px;
+          margin-top: 1px;
           font-size: 1.5em;
         }
       }
@@ -69,9 +80,12 @@
       height: 240px;
       cursor: pointer;
       position: relative;
+      overflow: hidden;
+      margin-top: .3rem;
       img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
       }
 
       .ssri-thumbnail-overlay {
@@ -81,7 +95,7 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0,0,0,0);
-        z-index: 99;
+        z-index: 2;
         color: rgba(255,255,255,0);
         padding: 90px 0;
         text-align: center;

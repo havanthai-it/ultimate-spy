@@ -3,6 +3,8 @@
 .dialog-wrapper {
   position: relative;
   padding: 15px;
+  max-height: 90vh;
+  overflow-y: auto;
 
   .dialog-header {
     h3 {
@@ -19,6 +21,8 @@
 
   .dialog-body {
     .col-post-origin {
+      padding-bottom: 10px;
+
       @media screen and (min-width: 768px) {
         padding-right: 16px;
         border-right: solid 1px rgba(0, 0, 0, 0.12);
@@ -32,6 +36,12 @@
           height: 50px;
           border-radius: 50%;
           overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
         }
     
         .post-origin-header-title {
@@ -55,32 +65,22 @@
             }
           }
         }
-    
       }
 
-
       .post-origin-body {
-
         .post-origin-content {
-          .post-origin-content-line {
-            position: relative;
-    
-            a {
-              text-decoration: none;
-              color: #2471A3;
-            }
-          }
         }
-    
         .post-origin-thumbnail {
           width: 100%;
-          height: 240px;
+          height: 360px;
           cursor: pointer;
           position: relative;
           img {
             width: 100%;
             height: 100%;
+            object-fit: cover;
           }
+
         }
     
         .post-origin-performance {
@@ -118,7 +118,7 @@
           color: #666;
 
           a {
-            color: #2471A3;
+            // color: #2471A3;
             text-decoration: none;
 
             &:focus {
@@ -164,9 +164,9 @@
       }
 
       .post-info-btn-save {
-        border: solid 1px #000;
+        border: solid 1px $primary21;
         background-color: #fff;
-        color: #000;
+        color: $primary21;
       }
     }
   }

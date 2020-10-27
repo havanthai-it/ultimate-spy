@@ -4,6 +4,7 @@ html, body {
   min-height: 100vh;
   height: auto;
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 body {
   background-color: #f3f3f3;
@@ -93,6 +94,9 @@ img {
 /* END TEXT */
 
 /* START OTHERS */
+.g-overflow-hidden {
+  overflow: hidden;
+}
 .g-box-shadow {
   box-shadow: 0px 0px 4px rgba(0,0,0,.12);
 }
@@ -170,7 +174,20 @@ button:hover, button:focus, button:active {
 
 /* END ANGULAR MATERIAL */
 
+/* OTHER CSS */
 app-dashboard-profile,
 app-dashboard-plan {
   width: 100%;
+}
+
+.post-origin-body {
+  .post-origin-content {
+    a {
+      text-decoration: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 }

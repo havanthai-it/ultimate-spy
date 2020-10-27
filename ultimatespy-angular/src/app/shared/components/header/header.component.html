@@ -1,6 +1,6 @@
 <header>
   <!--  fixed-top navbar-expand-md bg-dark -->
-  <nav class="navbar navbar-dark fixed-top">
+  <nav class="navbar navbar-dark fixed-top" [ngClass]="{'navbar-expand-md': !isAppPage}">
     <div class="container-fluid">
       <div>
         <button class="navbar-toggler order-first" type="button" data-toggle="collapse"
@@ -8,9 +8,17 @@
           aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">ULTIMATE SPY</a>
       </div>
-      <div class="dropdown profile-dropdown" *ngIf="user">
+
+      <div *ngIf="isAppPage && !user">
+        <a href="/signin" class="link-signin">Sign in</a>
+        <a href="/signup">
+          <button class="btn btn-signup my-2 my-sm-0" type="submit">Sign up</button>
+        </a>
+      </div>
+
+      <div class="dropdown profile-dropdown" *ngIf="isAppPage && user">
         <button class="btn btn-profile dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           {{user.fullName}}
@@ -26,10 +34,6 @@
           <a class="dropdown-item dropdown-item-signout" (click)="signout()">Sign out</a>
         </div>
       </div>
-      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#account"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fa fa-user"></i>
-      </button> -->
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -37,24 +41,44 @@
             <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/spy">Ads Spy</a>
+            <a class="nav-link" href="/app">Ads Spy</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link" href="#feature">Feature</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#pricing">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
           </li>
         </ul>
-
-        <div *ngIf="!user">
-          <a href="/signin" class="link-signin">Sign in</a>
-          <a href="/signup">
-            <button class="btn btn-signup my-2 my-sm-0" type="submit">Sign up</button>
-          </a>
-        </div>
-
       </div>
+
+      <div *ngIf="!isAppPage && !user">
+        <a href="/signin" class="link-signin">Sign in</a>
+        <a href="/signup">
+          <button class="btn btn-signup my-2 my-sm-0" type="submit">Sign up</button>
+        </a>
+      </div>
+
+      <div class="dropdown profile-dropdown" *ngIf="!isAppPage && user">
+        <button class="btn btn-profile dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{user.fullName}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="profileDropdown">
+          <a class="dropdown-item dropdown-item-top" href="#">
+            <div>{{user.fullName}}</div>
+            <div><span class="current-plan">FREE</span></div>
+          </a>
+          <a class="dropdown-item" href="/dashboard/profile">Profile</a>
+          <a class="dropdown-item" href="/dashboard/plan">My plan</a>
+          <a class="dropdown-item" href="/dashboard/saved">My saved</a>
+          <a class="dropdown-item dropdown-item-signout" (click)="signout()">Sign out</a>
+        </div>
+      </div>
+
     </div>
   </nav>
 
