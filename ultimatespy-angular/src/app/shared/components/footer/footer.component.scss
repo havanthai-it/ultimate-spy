@@ -2,6 +2,21 @@
 
 footer {
   background-color: $primary1;
-  color: #ffffff;
+  color: #fff;
   min-height: 140px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  .row > div {
+    margin-bottom: 15px;
+  }
+
+  a {
+    color: rgba(255,255,255,.6);
+  }
+
+  .copyright {
+    margin-top: 15px;
+    color: rgba(255,255,255,.6);
+  }
 }

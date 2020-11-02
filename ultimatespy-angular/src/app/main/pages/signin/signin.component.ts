@@ -55,12 +55,13 @@ export class SigninComponent implements OnInit {
           email: data.user.email,
           fullName: data.user.fullName,
           status: data.user.status,
-          createDate: data.user.createDate
+          createDate: data.user.createDate,
+          plan: data.user.plan
         };
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(userInfo));
         this.loading = false;
-        this.router.navigateByUrl(this.redirect);
+        window.location.href = this.redirect;
       },
       error => {
         console.log(error);

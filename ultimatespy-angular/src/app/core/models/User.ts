@@ -4,4 +4,5 @@ export class User {
   email: string;
   status: string;
   createDate: string;
+  plan: string;
 }

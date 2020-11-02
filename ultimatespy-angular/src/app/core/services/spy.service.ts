@@ -25,7 +25,7 @@ export class SpyService {
                   + '&pageSize=' + (query.pageSize ? query.pageSize : 30)
                   + '&keyword=' + (query.keyword ? query.keyword : '')
                   + '&pixelId=' + (query.pixelId ? query.pixelId : '')
-                  + '&facebookPageId=' + (query.facebookPageId ? query.facebookPageId : '')
+                  + '&facebookPageUsername=' + (query.facebookPageUsername ? query.facebookPageUsername : '')
                   + '&category=' + (query.category ? query.category : '')
                   + '&type=' + (query.type ? query.type : '')
                   + '&country=' + (query.country ? query.country : '')

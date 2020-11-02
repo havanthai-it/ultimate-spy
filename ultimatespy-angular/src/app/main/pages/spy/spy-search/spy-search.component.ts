@@ -52,7 +52,7 @@ export class SpySearchComponent implements OnInit {
     pageSize: 20,
     keyword: '',
     pixelId: '',
-    facebookPageId: '',
+    facebookPageUsername: '',
     category: '',
     type: '',
     country: '',
@@ -109,7 +109,9 @@ export class SpySearchComponent implements OnInit {
     this.spyService.searchFacebookPost(this.query).subscribe(
       data => {
         this.total = data.total;
-        this.searchResult.emit(data.list);
+        data.pageSize = this.query.pageSize;
+        data.pages = Math.ceil(data.total / data.pageSize)
+        this.searchResult.emit(data);
         this.submited = false;
       },
       error => {

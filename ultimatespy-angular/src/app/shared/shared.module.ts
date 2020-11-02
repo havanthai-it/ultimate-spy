@@ -8,6 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { LoadingComponent } from './components/loading/loading.component';
   imports: [
     CommonModule,
     FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatButtonModule,
     MatCardModule,

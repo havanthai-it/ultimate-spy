@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if (this.router.url.startsWith('/app')) {
+    if (this.router.url.startsWith('/ads')) {
       this.isAppPage = true;
     }
 

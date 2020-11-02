@@ -32,7 +32,7 @@ public class FacebookPostService {
                 cs.setInt(4, facebookPostQuery.getPageSize());
                 cs.setString(5, facebookPostQuery.getKeyword());
                 cs.setString(6, facebookPostQuery.getPixelId());
-                cs.setString(7, facebookPostQuery.getFacebookPageId());
+                cs.setString(7, facebookPostQuery.getFacebookPageUsername());
                 cs.setString(8, facebookPostQuery.getCategory());
                 cs.setString(9, facebookPostQuery.getType());
                 cs.setString(10, facebookPostQuery.getCountry());
@@ -51,7 +51,7 @@ public class FacebookPostService {
                     facebookPost.setPostId(rs.getString("S_POST_ID"));
                     facebookPost.setAdsId(rs.getString("S_ADS_ID"));
                     facebookPost.setPixelId(rs.getString("S_PIXEL_ID"));
-                    facebookPost.setFacebookPageId(rs.getString("S_FACEBOOK_PAGE_ID"));
+                    facebookPost.setFacebookPageUsername(rs.getString("S_FACEBOOK_PAGE_USERNAME"));
                     facebookPost.setImages(rs.getString("S_IMAGES"));
                     facebookPost.setVideos(rs.getString("S_VIDEOS"));
                     facebookPost.setContent(rs.getString("S_CONTENT"));
@@ -103,7 +103,7 @@ public class FacebookPostService {
             long total = 0L;
             Connection conn = null;
             CallableStatement cs = null;
-            String sql = "{ CALL total_facebook_post2(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ CALL total_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -112,7 +112,7 @@ public class FacebookPostService {
                 cs.setTimestamp(3, facebookPostQuery.getToDate());
                 cs.setString(4, facebookPostQuery.getKeyword());
                 cs.setString(5, facebookPostQuery.getPixelId());
-                cs.setString(6, facebookPostQuery.getFacebookPageId());
+                cs.setString(6, facebookPostQuery.getFacebookPageUsername());
                 cs.setString(7, facebookPostQuery.getCategory());
                 cs.setString(8, facebookPostQuery.getType());
                 cs.setString(9, facebookPostQuery.getCountry());

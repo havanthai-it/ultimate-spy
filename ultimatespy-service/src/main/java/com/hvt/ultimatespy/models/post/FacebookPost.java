@@ -7,7 +7,7 @@ public class FacebookPost {
     private String postId;
     private String adsId;
     private String pixelId;
-    private String facebookPageId;
+    private String facebookPageUsername;
     private String images;
     private String videos;
     private String content;
@@ -67,12 +67,12 @@ public class FacebookPost {
         this.pixelId = pixelId;
     }
 
-    public String getFacebookPageId() {
-        return facebookPageId;
+    public String getFacebookPageUsername() {
+        return facebookPageUsername;
     }
 
-    public void setFacebookPageId(String facebookPageId) {
-        this.facebookPageId = facebookPageId;
+    public void setFacebookPageUsername(String facebookPageUsername) {
+        this.facebookPageUsername = facebookPageUsername;
     }
 
     public String getImages() {

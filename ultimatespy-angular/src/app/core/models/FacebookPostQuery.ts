@@ -5,7 +5,7 @@ export class FacebookPostQuery {
   pageSize: number;
   keyword: string;
   pixelId: string;
-  facebookPageId: string;
+  facebookPageUsername: string;
   category: string;
   type: string;
   country: string;

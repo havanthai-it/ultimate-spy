@@ -20,6 +20,7 @@ public class User {
     private String createDate;
     private String updateDate;
 
+    private String plan;
     private List<UserSubscription> lstSubscriptions;
 
     public String getId() {
@@ -148,6 +149,14 @@ public class User {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
     }
 
     public List<UserSubscription> getLstSubscriptions() {

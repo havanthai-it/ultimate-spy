@@ -9,7 +9,7 @@ public class FacebookPostQuery {
     private Integer pageSize;
     private String keyword;
     private String pixelId;
-    private String facebookPageId;
+    private String facebookPageUsername;
     private String category;
     private String type;
     private String country;
@@ -24,14 +24,14 @@ public class FacebookPostQuery {
     public FacebookPostQuery() {
     }
 
-    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, Integer page, Integer pageSize, String keyword, String pixelId, String facebookPageId, String category, String type, String country, String language, String website, String platform, Integer minLikes, Integer maxLikes, Integer minComments, Integer maxComments) {
+    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, Integer page, Integer pageSize, String keyword, String pixelId, String facebookPageUsername, String category, String type, String country, String language, String website, String platform, Integer minLikes, Integer maxLikes, Integer minComments, Integer maxComments) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.page = page;
         this.pageSize = pageSize;
         this.keyword = keyword;
         this.pixelId = pixelId;
-        this.facebookPageId = facebookPageId;
+        this.facebookPageUsername = facebookPageUsername;
         this.category = category;
         this.type = type;
         this.country = country;
@@ -92,12 +92,12 @@ public class FacebookPostQuery {
         this.pixelId = pixelId;
     }
 
-    public String getFacebookPageId() {
-        return facebookPageId;
+    public String getFacebookPageUsername() {
+        return facebookPageUsername;
     }
 
     public void setFacebookPageId(String facebookPageId) {
-        this.facebookPageId = facebookPageId;
+        this.facebookPageUsername = facebookPageUsername;
     }
 
     public String getCategory() {

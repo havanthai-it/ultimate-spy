@@ -31,7 +31,7 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
-      { path: 'app', component: SpyComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+      { path: 'ads', component: SpyComponent, pathMatch: 'full', canActivate: [AuthGuard] },
       { path: 'checkout', component: CheckoutComponent, pathMatch: 'full' },
       {
         path: 'dashboard',

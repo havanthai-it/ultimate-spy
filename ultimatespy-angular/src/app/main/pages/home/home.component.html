@@ -140,7 +140,7 @@
     <div class="container">
       <h1 class="section-title">Pricing</h1>
 
-      <div class="row mb-3 text-center">
+      <div class="row text-center">
 
         <div class="col-lg-4 col-md-12 card-wrapper">
           <div class="card mb-4 box-shadow">
@@ -156,7 +156,9 @@
                 <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Track ads</span></li>
                 <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Email support</span></li>
               </ul>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+              <button *ngIf="!token || !user" type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+              <button *ngIf="token && user && user.plan === 'FREE'" type="button" class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
+              <button *ngIf="token && user && user.plan !== 'FREE'" type="button" class="btn btn-lg btn-block btn-primary">Free</button>
             </div>
           </div>
         </div>
@@ -175,7 +177,31 @@
                 <li><i class="fa fa-check-square-o"></i><span>Track ads: 10 ads daily</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Email support</span></li>
               </ul>
-              <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+              <button *ngIf="!token || !user" type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+              <button *ngIf="token && user && user.plan === 'BASIC'" type="button" class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
+              <button *ngIf="token && user && user.plan !== 'BASIC'" (click)="toggleBasicPlan()" type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+            </div>
+            <div *ngIf="expandPlan ==='BASIC'" class="card-footer">
+              <label>Choose period</label>
+              <div class="dropdown dropdown-period">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{period.months}} months
+                  <span class="discount" *ngIf="period.discount > 0">(-{{period.discount}}%)</span>
+                  <span class="desc">{{period.desc}}</span>
+                  <span class="amount">${{round(BASIC_PRICE * period.months * (1 - period.discount / 100))}}</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-item" *ngFor="let p of periods" (click)="period = p">
+                    {{p.months}} months
+                    <span class="discount" *ngIf="p.discount > 0">(-{{p.discount}}%)</span>
+                    <span class="desc">{{p.desc}}</span>
+                    <span class="amount">${{round(BASIC_PRICE * p.months * (1 - p.discount / 100))}}</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-block btn-checkout">Check out</button>
+              </div>
             </div>
           </div>
         </div>
@@ -194,8 +220,33 @@
                 <li><i class="fa fa-check-square-o"></i><span>Track ads: 1000 ads daily</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Email support</span></li>
               </ul>
-              <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+              <button *ngIf="!token || !user" type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+              <button *ngIf="token && user && user.plan === 'PREMIUM'" type="button" class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
+              <button *ngIf="token && user && user.plan !== 'PREMIUM'" (click)="togglePremiumPlan()" type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
             </div>
+            <div *ngIf="expandPlan ==='PREMIUM'" class="card-footer">
+              <label>Choose period</label>
+              <div class="dropdown dropdown-period">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{period.months}} months
+                  <span class="discount" *ngIf="period.discount > 0">(-{{period.discount}}%)</span>
+                  <span class="desc">{{period.desc}}</span>
+                  <span class="amount">${{round(PREMIUM_PRICE * period.months * (1 - period.discount / 100))}}</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-item" *ngFor="let p of periods" (click)="period = p">
+                    {{p.months}} months
+                    <span class="discount" *ngIf="p.discount > 0">(-{{p.discount}}%)</span>
+                    <span class="desc">{{p.desc}}</span>
+                    <span class="amount">${{round(PREMIUM_PRICE * p.months * (1 - p.discount / 100))}}</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-block btn-checkout">Check out</button>
+              </div>
+            </div>
+            
           </div>
         </div>
 

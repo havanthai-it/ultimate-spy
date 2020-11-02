@@ -63,6 +63,7 @@ public class JwtAuthenticationController {
         } else if (user.getStatus().equals(StatusEnum.INACTIVE.value())) {
             throw Errors.USER_INACTIVE_EXCEPTION;
         }
+        user.setPlan("FREE");
 
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
 
