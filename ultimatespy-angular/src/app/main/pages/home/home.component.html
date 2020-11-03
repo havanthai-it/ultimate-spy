@@ -188,19 +188,21 @@
                   {{period.months}} months
                   <span class="discount" *ngIf="period.discount > 0">(-{{period.discount}}%)</span>
                   <span class="desc">{{period.desc}}</span>
-                  <span class="amount">${{round(BASIC_PRICE * period.months * (1 - period.discount / 100))}}</span>
+                  <span class="amount">${{round(products.basic.price * period.months * (1 - period.discount / 100))}}</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <div class="dropdown-item" *ngFor="let p of periods" (click)="period = p">
                     {{p.months}} months
                     <span class="discount" *ngIf="p.discount > 0">(-{{p.discount}}%)</span>
                     <span class="desc">{{p.desc}}</span>
-                    <span class="amount">${{round(BASIC_PRICE * p.months * (1 - p.discount / 100))}}</span>
+                    <span class="amount">${{round(products.basic.price * p.months * (1 - p.discount / 100))}}</span>
                   </div>
                 </div>
               </div>
               <div>
-                <button type="button" class="btn btn-block btn-checkout">Check out</button>
+                <a class="btn-checkou-wrapper" href="/checkout?p={{jsonStringify(products.basic.id, products.basic.name, products.basic.price, period.discount, period.months)}}">
+                  <button type="button" class="btn btn-block btn-checkout">Check out</button>
+                </a>
               </div>
             </div>
           </div>
@@ -231,19 +233,21 @@
                   {{period.months}} months
                   <span class="discount" *ngIf="period.discount > 0">(-{{period.discount}}%)</span>
                   <span class="desc">{{period.desc}}</span>
-                  <span class="amount">${{round(PREMIUM_PRICE * period.months * (1 - period.discount / 100))}}</span>
+                  <span class="amount">${{round(products.premium.price * period.months * (1 - period.discount / 100))}}</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <div class="dropdown-item" *ngFor="let p of periods" (click)="period = p">
                     {{p.months}} months
                     <span class="discount" *ngIf="p.discount > 0">(-{{p.discount}}%)</span>
                     <span class="desc">{{p.desc}}</span>
-                    <span class="amount">${{round(PREMIUM_PRICE * p.months * (1 - p.discount / 100))}}</span>
+                    <span class="amount">${{round(products.premium.price * p.months * (1 - p.discount / 100))}}</span>
                   </div>
                 </div>
               </div>
               <div>
-                <button type="button" class="btn btn-block btn-checkout">Check out</button>
+                <a class="btn-checkou-wrapper" href="/checkout?p={{jsonStringify(products.premium.id, products.premium.name, products.premium.price, period.discount, period.months)}}">
+                  <button type="button" class="btn btn-block btn-checkout">Check out</button>
+                </a>
               </div>
             </div>
             

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,21 @@ export class HomeComponent implements OnInit {
   user: any;
   token: string;
   expandPlan: string;
-  
-  BASIC_PRICE: number = 9;
-  PREMIUM_PRICE: number = 49;
+
+  products: any = {
+    basic: {
+      id: 'basic_plan',
+      name: 'Basic plan',
+      price: 9,
+      currency: 'USD'
+    },
+    premium: {
+      id: 'premium_plan',
+      name: 'Premium plan',
+      price: 49,
+      currency: 'USD'
+    }
+  };
 
   periods: any[] = [
     {
@@ -65,6 +78,18 @@ export class HomeComponent implements OnInit {
     } else {
       this.expandPlan = 'PREMIUM';
     }
+  }
+
+  jsonStringify(productId: string, productName: string, price: number, percentDiscount: number, period: number): string {
+    let js = JSON.stringify({
+      productId: productId,
+      productName: productName,
+      price: price,
+      percentDiscount: percentDiscount,
+      period: period,
+      amount: this.round(price * period * (1 - percentDiscount / 100))
+    });
+    return btoa(js);
   }
 
 }

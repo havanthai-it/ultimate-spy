@@ -22,7 +22,8 @@ public class UserPostController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<User> post(@RequestBody User user) throws Exception {
-        if (user.getFullName() == null || user.getFullName().isEmpty()
+        if (user.getFirstName() == null || user.getFirstName().isEmpty()
+            || user.getLastName() == null || user.getLastName().isEmpty()
             || user.getEmail() == null || user.getEmail().isEmpty()
             || user.getPassword() == null || user.getPassword().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;

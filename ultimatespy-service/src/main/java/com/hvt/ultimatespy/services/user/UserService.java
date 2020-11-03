@@ -82,14 +82,15 @@ public class UserService {
         try {
             conn = Datasource.getConnection();
             cs = conn.prepareCall("INSERT INTO " +
-                    " tb_user(S_ID,S_FULL_NAME,S_EMAIL,S_PASSWORD,S_ROLE, S_REFERRER_ID) " +
-                    " VALUES(?,?,?,?,?,?)");
+                    " tb_user(S_ID,S_FIRST_NAME,S_LAST_NAME,S_EMAIL,S_PASSWORD,S_ROLE,S_REFERRER_ID) " +
+                    " VALUES(?,?,?,?,?,?,?)");
             cs.setString(1, user.getId());
-            cs.setString(2, user.getFullName());
-            cs.setString(3, user.getEmail());
-            cs.setString(4, user.getPassword());
-            cs.setString(5, user.getRole());
-            cs.setString(6, user.getReferrerId());
+            cs.setString(2, user.getFirstName());
+            cs.setString(3, user.getLastName());
+            cs.setString(4, user.getEmail());
+            cs.setString(5, user.getPassword());
+            cs.setString(6, user.getRole());
+            cs.setString(7, user.getReferrerId());
             cs.execute();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "", e);
@@ -105,10 +106,12 @@ public class UserService {
         try {
             conn = Datasource.getConnection();
             cs = conn.prepareCall("UPDATE tb_user SET " +
-                    " S_FULL_NAME = ? " +
+                    " S_FIRST_NAME = ?, " +
+                    " S_LAST_NAME = ? " +
                     " WHERE S_ID = ?");
-            cs.setString(1, user.getFullName());
-            cs.setString(2, user.getId());
+            cs.setString(1, user.getFirstName());
+            cs.setString(2, user.getLastName());
+            cs.setString(3, user.getId());
             cs.execute();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "", e);
@@ -143,7 +146,9 @@ public class UserService {
         User user = new User();
         user.setId(rs.getString("S_ID"));
         user.setGoogleId(rs.getString("S_GOOGLE_ID"));
-        user.setFullName(rs.getString("S_FULL_NAME"));
+        user.setFirstName(rs.getString("S_FIRST_NAME"));
+        user.setLastName(rs.getString("S_LAST_NAME"));
+        user.setFullName(user.getFirstName() + " " + user.getLastName());
         user.setEmail(rs.getString("S_EMAIL"));
         user.setPassword(rs.getString("S_PASSWORD"));
         user.setRole(rs.getString("S_ROLE"));

@@ -149,11 +149,18 @@
         label {
           font-weight: 500;
         }
-        .btn-checkout {
-          background-color: $primary1;
-          margin-top: 15px; 
-          color: #fff;
+        .btn-checkou-wrapper {
+          text-decoration: none;
+          &:hover {
+            color: #fff;
+          }
+          .btn-checkout {
+            background-color: $primary1;
+            margin-top: 15px; 
+            color: #fff;
+          }
         }
+        
         .dropdown-period {
           .btn {
             position: relative;

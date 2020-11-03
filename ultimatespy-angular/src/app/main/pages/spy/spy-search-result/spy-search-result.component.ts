@@ -15,7 +15,6 @@ export class SpySearchResultComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.currentPage = params.page ? parseInt(params.page) : 1;
-      console.log(this.currentPage);
     });
   }
 

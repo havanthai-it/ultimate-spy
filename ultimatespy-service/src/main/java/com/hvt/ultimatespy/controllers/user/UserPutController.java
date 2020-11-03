@@ -20,7 +20,8 @@ public class UserPutController {
 
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<User> put(@RequestBody User user) throws Exception {
-        if (user.getFullName() == null || user.getFullName().isEmpty()
+        if (user.getFirstName() == null || user.getFirstName().isEmpty()
+                || user.getLastName() == null || user.getLastName().isEmpty()
                 || user.getEmail() == null || user.getEmail().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
