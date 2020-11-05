@@ -15,10 +15,10 @@ public class Payment {
     private Double amount;
     private Double fee;
     private Double originAmount;
-    private Timestamp createDate;
-    private Timestamp updateDate;
     private String currency;
     private String status;
+    private Timestamp createDate;
+    private Timestamp updateDate;
 
     public String getId() {
         return id;
