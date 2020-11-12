@@ -6,6 +6,7 @@
 */
 {
   "files": [],
+  "enableIvy": false,
   "references": [
     {
       "path": "./tsconfig.app.json"

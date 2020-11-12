@@ -8,6 +8,16 @@
   overflow: hidden;
   position: relative;
 
+  .searching-overlay {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255,255,255,.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+  }
+
   .ssri-header {
 
     .ssri-header-image {
@@ -113,7 +123,7 @@
 
       &:hover {
         .ssri-thumbnail-overlay {
-          background-color: rgba(0,0,0,0.16);
+          background-color: rgba(0,0,0,0.24);
           color: rgba(255,255,255,1);
         }
       }

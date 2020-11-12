@@ -53,7 +53,9 @@ export class SigninComponent implements OnInit {
         const userInfo = {
           id: data.user.id,
           email: data.user.email,
-          fullName: data.user.fullName,
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          fullName: data.user.firstName + ' ' + data.user.lastName,
           status: data.user.status,
           createDate: data.user.createDate,
           plan: data.user.plan

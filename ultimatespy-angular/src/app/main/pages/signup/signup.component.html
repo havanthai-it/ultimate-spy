@@ -6,10 +6,17 @@
         height="50">
       <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
     </div>
-    <div class="form-label-group">
-      <label for="inputName">Full name</label>
-      <input type="text" id="inputName" class="form-control" [(ngModel)]="user.fullName" formControlName="fullName"
-        required="" [ngClass]="{'error-form-control': f.fullName.touched && f.fullName.errors}">
+    <div class="g-float-wrapper">
+      <div class="form-label-group g-float-left" style="width: 49%">
+        <label for="inputFirstName">First name</label>
+        <input type="text" id="inputFirstName" class="form-control" [(ngModel)]="user.firstName" formControlName="firstName"
+          required="" [ngClass]="{'error-form-control': f.firstName.touched && f.firstName.errors}">
+      </div>
+      <div class="form-label-group g-float-right" style="width: 49%">
+        <label for="inputLastName">Last name</label>
+        <input type="text" id="inputLastName" class="form-control" [(ngModel)]="user.lastName" formControlName="lastName"
+          required="" [ngClass]="{'error-form-control': f.lastName.touched && f.lastName.errors}">
+      </div>
     </div>
     <div class="form-label-group">
       <label for="inputEmail">Email address</label>

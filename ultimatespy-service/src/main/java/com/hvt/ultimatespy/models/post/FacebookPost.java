@@ -1,6 +1,8 @@
 package com.hvt.ultimatespy.models.post;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 public class FacebookPost {
     private String id;
@@ -15,10 +17,10 @@ public class FacebookPost {
     private String category;
     private String country;
     private String language;
-    private long likes;
-    private long comments;
-    private long shares;
-    private long views;
+    private Long likes;
+    private Long comments;
+    private Long shares;
+    private Long views;
     private String status;
     private String links;
     private String website;
@@ -31,9 +33,12 @@ public class FacebookPost {
     private String pageName;
     private String pageUsername;
     private String pageThumbnail;
-    private long pageLikes;
-    private long pageFollows;
+    private Long pageLikes;
+    private Long pageFollows;
     private Timestamp pagePublishDate;
+
+    // Statistic
+    private List<Map<String, Object>> statistics;
 
     public String getId() {
         return id;
@@ -131,35 +136,35 @@ public class FacebookPost {
         this.language = language;
     }
 
-    public long getLikes() {
+    public Long getLikes() {
         return likes;
     }
 
-    public void setLikes(long likes) {
+    public void setLikes(Long likes) {
         this.likes = likes;
     }
 
-    public long getComments() {
+    public Long getComments() {
         return comments;
     }
 
-    public void setComments(long comments) {
+    public void setComments(Long comments) {
         this.comments = comments;
     }
 
-    public long getShares() {
+    public Long getShares() {
         return shares;
     }
 
-    public void setShares(long shares) {
+    public void setShares(Long shares) {
         this.shares = shares;
     }
 
-    public long getViews() {
+    public Long getViews() {
         return views;
     }
 
-    public void setViews(long views) {
+    public void setViews(Long views) {
         this.views = views;
     }
 
@@ -243,19 +248,19 @@ public class FacebookPost {
         this.pageThumbnail = pageThumbnail;
     }
 
-    public long getPageLikes() {
+    public Long getPageLikes() {
         return pageLikes;
     }
 
-    public void setPageLikes(long pageLikes) {
+    public void setPageLikes(Long pageLikes) {
         this.pageLikes = pageLikes;
     }
 
-    public long getPageFollows() {
+    public Long getPageFollows() {
         return pageFollows;
     }
 
-    public void setPageFollows(long pageFollows) {
+    public void setPageFollows(Long pageFollows) {
         this.pageFollows = pageFollows;
     }
 
@@ -265,5 +270,13 @@ public class FacebookPost {
 
     public void setPagePublishDate(Timestamp pagePublishDate) {
         this.pagePublishDate = pagePublishDate;
+    }
+
+    public List<Map<String, Object>> getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(List<Map<String, Object>> statistics) {
+        this.statistics = statistics;
     }
 }

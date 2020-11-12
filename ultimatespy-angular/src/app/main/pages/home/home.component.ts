@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { User } from 'src/app/core/models/User';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  user: any;
+  user: User;
   token: string;
   expandPlan: string;
 
@@ -52,6 +52,14 @@ export class HomeComponent implements OnInit {
   ];
   
   period: number = this.periods[2];
+  invoice: any = {
+    productId: '',
+    productName: '',
+    period: 0,
+    originAmount: 0,
+    amount: 0,
+    percentDiscount: 0
+  }
 
   constructor() { }
 
@@ -64,32 +72,46 @@ export class HomeComponent implements OnInit {
     return Math.round(x);
   }
 
-  toggleBasicPlan() {
-    if (this.expandPlan === 'BASIC') {
-      this.expandPlan = '';
+  toggleBasicPlan(plan: any, period: any) {
+    if (this.user && this.token) {
+      if (this.expandPlan === 'BASIC') {
+        this.expandPlan = '';
+      } else {
+        this.expandPlan = 'BASIC';
+        this.initInvoice(plan, period);
+      }
     } else {
-      this.expandPlan = 'BASIC';
+      window.location.href = '/signin';
     }
   }
 
-  togglePremiumPlan() {
-    if (this.expandPlan === 'PREMIUM') {
-      this.expandPlan = '';
+  togglePremiumPlan(plan: any, period: any) {
+    if (this.user && this.token) {
+      if (this.expandPlan === 'PREMIUM') {
+        this.expandPlan = '';
+      } else {
+        this.expandPlan = 'PREMIUM';
+        this.initInvoice(plan, period);
+      }
     } else {
-      this.expandPlan = 'PREMIUM';
+      window.location.href = '/signin';
     }
   }
 
-  jsonStringify(productId: string, productName: string, price: number, percentDiscount: number, period: number): string {
-    let js = JSON.stringify({
-      productId: productId,
-      productName: productName,
-      price: price,
-      percentDiscount: percentDiscount,
-      period: period,
-      amount: this.round(price * period * (1 - percentDiscount / 100))
-    });
-    return btoa(js);
+  encodeJsonStringify(json: any): string {
+    return btoa(JSON.stringify(json));
   }
+
+  initInvoice(plan: any, period: any): void {
+    this.invoice = {
+      productId: plan.id,
+      productName: plan.name,
+      period: period.months,
+      originAmount: plan.price * period.months,
+      amount: this.round(plan.price * period.months * (1 - period.discount / 100)),
+      percentDiscount: period.discount
+    }
+  }
+
 
 }

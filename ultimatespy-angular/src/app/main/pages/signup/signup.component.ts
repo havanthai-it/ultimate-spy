@@ -26,14 +26,16 @@ export class SignupComponent implements OnInit {
   signupComplete = false;
 
   signupForm = new FormGroup({
-    fullName: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required])
   });
 
   user: any = {
-    fuleName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -49,7 +51,7 @@ export class SignupComponent implements OnInit {
   }
 
   signup(): void {
-    if (!this.user.fullName || !this.user.email || !this.user.password || !this.user.confirmPassword) {
+    if (!this.user.firstName || !this.user.lastName || !this.user.email || !this.user.password || !this.user.confirmPassword) {
       this.errorMessage = 'Please fill in all the information';
       return;
     }
@@ -59,7 +61,8 @@ export class SignupComponent implements OnInit {
     }
     this.loading = true;
     let requestData = {
-      fullName: this.user.fullName,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
       email: this.user.email,
       password: btoa(this.user.password)
     }

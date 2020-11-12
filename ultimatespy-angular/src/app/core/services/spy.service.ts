@@ -17,12 +17,17 @@ export class SpyService {
     });
   }
 
+  getFacebookPost(id: string): Observable<any> {
+    const url = `${environment.serviceUrl}/api/facebook-post/${id}`;
+    return this.http.get(url, { headers: this.headersGet() });
+  }
+
   searchFacebookPost(query: FacebookPostQuery): Observable<any> {
     const url = `${environment.serviceUrl}/api/facebook-post?`
                   + 'fromDate=' + (query.fromDate ? query.fromDate : '')
                   + '&toDate=' + (query.toDate ? query.toDate : '')
                   + '&page=' + (query.page ? query.page : 0)
-                  + '&pageSize=' + (query.pageSize ? query.pageSize : 30)
+                  + '&pageSize=' + (query.pageSize ? query.pageSize : 24)
                   + '&keyword=' + (query.keyword ? query.keyword : '')
                   + '&pixelId=' + (query.pixelId ? query.pixelId : '')
                   + '&facebookPageUsername=' + (query.facebookPageUsername ? query.facebookPageUsername : '')
@@ -34,6 +39,8 @@ export class SpyService {
                   + '&platform=' + (query.platform ? query.platform : '')
                   + '&minLikes=' + (query.minLikes ? query.minLikes : '')
                   + '&maxLikes=' + (query.maxLikes ? query.maxLikes : '')
+                  + '&minComments=' + (query.minComments ? query.minComments : '')
+                  + '&maxComments=' + (query.maxComments ? query.maxComments : '')
     return this.http.get(url, { headers: this.headersGet() });
   }
 }

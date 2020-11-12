@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SpySearchResultItemDialogComponent } from './spy-search-result-item-dialog/spy-search-result-item-dialog.component';
 import * as moment from 'moment';
+import { SpyService } from 'src/app/core/services/spy.service';
 
 @Component({
   selector: 'app-spy-search-result-item',
@@ -10,10 +11,11 @@ import * as moment from 'moment';
 })
 export class SpySearchResultItemComponent implements OnInit, OnChanges {
   @Input() post: any;
+  @Input() isSearching: boolean = false;
 
   Moment: any = moment;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private spyService: SpyService) { }
 
   ngOnInit(): void {
   }
@@ -22,13 +24,17 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
   }
 
   detail(): void {
-    const dialogRef = this.dialog.open(SpySearchResultItemDialogComponent, {
-      width: '940px',
-      data: this.post
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    this.spyService.getFacebookPost(this.post.postId).subscribe(
+      data => {
+        this.dialog.open(SpySearchResultItemDialogComponent, {
+          width: '1000px',
+          data: data
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   extractContent(htmlString: string): string {

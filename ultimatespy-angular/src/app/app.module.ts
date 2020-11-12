@@ -23,7 +23,7 @@ import { SpyComponent } from './main/pages/spy/spy.component';
 import { SpySearchComponent } from './main/pages/spy/spy-search/spy-search.component';
 import { SpySearchResultComponent } from './main/pages/spy/spy-search-result/spy-search-result.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SpySearchResultItemComponent } from './main/pages/spy/spy-search-result/spy-search-result-item/spy-search-result-item.component';
 import { SpySearchResultItemDialogComponent } from './main/pages/spy/spy-search-result/spy-search-result-item/spy-search-result-item-dialog/spy-search-result-item-dialog.component';
@@ -32,6 +32,8 @@ import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
 import { DashboardProfileComponent } from './main/pages/dashboard/dashboard-profile/dashboard-profile.component';
 import { DashboardPlanComponent } from './main/pages/dashboard/dashboard-plan/dashboard-plan.component';
 import { Ng5SliderModule } from 'ng5-slider';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -59,10 +61,12 @@ import { Ng5SliderModule } from 'ng5-slider';
     CommonModule,
     SharedModule,
     CoreModule,
+    NgxPayPalModule,
     SocialLoginModule,
     FormsModule,
     ReactiveFormsModule,
     Ng5SliderModule,
+    NgxChartsModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -72,6 +76,10 @@ import { Ng5SliderModule } from 'ng5-slider';
     MatButtonToggleModule
   ],
   providers: [
+    { 
+      provide: MAT_DATE_LOCALE,
+      useValue: 'en-GB'
+    },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

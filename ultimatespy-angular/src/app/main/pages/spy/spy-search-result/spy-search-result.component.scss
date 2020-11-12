@@ -1,33 +1,28 @@
 @import '../../../../../assets/scss/global.scss';
 
 .spy-search-result {
-  padding-bottom: 60px;
 
-  .spy-search-result-grid.row {    
+  .spy-search-result-grid.row {
+    min-height: 100vh; 
     padding: 15px;
 
     &>div[class^="col-"] {
       padding-left: 5px;
       padding-right: 5px;
     }
-  }
 
-  .pagination-wrapper {
-    margin-top: 20px;
-
-    nav {
-      display: table;
+    .mat-progress-spinner {
+      position: absolute;
       margin: auto;
-      
-      .page-link {
-        color: $textColor1;
-      }
-  
-      .page-item.active .page-link {
-        background-color: $primary21;
-        border-color: $primary21;
-        color: #fff;
-      }
+      margin-top: 100px;
+      left: 0;
+      right: 0;
+      z-index: 3;
+    }
+
+    .mat-progress-spinner circle, .mat-spinner circle {
+      stroke: $primary21 !important;
     }
   }
+
 }

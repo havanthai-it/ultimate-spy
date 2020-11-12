@@ -1,26 +1,26 @@
 package com.hvt.ultimatespy.controllers.post;
 
-import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.post.FacebookPost;
-import com.hvt.ultimatespy.models.post.FacebookPostQuery;
+import com.hvt.ultimatespy.models.post.FacebookPostStatistic;
 import com.hvt.ultimatespy.services.post.FacebookPostService;
 import com.hvt.ultimatespy.utils.Constants;
+import com.hvt.ultimatespy.utils.DateUtils;
+import com.hvt.ultimatespy.utils.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping(value = Constants.ROUTE_POST_FACEBOOK)
+@RequestMapping(value = Constants.ROUTE_POST_FACEBOOK_ID)
 public class FacebookPostGetController {
 
     private static final Logger logger = Logger.getLogger(FacebookPostGetController.class.getName());
@@ -29,86 +29,108 @@ public class FacebookPostGetController {
     private FacebookPostService facebookPostService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Object> get(@RequestParam Map<String, String> params) throws Exception {
-
-        Timestamp fromDate = params.containsKey(Constants.FROM_DATE) && !params.get(Constants.FROM_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.FROM_DATE).trim()).getTime()) : null;
-        Timestamp toDate = params.containsKey(Constants.TO_DATE) && !params.get(Constants.TO_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.TO_DATE).trim()).getTime()) : null;
-        int page = params.containsKey(Constants.PAGE) ? Integer.parseInt(params.get(Constants.PAGE).trim()) : 0;
-        int pageSize = params.containsKey(Constants.PAGE_SIZE) ? Integer.parseInt(params.get(Constants.PAGE_SIZE).trim()) : 30;
-        String keyword = params.containsKey(Constants.KEYWORD) ? params.get(Constants.KEYWORD).trim() : Constants.BLANK;
-        String pixelId = params.containsKey(Constants.PIXEL_ID) ? params.get(Constants.PIXEL_ID).trim() : Constants.BLANK;
-        String facebookPageId = params.containsKey(Constants.FACEBOOK_PAGE_ID) ? params.get(Constants.FACEBOOK_PAGE_ID).trim() : Constants.BLANK;
-        String category = params.containsKey(Constants.CATEGORY) ? params.get(Constants.CATEGORY).trim() : Constants.BLANK;
-        String type = params.containsKey(Constants.TYPE) ? params.get(Constants.TYPE).trim() : Constants.BLANK;
-        String country = params.containsKey(Constants.COUNTRY) ? params.get(Constants.COUNTRY).trim() : Constants.BLANK;
-        String language = params.containsKey(Constants.LANGUAGE) ? params.get(Constants.LANGUAGE).trim() : Constants.BLANK;
-        String website = params.containsKey(Constants.WEBSITE) ? params.get(Constants.WEBSITE).trim() : Constants.BLANK;
-        String platform = params.containsKey(Constants.PLATFORM) ? params.get(Constants.PLATFORM).trim() : Constants.BLANK;
-        int minLikes = params.containsKey(Constants.MIN_LIKES) && !params.get(Constants.MIN_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MIN_LIKES)) : 0;
-        int maxLikes = params.containsKey(Constants.MAX_LIKES) && !params.get(Constants.MAX_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MAX_LIKES)) : Integer.MAX_VALUE;
-        int minComments = params.containsKey(Constants.MIN_LIKES) && !params.get(Constants.MIN_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MIN_COMMENTS)) : 0;
-        int maxComments = params.containsKey(Constants.MAX_LIKES) && !params.get(Constants.MAX_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MAX_COMMENTS)) : Integer.MAX_VALUE;
-
-        // Add '+' before every word in keyword
-        keyword = keyword.replaceAll(" +", " +");
-        keyword = keyword.isEmpty() ? Constants.BLANK : "+" + keyword;
-
-        // Set default fromDate, toDate
-        if (toDate == null) {
-            toDate = Timestamp.from(Instant.now());
-        }
-        if (fromDate == null) {
-            fromDate = Timestamp.from(toDate.toInstant().minusSeconds(365*24*60*60));
+    public ResponseEntity<Object> get(@PathVariable String id) throws Exception {
+        if (id == null || id.trim().isEmpty()) {
+            throw Errors.BAD_REQUEST_EXCEPTION;
         }
 
-        logger.info("Search params: " +
-                "fromDate=" + sdf.format(fromDate) + ", " +
-                "toDate=" + sdf.format(toDate) + ", " +
-                "page=" + page + ", " +
-                "pageSize=" + pageSize + ", " +
-                "keyword=" + keyword + ", " +
-                "pixelId=" + pixelId + ", " +
-                "facebookPageId=" + facebookPageId + ", " +
-                "category=" + category + ", " +
-                "type=" + type + ", " +
-                "country=" + country + ", " +
-                "language=" + language + ", " +
-                "website=" + website + ", " +
-                "platform=" + platform + ", " +
-                "minLikes=" + minLikes + ", " +
-                "maxLikes=" + maxLikes + ", " +
-                "minComments=" + minComments + ", " +
-                "maxComments=" + maxComments
-        );
-
-        FacebookPostQuery facebookPostQuery = new FacebookPostQuery(
-                fromDate,
-                toDate,
-                page,
-                pageSize,
-                keyword,
-                pixelId,
-                facebookPageId,
-                category,
-                type,
-                country,
-                language,
-                website,
-                platform,
-                minLikes,
-                maxLikes,
-                minComments,
-                maxComments);
-        BaseList<FacebookPost> baseList = new BaseList<>();
+        logger.info("Get post by id = " + id);
+        FacebookPost post = new FacebookPost();
+        List<FacebookPostStatistic> statistics = new ArrayList<>();
         try {
-            baseList = facebookPostService.list(facebookPostQuery).get();
+            post = facebookPostService.get(id).get();
+            statistics = facebookPostService.getStatistic(id).get();
+
+            // Convert statistics to chart data
+            post.setStatistics(toChartData(post, statistics));
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }
 
-        return ResponseEntity.ok(baseList);
+        return ResponseEntity.ok(post);
     }
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static List<Map<String, Object>> toChartData(FacebookPost post, List<FacebookPostStatistic> statistics) {
+        Timestamp minDate = post.getPublishDate();
+        Timestamp maxDate = statistics.get(statistics.size() - 1).getDate();
+        SimpleDateFormat sdf = DateUtils.compareDateOnly(minDate, maxDate) < 0 ? sdfDate : sdfTime;
+
+        List<Map<String, Object>> data = new ArrayList<>();
+        List<Map<String, Object>> seriesLike = new ArrayList<>();
+        List<Map<String, Object>> seriesComment = new ArrayList<>();
+        List<Map<String, Object>> seriesShare = new ArrayList<>();
+
+        seriesLike.add(new HashMap<String, Object>(){{
+            put(Constants.NAME, sdf.format(post.getPublishDate()));
+            put(Constants.VALUE, 0);
+        }});
+        seriesComment.add(new HashMap<String, Object>(){{
+            put(Constants.NAME, sdf.format(post.getPublishDate()));
+            put(Constants.VALUE, 0);
+        }});
+        seriesShare.add(new HashMap<String, Object>(){{
+            put(Constants.NAME, sdf.format(post.getPublishDate()));
+            put(Constants.VALUE, 0);
+        }});
+
+        for (FacebookPostStatistic item : statistics) {
+            Map<String, Object> foundLike = seriesLike.stream()
+                    .filter(m -> m.get(Constants.NAME).equals(sdf.format(item.getDate())))
+                    .findFirst().orElse(null);
+            if (foundLike == null) {
+                seriesLike.add(new HashMap<String, Object>(){{
+                    put(Constants.NAME, sdf.format(item.getDate()));
+                    put(Constants.VALUE, item.getLikes());
+                }});
+            } else {
+                foundLike.put(Constants.VALUE, item.getLikes());
+            }
+
+            Map<String, Object> foundComment = seriesComment.stream()
+                    .filter(m -> m.get(Constants.NAME).equals(sdf.format(item.getDate())))
+                    .findFirst().orElse(null);
+            if (foundComment == null) {
+                seriesComment.add(new HashMap<String, Object>(){{
+                    put(Constants.NAME, sdf.format(item.getDate()));
+                    put(Constants.VALUE, item.getComments());
+                }});
+            } else {
+                foundComment.put(Constants.VALUE, item.getComments());
+            }
+
+            Map<String, Object> foundShare = seriesShare.stream()
+                    .filter(m -> m.get(Constants.NAME).equals(sdf.format(item.getDate())))
+                    .findFirst().orElse(null);
+            if (foundShare == null) {
+                seriesShare.add(new HashMap<String, Object>(){{
+                    put(Constants.NAME, sdf.format(item.getDate()));
+                    put(Constants.VALUE, item.getShares());
+                }});
+            } else {
+                foundShare.put(Constants.VALUE, item.getShares());
+            }
+        }
+
+        Map<String, Object> mapLike = new HashMap<String, Object>(){{
+            put(Constants.NAME, "Like");
+            put(Constants.SERIES, seriesLike);
+        }};
+        Map<String, Object> mapComment = new HashMap<String, Object>(){{
+            put(Constants.NAME, "Comment");
+            put(Constants.SERIES, seriesComment);
+        }};
+        Map<String, Object> mapShare = new HashMap<String, Object>(){{
+            put(Constants.NAME, "Share");
+            put(Constants.SERIES, seriesShare);
+        }};
+
+        data.add(mapLike);
+        data.add(mapComment);
+        data.add(mapShare);
+        return data;
+    }
+
+    private static final SimpleDateFormat sdfDate = new SimpleDateFormat("MMM dd");
+    private static final SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 
 }

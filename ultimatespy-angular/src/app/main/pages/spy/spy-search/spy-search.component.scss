@@ -17,7 +17,7 @@
       @media screen and (min-width: 768px) {
         position: fixed;
         top: 0;
-        z-index: 99;
+        z-index: 1000;
         width: 50%;
         left: 25%;
         right: 25%;
@@ -25,6 +25,7 @@
           border-radius: 1.2rem;
           height: 38px;
           width: 100%;
+          border: none;
         }
         label {
           display: none;
@@ -245,7 +246,16 @@
   }
 
   .btn-search {
-    padding: .375rem 1rem;
+    position: relative;
+    padding: .375rem 1.25rem;
+
+    // .mat-progress-spinner {
+    //   position: absolute;
+    // }
+
+    // .mat-progress-spinner circle, .mat-spinner circle {
+    //   stroke: $primary21 !important;
+    // }
   }
 
   .bottom-row {

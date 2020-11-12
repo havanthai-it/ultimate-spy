@@ -1,0 +1,26 @@
+@import '../../../../assets/scss/global.scss';
+
+.spy-page {
+
+  .pagination-wrapper {
+    margin-top: 20px;
+    margin-bottom: 50px;
+
+    nav {
+      display: table;
+      margin: auto;
+      
+      .page-link {
+        color: $textColor1;
+        cursor: pointer;
+      }
+  
+      .page-item.active .page-link {
+        background-color: $primary21;
+        border-color: $primary21;
+        color: #fff;
+      }
+    }
+  }
+
+}

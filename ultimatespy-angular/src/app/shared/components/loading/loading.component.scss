@@ -1,5 +1,5 @@
 .spinner-wrapper {
-  padding: 10px 40px;
+  // padding: 10px 40px;
   position: fixed;
   bottom: 50px;
   right: 50px;
@@ -7,7 +7,7 @@
   background-color: #fff;
 
   mat-spinner {
-    display: block;
-    margin: auto;
+    display: inline-block;
+    // margin: auto;
   }
 }

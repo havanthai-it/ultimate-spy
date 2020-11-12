@@ -8,4 +8,9 @@
     color: $primary1;
     cursor: pointer;
   }
+  
+}
+
+.form-control:disabled, .form-control[readonly], .custom-select:disabled {
+  background-color: #fafafa;
 }

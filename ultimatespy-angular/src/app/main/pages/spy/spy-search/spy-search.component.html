@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="form-label-group filter-block input-search-wrapper">
         <label for="input-keyword">Keyword</label>
-        <input type="text" class="form-control input-search" id="input-keyword" [(ngModel)]="query.keyword" (keyup.enter)="search()">
+        <input type="text" class="form-control input-search" id="input-keyword" [(ngModel)]="query.keyword" (keyup.enter)="search(0, false)">
         <i class="fa fa-search"></i>
       </div>
     </div>
@@ -88,7 +88,10 @@
 
           <div class="col-lg-2 col-sm-12 g-text-center">
             <div class="filter-block">
-              <button class="btn btn-block btn-primary btn-search" (click)="search()">Search</button>
+              <button class="btn btn-block btn-primary btn-search" (click)="search(0, false)">
+                Search 
+                <!-- <mat-spinner *ngIf="true" [diameter]="26"></mat-spinner> -->
+              </button>
             </div>
           </div>
 

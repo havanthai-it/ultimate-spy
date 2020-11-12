@@ -5,6 +5,7 @@
   min-height: 100vh;
   width: 100%;
   padding-bottom: 1rem;
+  margin-top: 20px;
 
   .form-signup {
     width: 100%;
@@ -35,13 +36,14 @@
       margin-top: 1rem;
 
       a {
+        text-decoration: underline;
         color: $primary1;
       }
     }
 
     .btn-signup {
       position: relative;
-      background-color: $primary1;
+      font-weight: 500;
       
       .mat-progress-spinner {
         position: absolute;
@@ -55,9 +57,14 @@
     }
 
     .btn-google {
-      background-color: #DD4B39;
+      background-color: #4285f4;
       color: #fff;
       width: 100%;
+      font-weight: 500;
+
+      &:hover {
+        background-color: #2773f3;
+      }
     }
 
     .line-separator {

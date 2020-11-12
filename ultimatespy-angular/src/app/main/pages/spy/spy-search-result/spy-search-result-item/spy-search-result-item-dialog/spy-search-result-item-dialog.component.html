@@ -1,12 +1,12 @@
 <div #dialogWrapper class="dialog-wrapper" id="dialog-wrapper">
-  <div class="dialog-header">
+  <div mat-dialog-title class="dialog-header">
     <div><h3 class="g-text-lg">Ad Details</h3></div>
     <div class="dialog-icon-close g-text-blur"><mat-icon (click)="close()">close</mat-icon></div>
   </div>
 
-  <div class="dialog-body container">
+  <div class="dialog-body container-fluid">
     <div class="g-float-wrapper row">
-      <div class="col-post-origin g-float-left col-md-6">
+      <div class="col-post-origin g-float-left col-lg-6">
         
         <div class="post-origin-header g-float-wrapper">
           <div class="post-origin-header-image g-float-left">
@@ -34,7 +34,7 @@
         </div>
 
       </div>
-      <div class="col-post-info g-float-right col-md-6">
+      <div class="col-post-info g-float-right col-lg-6">
         <div class="post-info-item g-float-wrapper post-info-platform" *ngIf="data.platform">
           <div class="post-info-label g-float-left">Platform:</div>
           <div class="post-info-value g-float-left"><span>{{data.platform}}</span></div>
@@ -66,6 +66,28 @@
         <div>
           <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}"><button class="post-info-btn post-info-btn-detail"><mat-icon>facebook</mat-icon> See on Facebook</button></a>
           <button class="post-info-btn post-info-btn-save"><mat-icon>add_to_photos</mat-icon> Save</button>
+        </div>
+
+        <!-- CHART -->
+        <div #chartWrapper class="chart-wrapper">
+          <ngx-charts-line-chart
+            [view]="[chartWrapper.offsetWidth, 300]"
+            [scheme]="colorScheme"
+            [legend]="legend"
+            [legendPosition]="legendPosition"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [timeline]="timeline"
+            [results]="data.statistics"
+            (select)="onSelect($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)"
+            >
+          </ngx-charts-line-chart>
         </div>
       </div>
     </div>
