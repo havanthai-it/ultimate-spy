@@ -1,6 +1,8 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
+import { UserPostService } from 'src/app/core/services/user-post.service';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-spy-search-result-item-dialog',
@@ -12,6 +14,7 @@ export class SpySearchResultItemDialogComponent implements OnInit {
   @ViewChild('dialogWrapper') dialogWrapper: ElementRef;
 
   Moment: any = moment;
+  userId: string;
 
   // Chart options
   legend: boolean = true;
@@ -32,9 +35,13 @@ export class SpySearchResultItemDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SpySearchResultItemDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog,
+    private userPostService: UserPostService) { }
 
   ngOnInit(): void {
+    let user = localStorage.getItem('user');
+    this.userId = user ? JSON.parse(user).id : '';
   }
 
   ngAfterViewInit(): void {
@@ -44,7 +51,95 @@ export class SpySearchResultItemDialogComponent implements OnInit {
   }
 
   close(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(this.data);
+  }
+
+  track(postId: string): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '440px',
+      data: {
+        title: 'Confirm',
+        message: 'Are you sure want to add this post to your tracklist?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result === 'yes') {
+        this.userPostService.insert(this.userId, postId, 'tracked').subscribe(
+          data => {
+            this.data.isTracked = true;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
+
+  unTrack(postId: string): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '440px',
+      data: {
+        title: 'Confirm',
+        message: 'Are you sure want to remove this post from your tracklist?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result === 'yes') {
+        this.userPostService.delete(this.userId, postId, 'tracked').subscribe(
+          data => {
+            this.data.isTracked = false;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
+
+  save(postId: string): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '440px',
+      data: {
+        title: 'Confirm',
+        message: 'Are you sure want to add this post to your saved list?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result === 'yes') {
+        this.userPostService.insert(this.userId, postId, 'saved').subscribe(
+          data => {
+            this.data.isSaved = true;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
+
+  unSave(postId: string): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '440px',
+      data: {
+        title: 'Confirm',
+        message: 'Are you sure want to remove this post to your saved list?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result === 'yes') {
+        this.userPostService.delete(this.userId, postId, 'saved').subscribe(
+          data => {
+            this.data.isSaved = false;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    });
   }
 
   onSelect(data): void {

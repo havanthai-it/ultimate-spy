@@ -7,19 +7,22 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SpyService {
+export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  headersGet(): HttpHeaders {
+  headers(): HttpHeaders {
+    let token = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
     return new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
+      'Authorization': `Bearer ${token}`,
+      'X-User-Id': `${user ? JSON.parse(user).id : ''}`
     });
   }
 
   getFacebookPost(id: string): Observable<any> {
     const url = `${environment.serviceUrl}/api/facebook-post/${id}`;
-    return this.http.get(url, { headers: this.headersGet() });
+    return this.http.get(url, { headers: this.headers() });
   }
 
   searchFacebookPost(query: FacebookPostQuery): Observable<any> {
@@ -41,6 +44,6 @@ export class SpyService {
                   + '&maxLikes=' + (query.maxLikes ? query.maxLikes : '')
                   + '&minComments=' + (query.minComments ? query.minComments : '')
                   + '&maxComments=' + (query.maxComments ? query.maxComments : '')
-    return this.http.get(url, { headers: this.headersGet() });
+    return this.http.get(url, { headers: this.headers() });
   }
 }

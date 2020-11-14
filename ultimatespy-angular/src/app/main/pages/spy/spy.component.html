@@ -1,8 +1,17 @@
 <div class="spy-page">
-  <app-spy-search #spySearch (searchResult)="setSearchResult($event)" (onSearching)="onSearching($event)"></app-spy-search>
-  <app-spy-search-result [data]="searchResult" [isSearching]="isSearching"></app-spy-search-result>
+  <app-spy-search #spySearch
+    (searchResult)="setSearchResult($event)"
+    (listSavedIds)="setListSavedIds($event)"
+    (listTrackedIds)="setListTrackedIds($event)"
+    (onSearching)="onSearching($event)">
+  </app-spy-search>
+  <app-spy-search-result
+    [data]="searchResult" 
+    [listSavedIds]="listSavedIds" 
+    [listTrackedIds]="listTrackedIds" 
+    [isSearching]="isSearching"></app-spy-search-result>
 
-  <div class="pagination-wrapper" *ngIf="searchResult.total">
+  <div class="pagination-wrapper" *ngIf="searchResult.pages > 1">
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item disabled">

@@ -74,6 +74,9 @@
 
       .post-origin-body {
         .post-origin-content {
+          .see_more_link_inner {
+            display: none;
+          }
         }
         .post-origin-thumbnail {
           width: 100%;
@@ -145,7 +148,7 @@
 
       .post-info-btn {
         font-size: 1rem;
-        border: solid 1px $primary1;
+        // border: solid 1px $primary1;
         outline: none;
         line-height: 1.8rem;
         text-align: center;
@@ -154,16 +157,11 @@
         overflow: hidden;
         text-overflow: ellipsis;
         margin-top: 20px;
-        margin-right: 1em;
+        margin-right: 8px;
         position: relative;
-        padding: 0.1em 0.5em;
-        padding-left: 2em;
+        padding: 0.08em 0.35em;
+        border-radius: 3px;
 
-        mat-icon {
-          position: absolute;
-          left: 0.2em;
-          top: 0.1em;
-        }
       }
 
       .post-info-btn-detail {
@@ -172,10 +170,17 @@
         color: #fff;
       }
 
-      .post-info-btn-save {
-        border: solid 1px $primary21;
-        background-color: #fff;
-        color: $primary21;
+      .post-info-btn-save,
+      .post-info-btn-track {
+        border: solid 1px $primary2;
+        background-color: $primary2;
+        color: #fff;
+
+        &:hover {
+          border: solid 1px $primary21;
+          background-color: $primary21;
+          color: #fff;
+        }
       }
 
       .chart-wrapper {

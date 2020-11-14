@@ -1,0 +1,30 @@
+@import '../../../../assets/scss/global.scss';
+
+.confirm-dialog {
+  padding: 20px 30px 25px 30px;
+
+  .dialog-title {
+    margin-bottom: 15px;
+  }
+
+  .dialog-content {
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    border: solid 1px $borderColor;
+    padding: .35em 2em;
+    margin: 0 10px;
+
+    &:hover {
+      background-color: $primary21;
+      color: #fff;
+      border-color: $primary21;
+    }
+
+    &.btn-focus {
+      box-shadow: 0 0 3px $primary2;
+      border-color: $primary2;
+    }
+  }
+}

@@ -7,10 +7,7 @@ import com.hvt.ultimatespy.services.post.FacebookPostService;
 import com.hvt.ultimatespy.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -29,7 +26,7 @@ public class FacebookPostListController {
     private FacebookPostService facebookPostService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Object> get(@RequestParam Map<String, String> params) throws Exception {
+    public ResponseEntity<Object> get(@RequestHeader(Constants.X_USER_ID) String userId, @RequestParam Map<String, String> params) throws Exception {
         Timestamp fromDate = params.containsKey(Constants.FROM_DATE) && !params.get(Constants.FROM_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.FROM_DATE).trim()).getTime()) : null;
         Timestamp toDate = params.containsKey(Constants.TO_DATE) && !params.get(Constants.TO_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.TO_DATE).trim()).getTime()) : null;
         int page = params.containsKey(Constants.PAGE) ? Integer.parseInt(params.get(Constants.PAGE).trim()) : 0;
@@ -49,8 +46,8 @@ public class FacebookPostListController {
         int maxComments = params.containsKey(Constants.MAX_COMMENTS) && !params.get(Constants.MAX_COMMENTS).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MAX_COMMENTS)) : Integer.MAX_VALUE;
 
         // Add '+' before every word in keyword
-        keyword = keyword.replaceAll(" +", " +");
-        keyword = keyword.isEmpty() ? Constants.BLANK : "+" + keyword;
+        String newKeyword = keyword.replaceAll(" +", " +");
+        newKeyword = newKeyword.isEmpty() ? Constants.BLANK : "+" + newKeyword;
 
         // Set default fromDate, toDate
         if (toDate == null) {
@@ -65,7 +62,7 @@ public class FacebookPostListController {
                 "toDate=" + sdf.format(toDate) + ", " +
                 "page=" + page + ", " +
                 "pageSize=" + pageSize + ", " +
-                "keyword=" + keyword + ", " +
+                "keyword=" + newKeyword + ", " +
                 "pixelId=" + pixelId + ", " +
                 "facebookPageId=" + facebookPageId + ", " +
                 "category=" + category + ", " +
@@ -85,7 +82,7 @@ public class FacebookPostListController {
                 toDate,
                 page,
                 pageSize,
-                keyword,
+                newKeyword,
                 pixelId,
                 facebookPageId,
                 category,
@@ -100,7 +97,21 @@ public class FacebookPostListController {
                 maxComments);
         BaseList<FacebookPost> baseList = new BaseList<>();
         try {
-            baseList = facebookPostService.list(facebookPostQuery).get();
+            if (userId != null && !userId.trim().isEmpty() && keyword.toLowerCase().startsWith("::saved")) {
+                baseList = facebookPostService.listUserPost(userId, "saved", facebookPostQuery).get();
+            } else if (userId != null && !userId.trim().isEmpty() && keyword.toLowerCase().startsWith("::tracked")) {
+                baseList = facebookPostService.listUserPost(userId, "tracked", facebookPostQuery).get();
+            } else if (keyword.toLowerCase().startsWith("::pixel=")) {
+                facebookPostQuery.setPixelId(keyword.substring(8).trim());
+                facebookPostQuery.setKeyword(Constants.BLANK);
+                baseList = facebookPostService.list(facebookPostQuery).get();
+            } else if (keyword.toLowerCase().startsWith("::website=")) {
+                facebookPostQuery.setWebsite(keyword.substring(10).trim());
+                facebookPostQuery.setKeyword(Constants.BLANK);
+                baseList = facebookPostService.list(facebookPostQuery).get();
+            } else {
+                baseList = facebookPostService.list(facebookPostQuery).get();
+            }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }

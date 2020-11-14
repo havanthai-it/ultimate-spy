@@ -5,6 +5,7 @@ public class Constants {
     public static final String ROUTE_AUTHENTICATE = "/api/authenticate";
     public static final String ROUTE_USER = "/api/user";
     public static final String ROUTE_USER_ID = "/api/user/{id}";
+    public static final String ROUTE_USER_ID_POST = "/api/user/{id}/post";
     public static final String ROUTE_CHANGE_PASSWORD = "/api/change-password/{id}";
     public static final String ROUTE_RESET_PASSWORD = "/api/reset-password/{mail}";
     public static final String ROUTE_POST_FACEBOOK = "/api/facebook-post";
@@ -21,6 +22,8 @@ public class Constants {
     public static final String INVOICE_ID_PREFIX = "inv_";
     public static final String PAYMENT_ID_PREFIX = "pay_";
     public static final String PRODUCT_ID_PREFIX = "prd_";
+
+    public static final String X_USER_ID = "X-User-Id";
 
     public static final String ID = "id";
     public static final String FROM_DATE = "fromDate";

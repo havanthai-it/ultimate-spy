@@ -9,12 +9,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     HeaderComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    ConfirmDialogComponent
   ]
 })
 export class SharedModule { }

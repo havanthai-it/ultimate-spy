@@ -1,3 +1,5 @@
+@import '../../../../../../assets/scss/global.scss';
+
 .spy-search-result-item {
   border: solid 1px rgba(0,0,0,.12);
   background-color: #fff;
@@ -43,6 +45,27 @@
         text-overflow: ellipsis;
         overflow: hidden;
         margin-bottom: .3rem;
+        padding-right: 40px;
+      }
+
+      .post-action {
+        position: absolute;
+        right: 10px;
+        top: 16px;
+
+        .fa {
+          cursor: pointer;
+          margin-left: 4px;
+          color: #999;
+          
+          &:hover {
+            color: $primary21;
+          }
+
+          &.fa-active {
+            color: $primary21;
+          }
+        }
       }
 
       .ssri-publish-time {

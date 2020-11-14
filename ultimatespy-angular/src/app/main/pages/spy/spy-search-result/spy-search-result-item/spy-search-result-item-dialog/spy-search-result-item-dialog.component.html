@@ -64,8 +64,23 @@
           <div class="post-info-value g-float-left"><span>{{data.country}}</span></div>
         </div>
         <div>
-          <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}"><button class="post-info-btn post-info-btn-detail"><mat-icon>facebook</mat-icon> See on Facebook</button></a>
-          <button class="post-info-btn post-info-btn-save"><mat-icon>add_to_photos</mat-icon> Save</button>
+          <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}">
+            <button class="post-info-btn post-info-btn-detail">
+              <i class="fa fa-facebook-official"></i> See on Facebook
+            </button>
+          </a>
+          <button [hidden]="data.isSaved" (click)="save(data.postId)" class="post-info-btn post-info-btn-save">
+            <i class="fa fa-heart"></i> Save
+          </button>
+          <button [hidden]="!data.isSaved" (click)="unSave(data.postId)" class="post-info-btn post-info-btn-save">
+            <i class="fa fa-heart"></i> Unsave
+          </button>
+          <button [hidden]="data.isTracked" (click)="track(data.postId)" class="post-info-btn post-info-btn-track">
+            <i class="fa fa-bar-chart"></i> Add to Tracklist
+          </button>
+          <button [hidden]="!data.isTracked" (click)="unTrack(data.postId)" class="post-info-btn post-info-btn-track">
+            <i class="fa fa-bar-chart"></i> Remove from Tracklist
+          </button>
         </div>
 
         <!-- CHART -->

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
-import { SpyService } from '../../../../core/services/spy.service';
+import { PostService } from '../../../../core/services/post.service';
 import { FacebookPostQuery } from '../../../../core/models/FacebookPostQuery';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { UserPostService } from 'src/app/core/services/user-post.service';
 
 @Component({
   selector: 'app-spy-search',
@@ -13,11 +14,17 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class SpySearchComponent implements OnInit {
   @Output() searchResult = new EventEmitter<any>();
+  @Output() listSavedIds = new EventEmitter<string[]>();
+  @Output() listTrackedIds = new EventEmitter<string[]>();
   @Output() onSearching = new EventEmitter<boolean>();
   
-  constructor(private activatedRoute: ActivatedRoute, private spyService: SpyService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private postService: PostService,
+    private userPostService : UserPostService) {
   }
 
+  userId: string;
   searchQuery: string;
   total: number = 0;
   isSearching: boolean = false;
@@ -101,7 +108,11 @@ export class SpySearchComponent implements OnInit {
   toDate: Date = new Date();
 
   ngOnInit(): void {
+    let user = localStorage.getItem('user');
+    this.userId = user ? JSON.parse(user).id : '';
+
     this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.query.keyword = params.keyword ? params.keyword : '';
       this.query.page = params.page ? parseInt(params.page) -1 : 0;
       this.fromDate.setDate(this.now.getDate() - 365);
       this.search(0, false);
@@ -120,7 +131,7 @@ export class SpySearchComponent implements OnInit {
     this.query.maxLikes = this.likeRange.to === this.likeRange.options.ceil ? '' : this.likeRange.to;
     this.query.minComments = this.commentRange.from === this.commentRange.options.floor ? '' : this.commentRange.from;
     this.query.maxComments = this.commentRange.to === this.commentRange.options.ceil ? '' : this.commentRange.to;
-    this.spyService.searchFacebookPost(this.query).subscribe(
+    this.postService.searchFacebookPost(this.query).subscribe(
       data => {
         this.total = data.total;
         data.page = this.query.page;
@@ -136,10 +147,35 @@ export class SpySearchComponent implements OnInit {
         this.isSearching = false;
       }
     )
+
+    this.loadSavedPostIds(this.userId);
+    this.loadTrackedPostIds(this.userId);
   }
 
-  saveSearchQuery(): void {
-    
+  loadSavedPostIds(userId: string): void {
+    if (userId) {
+      this.userPostService.getListFacebookPostId(userId, "saved").subscribe(
+        data => {
+          this.listSavedIds.emit(data);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  loadTrackedPostIds(userId: string): void {
+    if (userId) {
+      this.userPostService.getListFacebookPostId(userId, "tracked").subscribe(
+        data => {
+          this.listTrackedIds.emit(data);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   numericOnly(event): boolean {    

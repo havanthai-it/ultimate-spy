@@ -26,7 +26,7 @@ public class FacebookPostService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "{ CALL get_facebook_post(?) }";
+            String sql = "{ CALL facebook_post_get(?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -52,7 +52,7 @@ public class FacebookPostService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "{ CALL search_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ CALL facebook_post_search(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -96,12 +96,64 @@ public class FacebookPostService {
         });
     }
 
+    public CompletableFuture<BaseList<FacebookPost>> listUserPost (String userId, String userPostType, FacebookPostQuery facebookPostQuery) {
+        return CompletableFuture.supplyAsync(() -> {
+            BaseList<FacebookPost> baseList = new BaseList<>();
+            Connection conn = null;
+            CallableStatement cs = null;
+            ResultSet rs = null;
+            String sql = "{ CALL user_post_search(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            try {
+                conn = Datasource.getConnection();
+                cs = conn.prepareCall(sql);
+                cs.setTimestamp(1, facebookPostQuery.getFromDate());
+                cs.setTimestamp(2, facebookPostQuery.getToDate());
+                cs.setInt(3, facebookPostQuery.getPage());
+                cs.setInt(4, facebookPostQuery.getPageSize());
+                cs.setString(5, facebookPostQuery.getKeyword());
+                cs.setString(6, facebookPostQuery.getPixelId());
+                cs.setString(7, facebookPostQuery.getFacebookPageUsername());
+                cs.setString(8, facebookPostQuery.getCategory());
+                cs.setString(9, facebookPostQuery.getType());
+                cs.setString(10, facebookPostQuery.getCountry());
+                cs.setString(11, facebookPostQuery.getLanguage());
+                cs.setString(12, facebookPostQuery.getWebsite());
+                cs.setString(13, facebookPostQuery.getPlatform());
+                cs.setInt(14, facebookPostQuery.getMinLikes());
+                cs.setInt(15, facebookPostQuery.getMaxLikes());
+                cs.setInt(16, facebookPostQuery.getMinComments());
+                cs.setInt(17, facebookPostQuery.getMaxComments());
+                cs.setString(18, userId);
+                cs.setString(19, userPostType);
+
+                rs = cs.executeQuery();
+                while (rs != null && rs.next()) {
+                    baseList.add(bind(rs));
+                }
+            } catch (SQLException e) {
+                logger.log(Level.SEVERE, "", e);
+            } finally {
+                Datasource.close(conn, cs, rs);
+            }
+
+            long total = 0L;
+            try {
+                total = totalUserPost(userId, userPostType, facebookPostQuery).get();
+                logger.info("[FacebookPostService.listUserPost] total=" + total);
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "", e);
+            }
+            baseList.setTotal(total);
+            return baseList;
+        });
+    }
+
     public CompletableFuture<Long> total(FacebookPostQuery facebookPostQuery) {
         return CompletableFuture.supplyAsync(() -> {
             long total = 0L;
             Connection conn = null;
             CallableStatement cs = null;
-            String sql = "{ CALL total_facebook_post(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ CALL facebook_post_total(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -121,6 +173,45 @@ public class FacebookPostService {
                 cs.setInt(14, facebookPostQuery.getMaxLikes());
                 cs.setInt(15, facebookPostQuery.getMinComments());
                 cs.setInt(16, facebookPostQuery.getMaxComments());
+                cs.execute();
+
+                total = cs.getLong(1);
+            } catch (SQLException e) {
+                logger.log(Level.SEVERE, "", e);
+            } finally {
+                Datasource.close(conn, cs, null);
+            }
+            return total;
+        });
+    }
+
+    public CompletableFuture<Long> totalUserPost(String userId, String userPostType, FacebookPostQuery facebookPostQuery) {
+        return CompletableFuture.supplyAsync(() -> {
+            long total = 0L;
+            Connection conn = null;
+            CallableStatement cs = null;
+            String sql = "{ CALL user_post_total(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            try {
+                conn = Datasource.getConnection();
+                cs = conn.prepareCall(sql);
+                cs.registerOutParameter(1, Types.BIGINT);
+                cs.setTimestamp(2, facebookPostQuery.getFromDate());
+                cs.setTimestamp(3, facebookPostQuery.getToDate());
+                cs.setString(4, facebookPostQuery.getKeyword());
+                cs.setString(5, facebookPostQuery.getPixelId());
+                cs.setString(6, facebookPostQuery.getFacebookPageUsername());
+                cs.setString(7, facebookPostQuery.getCategory());
+                cs.setString(8, facebookPostQuery.getType());
+                cs.setString(9, facebookPostQuery.getCountry());
+                cs.setString(10, facebookPostQuery.getLanguage());
+                cs.setString(11, facebookPostQuery.getWebsite());
+                cs.setString(12, facebookPostQuery.getPlatform());
+                cs.setInt(13, facebookPostQuery.getMinLikes());
+                cs.setInt(14, facebookPostQuery.getMaxLikes());
+                cs.setInt(15, facebookPostQuery.getMinComments());
+                cs.setInt(16, facebookPostQuery.getMaxComments());
+                cs.setString(17, userId);
+                cs.setString(18, userPostType);
                 cs.execute();
 
                 total = cs.getLong(1);
@@ -167,7 +258,7 @@ public class FacebookPostService {
         });
     }
 
-    private static FacebookPost bind(ResultSet rs) throws SQLException {
+    public static FacebookPost bind(ResultSet rs) throws SQLException {
         FacebookPost facebookPost = new FacebookPost();
         facebookPost.setId(rs.getString("S_ID"));
         facebookPost.setPostId(rs.getString("S_POST_ID"));

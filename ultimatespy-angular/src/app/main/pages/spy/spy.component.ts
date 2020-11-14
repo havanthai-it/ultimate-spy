@@ -10,6 +10,8 @@ export class SpyComponent implements OnInit {
   @ViewChild('spySearch') spySearchComponent: SpySearchComponent;
 
   searchResult: any = {};
+  listSavedIds: string[] = [];
+  listTrackedIds: string[] = [];
   isSearching: boolean = false;
 
   constructor() { }
@@ -18,8 +20,15 @@ export class SpyComponent implements OnInit {
   }
   
   setSearchResult(searchResult: any): void {
-    console.log(searchResult);
     this.searchResult = searchResult;
+  }
+
+  setListSavedIds(listSavedIds: string[]): void {
+    this.listSavedIds = listSavedIds;
+  }
+
+  setListTrackedIds(listTrackedIds: string[]): void {
+    this.listTrackedIds = listTrackedIds;
   }
 
   onSearching(isSearching: boolean): void {
