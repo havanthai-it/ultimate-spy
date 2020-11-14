@@ -20,9 +20,17 @@ export class PostService {
     });
   }
 
+  headersUnauthorized(): HttpHeaders {
+    let token = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
+    return new HttpHeaders({
+      'X-User-Id': `${user ? JSON.parse(user).id : ''}`
+    });
+  }
+
   getFacebookPost(id: string): Observable<any> {
     const url = `${environment.serviceUrl}/api/facebook-post/${id}`;
-    return this.http.get(url, { headers: this.headers() });
+    return this.http.get(url, { headers: this.headersUnauthorized() });
   }
 
   searchFacebookPost(query: FacebookPostQuery): Observable<any> {
@@ -44,6 +52,6 @@ export class PostService {
                   + '&maxLikes=' + (query.maxLikes ? query.maxLikes : '')
                   + '&minComments=' + (query.minComments ? query.minComments : '')
                   + '&maxComments=' + (query.maxComments ? query.maxComments : '')
-    return this.http.get(url, { headers: this.headers() });
+    return this.http.get(url, { headers: this.headersUnauthorized() });
   }
 }

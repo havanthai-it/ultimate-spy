@@ -26,7 +26,7 @@ public class FacebookPostListController {
     private FacebookPostService facebookPostService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Object> get(@RequestHeader(Constants.X_USER_ID) String userId, @RequestParam Map<String, String> params) throws Exception {
+    public ResponseEntity<?> get(@RequestHeader(Constants.X_USER_ID) String userId, @RequestParam Map<String, String> params) throws Exception {
         Timestamp fromDate = params.containsKey(Constants.FROM_DATE) && !params.get(Constants.FROM_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.FROM_DATE).trim()).getTime()) : null;
         Timestamp toDate = params.containsKey(Constants.TO_DATE) && !params.get(Constants.TO_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.TO_DATE).trim()).getTime()) : null;
         int page = params.containsKey(Constants.PAGE) ? Integer.parseInt(params.get(Constants.PAGE).trim()) : 0;

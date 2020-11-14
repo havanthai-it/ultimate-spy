@@ -37,8 +37,8 @@ public class Datasource {
         Connection conn = null;
         try {
             conn = ds.getConnection();
-             logger.info("[Datasouce] getNumActive=" + ds.getNumActive());
-             logger.info("[Datasouce] getNumIdle=" + ds.getNumIdle());
+            // logger.info("[Datasouce] getNumActive=" + ds.getNumActive());
+            // logger.info("[Datasouce] getNumIdle=" + ds.getNumIdle());
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "[DATA SOURCE] Can not value connection", e);
         }

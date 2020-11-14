@@ -31,14 +31,14 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
-      { path: 'ads', component: SpyComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+      { path: 'ads', component: SpyComponent, pathMatch: 'full' },
       { path: 'checkout', component: CheckoutComponent, pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardComponent,
         children: [
-          { path: 'profile', component: DashboardProfileComponent, pathMatch: 'full' },
-          { path: 'plan', component: DashboardPlanComponent, pathMatch: 'full' }
+          { path: 'profile', component: DashboardProfileComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+          { path: 'plan', component: DashboardPlanComponent, pathMatch: 'full', canActivate: [AuthGuard] }
         ]
       }
     ]

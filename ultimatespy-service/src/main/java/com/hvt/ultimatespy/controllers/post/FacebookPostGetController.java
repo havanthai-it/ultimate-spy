@@ -29,7 +29,7 @@ public class FacebookPostGetController {
     private FacebookPostService facebookPostService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Object> get(@PathVariable String id) throws Exception {
+    public ResponseEntity<?> get(@PathVariable String id) throws Exception {
         if (id == null || id.trim().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
