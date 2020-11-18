@@ -1,0 +1,41 @@
+@import '../../../../assets/scss/global.scss';
+
+.plan-cta-dialog {
+  .dialog-header {
+    padding: 15px 30px;
+    background-color: $primary21;
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+    position: relative;
+    font-weight: 500;
+
+    .icon-close {
+      position: absolute;
+      right: 6px;
+      top: 4px;
+      cursor: pointer;
+    }
+  }
+
+  .dialog-body {
+    padding: 20px 40px 20px 40px;
+    font-size: 1.1rem;
+    line-height: 2;
+    text-align: center;
+
+    button {
+      margin-top: 30px;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      background-color: $primary21 !important;
+      padding: 0.4em 2em;
+      font-weight: 500;
+    }
+
+    a {
+      outline: none;
+      border: none;
+    }
+  }
+}

@@ -83,18 +83,28 @@ export class SpySearchComponent implements OnInit {
   ];
   lstTypes: any[] = [
     { label: 'All', value: '' },
-    { label: 'Image', value: 'Image' },
-    { label: 'Video', value: 'Video' }
-  ];
-  lstCountries: any[] = [
-    { label: 'All', value: '' },
-    { label: 'England', value: 'EN' },
-    { label: 'Vietnam', value: 'VN' }
+    { label: 'Image', value: 'IMAGE' },
+    { label: 'Video', value: 'VIDEO' }
   ];
   lstPlatforms: any[] = [
     { label: 'All', value: '' },
-    { label: 'Anazon', value: 'EN' },
-    { label: 'Ebay', value: 'VN' }
+    { label: 'Shopify', value: 'shopify' },
+    { label: 'Woocommerce', value: 'woocommerce' },
+    { label: 'Bigcommerce', value: 'bigcommerce' },
+    { label: 'Magento', value: 'magento' },
+    { label: 'Amazon', value: 'amazon' },
+    { label: 'Ebay', value: 'ebay' },
+    { label: 'Etsy', value: 'etsy' },
+    { label: 'Bonfire', value: 'bonfire' },
+    { label: 'Printshop', value: 'printshop' },
+    { label: 'Redbubble', value: 'redbubble' },
+    { label: 'Spreadshirt', value: 'spreadshirt' },
+    { label: 'Sunfrog', value: 'sunfrog' },
+    { label: 'Teechip', value: 'teechip' },
+    { label: 'Teemill', value: 'teemill' },
+    { label: 'Teespring', value: 'teespring' },
+    { label: 'Teepublic', value: 'teepublic' },
+    { label: 'Teespy', value: 'teespy' }
   ];
   lstSorts: any[] = [
     { label: 'Date', value: 'date' },

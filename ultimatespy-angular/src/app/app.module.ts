@@ -34,6 +34,9 @@ import { DashboardPlanComponent } from './main/pages/dashboard/dashboard-plan/da
 import { Ng5SliderModule } from 'ng5-slider';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { PrivacyComponent } from './main/pages/privacy/privacy.component';
+import { TermsComponent } from './main/pages/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CheckoutComponent,
     DashboardComponent,
     DashboardProfileComponent,
-    DashboardPlanComponent
+    DashboardPlanComponent,
+    ConfirmDialogComponent,
+    PrivacyComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,

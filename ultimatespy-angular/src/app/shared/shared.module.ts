@@ -10,13 +10,16 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { PlanCtaDialogComponent } from './components/plan-cta-dialog/plan-cta-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     LoadingComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PlanCtaDialogComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatSelectModule,
     MatButtonModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
   ],
   exports: [
     FlexLayoutModule,
@@ -37,7 +41,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     HeaderComponent,
     FooterComponent,
     LoadingComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PlanCtaDialogComponent
   ]
 })
 export class SharedModule { }

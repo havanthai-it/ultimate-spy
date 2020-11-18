@@ -119,6 +119,8 @@
       }
     }
     .dropdown-menu {
+      max-height: 390px !important;
+
       li.disabled:first-child {
         display: none;
       }

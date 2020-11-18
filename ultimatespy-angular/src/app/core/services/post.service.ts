@@ -14,23 +14,23 @@ export class PostService {
   headers(): HttpHeaders {
     let token = localStorage.getItem('token');
     let user = localStorage.getItem('user');
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'X-User-Id': `${user ? JSON.parse(user).id : ''}`
-    });
-  }
 
-  headersUnauthorized(): HttpHeaders {
-    let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
-    return new HttpHeaders({
-      'X-User-Id': `${user ? JSON.parse(user).id : ''}`
-    });
+    if (token && user) {
+      return new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'X-User-Id': `${user ? JSON.parse(user).id : ''}`
+      });
+    } else {
+      return new HttpHeaders({
+        'X-User-Id': `${user ? JSON.parse(user).id : ''}`
+      });
+    }
+    
   }
 
   getFacebookPost(id: string): Observable<any> {
     const url = `${environment.serviceUrl}/api/facebook-post/${id}`;
-    return this.http.get(url, { headers: this.headersUnauthorized() });
+    return this.http.get(url, { headers: this.headers() });
   }
 
   searchFacebookPost(query: FacebookPostQuery): Observable<any> {
@@ -52,6 +52,6 @@ export class PostService {
                   + '&maxLikes=' + (query.maxLikes ? query.maxLikes : '')
                   + '&minComments=' + (query.minComments ? query.minComments : '')
                   + '&maxComments=' + (query.maxComments ? query.maxComments : '')
-    return this.http.get(url, { headers: this.headersUnauthorized() });
+    return this.http.get(url, { headers: this.headers() });
   }
 }

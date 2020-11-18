@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import * as moment from 'moment';
 import { UserPostService } from 'src/app/core/services/user-post.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { PlanCtaDialogComponent } from 'src/app/shared/components/plan-cta-dialog/plan-cta-dialog.component';
 
 @Component({
   selector: 'app-spy-search-result-item-dialog',
@@ -54,26 +55,63 @@ export class SpySearchResultItemDialogComponent implements OnInit {
     this.dialogRef.close(this.data);
   }
 
+  checkPermission(): boolean {
+    let token = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
+
+    // TODO: CHECK PLAN, IF SUBCRIBED, RETURN TRUE
+
+    if (token && user) {
+      const dialogRef = this.dialog.open(PlanCtaDialogComponent, {
+        width: '540px',
+        data: {}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result === 'yes') {
+        }
+      });
+    } else {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '440px',
+        data: {
+          title: '',
+          message: 'You must have an account to do this. Do you want to redirect to sign up page?',
+          yes: 'Ok',
+          no: 'Cancel'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result === 'yes') {
+          window.location.href='/signup';
+        }
+      });
+    }
+
+    return false;
+  }
+
   track(postId: string): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '440px',
-      data: {
-        title: 'Confirm',
-        message: 'Are you sure want to add this post to your tracklist?'
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result === 'yes') {
-        this.userPostService.insert(this.userId, postId, 'tracked').subscribe(
-          data => {
-            this.data.isTracked = true;
-          },
-          error => {
-            console.log(error);
-          }
-        );
-      }
-    });
+    if (this.checkPermission()) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '440px',
+        data: {
+          title: 'Confirm',
+          message: 'Are you sure want to add this post to your tracklist?'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result === 'yes') {
+          this.userPostService.insert(this.userId, postId, 'tracked').subscribe(
+            data => {
+              this.data.isTracked = true;
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      });
+    }
   }
 
   unTrack(postId: string): void {
@@ -99,25 +137,27 @@ export class SpySearchResultItemDialogComponent implements OnInit {
   }
 
   save(postId: string): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '440px',
-      data: {
-        title: 'Confirm',
-        message: 'Are you sure want to add this post to your saved list?'
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result === 'yes') {
-        this.userPostService.insert(this.userId, postId, 'saved').subscribe(
-          data => {
-            this.data.isSaved = true;
-          },
-          error => {
-            console.log(error);
-          }
-        );
-      }
-    });
+    if (this.checkPermission()) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '440px',
+        data: {
+          title: 'Confirm',
+          message: 'Are you sure want to add this post to your saved list?'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result === 'yes') {
+          this.userPostService.insert(this.userId, postId, 'saved').subscribe(
+            data => {
+              this.data.isSaved = true;
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      });
+    }
   }
 
   unSave(postId: string): void {

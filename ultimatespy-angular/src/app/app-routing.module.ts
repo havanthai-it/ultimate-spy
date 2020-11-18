@@ -11,6 +11,8 @@ import { CheckoutComponent } from './main/pages/checkout/checkout.component';
 import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
 import { DashboardProfileComponent } from './main/pages/dashboard/dashboard-profile/dashboard-profile.component';
 import { DashboardPlanComponent } from './main/pages/dashboard/dashboard-plan/dashboard-plan.component';
+import { PrivacyComponent } from './main/pages/privacy/privacy.component';
+import { TermsComponent } from './main/pages/terms/terms.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,8 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
       { path: 'ads', component: SpyComponent, pathMatch: 'full' },
+      { path: 'privacy', component: PrivacyComponent, pathMatch: 'full' },
+      { path: 'terms', component: TermsComponent, pathMatch: 'full' },
       { path: 'checkout', component: CheckoutComponent, pathMatch: 'full' },
       {
         path: 'dashboard',

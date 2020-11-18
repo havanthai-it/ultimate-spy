@@ -152,13 +152,12 @@
               <h1 class="card-title pricing-card-title"><span class="text-muted">$0</span> <small class="text-muted">/
                   mo</small></h1>
               <ul class="list-unstyled text-left mt-3 mb-4">
-                <li><i class="fa fa-check-square-o"></i><span>Queries: 10 daily</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Queries: 5 daily</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Limited search result</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Limited search features</span></li>
-                <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Track
-                    ads</span></li>
-                <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Email
-                    support</span></li>
+                <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Save ads</span></li>
+                <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Track ads</span></li>
+                <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Service support</span></li>
               </ul>
               <button *ngIf="!token || !user" type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for
                 free</button>
@@ -178,11 +177,12 @@
             <div class="card-body">
               <h1 class="card-title pricing-card-title">$9 <small class="text-muted">/ mo</small></h1>
               <ul class="list-unstyled text-left mt-3 mb-4">
-                <li><i class="fa fa-check-square-o"></i><span>Queries: 100 daily</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Queries: 25 daily</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited search result</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited search features</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Save ads: 10 ads daily</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Track ads: 10 ads daily</span></li>
-                <li><i class="fa fa-check-square-o"></i><span>Email support</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Service support</span></li>
               </ul>
               <button *ngIf="!token || !user" (click)="toggleBasicPlan(products.basic, period)" type="button"
                 class="btn btn-lg btn-block btn-primary">Get started</button>
@@ -228,11 +228,12 @@
             <div class="card-body">
               <h1 class="card-title pricing-card-title">$49 <small class="text-muted">/ mo</small></h1>
               <ul class="list-unstyled text-left mt-3 mb-4">
-                <li><i class="fa fa-check-square-o"></i><span>Queries: unlimited</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited queries</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited search result</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited search features</span></li>
-                <li><i class="fa fa-check-square-o"></i><span>Track ads: 1000 ads daily</span></li>
-                <li><i class="fa fa-check-square-o"></i><span>Email support</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited save ads</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited track ads</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Service support</span></li>
               </ul>
               <button *ngIf="!token || !user" (click)="togglePremiumPlan(products.premium, period)" type="button"
                 class="btn btn-lg btn-block btn-primary">Get started</button>
