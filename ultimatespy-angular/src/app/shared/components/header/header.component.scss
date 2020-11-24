@@ -11,6 +11,7 @@ header {
 
     ul li a {
       padding-left: 16px;
+      cursor: pointer;
       
       &:hover, &:focus {
         text-decoration: underline;

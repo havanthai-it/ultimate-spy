@@ -35,6 +35,10 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    this.post.videos = this.post.videos.split(',')[0];
+    if (this.post.videos && this.post.videos.substr(0, 5) === 'blob:') {
+      this.post.videos = encodeURI(this.post.videos.substr(5));
+    }
   }
 
   detail(): void {

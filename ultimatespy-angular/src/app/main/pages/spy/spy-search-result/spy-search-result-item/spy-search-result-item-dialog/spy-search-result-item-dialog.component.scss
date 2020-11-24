@@ -89,6 +89,19 @@
             object-fit: cover;
           }
 
+          .icon-play {
+            position: absolute;
+            z-index: 1;
+            font-size: 80px;
+            margin: auto;
+            top: calc(50% - 30px);
+            left: 0;
+            right: 0;
+            color: #eee;
+            opacity: .85;
+            text-align: center;
+          }
+
         }
     
         .post-origin-performance {

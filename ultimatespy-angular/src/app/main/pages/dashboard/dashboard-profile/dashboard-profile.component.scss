@@ -14,3 +14,11 @@
 .form-control:disabled, .form-control[readonly], .custom-select:disabled {
   background-color: #fafafa;
 }
+
+.btn-cancel {
+  border: 1px solid #ced4da;
+
+  &:hover {
+    background-color: #f1f2f3;
+  }
+}

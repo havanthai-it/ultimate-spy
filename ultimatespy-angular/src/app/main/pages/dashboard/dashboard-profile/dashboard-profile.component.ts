@@ -31,4 +31,8 @@ export class DashboardProfileComponent implements OnInit {
     )
   }
 
+  cancel(): void {
+    this.isEditting = false;
+  }
+
 }

@@ -21,9 +21,10 @@
         </div>
 
         <div class="post-origin-body">
-          <div class="post-origin-content" [innerHtml]="data.content"></div>
+          <div class="post-origin-content mb-2" [innerHtml]="data.content"></div>
           <div class="post-origin-thumbnail">
             <img src="{{data.images.split(',')[0]}}">
+            <i *ngIf="data.type==='VIDEO'" class="fa fa-play-circle-o icon-play"></i>
           </div>
 
           <div class="post-origin-performance g-float-wrapper">

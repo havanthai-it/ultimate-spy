@@ -121,6 +121,19 @@
         object-fit: cover;
       }
 
+      .icon-play {
+        position: absolute;
+        z-index: 1;
+        font-size: 60px;
+        margin: auto;
+        top: calc(50% - 25px);
+        left: 0;
+        right: 0;
+        color: #eee;
+        opacity: .85;
+        text-align: center;
+      }
+
       .ssri-thumbnail-overlay {
         position: absolute;
         top: 0;
