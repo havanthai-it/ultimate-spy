@@ -153,10 +153,18 @@ img {
   max-width: 1340px;
 }
 .btn-primary, .btn-primary:focus {
+  background-color: $primary1 !important;
+  border-color: $primary1 !important;
+}
+.btn-primary:hover {
+  background-color: $primary11 !important;
+  border-color: $primary11 !important;
+}
+.btn-secondary, .btn-secondary:focus {
   background-color: $primary2 !important;
   border-color: $primary2 !important;
 }
-.btn-primary:hover {
+.btn-secondary:hover {
   background-color: $primary21 !important;
   border-color: $primary21 !important;
 }

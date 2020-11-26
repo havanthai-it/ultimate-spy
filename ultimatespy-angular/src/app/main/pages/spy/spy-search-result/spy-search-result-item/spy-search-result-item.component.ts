@@ -7,7 +7,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { UserPostService } from 'src/app/core/services/user-post.service';
 import { PlanCtaDialogComponent } from 'src/app/shared/components/plan-cta-dialog/plan-cta-dialog.component';
 
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-spy-search-result-item',
   templateUrl: './spy-search-result-item.component.html',

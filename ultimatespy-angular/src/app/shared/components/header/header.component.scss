@@ -1,13 +1,27 @@
 @import '../../../../assets/scss/global.scss';
 
 .header-placeholder {
-  height: 65px;
+  height: 60px;
 }
 
 header {
   .navbar {
     z-index: 999;
-    padding: 13px 0px;
+    padding: 10px 0px;
+
+    .navbar-brand {
+      padding: 0;
+      font-size: 22px;
+      position: relative;
+      top: 3px;
+    }
+
+    &.navbar-expand-md {
+      .navbar-brand {
+        position: relative;
+        top: 0;
+      }
+    }
 
     ul li a {
       padding-left: 16px;
@@ -20,7 +34,7 @@ header {
 
     a {
       font-weight: 500;
-      color: #ccc;
+      color: #fff;
 
       &:hover {
         color: #fff;
@@ -41,24 +55,24 @@ header {
 
     .link-signin {
       margin-right: 1rem;
-      color: #ccc;
+      color: #fff;
 
       &:hover {
-        color: #ccc;
+        color: #fff;
       }
     }
 
     .btn-signup {
-      background-color: $primary1;
-      color: $primary21;
-      border: solid 1px $primary21;
+      // background-color: $primary1;
+      // color: $primary21;
+      // border: solid 1px $primary21;
       font-weight: 500;
 
-      &:hover {
-        background-color: $primary21;
-        color: #fff;
-        border: solid 1px $primary21;
-      }
+      // &:hover {
+      //   background-color: $primary21;
+      //   color: #fff;
+      //   border: solid 1px $primary21;
+      // }
     }
 
     &.fixed-top {
@@ -69,7 +83,7 @@ header {
     .profile-dropdown {
 
       .btn-profile {
-        color: #ccc;
+        color: #fff;
         
         &:focus {
           outline: none;
@@ -85,6 +99,7 @@ header {
         .dropdown-item {
           color: #333;
           font-weight: 400;
+          height: 40px;
           padding: 0.5rem 1rem;
           cursor: pointer;
 
@@ -96,6 +111,7 @@ header {
         .dropdown-item-top {
           border-bottom: solid 1px $borderColor;
           font-weight: 500;
+          height: 64px;
 
           .current-plan {
             border: solid 1px $primary2;

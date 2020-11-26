@@ -124,14 +124,22 @@
       .icon-play {
         position: absolute;
         z-index: 1;
-        font-size: 60px;
         margin: auto;
-        top: calc(50% - 25px);
+        top: calc(50% - 40px);
         left: 0;
         right: 0;
-        color: #eee;
-        opacity: .85;
-        text-align: center;
+        background-image: url('../../../../../../assets/img/icon/icon-fb-01.png');
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: 0 0;
+        background-color: transparent;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 80px;
+        height: 80px;
+        outline: none;
+        padding: 0;
       }
 
       .ssri-thumbnail-overlay {
@@ -159,7 +167,7 @@
 
       &:hover {
         .ssri-thumbnail-overlay {
-          background-color: rgba(0,0,0,0.24);
+          background-color: rgba(0,0,0,0.36);
           color: rgba(255,255,255,1);
         }
       }

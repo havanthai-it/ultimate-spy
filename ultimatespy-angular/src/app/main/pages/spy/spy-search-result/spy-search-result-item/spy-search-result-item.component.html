@@ -29,7 +29,7 @@
 
     <div class="ssri-thumbnail" (click)="detail()">
       <img src="{{post.images.split(',')[0]}}">
-      <i *ngIf="post.type==='VIDEO'" class="fa fa-play-circle-o icon-play"></i>
+      <input *ngIf="post.type==='VIDEO'" type="button" class="icon-play">
       <div class="ssri-thumbnail-overlay">
         <div>
           <mat-icon class="icon-view-more">visibility</mat-icon>

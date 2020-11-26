@@ -57,13 +57,13 @@
     }
 
     .btn-google {
-      background-color: #4285f4;
+      background-color: #DB4437;
       color: #fff;
       width: 100%;
       font-weight: 500;
 
       &:hover {
-        background-color: #2773f3;
+        background-color: #DB4437;
       }
     }
 
@@ -74,8 +74,8 @@
         position: absolute;
         z-index: 2;
         background-color: $bgColor;
-        padding: 0 4px;
-        margin-left: -4px;
+        // padding: 0 4px;
+        margin-left: -8px;
         margin-top: -1.9rem;
       }
     }

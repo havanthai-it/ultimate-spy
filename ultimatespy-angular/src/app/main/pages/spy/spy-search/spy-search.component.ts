@@ -125,8 +125,11 @@ export class SpySearchComponent implements OnInit {
       this.query.keyword = params.keyword ? params.keyword : '';
       this.query.page = params.page ? parseInt(params.page) -1 : 0;
       this.fromDate.setDate(this.now.getDate() - 365);
-      this.search(0, false);
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.search(0, false);
   }
 
   search(page: number, scrollToTop: boolean): void {

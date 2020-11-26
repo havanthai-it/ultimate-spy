@@ -23,7 +23,7 @@
         right: 25%;
         input {
           border-radius: 1.2rem;
-          height: 38px;
+          height: 36px;
           width: 100%;
           border: none;
         }
@@ -56,7 +56,7 @@
   }
   
   .filter-block {
-    margin: 15px 0;
+    margin: 12px 0;
     position: relative;
     display: inline-block;
 
@@ -249,7 +249,9 @@
 
   .btn-search {
     position: relative;
-    padding: .375rem 1.25rem;
+    padding: .375rem 1.75rem;
+    margin: .2rem 0;
+    font-weight: 500;
 
     // .mat-progress-spinner {
     //   position: absolute;

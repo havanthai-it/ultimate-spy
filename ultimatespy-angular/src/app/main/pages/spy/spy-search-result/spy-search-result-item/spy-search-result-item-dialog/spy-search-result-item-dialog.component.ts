@@ -5,6 +5,8 @@ import { UserPostService } from 'src/app/core/services/user-post.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { PlanCtaDialogComponent } from 'src/app/shared/components/plan-cta-dialog/plan-cta-dialog.component';
 
+declare var $: any;
+
 @Component({
   selector: 'app-spy-search-result-item-dialog',
   templateUrl: './spy-search-result-item-dialog.component.html',
@@ -38,9 +40,12 @@ export class SpySearchResultItemDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<SpySearchResultItemDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
-    private userPostService: UserPostService) { }
+    private userPostService: UserPostService) {
+    }
 
   ngOnInit(): void {
+    $('[data-toggle="tooltip"]').tooltip();
+
     let user = localStorage.getItem('user');
     this.userId = user ? JSON.parse(user).id : '';
   }
