@@ -31,11 +31,11 @@ export class SpySearchComponent implements OnInit {
 
   likeRange: any = {
     from: 0,
-    to: 100000,
+    to: 10000,
     options: {
       floor: 0,
-      ceil: 100000,
-      // step: 100,
+      ceil: 10000,
+      //step: 10,
       disabled: false,
       hideLimitLabels: true,
       hidePointerLabels: true
@@ -44,11 +44,11 @@ export class SpySearchComponent implements OnInit {
 
   commentRange: any = {
     from: 0,
-    to: 100000,
+    to: 10000,
     options: {
       floor: 0,
-      ceil: 100000,
-      // step: 100,
+      ceil: 10000,
+      //step: 10,
       disabled: false,
       hideLimitLabels: true,
       hidePointerLabels: true
@@ -77,34 +77,37 @@ export class SpySearchComponent implements OnInit {
   }
 
   lstCategories: any[] = [
-    { label: 'All', value: '' },
     { label: 'Clothes', value: 'Clothes' },
     { label: 'Technology', value: 'Technology' }
   ];
   lstTypes: any[] = [
-    { label: 'All', value: '' },
     { label: 'Image', value: 'IMAGE' },
     { label: 'Video', value: 'VIDEO' }
   ];
   lstPlatforms: any[] = [
-    { label: 'All', value: '' },
+    { label: 'POD', value: 'pod' },
     { label: 'Shopify', value: 'shopify' },
     { label: 'Woocommerce', value: 'woocommerce' },
-    { label: 'Bigcommerce', value: 'bigcommerce' },
-    { label: 'Magento', value: 'magento' },
     { label: 'Amazon', value: 'amazon' },
     { label: 'Ebay', value: 'ebay' },
     { label: 'Etsy', value: 'etsy' },
-    { label: 'Bonfire', value: 'bonfire' },
-    { label: 'Printshop', value: 'printshop' },
     { label: 'Redbubble', value: 'redbubble' },
+    { label: 'Teespring', value: 'teespring' },
+    { label: 'Bigcommerce', value: 'bigcommerce' },
+    { label: 'Magento', value: 'magento' },
+    { label: 'Merchking', value: 'merchking' },
+    { label: 'Gearbubble', value: 'gearbubble' },
     { label: 'Spreadshirt', value: 'spreadshirt' },
     { label: 'Sunfrog', value: 'sunfrog' },
     { label: 'Teechip', value: 'teechip' },
-    { label: 'Teemill', value: 'teemill' },
-    { label: 'Teespring', value: 'teespring' },
+    { label: 'Teehag', value: 'teehag' },
     { label: 'Teepublic', value: 'teepublic' },
-    { label: 'Teespy', value: 'teespy' }
+    { label: 'Teezily', value: 'teezily' },
+    { label: 'Shopbase', value: 'shopbase' },
+    { label: 'Teemill', value: 'teemill' },
+    { label: 'Gearlaunch', value: 'gearlaunch' },
+    { label: 'Merchize', value: 'merchize' },
+    { label: 'Hostingrocket', value: 'hostingrocket' }
   ];
   lstSorts: any[] = [
     { label: 'Date', value: 'date' },
@@ -137,8 +140,8 @@ export class SpySearchComponent implements OnInit {
     if (scrollToTop)  window.scroll(0,0);
     this.onSearching.emit(true);
     this.isSearching = true;
-    // this.searchResult.emit({ list: [], total: 0 });
-    
+    this.query.fromDate = this.fromDate.toISOString().split('T')[0];
+    this.query.toDate = this.toDate.toISOString().split('T')[0];
     this.query.page = page;
     this.query.minLikes = this.likeRange.from === this.likeRange.options.floor ? '' : this.likeRange.from;
     this.query.maxLikes = this.likeRange.to === this.likeRange.options.ceil ? '' : this.likeRange.to;

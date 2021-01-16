@@ -32,6 +32,7 @@ export class SpySearchResultItemDialogComponent implements OnInit {
   yAxisLabel: string = 'Population';
   timeline: boolean = true;
   view: any[] = [600, 300];
+  autoScale = true;
   colorScheme = {
     domain: ['#E74C3C', '#17A589', '#F1C40F', '#3498DB', '#8E44AD']
   };

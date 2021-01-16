@@ -97,10 +97,11 @@
         <!-- CHART -->
         <div #chartWrapper class="chart-wrapper">
           <ngx-charts-line-chart
-            [view]="[chartWrapper.offsetWidth, 300]"
+            [view]="[chartWrapper.offsetWidth, 320]"
             [scheme]="colorScheme"
             [legend]="legend"
             [legendPosition]="legendPosition"
+            [animations]="animations"
             [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel"
             [xAxis]="xAxis"
@@ -109,6 +110,7 @@
             [yAxisLabel]="yAxisLabel"
             [timeline]="timeline"
             [results]="data.statistics"
+            [autoScale]="autoScale"
             (select)="onSelect($event)"
             (activate)="onActivate($event)"
             (deactivate)="onDeactivate($event)"

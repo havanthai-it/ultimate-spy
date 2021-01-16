@@ -34,7 +34,7 @@ export class PostService {
   }
 
   searchFacebookPost(query: FacebookPostQuery): Observable<any> {
-    const url = `${environment.serviceUrl}/api/facebook-post?`
+    const url = `${environment.serviceUrl}/api/elasticsearch/facebook-post?`
                   + 'fromDate=' + (query.fromDate ? query.fromDate : '')
                   + '&toDate=' + (query.toDate ? query.toDate : '')
                   + '&page=' + (query.page ? query.page : 0)

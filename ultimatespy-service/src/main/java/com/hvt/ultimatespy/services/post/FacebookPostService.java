@@ -1,24 +1,55 @@
 package com.hvt.ultimatespy.services.post;
 
+import com.google.gson.Gson;
+import com.hvt.ultimatespy.config.Config;
 import com.hvt.ultimatespy.ds.Datasource;
 import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.post.FacebookPost;
 import com.hvt.ultimatespy.models.post.FacebookPostQuery;
 import com.hvt.ultimatespy.models.post.FacebookPostStatistic;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.data.elasticsearch.client.ClientConfiguration;
+import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class FacebookPostService {
 
     private static final Logger logger = Logger.getLogger(FacebookPostService.class.getName());
+    private static final String ES_HOST = Config.prop.getProperty("elasticsearch.host");
+    private static final int ES_TIMEOUT = Integer.parseInt(Config.prop.getProperty("elasticsearch.timeout"));
+    private static final Gson gson = new Gson();
+
+    private final RestHighLevelClient client;
+
+    public FacebookPostService() {
+        ClientConfiguration clientConfiguration = ClientConfiguration.builder().connectedTo(ES_HOST).build();
+        client = RestClients.create(clientConfiguration).rest();
+    }
 
     public CompletableFuture<FacebookPost> get (String facebookPostId) {
         return CompletableFuture.supplyAsync(() -> {
@@ -183,6 +214,90 @@ public class FacebookPostService {
             }
             return total;
         });
+    }
+
+    public BaseList<FacebookPost> search(FacebookPostQuery query) throws IOException {
+        BaseList<FacebookPost> baseList = new BaseList<>();
+
+        SearchSourceBuilder builder = new SearchSourceBuilder();
+
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        if (query.getKeyword() != null && !query.getKeyword().trim().isEmpty()) {
+            boolQueryBuilder.filter(QueryBuilders.matchQuery("s_content", query.getKeyword()).operator(Operator.AND));
+        }
+        if (query.getPixelId() != null && !query.getPixelId().trim().isEmpty()) {
+            boolQueryBuilder.filter(QueryBuilders.termQuery("s_pixel_id.keyword", query.getPixelId()));
+        }
+        if (query.getFacebookPageUsername() != null && !query.getFacebookPageUsername().trim().isEmpty()) {
+            boolQueryBuilder.filter(QueryBuilders.termQuery("s_facebook_page_username.keyword", query.getFacebookPageUsername()));
+        }
+        if (query.getCategory() != null && !query.getCategory().trim().isEmpty()) {
+            BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+            for (String category : query.getCategory().split(",")) {
+                boolQuery.should(QueryBuilders.termQuery("s_category.keyword", category));
+            }
+            boolQuery.minimumShouldMatch(1);
+            boolQueryBuilder.filter(boolQuery);
+        }
+        if (query.getType() != null && !query.getType().trim().isEmpty()) {
+            BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+            for (String type : query.getType().split(",")) {
+                boolQuery.should(QueryBuilders.termQuery("s_type.keyword", type));
+            }
+            boolQuery.minimumShouldMatch(1);
+            boolQueryBuilder.filter(boolQuery);
+        }
+        if (query.getWebsite() != null && !query.getWebsite().trim().isEmpty()) {
+            boolQueryBuilder.filter(QueryBuilders.termQuery("s_website.keyword", query.getWebsite()));
+        }
+        if (query.getPlatform() != null && !query.getPlatform().trim().isEmpty()) {
+            BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+            for (String platform : query.getPlatform().split(",")) {
+                boolQuery.should(QueryBuilders.termQuery("s_platform.keyword", platform));
+            }
+            boolQuery.minimumShouldMatch(1);
+            boolQueryBuilder.filter(boolQuery);
+        }
+        if (query.getFromDate() != null) {
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery("d_publish").gte(new java.util.Date(query.getFromDate().getTime())));
+        }
+        if (query.getToDate() != null) {
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery("d_publish").lte(new java.util.Date(query.getToDate().getTime())));
+        }
+        if (query.getMinLikes() != null && query.getMinLikes() > 0) {
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery("n_likes").gte(query.getMinLikes()));
+        }
+        if (query.getMaxLikes() != null && query.getMaxLikes() < 10000) {
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery("n_likes").lte(query.getMaxLikes()));
+        }
+        if (query.getMinComments() != null && query.getMinComments() > 0) {
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery("n_comments").gte(query.getMinComments()));
+        }
+        if (query.getMaxComments() != null && query.getMaxComments() < 10000) {
+            boolQueryBuilder.filter(QueryBuilders.rangeQuery("n_comments").lte(query.getMaxComments()));
+        }
+
+        builder.query(boolQueryBuilder);
+        builder.timeout(new TimeValue(ES_TIMEOUT, TimeUnit.MILLISECONDS));
+        builder.sort(new FieldSortBuilder("d_publish").order(SortOrder.DESC));
+        if (query.getPage() != null && query.getPageSize() != null) {
+            builder.from(query.getPage() * query.getPageSize());
+            builder.size(query.getPageSize());
+        }
+
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("es_facebook_post");
+        searchRequest.searchType(SearchType.DFS_QUERY_THEN_FETCH);
+        searchRequest.source(builder);
+        SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+        SearchHit[] searchHits = response.getHits().getHits();
+        List<FacebookPost> list =
+                Arrays.stream(searchHits)
+                        .map(hit -> gson.fromJson(hit.getSourceAsString(), FacebookPost.class))
+                        .collect(Collectors.toList());
+        baseList.setList(list);
+        baseList.setTotal(0);
+        return baseList;
     }
 
     public CompletableFuture<Long> totalUserPost(String userId, String userPostType, FacebookPostQuery facebookPostQuery) {

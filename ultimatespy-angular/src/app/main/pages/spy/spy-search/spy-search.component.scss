@@ -119,7 +119,9 @@
       }
     }
     .dropdown-menu {
-      max-height: 390px !important;
+      // max-height: 390px !important;
+      width: 100%;
+      min-width: 200px;
 
       li.disabled:first-child {
         display: none;
@@ -137,10 +139,22 @@
             background-color: #fff;
           }
 
+          &.selected,
           .check-mark:after {
-            color: $primary1;
+            color: $primary21;
           }
 
+        }
+      }
+      .btn-group {
+        button {
+          border: solid 1px $borderColor;
+          background-color: #fff;
+
+          &:hover {
+            color: $primary21;
+            border-color: $primary21;
+          }
         }
       }
     }

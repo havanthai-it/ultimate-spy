@@ -1,40 +1,98 @@
 package com.hvt.ultimatespy.models.post;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
 public class FacebookPost {
+    @SerializedName(value = "s_id")
     private String id;
+
+    @SerializedName(value = "s_post_id")
     private String postId;
+
+    @SerializedName(value = "s_ads_id")
     private String adsId;
+
+    @SerializedName(value = "s_pixel_id")
     private String pixelId;
+
+    @SerializedName(value = "s_facebook_page_username")
     private String facebookPageUsername;
+
+    @SerializedName(value = "s_images")
     private String images;
+
+    @SerializedName(value = "s_videos")
     private String videos;
+
+    @SerializedName(value = "s_content")
     private String content;
+
+    @SerializedName(value = "s_type")
     private String type;
+
+    @SerializedName(value = "s_category")
     private String category;
+
+    @SerializedName(value = "s_country")
     private String country;
+
+    @SerializedName(value = "s_language")
     private String language;
+
+    @SerializedName(value = "n_likes")
     private Long likes;
+
+    @SerializedName(value = "n_comments")
     private Long comments;
+
+    @SerializedName(value = "n_shares")
     private Long shares;
+
+    @SerializedName(value = "n_views")
     private Long views;
+
+    @SerializedName(value = "s_status")
     private String status;
+
+    @SerializedName(value = "s_links")
     private String links;
+
+    @SerializedName(value = "s_website")
     private String website;
+
+    @SerializedName(value = "s_platform")
     private String platform;
+
+    @SerializedName(value = "d_publish")
     private Timestamp publishDate;
+
+    @SerializedName(value = "d_create")
     private Timestamp createDate;
+
+    @SerializedName(value = "d_update")
     private Timestamp updateDate;
 
     // Page information
+    @SerializedName(value = "s_page_name")
     private String pageName;
+
+    @SerializedName(value = "s_page_username")
     private String pageUsername;
+
+    @SerializedName(value = "s_page_thumbnail")
     private String pageThumbnail;
+
+    @SerializedName(value = "n_page_likes")
     private Long pageLikes;
+
+    @SerializedName(value = "n_page_follows")
     private Long pageFollows;
+
+    @SerializedName(value = "d_page_publish")
     private Timestamp pagePublishDate;
 
     // Statistic

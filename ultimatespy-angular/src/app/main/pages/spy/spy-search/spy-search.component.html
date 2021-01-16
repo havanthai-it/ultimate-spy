@@ -21,7 +21,9 @@
           <div class="col-xl-8 col-lg-12">
             <div class="filter-block bootstrap-select-wrapper">
               <label for="select-category">Category</label>
-              <select class="selectpicker" id="select-category" [(ngModel)]="query.category">
+              <select class="selectpicker show-tick" id="select-category" [(ngModel)]="query.category" multiple
+                data-live-search="false" data-live-search-placeholder="Search" data-actions-box="true"
+                data-selected-text-format="count > 2" data-size="10" title="All">
                 <option *ngFor="let item of lstCategories" value="{{item.value}}">{{item.label}}</option>
               </select>
             </div>
@@ -29,7 +31,9 @@
           <div class="col-md-3 col-sm-12"> -->
             <div class="filter-block bootstrap-select-wrapper">
               <label for="select-creative">Creative</label>
-              <select class="selectpicker" id="select-creative" [(ngModel)]="query.type">
+              <select class="selectpicker show-tick" id="select-creative" [(ngModel)]="query.type" multiple
+                data-live-search="false" data-live-search-placeholder="Search" data-actions-box="true"
+                data-selected-text-format="count > 2" data-size="10" title="All">
                 <option *ngFor="let item of lstTypes" value="{{item.value}}">{{item.label}}</option>
               </select>
             </div>
@@ -37,7 +41,9 @@
           <div class="col-md-3 col-sm-12"> -->
             <div class="filter-block bootstrap-select-wrapper">
               <label for="select-platform">Platform</label>
-              <select class="selectpicker" id="select-platform" [(ngModel)]="query.platform">
+              <select class="selectpicker show-tick" id="select-platform" [(ngModel)]="query.platform" multiple
+                data-live-search="false" data-live-search-placeholder="Search" data-actions-box="true"
+                data-selected-text-format="count > 2" data-size="10" title="All">
                 <option *ngFor="let item of lstPlatforms" value="{{item.value}}">{{item.label}}</option>
               </select>
             </div>
