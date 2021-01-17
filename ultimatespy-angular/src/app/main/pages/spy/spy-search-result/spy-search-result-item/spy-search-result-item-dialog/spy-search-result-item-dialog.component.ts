@@ -200,4 +200,54 @@ export class SpySearchResultItemDialogComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
+  bindPlatformLogo(platform: string): string {
+    if (platform === 'amazon') {
+      return '../../../../../../../assets/img/platforms/amazon.png';
+    } else if (platform === 'bigcommerce') {
+      return '../../../../../../../assets/img/platforms/bigcommerce.png';
+    } else if (platform === 'ebay') {
+      return '../../../../../../../assets/img/platforms/ebay.png';
+    } else if (platform === 'etsy') {
+      return '../../../../../../../assets/img/platforms/etsy.png';
+    } else if (platform === 'gearbubble') {
+      return '../../../../../../../assets/img/platforms/gearbubble.png';
+    } else if (platform === 'gearlaunch') {
+      return '../../../../../../../assets/img/platforms/gearlaunch.png';
+    } else if (platform === 'hostingrocket') {
+      return '../../../../../../../assets/img/platforms/hostingrocket.png';
+    } else if (platform === 'magento') {
+      return '../../../../../../../assets/img/platforms/magento.png';
+    } else if (platform === 'merchize') {
+      return '../../../../../../../assets/img/platforms/merchize.png';
+    } else if (platform === 'merchking') {
+      return '../../../../../../../assets/img/platforms/merchking.png';
+    } else if (platform === 'redbubble') {
+      return '../../../../../../../assets/img/platforms/redbubble.png';
+    } else if (platform === 'shopbase') {
+      return '../../../../../../../assets/img/platforms/shopbase.png';
+    } else if (platform === 'shopify') {
+      return '../../../../../../../assets/img/platforms/shopify.png';
+    } else if (platform === 'spreadshirt') {
+      return '../../../../../../../assets/img/platforms/spreadshirt.png';
+    } else if (platform === 'sunfrog') {
+      return '../../../../../../../assets/img/platforms/sunfrog.png';
+    } else if (platform === 'teechip') {
+      return '../../../../../../../assets/img/platforms/teechip.png';
+    } else if (platform === 'teehag') {
+      return '../../../../../../../assets/img/platforms/teehag.png';
+    } else if (platform === 'teemill') {
+      return '../../../../../../../assets/img/platforms/teemill.png';
+    } else if (platform === 'teepublic') {
+      return '../../../../../../../assets/img/platforms/teepublic.png';
+    } else if (platform === 'teespring') {
+      return '../../../../../../../assets/img/platforms/teespring.png';
+    } else if (platform === 'teezily') {
+      return '../../../../../../../assets/img/platforms/teezily.png';
+    } else if (platform === 'woocommerce') {
+      return '../../../../../../../assets/img/platforms/woocommerce.png';
+    } else {
+      return '../../../../../../../assets/img/platforms/_default.png';
+    }
+  }
+
 }

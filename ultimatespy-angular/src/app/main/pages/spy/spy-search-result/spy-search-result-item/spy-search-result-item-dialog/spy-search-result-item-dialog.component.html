@@ -27,6 +27,9 @@
             <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}">
               <input *ngIf="data.type==='VIDEO'" type="button" class="icon-play" data-toggle="tooltip" data-placement="bottom" title="Play on Facebook">
             </a>
+            <div class="ssri-platform-logo">
+              <img class="ssri-platform-logo-image" src="{{bindPlatformLogo(data.platform)}}">
+            </div>
             <!-- <div class="responsive-video" *ngIf="data.type==='VIDEO'">
               <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook%2Fvideos%174622487666757%2F&show_text=false&autoplay=false" 
                 width="100%" height="100%" 

@@ -244,7 +244,7 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
     } else if (platform === 'woocommerce') {
       return '../../../../../../assets/img/platforms/woocommerce.png';
     } else {
-      return '';
+      return '../../../../../../assets/img/platforms/_default.png';
     }
     
   }
