@@ -296,7 +296,7 @@ public class FacebookPostService {
                         .map(hit -> gson.fromJson(hit.getSourceAsString(), FacebookPost.class))
                         .collect(Collectors.toList());
         baseList.setList(list);
-        baseList.setTotal(0);
+        baseList.setTotal(response.getHits().getTotalHits().value);
         return baseList;
     }
 

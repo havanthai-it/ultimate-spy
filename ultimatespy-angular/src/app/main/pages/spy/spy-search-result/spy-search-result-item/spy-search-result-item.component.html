@@ -28,8 +28,11 @@
     </div>
 
     <div class="ssri-thumbnail" (click)="detail()">
-      <img src="{{post.images.split(',')[0]}}">
+      <img class="ssri-thumbnail-image" src="{{post.images.split(',')[0]}}">
       <input *ngIf="post.type==='VIDEO'" type="button" class="icon-play">
+      <div class="ssri-platform-logo">
+        <img class="ssri-platform-logo-image" src="{{bindPlatformLogo(post.platform)}}">
+      </div>
       <div class="ssri-thumbnail-overlay">
         <div>
           <mat-icon class="icon-view-more">visibility</mat-icon>
