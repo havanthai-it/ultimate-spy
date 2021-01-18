@@ -1,6 +1,7 @@
 package com.hvt.ultimatespy.utils.enums;
 
 public enum PlanEnum {
+    FREE_PLAN("free_plan"),
     BASIC_PLAN("basic_plan"),
     PREMIUM_PLAN("premium_plan");
 

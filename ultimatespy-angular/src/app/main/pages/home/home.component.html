@@ -148,7 +148,7 @@
               <h4 class="my-0 font-weight-normal">Free</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title"><span class="text-muted">$0</span> <small class="text-muted">/
+              <h1 class="card-title pricing-card-title"><span class="text-muted">${{subscriptionPlans.free?.price}}</span> <small class="text-muted">/
                   mo</small></h1>
               <ul class="list-unstyled text-left mt-3 mb-4">
                 <li><i class="fa fa-check-square-o"></i><span>Queries: 5 daily</span></li>
@@ -158,11 +158,13 @@
                 <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Track ads</span></li>
                 <li class="g-text-blur"><i class="fa fa-check-square-o"></i><span class="g-text-line-through">Service support</span></li>
               </ul>
-              <button *ngIf="!token || !user" type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for
-                free</button>
-              <button *ngIf="token && user && user.plan === 'FREE'" type="button"
+              <button *ngIf="!token || !user" type="button" 
+                class="btn btn-lg btn-block btn-outline-primary"
+                (click)="redirectToSignup()">Sign up</button>
+              <button *ngIf="token && user && user.plan === 'free_plan'" type="button"
                 class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
-              <button *ngIf="token && user && user.plan !== 'FREE'" type="button"
+              <button *ngIf="token && user && user.plan !== 'free_plan'" type="button"
+                (click)="redirectToCheckout(subscriptionPlans.free)"
                 class="btn btn-lg btn-block btn-primary">Free</button>
             </div>
           </div>
@@ -174,7 +176,7 @@
               <h4 class="my-0 font-weight-normal">Basic</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$9 <small class="text-muted">/ mo</small></h1>
+              <h1 class="card-title pricing-card-title">${{subscriptionPlans.basic?.price}} <small class="text-muted">/ mo</small></h1>
               <ul class="list-unstyled text-left mt-3 mb-4">
                 <li><i class="fa fa-check-square-o"></i><span>Queries: 25 daily</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited search result</span></li>
@@ -183,38 +185,11 @@
                 <li><i class="fa fa-check-square-o"></i><span>Track ads: 10 ads daily</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Service support</span></li>
               </ul>
-              <button *ngIf="!token || !user" (click)="toggleBasicPlan(products.basic, period)" type="button"
-                class="btn btn-lg btn-block btn-primary">Get started</button>
-              <button *ngIf="token && user && user.plan === 'BASIC'" type="button"
+              <button *ngIf="token && user && user.plan === 'basic_plan'" type="button"
                 class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
-              <button *ngIf="token && user && user.plan !== 'BASIC'" (click)="toggleBasicPlan(products.basic, period)"
+              <button *ngIf="!token || !user || user.plan !== 'basic_plan'"
+                (click)="redirectToCheckout(subscriptionPlans.basic)"
                 type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
-            </div>
-            <div *ngIf="expandPlan ==='BASIC'" class="card-footer">
-              <label>Choose period</label>
-              <div class="dropdown dropdown-period">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  {{invoice.period}} months
-                  <span class="discount" *ngIf="period.discount > 0">(-{{invoice.percentDiscount}}%)</span>
-                  <span class="desc">{{period.desc}}</span>
-                  <span class="amount">${{invoice.amount}}</span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <div class="dropdown-item" *ngFor="let p of periods"
-                    (click)="period = p;initInvoice(products.basic, p)">
-                    {{p.months}} months
-                    <span class="discount" *ngIf="p.discount > 0">(-{{p.discount}}%)</span>
-                    <span class="desc">{{p.desc}}</span>
-                    <span class="amount">${{round(products.basic.price * p.months * (1 - p.discount / 100))}}</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <a class="btn-checkou-wrapper" href="/checkout?p={{encodeJsonStringify(invoice)}}">
-                  <button type="button" class="btn btn-block btn-checkout">Check out</button>
-                </a>
-              </div>
             </div>
           </div>
         </div>
@@ -225,7 +200,7 @@
               <h4 class="my-0 font-weight-normal">Premium</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$49 <small class="text-muted">/ mo</small></h1>
+              <h1 class="card-title pricing-card-title">${{subscriptionPlans.premium?.price}} <small class="text-muted">/ mo</small></h1>
               <ul class="list-unstyled text-left mt-3 mb-4">
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited queries</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited search result</span></li>
@@ -234,41 +209,12 @@
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited track ads</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Service support</span></li>
               </ul>
-              <button *ngIf="!token || !user" (click)="togglePremiumPlan(products.premium, period)" type="button"
-                class="btn btn-lg btn-block btn-primary">Get started</button>
-              <button *ngIf="token && user && user.plan === 'PREMIUM'" type="button"
+              <button *ngIf="token && user && user.plan === 'premium_plan'" type="button"
                 class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
-              <button *ngIf="token && user && user.plan !== 'PREMIUM'"
-                (click)="togglePremiumPlan(products.premium, period)" type="button"
+              <button *ngIf="!token || !user || user.plan !== 'premium_plan'" type="button"
+                (click)="redirectToCheckout(subscriptionPlans.premium)"
                 class="btn btn-lg btn-block btn-primary">Get started</button>
             </div>
-            <div *ngIf="expandPlan ==='PREMIUM'" class="card-footer">
-              <label>Choose period</label>
-              <div class="dropdown dropdown-period">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  {{invoice.period}} months
-                  <span class="discount" *ngIf="period.discount > 0">(-{{invoice.percentDiscount}}%)</span>
-                  <span class="desc">{{period.desc}}</span>
-                  <span class="amount">${{invoice.amount}}</span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <div class="dropdown-item" *ngFor="let p of periods"
-                    (click)="period = p;initInvoice(products.premium, p)">
-                    {{p.months}} months
-                    <span class="discount" *ngIf="p.discount > 0">(-{{p.discount}}%)</span>
-                    <span class="desc">{{p.desc}}</span>
-                    <span class="amount">${{round(products.premium.price * p.months * (1 - p.discount / 100))}}</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <a class="btn-checkou-wrapper" href="/checkout?p={{encodeJsonStringify(invoice)}}">
-                  <button type="button" class="btn btn-block btn-checkout">Check out</button>
-                </a>
-              </div>
-            </div>
-
           </div>
         </div>
 

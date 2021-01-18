@@ -1,0 +1,32 @@
+{
+  "free": {
+    "id": "free_plan",
+    "name": "Free plan",
+    "price": 0,
+    "currency": "USD"
+  },
+  "basic": {
+    "id": "basic_plan",
+    "name": "Basic plan",
+    "price": 9,
+    "currency": "USD",
+    "periods": [
+      { "months": 1, "discount": 0, "description": "" },
+      { "months": 3, "discount": 15, "description": "" },
+      { "months": 6, "discount": 30, "description": "Popular choice" },
+      { "months": 12, "discount": 45, "description": "Best value" }
+    ]
+  },
+  "premium": {
+    "id": "premium_plan",
+    "name": "Premium plan",
+    "price": 49,
+    "currency": "USD",
+    "periods": [
+      { "months": 1, "discount": 0, "description": "" },
+      { "months": 3, "discount": 15, "description": "" },
+      { "months": 6, "discount": 30, "description": "Popular choice" },
+      { "months": 12, "discount": 45, "description": "Best value" }
+    ]
+  }
+}

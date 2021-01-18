@@ -6,6 +6,7 @@ import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
 import com.hvt.ultimatespy.services.user.UserService;
 import com.hvt.ultimatespy.utils.Errors;
+import com.hvt.ultimatespy.utils.enums.PlanEnum;
 import com.hvt.ultimatespy.utils.enums.StatusEnum;
 import com.hvt.ultimatespy.utils.jwt.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class JwtAuthenticationController {
         } else if (user.getStatus().equals(StatusEnum.INACTIVE.value())) {
             throw Errors.USER_INACTIVE_EXCEPTION;
         }
-        user.setPlan("FREE");
+        user.setPlan(PlanEnum.FREE_PLAN.value());
 
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
 
