@@ -1,3 +1,105 @@
+@import '../../../../assets/scss/global.scss';
+
 .checkout-page {
   padding-bottom: 60px;
+
+  .card-wrapper {
+    // padding-left: 20px;
+    // padding-right: 20px;
+
+    .card-header {
+      text-align: center;
+      background-color: #fff;
+    }
+
+    .card-body {
+
+      .pricing-card-title {
+        color: $primary1;
+        text-align: center;
+      }
+
+      li {
+        .fa {
+          color: $primary1;
+          margin-right: 0.5em;
+        }
+
+        &.g-text-blur .fa {
+          color: inherit;
+        }
+      }
+
+      .btn-outline-primary {
+        color: $primary1;
+        outline-color: $primary1;
+        border-color: $primary1;
+
+        &:hover {
+          color: #fff;
+          background-color: $primary1;
+        }
+      }
+    }
+  }
+
+  .card-footer {
+    background-color: #fff;
+    
+    label {
+      font-weight: 500;
+    }
+    .dropdown-period {
+      .btn {
+        position: relative;
+        background-color: #fff;
+        width: 100%;
+        text-align: left;
+        border: solid 1px rgba(0,0,0,.12);
+        padding: .6rem 1.5rem;
+
+        &::after {
+          position: absolute;
+          right: .5em;
+          top: 1.2em;
+        }
+      }
+
+      .dropdown-menu {
+        width: 100%;
+
+        .dropdown-item {
+          position: relative;
+          cursor: pointer;
+
+          &:active {
+            .discount, .amount {
+              color: #fff;
+            }
+          }
+        }
+      }
+
+      .discount {
+        color: #28a745;
+        font-size: 0.86em;
+        letter-spacing: 0.04em;
+      }
+      .amount {
+        float: right;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+      .desc {
+        font-size: 0.86em;
+        font-weight: 500;
+        color: $primary1;
+        position: absolute;
+        right: 100px;
+        top: 0.8em;
+      }
+      
+    }
+  }
 }
+

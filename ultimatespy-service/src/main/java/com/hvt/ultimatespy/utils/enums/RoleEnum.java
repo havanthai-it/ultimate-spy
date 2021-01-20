@@ -1,10 +1,8 @@
 package com.hvt.ultimatespy.utils.enums;
 
 public enum RoleEnum {
-    ADMIN("ADMIN"),
-    NORMAL(""),
-    BASIC("BASIC"),
-    PREMIUM("PREMIUM");
+    ADMIN("admin"),
+    NORMAL("");
 
     private String value;
 

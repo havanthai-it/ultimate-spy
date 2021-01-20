@@ -73,6 +73,37 @@ public class UserPostService {
         });
     }
 
+    public CompletableFuture<List<String>> listIds(String userId, String type, int hours) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<String> list = new ArrayList<>();
+            Connection conn = null;
+            CallableStatement cs = null;
+            ResultSet rs = null;
+            String sql = "SELECT s_facebook_post_id " +
+                    " FROM tb_user_post " +
+                    " WHERE s_user_id = ? " +
+                    "       AND s_type = ? " +
+                    "       AND d_create > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL ? HOUR)";
+            try {
+                conn = Datasource.getConnection();
+                cs = conn.prepareCall(sql);
+                cs.setString(1, userId);
+                cs.setString(2, type);
+                cs.setInt(3, hours);
+                rs = cs.executeQuery();
+                while (rs != null && rs.next()) {
+                    list.add(rs.getString("S_FACEBOOK_POST_ID"));
+                }
+            } catch (SQLException e) {
+                logger.log(Level.SEVERE, "", e);
+            } finally {
+                Datasource.close(conn, cs, rs);
+            }
+
+            return list;
+        });
+    }
+
     public CompletableFuture<Integer> delete(String userId, String facebookPostId, String type) {
         return CompletableFuture.supplyAsync(() -> {
             Connection conn = null;

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@an
 import { ActivatedRoute, Params } from '@angular/router';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { User } from 'src/app/core/models/User';
+import { SubscriptionPlanService } from 'src/app/core/services/subscription-plan.service';
 
 @Component({
   selector: 'app-checkout',
@@ -14,8 +15,11 @@ export class CheckoutComponent implements OnInit {
 
   invoice: any = {};
   user: User;
+  subscriptionPlans: any = {};
+  period: any = {};
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private subscriptionPlanService: SubscriptionPlanService) { }
 
   ngOnInit(): void {
     
@@ -24,6 +28,7 @@ export class CheckoutComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.invoice = JSON.parse(atob(params.p));
+      this.period = this.invoice.plan.periods.find(p => p.months === this.invoice.period);
       console.log(this.invoice);
     });
 
@@ -90,6 +95,39 @@ export class CheckoutComponent implements OnInit {
         console.log('onClick', data, actions);
       },
     };
+  }
+
+  round(x): number {
+    return Math.round(x);
+  }
+
+  loadSubscriptionPlans() {
+    this.subscriptionPlanService.getListSubscriptionPlan().subscribe(
+      data => {
+        this.subscriptionPlans = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  initInvoice(plan: any, months: number): any {
+    let period = plan.periods.find(p => p.months === months);
+    return {
+      planId: plan.id,
+      planName: plan.name,
+      period: period.months,
+      originAmount: plan.price * period.months,
+      amount: Math.round(plan.price * period.months * (1 - period.discount / 100)),
+      percentDiscount: period.discount,
+      plan: plan
+    }
+  }
+
+  onChangePeriod(p: any): void {
+    this.period = p;
+    this.invoice = this.initInvoice(this.invoice.plan, p.months);
   }
 
 }

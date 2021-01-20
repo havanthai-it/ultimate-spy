@@ -161,9 +161,9 @@
               <button *ngIf="!token || !user" type="button" 
                 class="btn btn-lg btn-block btn-outline-primary"
                 (click)="redirectToSignup()">Sign up</button>
-              <button *ngIf="token && user && user.plan === 'free_plan'" type="button"
+              <button *ngIf="token && user && user.plan === 'free'" type="button"
                 class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
-              <button *ngIf="token && user && user.plan !== 'free_plan'" type="button"
+              <button *ngIf="token && user && user.plan !== 'free'" type="button"
                 (click)="redirectToCheckout(subscriptionPlans.free)"
                 class="btn btn-lg btn-block btn-primary">Free</button>
             </div>
@@ -185,9 +185,9 @@
                 <li><i class="fa fa-check-square-o"></i><span>Track ads: 10 ads daily</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Service support</span></li>
               </ul>
-              <button *ngIf="token && user && user.plan === 'basic_plan'" type="button"
+              <button *ngIf="token && user && user.plan === 'basic'" type="button"
                 class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
-              <button *ngIf="!token || !user || user.plan !== 'basic_plan'"
+              <button *ngIf="!token || !user || user.plan !== 'basic'"
                 (click)="redirectToCheckout(subscriptionPlans.basic)"
                 type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
             </div>
@@ -209,9 +209,9 @@
                 <li><i class="fa fa-check-square-o"></i><span>Unlimited track ads</span></li>
                 <li><i class="fa fa-check-square-o"></i><span>Service support</span></li>
               </ul>
-              <button *ngIf="token && user && user.plan === 'premium_plan'" type="button"
+              <button *ngIf="token && user && user.plan === 'premium'" type="button"
                 class="btn btn-lg btn-block btn-outline-primary">Your Current Plan</button>
-              <button *ngIf="!token || !user || user.plan !== 'premium_plan'" type="button"
+              <button *ngIf="!token || !user || user.plan !== 'premium'" type="button"
                 (click)="redirectToCheckout(subscriptionPlans.premium)"
                 class="btn btn-lg btn-block btn-primary">Get started</button>
             </div>

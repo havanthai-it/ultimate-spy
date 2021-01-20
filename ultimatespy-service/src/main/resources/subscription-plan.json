@@ -1,12 +1,12 @@
 {
   "free": {
-    "id": "free_plan",
+    "id": "free",
     "name": "Free plan",
     "price": 0,
     "currency": "USD"
   },
   "basic": {
-    "id": "basic_plan",
+    "id": "basic",
     "name": "Basic plan",
     "price": 9,
     "currency": "USD",
@@ -18,7 +18,7 @@
     ]
   },
   "premium": {
-    "id": "premium_plan",
+    "id": "premium",
     "name": "Premium plan",
     "price": 49,
     "currency": "USD",

@@ -1,8 +1,9 @@
 package com.hvt.ultimatespy.utils.enums;
 
 public enum ActionEnum {
-    CLICK("CLICK"),
-    SIGNUP("SIGNUP");
+    SEARCH("search"),
+    SAVE_POST("save_post"),
+    TRACK_POST("track_post");
 
     private String value;
 

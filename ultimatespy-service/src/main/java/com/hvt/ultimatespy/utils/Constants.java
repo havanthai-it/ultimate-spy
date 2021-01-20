@@ -10,7 +10,7 @@ public class Constants {
     public static final String ROUTE_RESET_PASSWORD = "/api/reset-password/{mail}";
     public static final String ROUTE_POST_FACEBOOK = "/api/facebook-post";
     public static final String ROUTE_POST_FACEBOOK_ID = "/api/facebook-post/{id}";
-    public static final String ROUTE_POST_FACEBOOK_ELASTICSEARCH = "/api/elasticsearch/facebook-post";
+    public static final String ROUTE_POST_FACEBOOK_SEARCH = "/api/search/facebook-post";
     public static final String ROUTE_PRODUCT_SUBSCRIPTION_PLAN = "/api/product/subscription-plan";
     public static final String ROUTE_INVOICE = "/api/invoice";
     public static final String ROUTE_INVOICE_ID = "/api/invoice/{id}";

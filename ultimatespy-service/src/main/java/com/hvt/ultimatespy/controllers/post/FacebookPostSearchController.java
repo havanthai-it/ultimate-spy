@@ -3,21 +3,25 @@ package com.hvt.ultimatespy.controllers.post;
 import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.post.FacebookPost;
 import com.hvt.ultimatespy.models.post.FacebookPostQuery;
+import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.post.FacebookPostService;
+import com.hvt.ultimatespy.services.user.UserLimitationService;
+import com.hvt.ultimatespy.services.user.UserLogService;
+import com.hvt.ultimatespy.services.user.UserService;
 import com.hvt.ultimatespy.utils.Constants;
+import com.hvt.ultimatespy.utils.enums.ActionEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping(value = Constants.ROUTE_POST_FACEBOOK_ELASTICSEARCH)
+@RequestMapping(value = Constants.ROUTE_POST_FACEBOOK_SEARCH)
 public class FacebookPostSearchController {
 
     private static final Logger logger = Logger.getLogger(FacebookPostSearchController.class.getName());
@@ -26,8 +30,18 @@ public class FacebookPostSearchController {
     @Autowired
     private FacebookPostService facebookPostService;
 
+    @Autowired
+    private UserLogService userLogService;
+
+    @Autowired
+    private UserLimitationService userLimitationService;
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> get(@RequestHeader(Constants.X_USER_ID) String userId, @RequestParam Map<String, String> params) throws Exception {
+        if (userId != null) {
+            userLimitationService.checkLimitation(userId, ActionEnum.SEARCH.value(), 24);
+        }
+
         Timestamp fromDate = params.containsKey(Constants.FROM_DATE) && !params.get(Constants.FROM_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.FROM_DATE).trim()).getTime()) : null;
         Timestamp toDate = params.containsKey(Constants.TO_DATE) && !params.get(Constants.TO_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.TO_DATE).trim()).getTime()) : null;
         int page = params.containsKey(Constants.PAGE) ? Integer.parseInt(params.get(Constants.PAGE).trim()) : 0;
@@ -93,13 +107,22 @@ public class FacebookPostSearchController {
             } else if (keyword.toLowerCase().startsWith("::pixel=")) {
                 facebookPostQuery.setPixelId(keyword.substring(8).trim());
                 facebookPostQuery.setKeyword(Constants.BLANK);
-                baseList = facebookPostService.search(facebookPostQuery);
+                baseList = facebookPostService.search(facebookPostQuery).get();
+                if (userId != null) {
+                    userLogService.insert(userId, ActionEnum.SEARCH.value());
+                }
             } else if (keyword.toLowerCase().startsWith("::website=")) {
                 facebookPostQuery.setWebsite(keyword.substring(10).trim());
                 facebookPostQuery.setKeyword(Constants.BLANK);
-                baseList = facebookPostService.search(facebookPostQuery);
+                baseList = facebookPostService.search(facebookPostQuery).get();
+                if (userId != null) {
+                    userLogService.insert(userId, ActionEnum.SEARCH.value());
+                }
             } else {
-                baseList = facebookPostService.search(facebookPostQuery);
+                baseList = facebookPostService.search(facebookPostQuery).get();
+                if (userId != null) {
+                    userLogService.insert(userId, ActionEnum.SEARCH.value());
+                }
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);

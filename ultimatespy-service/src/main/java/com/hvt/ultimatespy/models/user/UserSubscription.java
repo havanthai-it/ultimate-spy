@@ -3,19 +3,19 @@ package com.hvt.ultimatespy.models.user;
 import java.sql.Timestamp;
 
 public class UserSubscription {
-    private String id;
+    private Integer id;
     private String userId;
-    private String productId;
+    private String planId;
     private Timestamp from;
     private Timestamp to;
     private String desc;
     private String status;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -27,12 +27,12 @@ public class UserSubscription {
         this.userId = userId;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getPlanId() {
+        return planId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setPlanId(String planId) {
+        this.planId = planId;
     }
 
     public Timestamp getFrom() {

@@ -3,8 +3,11 @@ package com.hvt.ultimatespy.controllers.post;
 import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.post.FacebookPost;
 import com.hvt.ultimatespy.models.post.FacebookPostQuery;
+import com.hvt.ultimatespy.models.user.UserLog;
 import com.hvt.ultimatespy.services.post.FacebookPostService;
+import com.hvt.ultimatespy.services.user.UserLogService;
 import com.hvt.ultimatespy.utils.Constants;
+import com.hvt.ultimatespy.utils.enums.ActionEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,9 @@ public class FacebookPostListController {
 
     @Autowired
     private FacebookPostService facebookPostService;
+
+    @Autowired
+    private UserLogService userLogService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> get(@RequestHeader(Constants.X_USER_ID) String userId, @RequestParam Map<String, String> params) throws Exception {
@@ -105,12 +111,21 @@ public class FacebookPostListController {
                 facebookPostQuery.setPixelId(keyword.substring(8).trim());
                 facebookPostQuery.setKeyword(Constants.BLANK);
                 baseList = facebookPostService.list(facebookPostQuery).get();
+                if (userId != null) {
+                    userLogService.insert(userId, ActionEnum.SEARCH.value());
+                }
             } else if (keyword.toLowerCase().startsWith("::website=")) {
                 facebookPostQuery.setWebsite(keyword.substring(10).trim());
                 facebookPostQuery.setKeyword(Constants.BLANK);
                 baseList = facebookPostService.list(facebookPostQuery).get();
+                if (userId != null) {
+                    userLogService.insert(userId, ActionEnum.SEARCH.value());
+                }
             } else {
                 baseList = facebookPostService.list(facebookPostQuery).get();
+                if (userId != null) {
+                    userLogService.insert(userId, ActionEnum.SEARCH.value());
+                }
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);

@@ -75,9 +75,12 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
     let token = localStorage.getItem('token');
     let user = localStorage.getItem('user');
 
-    // TODO: CHECK PLAN, IF SUBCRIBED, RETURN TRUE
-
     if (token && user) {
+      let userJson = JSON.parse(user);
+      if (userJson.plan && userJson.plan !== 'free') {
+        return true;
+      }
+
       const dialogRef = this.dialog.open(PlanCtaDialogComponent, {
         width: '540px',
         data: {}

@@ -34,10 +34,6 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  round(x): number {
-    return Math.round(x);
-  }
-
   encodeJsonStringify(json: any): string {
     return btoa(JSON.stringify(json));
   }
@@ -49,8 +45,9 @@ export class HomeComponent implements OnInit {
       planName: plan.name,
       period: period.months,
       originAmount: plan.price * period.months,
-      amount: this.round(plan.price * period.months * (1 - period.discount / 100)),
-      percentDiscount: period.discount
+      amount: Math.round(plan.price * period.months * (1 - period.discount / 100)),
+      percentDiscount: period.discount,
+      plan: plan
     }
   }
 

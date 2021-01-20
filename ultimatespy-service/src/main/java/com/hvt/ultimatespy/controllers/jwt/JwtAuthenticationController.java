@@ -1,7 +1,6 @@
 package com.hvt.ultimatespy.controllers.jwt;
 
 import com.hvt.ultimatespy.models.jwt.JwtRequest;
-import com.hvt.ultimatespy.models.jwt.JwtResponse;
 import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
 import com.hvt.ultimatespy.services.user.UserService;
@@ -64,7 +63,6 @@ public class JwtAuthenticationController {
         } else if (user.getStatus().equals(StatusEnum.INACTIVE.value())) {
             throw Errors.USER_INACTIVE_EXCEPTION;
         }
-        user.setPlan(PlanEnum.FREE_PLAN.value());
 
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
 

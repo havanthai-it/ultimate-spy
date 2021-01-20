@@ -8,15 +8,104 @@
   </div>
 
   <div class="row">
-
-    <div class="col-lg-5 col-md-6 order-lg-2 mb-4">
+    <div class="col-lg-6 col-md-6 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span>Order summary</span>
+        <span>Your Plan</span>
+      </h4>
+
+      <ng-container *ngIf="invoice.planId==='basic'">
+        <div class="card-wrapper">
+          <div class="card mb-4 box-shadow">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Basic</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">${{invoice.plan?.price}} <small class="text-muted">/ mo</small></h1>
+              <ul class="list-unstyled text-left mt-3 mb-4">
+                <li><i class="fa fa-check-square-o"></i><span>Queries: 25 daily</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited search result</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited search features</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Save ads: 10 ads daily</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Track ads: 10 ads daily</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Service support</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <label>Period: {{invoice.period}} months</label>
+              <div class="dropdown dropdown-period">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  {{invoice.period}} months
+                  <span class="discount" *ngIf="period.discount > 0">(-{{invoice.percentDiscount}}%)</span>
+                  <span class="desc">{{period.description}}</span>
+                  <span class="amount">${{invoice.amount}}</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-item" *ngFor="let p of invoice.plan?.periods"
+                    (click)="onChangePeriod(p)">
+                    {{p.months}} months
+                    <span class="discount" *ngIf="p.discount > 0">(-{{p.discount}}%)</span>
+                    <span class="desc">{{p.description}}</span>
+                    <span class="amount">${{round(invoice.plan.price * p.months * (1 - p.discount / 100))}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="invoice.planId==='premium'">
+        <div class="card-wrapper">
+          <div class="card mb-4 box-shadow">
+            <div class="card-header">
+              <h4 class="my-0 font-weight-normal">Premium</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">${{invoice.plan?.price}} <small class="text-muted">/ mo</small></h1>
+              <ul class="list-unstyled text-left mt-3 mb-4">
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited queries</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited search result</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited search features</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited save ads</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Unlimited track ads</span></li>
+                <li><i class="fa fa-check-square-o"></i><span>Service support</span></li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <label>Period: {{invoice.period}} months</label>
+              <div class="dropdown dropdown-period">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  {{invoice.period}} months
+                  <span class="discount" *ngIf="period.discount > 0">(-{{invoice.percentDiscount}}%)</span>
+                  <span class="desc">{{period.description}}</span>
+                  <span class="amount">${{invoice.amount}}</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-item" *ngFor="let p of invoice.plan?.periods"
+                    (click)="onChangePeriod(p)">
+                    {{p.months}} months
+                    <span class="discount" *ngIf="p.discount > 0">(-{{p.discount}}%)</span>
+                    <span class="desc">{{p.description}}</span>
+                    <span class="amount">${{round(invoice.plan.price * p.months * (1 - p.discount / 100))}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div class="col-lg-6 col-md-6 mb-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span>Payment summary</span>
       </h4>
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">{{invoice.productName}}</h6>
+            <h6 class="my-0">{{invoice.planName}}</h6>
             <small class="text-muted">{{invoice.period}} {{invoice.period > 1 ? 'months' : 'month'}}</small>
           </div>
           <span class="text-muted">${{invoice.originAmount}}</span>
@@ -45,22 +134,19 @@
       </form>
 
       
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" [(ngModel)]="user.email" placeholder="you@example.com"
           required [ngModelOptions]="{standalone: true}">
         <div class="invalid-feedback">
           Please enter a valid email address for shipping updates.
         </div>
-      </div>
+      </div> -->
 
-    </div>
 
-    <div class="col-lg-7 col-md-6 order-lg-1">
-
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
+      <!-- <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span>Payment</span>
-      </h4>
+      </h4> -->
       <ngx-paypal [config]="payPalConfig"></ngx-paypal>
 
     </div>

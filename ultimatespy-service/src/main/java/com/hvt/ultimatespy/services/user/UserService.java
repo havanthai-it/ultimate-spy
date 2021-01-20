@@ -4,6 +4,7 @@ import com.hvt.ultimatespy.ds.Datasource;
 import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.models.user.UserSubscription;
 import com.hvt.ultimatespy.utils.Errors;
+import com.hvt.ultimatespy.utils.enums.PlanEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,12 @@ public class UserService {
                 if (rs != null && rs.next()) {
                     user = bindUser(rs);
                     List<UserSubscription> lstUserSubscription = userSubscriptionService.list(user.getId()).get();
-                    user.setLstSubscriptions(lstUserSubscription);
+                    if (lstUserSubscription.size() > 0) {
+                        user.setLstSubscriptions(lstUserSubscription);
+                        user.setPlan(lstUserSubscription.get(0).getPlanId());
+                    } else {
+                        user.setPlan(PlanEnum.FREE.value());
+                    }
                 }
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "", e);
@@ -64,7 +70,12 @@ public class UserService {
                 if (rs != null && rs.next()) {
                     user = bindUser(rs);
                     List<UserSubscription> lstUserSubscription = userSubscriptionService.list(user.getId()).get();
-                    user.setLstSubscriptions(lstUserSubscription);
+                    if (lstUserSubscription.size() > 0) {
+                        user.setLstSubscriptions(lstUserSubscription);
+                        user.setPlan(lstUserSubscription.get(0).getPlanId());
+                    } else {
+                        user.setPlan(PlanEnum.FREE.value());
+                    }
                 }
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "", e);
@@ -77,52 +88,63 @@ public class UserService {
     }
 
     public CompletableFuture<User> insert(User user) {
-        Connection conn = null;
-        CallableStatement cs = null;
-        try {
-            conn = Datasource.getConnection();
-            cs = conn.prepareCall("INSERT INTO " +
-                    " tb_user(S_ID,S_FIRST_NAME,S_LAST_NAME,S_EMAIL,S_PASSWORD,S_ROLE,S_REFERRER_ID) " +
-                    " VALUES(?,?,?,?,?,?,?)");
-            cs.setString(1, user.getId());
-            cs.setString(2, user.getFirstName());
-            cs.setString(3, user.getLastName());
-            cs.setString(4, user.getEmail());
-            cs.setString(5, user.getPassword());
-            cs.setString(6, user.getRole());
-            cs.setString(7, user.getReferrerId());
-            cs.execute();
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "", e);
-        } finally {
-            Datasource.close(conn, cs, null);
-        }
-        return getByEmail(user.getEmail());
+        return CompletableFuture.supplyAsync(() -> {
+            User result = null;
+            Connection conn = null;
+            CallableStatement cs = null;
+            try {
+                conn = Datasource.getConnection();
+                cs = conn.prepareCall("INSERT INTO " +
+                        " tb_user(S_ID,S_FIRST_NAME,S_LAST_NAME,S_EMAIL,S_PASSWORD,S_ROLE,S_REFERRER_ID) " +
+                        " VALUES(?,?,?,?,?,?,?)");
+                cs.setString(1, user.getId());
+                cs.setString(2, user.getFirstName());
+                cs.setString(3, user.getLastName());
+                cs.setString(4, user.getEmail());
+                cs.setString(5, user.getPassword());
+                cs.setString(6, user.getRole());
+                cs.setString(7, user.getReferrerId());
+                cs.execute();
+
+                result = getByEmail(user.getEmail()).get();
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "", e);
+            } finally {
+                Datasource.close(conn, cs, null);
+            }
+            return result;
+        });
     }
 
     public CompletableFuture<User> update(User user) {
-        Connection conn = null;
-        CallableStatement cs = null;
-        try {
-            conn = Datasource.getConnection();
-            cs = conn.prepareCall("UPDATE tb_user SET " +
-                    " S_FIRST_NAME = ?, " +
-                    " S_LAST_NAME = ? " +
-                    " WHERE S_ID = ?");
-            cs.setString(1, user.getFirstName());
-            cs.setString(2, user.getLastName());
-            cs.setString(3, user.getId());
-            cs.execute();
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "", e);
-        } finally {
-            Datasource.close(conn, cs, null);
-        }
-        return getByEmail(user.getEmail());
+        return CompletableFuture.supplyAsync(() -> {
+            User result = null;
+            Connection conn = null;
+            CallableStatement cs = null;
+            try {
+                conn = Datasource.getConnection();
+                cs = conn.prepareCall("UPDATE tb_user SET " +
+                        " S_FIRST_NAME = ?, " +
+                        " S_LAST_NAME = ? " +
+                        " WHERE S_ID = ?");
+                cs.setString(1, user.getFirstName());
+                cs.setString(2, user.getLastName());
+                cs.setString(3, user.getId());
+                cs.execute();
+
+                result = getByEmail(user.getEmail()).get();
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "", e);
+            } finally {
+                Datasource.close(conn, cs, null);
+            }
+            return result;
+        });
     }
 
-    public CompletableFuture updateStatus(String id, String status) {
+    public CompletableFuture<User> updateStatus(String id, String status) {
         return CompletableFuture.supplyAsync(() -> {
+            User result = null;
             Connection conn = null;
             CallableStatement cs = null;
             String sql = "UPDATE tb_user SET s_status = ? WHERE s_id = ?";
@@ -132,13 +154,15 @@ public class UserService {
                 cs.setString(1, status);
                 cs.setString(2, id);
                 cs.execute();
-            } catch (SQLException e) {
+
+                result = get(id).get();
+            } catch (Exception e) {
                 logger.log(Level.SEVERE, "", e);
             } finally {
                 Datasource.close(conn, cs, null);
             }
 
-            return null;
+            return result;
         });
     }
 
