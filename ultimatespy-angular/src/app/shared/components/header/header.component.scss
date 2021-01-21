@@ -8,10 +8,11 @@ header {
 
   .navbar {
     z-index: 999;
-    height: 64px;
+    // height: 64px;
 
     .navbar-brand {
       padding: 0;
+      margin: 4px 0 10px 0;
       font-size: 22px;
       position: relative;
       top: 3px;

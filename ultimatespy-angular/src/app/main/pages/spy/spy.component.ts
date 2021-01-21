@@ -43,17 +43,20 @@ export class SpyComponent implements OnInit {
    * i from 0 -> total - 1
    */
   showPage(i: number): boolean {
-    if (this.searchResult.pages <= 6) return true;
+    if (this.searchResult.pages <= 8) return true;
     if (i === 0 || i === (this.searchResult.pages -  1)) return true;
     if ((i + 1) > (this.searchResult.page - 1) && (i + 1) < (this.searchResult.page + 3)) return true;
-    if (this.searchResult.page === 0 && (i + 1) < 4) return true;
+    if (this.searchResult.page === 0 && (i + 1) < 6) return true;
+    if (this.searchResult.page === (this.searchResult.pages -  1) && (i + 1) > (this.searchResult.pages -  3)) return true;
     return false;
   }
 
   showPageEllipsis(i: number): boolean {
-    if (this.searchResult.pages > 6 && this.searchResult.page === 0 && (i + 1) === 3) return false;
-    if (this.searchResult.pages > 6 && this.searchResult.page === 0 && (i + 1) === 4) return true;
-    if (this.searchResult.pages > 6 && i > 0 && i < this.searchResult.pages - 1 && ((i + 1) === this.searchResult.page - 1 || (i + 1) === this.searchResult.page + 3)) return true;
+    if (this.searchResult.pages > 8 && this.searchResult.page === 0 && (i + 1) < 6) return false;
+    if (this.searchResult.pages > 8 && this.searchResult.page === 0 && (i + 1) === 6) return true;
+    if (this.searchResult.pages > 8 && this.searchResult.page === (this.searchResult.pages -  1) && (i + 1) > (this.searchResult.pages -  3)) return false;
+    if (this.searchResult.pages > 8 && this.searchResult.page === (this.searchResult.pages -  1) && (i + 1) === (this.searchResult.pages -  3)) return true;
+    if (this.searchResult.pages > 8 && i > 0 && i < this.searchResult.pages - 1 && ((i + 1) === this.searchResult.page - 1 || (i + 1) === this.searchResult.page + 3)) return true;
     return false;
   }
 

@@ -117,8 +117,8 @@ export class SpySearchComponent implements OnInit {
 
   
   now: Date = new Date();
-  fromDate: Date = new Date();
-  toDate: Date = new Date();
+  fromDate: Date;
+  toDate: Date;
 
   ngOnInit(): void {
     let user = localStorage.getItem('user');
@@ -126,33 +126,36 @@ export class SpySearchComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.query.keyword = params.keyword ? params.keyword : '';
-      this.query.page = params.page ? parseInt(params.page) -1 : 0;
-      this.fromDate.setDate(this.now.getDate() - 365);
+      this.query.category = params.category ? params.category.split(',') : '';
+      this.query.type = params.type ? params.type.split(',') : '';
+      this.query.platform = params.platform ? params.platform.split(',') : '';
+      this.query.fromDate = params.fromDate ? params.fromDate : '';
+      this.query.toDate = params.toDate ? params.toDate : '';
+      this.query.minLikes = params.minLikes ? parseInt(params.minLikes) : this.likeRange.options.floor;
+      this.query.maxLikes = params.maxLikes ? parseInt(params.maxLikes) : this.likeRange.options.ceil;
+      this.query.minComments = params.minComments ? parseInt(params.minComments) : this.commentRange.options.floor;
+      this.query.maxComments = params.maxComments ? parseInt(params.maxComments) : this.commentRange.options.ceil;
+      this.query.page = params.page ? parseInt(params.page) : 0;
+
+      this.likeRange.from = this.query.minLikes;
+      this.likeRange.to = this.query.maxLikes;
+      this.commentRange.from = this.query.minComments;
+      this.commentRange.to = this.query.maxComments;
+      this.toDate = params.toDate ? new Date(params.toDate) : undefined;
+      this.fromDate = params.fromDate ? new Date(params.fromDate) : undefined;
+      //this.toDate.setDate(this.now.getDate());
+      //this.fromDate.setDate(this.now.getDate() - 365);
+
     });
   }
 
   ngAfterViewInit(): void {
-    this.search(0, false);
-  }
-
-  search(page: number, scrollToTop: boolean): void {
-    if (this.isSearching) return;
-    if (scrollToTop)  window.scroll(0,0);
-    this.onSearching.emit(true);
-    this.isSearching = true;
-    this.query.fromDate = this.fromDate.toISOString().split('T')[0];
-    this.query.toDate = this.toDate.toISOString().split('T')[0];
-    this.query.page = page;
-    this.query.minLikes = this.likeRange.from === this.likeRange.options.floor ? '' : this.likeRange.from;
-    this.query.maxLikes = this.likeRange.to === this.likeRange.options.ceil ? '' : this.likeRange.to;
-    this.query.minComments = this.commentRange.from === this.commentRange.options.floor ? '' : this.commentRange.from;
-    this.query.maxComments = this.commentRange.to === this.commentRange.options.ceil ? '' : this.commentRange.to;
     this.postService.searchFacebookPost(this.query).subscribe(
       data => {
         this.total = data.total;
         data.page = this.query.page;
         data.pageSize = this.query.pageSize;
-        data.pages = Math.ceil(data.total / data.pageSize)
+        data.pages = Math.min(Math.ceil(data.total / data.pageSize), 100)
         this.searchResult.emit(data);
         this.onSearching.emit(false);
         this.isSearching = false;
@@ -166,6 +169,33 @@ export class SpySearchComponent implements OnInit {
 
     this.loadSavedPostIds(this.userId);
     this.loadTrackedPostIds(this.userId);
+  }
+
+  search(page: number, scrollToTop: boolean): void {
+    if (this.isSearching) return;
+    if (scrollToTop)  window.scroll(0,0);
+    this.onSearching.emit(true);
+    this.isSearching = true;
+    this.query.fromDate = this.fromDate ? this.fromDate.toISOString().split('T')[0] : '';
+    this.query.toDate = this.toDate ? this.toDate.toISOString().split('T')[0] : '';
+    this.query.minLikes = this.likeRange.from === this.likeRange.options.floor ? '' : this.likeRange.from;
+    this.query.maxLikes = this.likeRange.to === this.likeRange.options.ceil ? '' : this.likeRange.to;
+    this.query.minComments = this.commentRange.from === this.commentRange.options.floor ? '' : this.commentRange.from;
+    this.query.maxComments = this.commentRange.to === this.commentRange.options.ceil ? '' : this.commentRange.to;
+    this.query.page = page;
+    
+    window.location.href = '/ads?' +
+      (this.query.keyword ? 'keyword=' + this.query.keyword + '&' : '') +
+      (this.query.category ? 'category=' + this.query.category + '&' : '') +
+      (this.query.type ? 'type=' + this.query.type + '&' : '') +
+      (this.query.platform ? 'platform=' + this.query.platform + '&' : '') +
+      (this.query.fromDate ? 'fromDate=' + this.query.fromDate + '&' : '') +
+      (this.query.toDate ? 'toDate=' + this.query.toDate + '&' : '') +
+      (this.query.minLikes ? 'minLikes=' + this.query.minLikes + '&' : '') +
+      (this.query.maxLikes ? 'maxLikes=' + this.query.maxLikes + '&' : '') +
+      (this.query.minComments ? 'minComments=' + this.query.minComments + '&' : '') +
+      (this.query.maxComments ? 'maxComments=' + this.query.maxComments + '&' : '') +
+      (this.query.page ? 'page=' + this.query.page : '');
   }
 
   loadSavedPostIds(userId: string): void {
