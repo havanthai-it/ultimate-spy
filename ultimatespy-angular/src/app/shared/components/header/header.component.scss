@@ -8,15 +8,32 @@ header {
 
   .navbar {
     z-index: 999;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: $primary1;
+    // box-shadow: 1px 0 2px 2px rgba(0,0,0,.1);
     // height: 64px;
+
+    &.fixed-top {
+      // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    .container-fluid {
+      padding: 0;
+    }
 
     .navbar-brand {
       padding: 0;
-      margin: 4px 0 10px 0;
+      margin: 8px 0 8px 0;
       font-size: 22px;
       position: relative;
       top: 3px;
       letter-spacing: 1px;
+      color: $primary2 !important;
+
+      @media only screen and (max-width: 767px) {
+        margin: 5px 0 11px 0;
+      }
     }
 
     @media only screen and (min-width: 768px) {
@@ -48,12 +65,8 @@ header {
       }
     }
 
-    .fa {
-      color: #ccc;
-    }
-
     .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
     }
 
     .navbar-toggler {
@@ -62,39 +75,41 @@ header {
 
     .btn-signin,
     .btn-signup {
-      background-color: $primary1;
-      color: #fff;
-      border: solid 1px #fff;
+      // background-color: #fff;
+      color: $primary2;
+      border: solid 1px $primary2;
       font-weight: 500;
       font-size: 1.1rem;
       margin-left: 12px;
       padding: 6px 20px;
 
       &:hover {
-        background-color: $primary21;
-        border-color: $primary21;
+        background-color: $primary2;
+        border-color: $primary2;
         color: #fff;
       }
     }
 
-    .btn-signup {
-      background-color: $primary21;
-      border-color: $primary21;
-
+    .btn-signin {
       @media only screen and (max-width: 767px) {
-        margin-right: 6px;
+        display: none;
       }
     }
 
-    &.fixed-top {
-      background-color: $primary1;
-      // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
+    .btn-signup {
+      background-color: $primary2;
+      border-color: $primary2;
+      color: #fff;
+
+      @media only screen and (max-width: 767px) {
+        //margin-right: 6px;
+      }
     }
 
     .profile-dropdown {
 
       .btn-profile {
-        color: #fff;
+        color: $textColor1;
         font-weight: 500;
         &:focus {
           outline: none;
@@ -137,6 +152,62 @@ header {
         .dropdown-item-signout {
           border-top: solid 1px $borderColor;
         }
+      }
+    }
+    
+    &.app-page {
+
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+      }
+
+      .navbar-brand {
+        margin: 5px 0 10px 0;
+      }
+
+      a {
+        font-weight: 500;
+        color: #fff;
+  
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      .dropdown-toggle {
+        color: $primary2;
+
+        &.focus {
+          color: $primary2;
+        }
+      }
+
+      .btn-signin {
+        // background-color: $primary1;
+        border-color: $primary2;
+        color: $primary2;
+  
+        &:hover {
+          background-color: $primary2;
+          border-color: $primary2;
+          color: #fff;
+        }
+      }
+
+      .btn-signup {
+        background-color: $primary2;
+        border-color: $primary2;
+        color: #fff;
+  
+        &:hover {
+          background-color: $primary2;
+          border-color: $primary2;
+          color: #fff;
+        }
+      }
+
+      .btn-profile {
+        color: #fff !important;
       }
     }
     

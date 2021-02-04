@@ -41,9 +41,9 @@
           </div>
 
           <div class="post-origin-performance g-float-wrapper">
-            <div class="post-origin-performance-icon post-origin-performance-like g-float-left"><i class="fa fa-thumbs-o-up"></i> {{data.likes | number}}</div>
-            <div class="post-origin-performance-icon post-origin-performance-comment g-float-left"><i class="fa fa-commenting-o"></i> {{data.comments | number}}</div>
-            <div class="post-origin-performance-icon post-origin-performance-share g-float-left"><i class="fa fa-share-square-o"></i> {{data.shares | number}}</div>
+            <div class="post-origin-performance-icon post-origin-performance-like g-float-left"><i class="far fa-thumbs-up"></i> {{data.likes | number}}</div>
+            <div class="post-origin-performance-icon post-origin-performance-comment g-float-left"><i class="far fa-comment"></i> {{data.comments | number}}</div>
+            <div class="post-origin-performance-icon post-origin-performance-share g-float-left"><i class="far fa-share"></i> {{data.shares | number}}</div>
           </div>
         </div>
 
@@ -65,9 +65,9 @@
           <div class="post-info-label g-float-left">Website:</div>
           <div class="post-info-value g-float-left"><span><a href="#">{{data.website}}</a></span></div>
         </div>
-        <div class="post-info-item g-float-wrapper" *ngIf="data.link">
+        <div class="post-info-item g-float-wrapper" *ngIf="data.links">
           <div class="post-info-label g-float-left">Link:</div>
-          <div class="post-info-value g-float-left"><span><a href="#">{{data.link}}</a></span></div>
+          <div class="post-info-value g-float-left"><span><a href="#">{{data.links}}</a></span></div>
         </div>
         <div class="post-info-item g-float-wrapper" *ngIf="data.pixelId">
           <div class="post-info-label g-float-left">Pixel:</div>
@@ -80,20 +80,20 @@
         <div>
           <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}">
             <button class="post-info-btn post-info-btn-detail">
-              <i class="fa fa-facebook-official"></i> See on Facebook
+              <i class="fab fa-facebook-f"></i> See on Facebook
             </button>
           </a>
           <button [hidden]="data.isSaved" (click)="save(data.postId)" class="post-info-btn post-info-btn-save">
-            <i class="fa fa-heart"></i> Save
+            <i class="far fa-heart"></i> Save
           </button>
           <button [hidden]="!data.isSaved" (click)="unSave(data.postId)" class="post-info-btn post-info-btn-save">
-            <i class="fa fa-heart"></i> Unsave
+            <i class="far fa-heart"></i> Unsave
           </button>
           <button [hidden]="data.isTracked" (click)="track(data.postId)" class="post-info-btn post-info-btn-track">
-            <i class="fa fa-bar-chart"></i> Add to Tracklist
+            <i class="far fa-chart-bar"></i> Add to Tracklist
           </button>
           <button [hidden]="!data.isTracked" (click)="unTrack(data.postId)" class="post-info-btn post-info-btn-track">
-            <i class="fa fa-bar-chart"></i> Remove from Tracklist
+            <i class="far fa-chart-bar"></i> Remove from Tracklist
           </button>
         </div>
 

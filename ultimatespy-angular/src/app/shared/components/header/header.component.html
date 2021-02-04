@@ -1,6 +1,6 @@
 <header>
   <!--  fixed-top navbar-expand-md bg-dark -->
-  <nav class="navbar navbar-dark fixed-top" [ngClass]="{'navbar-expand-md': !isAppPage}">
+  <nav class="navbar navbar-dark fixed-top" [ngClass]="{'navbar-expand-md': !isAppPage, 'app-page': isAppPage}">
     <div class="container-fluid">
       <div>
         <button class="navbar-toggler order-first" type="button" data-toggle="collapse"
@@ -10,7 +10,7 @@
         </button>
         <a class="navbar-brand" href="/">
           <!-- <img src="../../../../assets/img/logo-white.png" height="28px" alt="LIMESPY"> -->
-          LIMESPY
+          AdsCrawlr
         </a>
       </div>
 
@@ -31,7 +31,7 @@
         <div class="dropdown-menu" aria-labelledby="profileDropdown">
           <a class="dropdown-item dropdown-item-top" href="#">
             <div>{{user.fullName}}</div>
-            <div><span class="current-plan">FREE</span></div>
+            <div><span class="current-plan">{{user.plan.toUpperCase()}}</span></div>
           </a>
           <a class="dropdown-item" href="/dashboard/profile">Profile</a>
           <a class="dropdown-item" href="/dashboard/plan">My plan</a>

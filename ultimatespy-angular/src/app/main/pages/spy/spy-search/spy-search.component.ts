@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UserPostService } from 'src/app/core/services/user-post.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RanoutDialogComponent } from 'src/app/shared/components/ranout-dialog/ranout-dialog.component';
 
 @Component({
   selector: 'app-spy-search',
@@ -19,6 +21,7 @@ export class SpySearchComponent implements OnInit {
   @Output() onSearching = new EventEmitter<boolean>();
   
   constructor(
+    private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     private postService: PostService,
     private userPostService : UserPostService) {
@@ -164,6 +167,16 @@ export class SpySearchComponent implements OnInit {
         console.log(error);
         this.onSearching.emit(false);
         this.isSearching = false;
+        if (error && error.status) {
+          const dialogRef = this.dialog.open(RanoutDialogComponent, {
+            width: '540px',
+            data: {}
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result && result === 'yes') {
+            }
+          });
+        }
       }
     )
 
@@ -173,6 +186,7 @@ export class SpySearchComponent implements OnInit {
 
   search(page: number, scrollToTop: boolean): void {
     if (this.isSearching) return;
+    console.log(this.userId);
     if (scrollToTop)  window.scroll(0,0);
     this.onSearching.emit(true);
     this.isSearching = true;
@@ -184,7 +198,7 @@ export class SpySearchComponent implements OnInit {
     this.query.maxComments = this.commentRange.to === this.commentRange.options.ceil ? '' : this.commentRange.to;
     this.query.page = page;
     
-    window.location.href = '/ads?' +
+    let params = '' +
       (this.query.keyword ? 'keyword=' + this.query.keyword + '&' : '') +
       (this.query.category ? 'category=' + this.query.category + '&' : '') +
       (this.query.type ? 'type=' + this.query.type + '&' : '') +
@@ -196,6 +210,14 @@ export class SpySearchComponent implements OnInit {
       (this.query.minComments ? 'minComments=' + this.query.minComments + '&' : '') +
       (this.query.maxComments ? 'maxComments=' + this.query.maxComments + '&' : '') +
       (this.query.page ? 'page=' + this.query.page : '');
+
+    if (params && !this.userId) {
+      let redirect = document.location.origin + '/ads?' + params;
+      window.location.href = '/signin?redirect=' + redirect.replace('?', '%3F');
+      return;
+    }
+
+    window.location.href = '/ads?' + params;
   }
 
   loadSavedPostIds(userId: string): void {

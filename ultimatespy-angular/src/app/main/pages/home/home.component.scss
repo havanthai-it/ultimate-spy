@@ -12,9 +12,11 @@
     position: relative;
 
     h1 {
+      font-weight: 400;
       width: 80%;
       max-width: 800px;
       margin: auto;
+      margin-top: 18vh;
       color: $textColor1;
     }
 
@@ -28,7 +30,7 @@
     }
 
     .btn-search-now {
-      background-color: $primary2;
+      background-color: $primary1;
       color: #fff;
       font-weight: 500;
       font-size: 1rem;
@@ -37,7 +39,7 @@
       text-transform: uppercase;
       border-radius: 1.6em;
       &:hover {
-        background-color: $primary21;
+        background-color: $primary11;
       }
 
       .fa-search {
@@ -68,8 +70,17 @@
       padding-right: 20px;
 
       .feature-item-logo {
-        margin-bottom: 20px;
-        color: $primary1;
+        margin-bottom: 16px;
+        color: $primary2;
+
+        .feature-item-logo-wrapper {
+          background-color: $primary21;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          margin: auto;
+          padding: 26px;
+        }
       }
       .feature-item-content {
         
@@ -119,34 +130,77 @@
       .card-body {
 
         .pricing-card-title {
-          color: $primary1;
+          color: $primary2;
         }
 
         li {
-          .fa {
-            color: $primary1;
+          .fa-check-circle {
+            color: $primary2;
             margin-right: 0.5em;
           }
 
-          &.g-text-blur .fa {
+          &.g-text-blur .fa-check-circle {
             color: inherit;
           }
         }
 
         .btn-outline-primary {
-          color: $primary1;
-          outline-color: $primary1;
-          border-color: $primary1;
+          color: $primary2;
+          outline-color: $primary2;
+          border-color: $primary2;
 
           &:hover {
             color: #fff;
-            background-color: $primary1;
+            background-color: $primary2;
           }
         }
+
+        .btn-primary {
+          color: #fff;
+          outline-color: $primary2 !important;
+          border-color: $primary2 !important;
+          background-color: $primary2 !important;
+        }
+
       }
 
     }
 
+  }
+
+  .section-bottom {
+    background-color: $primary1;
+    color: #fff;
+    height: 320px;
+    text-align: center;
+
+    .bottom-title {
+      font-size: 2.2rem;
+      font-weight: 400;
+    }
+
+    .bottom-subtitle {
+      font-size: .82rem;
+      color: rgba(255,255,255,.8);
+    }
+
+    .bottom-content {
+      color: rgba(255,255,255,.8);
+      padding: 0 30px;
+    }
+
+    .bottom-btn-signup {
+      margin-top: 30px;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.5em 2.4em 0.6em 2.4em;
+      position: relative;
+      text-transform: uppercase;
+      border-radius: 1.6em;
+      &:hover {
+        background-color: $primary2;
+      }
+    }
   }
 
 }

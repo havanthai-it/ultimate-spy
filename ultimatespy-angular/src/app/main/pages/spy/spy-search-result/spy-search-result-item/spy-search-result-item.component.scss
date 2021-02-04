@@ -53,17 +53,17 @@
         right: 10px;
         top: 16px;
 
-        .fa {
+        .fa-chart-bar, .fa-heart {
           cursor: pointer;
           margin-left: 4px;
           color: #999;
           
           &:hover {
-            color: $primary21;
+            color: $primary2;
           }
 
           &.fa-active {
-            color: $primary21;
+            color: $primary2;
           }
         }
       }
@@ -199,7 +199,7 @@
         margin-right: 20px;
 
         &.ssri-performance-like {
-          .fa {
+          .fa-thumbs-up {
             color: #2471A3;
           }
         }

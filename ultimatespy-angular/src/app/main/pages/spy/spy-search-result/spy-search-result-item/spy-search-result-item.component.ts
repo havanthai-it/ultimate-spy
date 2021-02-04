@@ -48,6 +48,7 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
         data.isTracked = this.isTracked;
         const dialogRef = this.dialog.open(SpySearchResultItemDialogComponent, {
           width: '1024px',
+          maxWidth: 'calc(100vw - 30px)',
           data: data
         });
 

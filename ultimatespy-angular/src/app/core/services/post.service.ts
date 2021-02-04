@@ -29,12 +29,12 @@ export class PostService {
   }
 
   getFacebookPost(id: string): Observable<any> {
-    const url = `${environment.serviceUrl}/api/facebook-post/${id}`;
+    const url = `${environment.serviceUrl}/api/v1/facebook-post/${id}`;
     return this.http.get(url, { headers: this.headers() });
   }
 
   searchFacebookPost(query: FacebookPostQuery): Observable<any> {
-    const url = `${environment.serviceUrl}/api/search/facebook-post?`
+    const url = `${environment.serviceUrl}/api/v1/search/facebook-post?`
                   + 'fromDate=' + (query.fromDate ? query.fromDate : '')
                   + '&toDate=' + (query.toDate ? query.toDate : '')
                   + '&page=' + (query.page ? query.page : 0)

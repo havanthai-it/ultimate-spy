@@ -39,8 +39,12 @@ export class HeaderComponent implements OnInit {
   }
 
   scrollToView(id: string): void {
-    let eleRef = document.getElementById(id);
-    window.scrollTo(eleRef.offsetLeft, eleRef.offsetTop);
+    if (window.location.pathname !== '/') {
+      window.location.href = '/#' + id;
+    } else {
+      let eleRef = document.getElementById(id);
+      window.scrollTo(eleRef.offsetLeft, eleRef.offsetTop);
+    }
   }
 
 }

@@ -14,7 +14,7 @@
         color: $textColor1;
       }
 
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: 960px) {
         position: fixed;
         top: 2px;
         z-index: 1000;
@@ -33,28 +33,61 @@
       }
     }
   }
-  
-  .row-one {
-    z-index: 1;
-    position: relative;
-    background-color: #fff;
 
-    @media screen and (min-width: 1200px) {
-      box-shadow: 0px 0px 4px rgba(0,0,0,.2);
+  .section-filter {
+    position: relative;
+  
+    .row-one {
+      z-index: 1;
+      position: relative;
+      background-color: #fff;
+
+      @media screen and (min-width: 1200px) {
+        box-shadow: 0px 0px 4px rgba(0,0,0,.2);
+      }
     }
+
+    .row-two {
+      z-index: 0;
+      position: relative;
+      background-color: #fff;
+      box-shadow: 0px 0px 4px rgba(0,0,0,.1);
+
+      @media screen and (min-width: 1200px) {
+        background-color: #fbfbfb;
+      }
+    }
+
+    .btn-search {
+      position: relative;
+      padding: .325rem 1.75rem .375rem 1.75rem;
+      margin: .2rem 0;
+      font-weight: 500;
+
+      // .mat-progress-spinner {
+      //   position: absolute;
+      // }
+
+      // .mat-progress-spinner circle, .mat-spinner circle {
+      //   stroke: $primary2 !important;
+      // }
+    }
+
+    .bottom-row {
+      padding: 60px 0px 0px 0px;
+    }
+
+    .total-result {
+      font-weight: 500;
+      padding: .375rem 0;
+    }
+
+    .select-sort {
+      width: 240px;
+    }
+
   }
 
-  .row-two {
-    z-index: 0;
-    position: relative;
-    background-color: #fff;
-    box-shadow: 0px 0px 4px rgba(0,0,0,.1);
-
-    @media screen and (min-width: 1200px) {
-      background-color: #fbfbfb;
-    }
-  }
-  
   .filter-block {
     margin: 12px 0;
     position: relative;
@@ -67,7 +100,7 @@
       border: solid 1px $primary1;
     }
 
-    .fa {
+    .fa-search {
       position: absolute;
       right: 0.6em;
       top: 0.4em;
@@ -78,6 +111,7 @@
     input {
       padding-right: 2.4em;
       color: $primary1;
+      // border: solid 1px $borderColor !important;
     }
 
     input::placeholder {
@@ -141,7 +175,7 @@
 
           &.selected,
           .check-mark:after {
-            color: $primary21;
+            color: $primary2;
           }
 
         }
@@ -152,8 +186,8 @@
           background-color: #fff;
 
           &:hover {
-            color: $primary21;
-            border-color: $primary21;
+            color: $primary2;
+            border-color: $primary2;
           }
         }
       }
@@ -161,7 +195,7 @@
   }
 
   mat-form-field {
-    width: calc((100% - 100px - 42px) / 2);
+    width: calc((100% - 100px - 40px) / 2);
     max-width: 296px;
     position: relative;
 
@@ -258,35 +292,5 @@
     .ng5-slider[disabled] .ng5-slider-bar{
       background-color: #C4C4C4 !important;
     }
-
   }
-
-  .btn-search {
-    position: relative;
-    padding: .375rem 1.75rem;
-    margin: .2rem 0;
-    font-weight: 500;
-
-    // .mat-progress-spinner {
-    //   position: absolute;
-    // }
-
-    // .mat-progress-spinner circle, .mat-spinner circle {
-    //   stroke: $primary21 !important;
-    // }
-  }
-
-  .bottom-row {
-    padding: 60px 5px 0px 5px;
-  }
-
-  .total-result {
-    font-weight: 500;
-    padding: .375rem 0;
-  }
-
-  .select-sort {
-    width: 240px;
-  }
-
 }

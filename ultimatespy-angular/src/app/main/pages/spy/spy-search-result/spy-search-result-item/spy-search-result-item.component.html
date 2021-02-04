@@ -8,10 +8,10 @@
     <div class="ssri-header-title g-float-left">
       <h5>{{post.pageName}}</h5>
       <div class="post-action">
-        <i [hidden]="isTracked" (click)="track(post.postId)" class="fa fa-bar-chart" data-toggle="tooltip" data-placement="bottom" title="Add to Tracklist"></i>
-        <i [hidden]="!isTracked" (click)="unTrack(post.postId)" class="fa fa-bar-chart fa-active" data-toggle="tooltip" data-placement="bottom" title="Remove from Tracklist"></i>
-        <i [hidden]="isSaved" (click)="save(post.postId)" class="fa fa-heart-o" data-toggle="tooltip" data-placement="bottom" title="Save"></i>
-        <i [hidden]="!isSaved" (click)="unSave(post.postId)" class="fa fa-heart fa-active" data-toggle="tooltip" data-placement="bottom" title="Unsave"></i>
+        <span (click)="track(post.postId)"><i [hidden]="isTracked" class="far fa-chart-bar" data-toggle="tooltip" data-placement="bottom" title="Add to Tracklist"></i></span>
+        <span (click)="unTrack(post.postId)"><i [hidden]="!isTracked" class="fas fa-chart-bar fa-active" data-toggle="tooltip" data-placement="bottom" title="Remove from Tracklist"></i></span>
+        <span (click)="save(post.postId)"><i [hidden]="isSaved" class="far fa-heart" data-toggle="tooltip" data-placement="bottom" title="Save"></i></span>
+        <span (click)="unSave(post.postId)"><i [hidden]="!isSaved" class="fas fa-heart fa-active" data-toggle="tooltip" data-placement="bottom" title="Unsave"></i></span>
       </div>
       <div class="ssri-publish-time g-text-sm g-text-blur">
         <div><mat-icon class="icon-clock">access_time</mat-icon> {{Moment(post.publishDate).fromNow()}}</div>
@@ -42,9 +42,9 @@
     </div>
 
     <div class="ssri-performance g-float-wrapper">
-      <div class="ssri-performance-icon ssri-performance-like g-float-left"><i class="fa fa-thumbs-o-up"></i> {{post.likes | number}}</div>
-      <div class="ssri-performance-icon ssri-performance-comment g-float-left"><i class="fa fa-commenting-o"></i> {{post.comments | number}}</div>
-      <div class="ssri-performance-icon ssri-performance-share g-float-left"><i class="fa fa-share-square-o"></i> {{post.shares | number}}</div>
+      <div class="ssri-performance-icon ssri-performance-like g-float-left"><i class="far fa-thumbs-up"></i> {{post.likes | number}}</div>
+      <div class="ssri-performance-icon ssri-performance-comment g-float-left"><i class="far fa-comment"></i> {{post.comments | number}}</div>
+      <div class="ssri-performance-icon ssri-performance-share g-float-left"><i class="far fa-share"></i> {{post.shares | number}}</div>
     </div>
 
   </div>

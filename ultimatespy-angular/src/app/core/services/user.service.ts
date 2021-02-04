@@ -25,23 +25,23 @@ export class UserService {
       username: username,
       password: password
     }
-    return this.http.post(`${environment.serviceUrl}/api/authenticate`, requestData);
+    return this.http.post(`${environment.serviceUrl}/api/v1/authenticate`, requestData);
   }
 
   signup(user: any): Observable<any> {
-    return this.http.post(`${environment.serviceUrl}/api/user`, user);
+    return this.http.post(`${environment.serviceUrl}/api/v1/user`, user);
   }
 
   resetPassword(email: string): Observable<any> {
-    return this.http.put(`${environment.serviceUrl}/api/reset-password/${email}`, {});
+    return this.http.put(`${environment.serviceUrl}/api/v1/reset-password/${email}`, {});
   }
 
   get(email: string): Observable<User> {
-    return this.http.get<User>(`${environment.serviceUrl}/api/user?email=${email}`, { headers: this.headers() });
+    return this.http.get<User>(`${environment.serviceUrl}/api/v1/user?email=${email}`, { headers: this.headers() });
   }
 
   update(user: User): Observable<any> {
-    return this.http.put(`${environment.serviceUrl}/api/user`, user, { headers: this.headers() });
+    return this.http.put(`${environment.serviceUrl}/api/v1/user`, user, { headers: this.headers() });
   }
 
 }

@@ -2,23 +2,22 @@ package com.hvt.ultimatespy.utils;
 
 public class Constants {
 
-    public static final String ROUTE_AUTHENTICATE = "/api/authenticate";
-    public static final String ROUTE_USER = "/api/user";
-    public static final String ROUTE_USER_ID = "/api/user/{id}";
-    public static final String ROUTE_USER_ID_POST = "/api/user/{id}/post";
-    public static final String ROUTE_CHANGE_PASSWORD = "/api/change-password/{id}";
-    public static final String ROUTE_RESET_PASSWORD = "/api/reset-password/{mail}";
-    public static final String ROUTE_POST_FACEBOOK = "/api/facebook-post";
-    public static final String ROUTE_POST_FACEBOOK_ID = "/api/facebook-post/{id}";
-    public static final String ROUTE_POST_FACEBOOK_SEARCH = "/api/search/facebook-post";
-    public static final String ROUTE_PRODUCT_SUBSCRIPTION_PLAN = "/api/product/subscription-plan";
-    public static final String ROUTE_INVOICE = "/api/invoice";
-    public static final String ROUTE_INVOICE_ID = "/api/invoice/{id}";
-    public static final String ROUTE_PAYMENT = "/api/payment";
-    public static final String ROUTE_PAYMENT_ID = "/api/payment/{id}";
-    public static final String ROUTE_SUBSCRIPTION_PLAN = "/api/subscription-plan";
+    public static final String ROUTE_AUTHENTICATE = "/api/v1/authenticate";
+    public static final String ROUTE_USER = "/api/v1/user";
+    public static final String ROUTE_USER_ID = "/api/v1/user/{id}";
+    public static final String ROUTE_USER_ID_POST = "/api/v1/user/{id}/post";
+    public static final String ROUTE_CHANGE_PASSWORD = "/api/v1/change-password/{id}";
+    public static final String ROUTE_RESET_PASSWORD = "/api/v1/reset-password/{mail}";
+    public static final String ROUTE_POST_FACEBOOK = "/api/v1/facebook-post";
+    public static final String ROUTE_POST_FACEBOOK_ID = "/api/v1/facebook-post/{id}";
+    public static final String ROUTE_POST_FACEBOOK_SEARCH = "/api/v1/search/facebook-post";
+    public static final String ROUTE_INVOICE = "/api/v1/invoice";
+    public static final String ROUTE_INVOICE_ID = "/api/v1/invoice/{id}";
+    public static final String ROUTE_PAYMENT = "/api/v1/payment";
+    public static final String ROUTE_PAYMENT_ID = "/api/v1/payment/{id}";
+    public static final String ROUTE_SUBSCRIPTION_PLAN = "/api/v1/subscription-plan";
 
-    public static final String ROUTE_ADMIN = "/api/admin";
+    public static final String ROUTE_ADMIN = "/api/v1/admin";
 
     public static final String USER_ID_PREFIX = "usr_";
     public static final String INVOICE_ID_PREFIX = "inv_";

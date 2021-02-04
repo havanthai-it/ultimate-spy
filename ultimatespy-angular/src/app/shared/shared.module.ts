@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { PlanCtaDialogComponent } from './components/plan-cta-dialog/plan-cta-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { RanoutDialogComponent } from './components/ranout-dialog/ranout-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { MatIconModule } from '@angular/material/icon';
     FooterComponent,
     LoadingComponent,
     ConfirmDialogComponent,
-    PlanCtaDialogComponent
+    PlanCtaDialogComponent,
+    ErrorDialogComponent,
+    RanoutDialogComponent
   ],
   imports: [
     CommonModule,

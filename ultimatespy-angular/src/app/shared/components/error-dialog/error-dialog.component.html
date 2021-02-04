@@ -1,0 +1,14 @@
+<div class="plan-cta-dialog">
+  <div class="dialog-header">
+    <span>{{data.error}}</span>
+    <mat-icon class="icon-close" (click)="close()">close</mat-icon>
+  </div>
+  <div class="dialog-body">
+    <div>
+      {{data.message}}
+    </div>
+    <div>
+      <button (click)="close()" class="btn btn-primary">OK</button>
+    </div>
+  </div>
+</div>

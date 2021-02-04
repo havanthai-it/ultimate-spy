@@ -20,12 +20,12 @@
       }
 
       li {
-        .fa {
+        .fa-check-circle{
           color: $primary1;
           margin-right: 0.5em;
         }
 
-        &.g-text-blur .fa {
+        &.g-text-blur .fa-check-circle {
           color: inherit;
         }
       }

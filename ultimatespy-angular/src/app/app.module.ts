@@ -35,7 +35,7 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { PrivacyComponent } from './main/pages/privacy/privacy.component';
+//import { PrivacyComponent } from './main/pages/privacy/privacy.component';
 import { TermsComponent } from './main/pages/terms/terms.component';
 
 @NgModule({
@@ -56,7 +56,7 @@ import { TermsComponent } from './main/pages/terms/terms.component';
     DashboardProfileComponent,
     DashboardPlanComponent,
     ConfirmDialogComponent,
-    PrivacyComponent,
+    //PrivacyComponent,
     TermsComponent
   ],
   imports: [

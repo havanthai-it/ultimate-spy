@@ -5,8 +5,10 @@ import com.hvt.ultimatespy.models.post.FacebookPost;
 import com.hvt.ultimatespy.models.post.FacebookPostQuery;
 import com.hvt.ultimatespy.models.user.UserLog;
 import com.hvt.ultimatespy.services.post.FacebookPostService;
+import com.hvt.ultimatespy.services.user.UserLimitationService;
 import com.hvt.ultimatespy.services.user.UserLogService;
 import com.hvt.ultimatespy.utils.Constants;
+import com.hvt.ultimatespy.utils.Errors;
 import com.hvt.ultimatespy.utils.enums.ActionEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +33,12 @@ public class FacebookPostListController {
     @Autowired
     private UserLogService userLogService;
 
+    @Autowired
+    private UserLimitationService userLimitationService;
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> get(@RequestHeader(Constants.X_USER_ID) String userId, @RequestParam Map<String, String> params) throws Exception {
+
         Timestamp fromDate = params.containsKey(Constants.FROM_DATE) && !params.get(Constants.FROM_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.FROM_DATE).trim()).getTime()) : null;
         Timestamp toDate = params.containsKey(Constants.TO_DATE) && !params.get(Constants.TO_DATE).trim().isEmpty() ? new Timestamp(sdf.parse(params.get(Constants.TO_DATE).trim()).getTime()) : null;
         int page = params.containsKey(Constants.PAGE) ? Integer.parseInt(params.get(Constants.PAGE).trim()) : 0;
@@ -51,24 +57,12 @@ public class FacebookPostListController {
         int minComments = params.containsKey(Constants.MIN_COMMENTS) && !params.get(Constants.MIN_COMMENTS).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MIN_COMMENTS)) : 0;
         int maxComments = params.containsKey(Constants.MAX_COMMENTS) && !params.get(Constants.MAX_COMMENTS).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MAX_COMMENTS)) : Integer.MAX_VALUE;
 
-        // Add '+' before every word in keyword
-        String newKeyword = keyword.replaceAll(" +", " +");
-        newKeyword = newKeyword.isEmpty() ? Constants.BLANK : "+" + newKeyword;
-
-        // Set default fromDate, toDate
-        if (toDate == null) {
-            toDate = Timestamp.from(Instant.now());
-        }
-        if (fromDate == null) {
-            fromDate = Timestamp.from(toDate.toInstant().minusSeconds(365 * 24 * 60 * 60));
-        }
-
         logger.info("Search params: " +
                 "fromDate=" + sdf.format(fromDate) + ", " +
                 "toDate=" + sdf.format(toDate) + ", " +
                 "page=" + page + ", " +
                 "pageSize=" + pageSize + ", " +
-                "keyword=" + newKeyword + ", " +
+                "keyword=" + keyword + ", " +
                 "pixelId=" + pixelId + ", " +
                 "facebookPageId=" + facebookPageId + ", " +
                 "category=" + category + ", " +
@@ -88,7 +82,7 @@ public class FacebookPostListController {
                 toDate,
                 page,
                 pageSize,
-                newKeyword,
+                keyword,
                 pixelId,
                 facebookPageId,
                 category,
@@ -101,6 +95,32 @@ public class FacebookPostListController {
                 maxLikes,
                 minComments,
                 maxComments);
+
+        if (userId != null && !facebookPostQuery.isEmpty()) {
+            userLimitationService.checkLimitation(userId, ActionEnum.SEARCH.value(), 24);
+        }
+
+        // When not signed in, can only search with default params
+        if ((userId == null || userId.isEmpty()) && !facebookPostQuery.isEmpty()) {
+            throw Errors.USER_UNAUTHORIZED;
+        }
+
+        // Add '+' before every word in keyword
+        String newKeyword = keyword.replaceAll(" +", " +");
+        newKeyword = newKeyword.isEmpty() ? Constants.BLANK : "+" + newKeyword;
+
+        // Set default fromDate, toDate
+        if (toDate == null) {
+            toDate = Timestamp.from(Instant.now());
+        }
+        if (fromDate == null) {
+            fromDate = Timestamp.from(toDate.toInstant().minusSeconds(365 * 24 * 60 * 60));
+        }
+
+        facebookPostQuery.setKeyword(newKeyword);
+        facebookPostQuery.setFromDate(fromDate);
+        facebookPostQuery.setToDate(toDate);
+
         BaseList<FacebookPost> baseList = new BaseList<>();
         try {
             if (userId != null && !userId.trim().isEmpty() && keyword.toLowerCase().startsWith("::saved")) {
@@ -111,19 +131,19 @@ public class FacebookPostListController {
                 facebookPostQuery.setPixelId(keyword.substring(8).trim());
                 facebookPostQuery.setKeyword(Constants.BLANK);
                 baseList = facebookPostService.list(facebookPostQuery).get();
-                if (userId != null) {
+                if (userId != null && !facebookPostQuery.isEmpty()) {
                     userLogService.insert(userId, ActionEnum.SEARCH.value());
                 }
             } else if (keyword.toLowerCase().startsWith("::website=")) {
                 facebookPostQuery.setWebsite(keyword.substring(10).trim());
                 facebookPostQuery.setKeyword(Constants.BLANK);
                 baseList = facebookPostService.list(facebookPostQuery).get();
-                if (userId != null) {
+                if (userId != null && !facebookPostQuery.isEmpty()) {
                     userLogService.insert(userId, ActionEnum.SEARCH.value());
                 }
             } else {
                 baseList = facebookPostService.list(facebookPostQuery).get();
-                if (userId != null) {
+                if (userId != null && !facebookPostQuery.isEmpty()) {
                     userLogService.insert(userId, ActionEnum.SEARCH.value());
                 }
             }

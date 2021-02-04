@@ -20,6 +20,7 @@ public class UserLimitationService {
     private UserService userService;
 
     public void checkLimitation(String userId, String action, int hours) throws Exception {
+        if (userId == null || userId.isEmpty()) return;
         Integer done = userLogService.total(userId, action, hours).get();
         User user = userService.get(userId).get();
         boolean bool = false;

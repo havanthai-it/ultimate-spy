@@ -3,7 +3,7 @@
 .plan-cta-dialog {
   .dialog-header {
     padding: 15px 30px;
-    background-color: $primary21;
+    background-color: $primary1;
     color: #fff;
     font-size: 1.5rem;
     text-align: center;
@@ -25,10 +25,11 @@
     text-align: center;
 
     button {
-      margin-top: 30px;
+      margin-top: 4px;
       margin-bottom: 10px;
       font-size: 1.1rem;
-      background-color: $primary21 !important;
+      background-color: $primary1 !important;
+      border-color: $primary1 !important;
       padding: 0.4em 2em;
       font-weight: 500;
     }

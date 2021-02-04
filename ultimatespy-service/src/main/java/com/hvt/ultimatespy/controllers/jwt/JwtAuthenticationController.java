@@ -4,6 +4,7 @@ import com.hvt.ultimatespy.models.jwt.JwtRequest;
 import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
 import com.hvt.ultimatespy.services.user.UserService;
+import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.Errors;
 import com.hvt.ultimatespy.utils.enums.PlanEnum;
 import com.hvt.ultimatespy.utils.enums.StatusEnum;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api/authenticate")
+@RequestMapping(value = Constants.ROUTE_AUTHENTICATE)
 public class JwtAuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;

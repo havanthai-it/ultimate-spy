@@ -20,19 +20,19 @@ export class UserPostService {
   }
 
   getListFacebookPostId(userId: string, type: string): Observable<any> {
-    const url = `${environment.serviceUrl}/api/user/${userId}/post?type=${type}`;
+    const url = `${environment.serviceUrl}/api/v1/user/${userId}/post?type=${type}`;
     return this.http.get(url, { headers: this.headers() });
   }
 
   insert(userId: string, facebookPostId: string, type: string): Observable<any> {
-    const url = `${environment.serviceUrl}/api/user/${userId}/post?`
+    const url = `${environment.serviceUrl}/api/v1/user/${userId}/post?`
                   + `facebookPostId=${facebookPostId}`
                   + `&type=${type}`;
     return this.http.post(url, {}, { headers: this.headers() });
   }
 
   delete(userId: string, facebookPostId: string, type: string): Observable<any> {
-    const url = `${environment.serviceUrl}/api/user/${userId}/post?`
+    const url = `${environment.serviceUrl}/api/v1/user/${userId}/post?`
                   + `facebookPostId=${facebookPostId}`
                   + `&type=${type}`;
     return this.http.delete(url, { headers: this.headers() });

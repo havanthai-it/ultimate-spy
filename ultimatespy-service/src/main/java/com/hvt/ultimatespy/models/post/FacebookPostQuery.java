@@ -44,6 +44,22 @@ public class FacebookPostQuery {
         this.maxComments = maxComments;
     }
 
+    public boolean isEmpty() {
+        return (keyword == null || keyword.isEmpty())
+                && (category == null || category.isEmpty())
+                && (type == null || type.isEmpty() )
+                && (platform == null || platform.isEmpty())
+                && fromDate == null
+                && toDate == null
+                && minLikes == 0
+                && maxLikes == 10000
+                && minComments == 0
+                && maxComments == 10000
+                && (pixelId == null || pixelId.isEmpty())
+                && (website == null || website.isEmpty())
+                ;
+    }
+
     public Timestamp getFromDate() {
         return fromDate;
     }

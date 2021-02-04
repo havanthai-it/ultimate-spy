@@ -33,14 +33,15 @@
               "./node_modules/bootstrap-select/dist/css/bootstrap-select.min.css",
               "./node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css",
               "./node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.min.css",
-              "./node_modules/font-awesome/css/font-awesome.css",
-              "src/styles.scss"
+              "./src/assets/lib/font-awesome/css/all.min.css",
+              "./src/styles.scss"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "./node_modules/bootstrap-select/dist/js/bootstrap-select.min.js",
               "./node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+              "./src/assets/lib/font-awesome/js/all.min.js",
               "./src/assets/scripts/script.js"
             ]
           },
@@ -63,8 +64,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "8mb",
+                  "maximumError": "8mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -138,5 +139,8 @@
       }
     }
   },
-  "defaultProject": "ultimate-spy"
+  "defaultProject": "ultimate-spy",
+  "cli": {
+    "analytics": "f2b6112b-e4a8-49b9-a3b9-2885ac882de1"
+  }
 }
