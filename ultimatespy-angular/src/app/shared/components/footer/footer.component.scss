@@ -1,8 +1,8 @@
 @import '../../../../assets/scss/global.scss';
 
 footer {
-  background-color: #fff;
-  color: $textColor1;
+  background-color: $primary1;
+  color: rgba(255,255,255,.9);
   min-height: 140px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -16,11 +16,12 @@ footer {
   }
 
   a {
-    color: $textColor1;
+    color: rgba(255,255,255,.7);
+    font-weight: 400;
   }
 
   .copyright {
     margin-top: 15px;
-    color: $textColor1;
+    color: rgba(255,255,255,.7);
   }
 }

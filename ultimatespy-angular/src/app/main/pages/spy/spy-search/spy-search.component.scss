@@ -10,7 +10,7 @@
 
       input {
         display: inline-block;
-        width: calc(100% - 100px);
+        width: calc(100% - 90px);
         color: $textColor1;
       }
 
@@ -123,7 +123,7 @@
     text-align: right;
     font-weight: 500;
     margin-right: 10px;
-    width: 90px;
+    width: 80px;
   }
   
   .bootstrap-select-wrapper {
@@ -136,7 +136,7 @@
   }
 
   .bootstrap-select {
-    width: calc(100% - 100px) !important;
+    width: calc(100% - 90px) !important;
     
     .dropdown-toggle {
       background-color: #fff;
@@ -195,7 +195,7 @@
   }
 
   mat-form-field {
-    width: calc((100% - 100px - 40px) / 2);
+    width: calc((100% - 90px - 40px) / 2);
     max-width: 296px;
     position: relative;
 
@@ -236,7 +236,7 @@
 
     .ng5-slider {
       margin: 0px 10px !important;
-      width: calc(100% - 2*80px - 90px - 3*10px); // 2 input 80px, 1 label 90px, 3 margin 10px
+      width: calc(100% - 2*80px - 80px - 3*10px); // 2 input 80px, 1 label 90px, 3 margin 10px
     }
     
     .ng5-slider-pointer {

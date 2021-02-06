@@ -1,0 +1,21 @@
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgxPayPalModule } from "ngx-paypal";
+import { CheckoutRoutingModule } from "./checkout-routing.module";
+import { CheckoutComponent } from "./checkout.component";
+
+@NgModule({
+    declarations: [
+        CheckoutComponent
+    ],
+    imports: [
+        CheckoutRoutingModule,
+        CommonModule,
+        NgxPayPalModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
+    providers: []
+})
+export class CheckoutModule {}

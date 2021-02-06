@@ -1,50 +1,32 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SigninComponent } from './main/pages/signin/signin.component';
 import { MainComponent } from './main/main.component';
-import { HomeComponent } from './main/pages/home/home.component';
 import { AuthGuard } from './core/guards/AuthGuard';
-import { SignupComponent } from './main/pages/signup/signup.component';
-import { ForgotPasswordComponent } from './main/pages/forgot-password/forgot-password.component';
-import { SpyComponent } from './main/pages/spy/spy.component';
-import { CheckoutComponent } from './main/pages/checkout/checkout.component';
-import { DashboardComponent } from './main/pages/dashboard/dashboard.component';
-import { DashboardProfileComponent } from './main/pages/dashboard/dashboard-profile/dashboard-profile.component';
-import { DashboardPlanComponent } from './main/pages/dashboard/dashboard-plan/dashboard-plan.component';
-// import { PrivacyComponent } from './main/pages/privacy/privacy.component';
-import { TermsComponent } from './main/pages/terms/terms.component';
 
 const routes: Routes = [
   {
     path: 'signin',
-    component: SigninComponent
+    loadChildren: () => import('./main/pages/signin/signin.module').then(m => m.SigninModule)
   },
   {
     path: 'signup',
-    component: SignupComponent
+    loadChildren: () => import('./main/pages/signup/signup.module').then(m => m.SignupModule)
   },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent
+    loadChildren: () => import('./main/pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
   },
   {
     path: '',
     component: MainComponent,
     children: [
-      { path: '', component: HomeComponent },
+      { path: '', loadChildren: () => import('./main/pages/home/home.module').then(m => m.HomeModule) },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
-      { path: 'ads', component: SpyComponent, pathMatch: 'full' },
+      { path: 'ads', loadChildren: () => import('./main/pages/spy/spy.module').then(m => m.SpyModule) },
       { path: 'privacy', loadChildren: () => import('./main/pages/privacy/privacy.module').then(m => m.PrivacyModule) },
-      { path: 'terms', component: TermsComponent, pathMatch: 'full' },
-      { path: 'checkout', component: CheckoutComponent, pathMatch: 'full' },
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        children: [
-          { path: 'profile', component: DashboardProfileComponent, pathMatch: 'full', canActivate: [AuthGuard] },
-          { path: 'plan', component: DashboardPlanComponent, pathMatch: 'full', canActivate: [AuthGuard] }
-        ]
-      }
+      { path: 'terms', loadChildren: () => import('./main/pages/terms/terms.module').then(m => m.TermsModule) },
+      { path: 'checkout', loadChildren: () => import('./main/pages/checkout/checkout.module').then(m => m.CheckoutModule) },
+      { path: 'dashboard', loadChildren: () => import('./main/pages/dashboard/dashboard.module').then(m => m.DashboardModule) }
     ]
   }
 ];

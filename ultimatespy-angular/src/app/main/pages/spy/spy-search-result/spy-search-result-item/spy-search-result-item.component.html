@@ -3,7 +3,7 @@
 
   <div class="ssri-header g-float-wrapper">
     <div class="ssri-header-image g-float-left">
-      <img src="{{post.pageThumbnail}}">
+      <img [attr.data-src]="post.pageThumbnail" class="lazyload">
     </div>
     <div class="ssri-header-title g-float-left">
       <h5>{{post.pageName}}</h5>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="ssri-thumbnail" (click)="detail()">
-      <img class="ssri-thumbnail-image" src="{{post.images.split(',')[0]}}">
+      <img class="ssri-thumbnail-image lazyload" [attr.data-src]="post.images.split(',')[0]">
       <input *ngIf="post.type==='VIDEO'" type="button" class="icon-play">
       <div class="ssri-platform-logo">
         <img class="ssri-platform-logo-image" src="{{bindPlatformLogo(post.platform)}}">

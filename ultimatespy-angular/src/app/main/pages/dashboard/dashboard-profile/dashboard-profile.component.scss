@@ -2,6 +2,7 @@
 
 .field-block {
   position: relative;
+
   .icon-edit-profile {
     position: absolute;
     right: 15px;
@@ -13,6 +14,11 @@
 
 .form-control:disabled, .form-control[readonly], .custom-select:disabled {
   background-color: #fafafa;
+}
+
+.btn-primary {
+  background-color: $primary2 !important;
+  border-color: $primary2 !important;
 }
 
 .btn-cancel {

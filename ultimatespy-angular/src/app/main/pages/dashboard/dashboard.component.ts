@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  pathName: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
+    this.pathName = window.location.pathname;
+  }
+
+  isActive(path) {
+    return this.pathName.startsWith(path);
   }
 
 }

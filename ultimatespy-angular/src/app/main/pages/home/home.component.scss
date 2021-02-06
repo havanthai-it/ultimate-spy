@@ -89,6 +89,7 @@
   }
 
   .section-testimonial {
+    background-color: $bgColor;
     padding-bottom: 60px;
     .testimonial-item {
       text-align: center;
@@ -169,8 +170,8 @@
   }
 
   .section-bottom {
-    background-color: $primary1;
-    color: #fff;
+    background-color: $bgColor;
+    color: $textColor1;
     height: 320px;
     text-align: center;
 
@@ -181,11 +182,11 @@
 
     .bottom-subtitle {
       font-size: .82rem;
-      color: rgba(255,255,255,.8);
+      color: $textColor1;
     }
 
     .bottom-content {
-      color: rgba(255,255,255,.8);
+      color: $textColor1;
       padding: 0 30px;
     }
 
