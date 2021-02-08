@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ICreateOrderRequest, ICreateSubscriptionRequest, IPayPalConfig } from 'ngx-paypal';
 import { User } from 'src/app/core/models/User';
 import { SubscriptionPlanService } from 'src/app/core/services/subscription-plan.service';
 
+declare var paypal;
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -11,7 +11,7 @@ import { SubscriptionPlanService } from 'src/app/core/services/subscription-plan
   encapsulation: ViewEncapsulation.None
 })
 export class CheckoutComponent implements OnInit {
-  public payPalConfig?: IPayPalConfig;
+  @ViewChild('paypal') paypalElement: ElementRef;
 
   invoice: any = {};
   user: User;
@@ -31,51 +31,51 @@ export class CheckoutComponent implements OnInit {
       this.period = this.invoice.plan.periods.find(p => p.months === this.invoice.period);
       console.log(this.invoice);
     });
-
-    this.initPaypalConfig();
     
   }
 
-  initPaypalConfig(): void {
-    this.payPalConfig = {
-      currency: 'USD',
-      clientId: 'AYKZwJ4qq1Il0kwhIMwAyL-aA9pJpyHJT9TIZV_eSQnxVaaqIy_e5NVBd_zffeRVm2HjzizfUTYDXAdC',
-      advanced: {
-        commit: 'true'
-      },
-      style: {
-        label: 'paypal',
-        layout: 'vertical',
-        size: 'small'
-      },
-      vault: 'true',
-      createSubscription: (data, actions) => {
-        return actions.subscription.create({  
-          plan_id: this.getPaypalPlanId(this.invoice.planId, this.invoice.period),  
-        });  
-      },
-      onApprove: (data, actions) => {
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        actions.order.get().then(details => {
-          console.log('onApprove - you can get full order details inside onApprove: ', details);
-        });
-      },
-      onClientAuthorization: (data) => {
-        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-      },
-      onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
-      },
-      onError: err => {
-        console.log('OnError', err);
-      },
-      onClick: (data, actions) => {
-        console.log('onClick', data, actions);
-      },
-    };
+  ngAfterViewInit(): void {
+    this.initPaypal();
   }
 
-  round(x): number {
+  initPaypal(): void {
+    const self = this;
+    paypal.Buttons({  
+      createSubscription: function (data, actions) {  
+        return actions.subscription.create({  
+          plan_id: self.getPaypalPlanId(self.invoice.planId, self.invoice.period),  
+        });  
+      },  
+      onApprove: function (data, actions) {  
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        // self.getSubcriptionDetails(data.subscriptionID);  
+      },  
+      onCancel: function (data) {  
+        // Show a cancel page, or return to cart  
+        console.log('OnCancel', data);
+      },  
+      onError: function (err) {  
+        // Show an error page here, when an error occurs  
+        console.log('OnError', err);
+      }  
+    }).render(this.paypalElement.nativeElement);
+  }
+
+  getSubcriptionDetails(subcriptionId) {  
+    const xhttp = new XMLHttpRequest();  
+    xhttp.onreadystatechange = function () {  
+      if (this.readyState === 4 && this.status === 200) {  
+        console.log(JSON.parse(this.responseText));  
+        alert(JSON.stringify(this.responseText));  
+      }  
+    };  
+    xhttp.open('GET', 'https://api.sandbox.paypal.com/v1/billing/subscriptions/' + subcriptionId, true);  
+    xhttp.setRequestHeader('Authorization', ''); // TODO:
+  
+    xhttp.send();  
+  }
+
+  round(x: number): number {
     return Math.round(x);
   }
 

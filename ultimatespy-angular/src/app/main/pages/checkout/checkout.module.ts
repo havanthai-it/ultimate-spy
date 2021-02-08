@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgxPayPalModule } from "ngx-paypal";
 import { CheckoutRoutingModule } from "./checkout-routing.module";
 import { CheckoutComponent } from "./checkout.component";
 
@@ -12,7 +11,6 @@ import { CheckoutComponent } from "./checkout.component";
     imports: [
         CheckoutRoutingModule,
         CommonModule,
-        NgxPayPalModule,
         FormsModule,
         ReactiveFormsModule,
     ],
