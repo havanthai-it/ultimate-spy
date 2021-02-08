@@ -20,6 +20,8 @@ public class Payment {
     private Timestamp createDate;
     private Timestamp updateDate;
 
+    private String plan;
+
     public String getId() {
         return id;
     }
@@ -146,5 +148,13 @@ public class Payment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
     }
 }

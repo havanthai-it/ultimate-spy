@@ -1,26 +1,31 @@
 <footer>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-lg-3 col-sm-6">
         <div class="col-title"><a href="/">AdsCrawlr</a></div>
       </div>
       <div class="col-lg-3 col-sm-6">
-        <div class="col-title mb-2">QUICK LINKS</div>
-        <div><a href="/">Home</a></div>
-        <div><a href="/ads">Ads Apy</a></div>
-        <div><a href="/#pricing">Pricing</a></div>
-        <div><a href="/#">Referral Program</a></div>
+        <div class="col-title mb-3">QUICK LINKS</div>
+        <div class="link-item"><a href="/">Home</a></div>
+        <div class="link-item"><a href="/ads">Ads Apy</a></div>
+        <div class="link-item"><a href="/#pricing">Pricing</a></div>
+        <div class="link-item"><a href="/#">Referral Program</a></div>
       </div>
       <div class="col-lg-3 col-sm-6">
-        <div class="col-title mb-2">ABOUT</div>
-        <div><a href="/#">FAQ</a></div>
-        <div><a href="/#">About Us</a></div>
-        <div><a href="/privacy">Privacy</a></div>
-        <div><a href="/terms">Terms</a></div>
+        <div class="col-title mb-3">ABOUT</div>
+        <div class="link-item"><a href="/#">FAQ</a></div>
+        <div class="link-item"><a href="/#">About Us</a></div>
+        <div class="link-item"><a href="/privacy">Privacy</a></div>
+        <div class="link-item"><a href="/terms">Terms</a></div>
       </div>
       <div class="col-lg-3 col-sm-6">
-        <div class="col-title mb-2">NOTIFICATION</div>
-        <div><a href="/">Email Notification</a></div>
+        <div class="col-title mb-3">SUBSCRIBE US</div>
+        <div>
+          <div class="subscribe-wrapper">
+            <input type="text" class="form-control input-subscribe" [(ngModel)]="email" placeholder="Enter you email">
+            <button class="btn btn-primary btn-subscribe">SUBSCRIBE</button>
+          </div>
+        </div>
       </div>
     </div>
 

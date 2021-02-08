@@ -36,8 +36,8 @@ export class UserService {
     return this.http.put(`${environment.serviceUrl}/api/v1/reset-password/${email}`, {});
   }
 
-  get(email: string): Observable<User> {
-    return this.http.get<User>(`${environment.serviceUrl}/api/v1/user?email=${email}`, { headers: this.headers() });
+  get(id: string, email: string): Observable<any> {
+    return this.http.get<User>(`${environment.serviceUrl}/api/v1/user?id=${id}&email=${email}`, { headers: this.headers() });
   }
 
   update(user: User): Observable<any> {

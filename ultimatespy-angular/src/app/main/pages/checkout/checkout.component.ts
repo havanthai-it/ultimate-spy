@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import { ICreateOrderRequest, ICreateSubscriptionRequest, IPayPalConfig } from 'ngx-paypal';
 import { User } from 'src/app/core/models/User';
 import { SubscriptionPlanService } from 'src/app/core/services/subscription-plan.service';
 
@@ -38,36 +38,8 @@ export class CheckoutComponent implements OnInit {
 
   initPaypalConfig(): void {
     this.payPalConfig = {
-      currency: 'EUR',
-      clientId: 'sb',
-      createOrderOnClient: (data) => <ICreateOrderRequest>{
-        intent: 'CAPTURE',
-        purchase_units: [
-          {
-            amount: {
-              currency_code: 'EUR',
-              value: '9.99',
-              breakdown: {
-                item_total: {
-                  currency_code: 'EUR',
-                  value: '9.99'
-                }
-              }
-            },
-            items: [
-              {
-                name: 'Enterprise Subscription',
-                quantity: '1',
-                category: 'DIGITAL_GOODS',
-                unit_amount: {
-                  currency_code: 'EUR',
-                  value: '9.99',
-                },
-              }
-            ]
-          }
-        ]
-      },
+      currency: 'USD',
+      clientId: 'AYKZwJ4qq1Il0kwhIMwAyL-aA9pJpyHJT9TIZV_eSQnxVaaqIy_e5NVBd_zffeRVm2HjzizfUTYDXAdC',
       advanced: {
         commit: 'true'
       },
@@ -75,6 +47,12 @@ export class CheckoutComponent implements OnInit {
         label: 'paypal',
         layout: 'vertical',
         size: 'small'
+      },
+      vault: 'true',
+      createSubscription: (data, actions) => {
+        return actions.subscription.create({  
+          plan_id: this.getPaypalPlanId(this.invoice.planId, this.invoice.period),  
+        });  
       },
       onApprove: (data, actions) => {
         console.log('onApprove - transaction was approved, but not authorized', data, actions);
@@ -128,6 +106,27 @@ export class CheckoutComponent implements OnInit {
   onChangePeriod(p: any): void {
     this.period = p;
     this.invoice = this.initInvoice(this.invoice.plan, p.months);
+  }
+
+  getPaypalPlanId(plan: string, period: number) {
+    if (plan === 'basic' && period === 1) {
+      return 'P-1J6726964U314624NMAQA6HQ';
+    } else if (plan === 'basic' && period === 3) {
+      return 'P-4EF61833C0475051RMAQTSWY';
+    } else if (plan === 'basic' && period === 6) {
+      return 'P-50J72259K8001514NMAQTLZA';
+    } else if (plan === 'basic' && period === 12) {
+      return 'P-3DH41113N9816535SMAQTTYQ';
+    } else if (plan === 'premium' && period === 1) {
+      return '';
+    } else if (plan === 'premium' && period === 3) {
+      return '';
+    } else if (plan === 'premium' && period === 6) {
+      return '';
+    } else if (plan === 'premium' && period === 12) {
+      return '';
+    }
+    return '';
   }
 
 }

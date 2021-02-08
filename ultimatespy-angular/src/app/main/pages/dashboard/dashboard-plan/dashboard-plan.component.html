@@ -2,21 +2,21 @@
 
   <div class="row mb-4">
 
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-4 col-md-4 mb-3">
       <label class="g-text-bold">Current plan</label>
-      <div>
-        BASIC PLAN
+      <div class="text-primary">
+        {{user.plan?.toUpperCase()}}
       </div>
     </div>
 
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-4 col-md-4 mb-3">
       <label class="g-text-bold">Started Date</label>
       <div>
-        2020-01-01
+        {{currentSubscription.from | date: 'yyyy-MM-dd'}}
       </div>
     </div>
 
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-4 col-md-4 mb-3">
       <label class="g-text-bold">State</label>
       <div>
         Active
@@ -42,26 +42,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td class="g-text-left">Basic</td>
-            <td class="g-text-right">$9.00</td>
-            <td class="g-text-center">2020-05-11 8:00:25 AM</td>
-            <td class="g-text-center">Success</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td class="g-text-left">Basic</td>
-            <td class="g-text-right">$9.00</td>
-            <td class="g-text-center">2020-05-11 8:00:25 AM</td>
-            <td class="g-text-center">Success</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td class="g-text-left">Basic</td>
-            <td class="g-text-right">$9.00</td>
-            <td class="g-text-center">2020-05-11 8:00:25 AM</td>
-            <td class="g-text-center">Success</td>
+          <tr *ngFor="let payment of payments; let i = index;">
+            <th scope="row">{{i + 1}}</th>
+            <td class="g-text-left">{{payment.plan?.toUpperCase()}}</td>
+            <td class="g-text-right">{{payment.currency}} {{payment.amount | number: '1.2-2'}}</td>
+            <td class="g-text-center">{{payment.createDate | date: 'yyyy-MM-dd hh:mm a'}}</td>
+            <td class="g-text-center">{{payment.status}}</td>
           </tr>
         </tbody>
       </table>
