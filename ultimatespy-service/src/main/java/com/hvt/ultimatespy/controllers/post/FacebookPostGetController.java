@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +30,7 @@ public class FacebookPostGetController {
     private FacebookPostService facebookPostService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> get(@PathVariable String id) throws Exception {
+    public ResponseEntity<?> get(@RequestHeader(Constants.X_USER_ID) String userId, @PathVariable String id) throws Exception {
         if (id == null || id.trim().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
@@ -38,11 +39,23 @@ public class FacebookPostGetController {
         FacebookPost post = new FacebookPost();
         List<FacebookPostStatistic> statistics = new ArrayList<>();
         try {
-            post = facebookPostService.get(id).get();
+            post = facebookPostService.get(userId, id).get();
             statistics = facebookPostService.getStatistic(id).get();
 
             // Convert statistics to chart data
             post.setStatistics(toChartData(post, statistics));
+
+            if (statistics.size() > 1) {
+                FacebookPostStatistic stats1 = statistics.get(statistics.size() - 1);
+                FacebookPostStatistic stats2 = statistics.get(statistics.size() - 2);
+                float likesChange = stats1.getLikes() - stats2.getLikes();
+                float commentsChange = stats1.getComments() - stats2.getComments();
+                float shareChange = stats1.getShares() - stats2.getShares();
+                post.setLastLikeTrack(stats2.getLikes() != 0 ? (likesChange / stats2.getLikes()) : likesChange);
+                post.setLastCommentTrack(stats2.getComments() != 0 ? (commentsChange / stats2.getComments()) : commentsChange);
+                post.setLastShareTrack(stats2.getShares() != 0 ? (shareChange / stats2.getShares()) : shareChange);
+                post.setLastAvgTrack((post.getLastLikeTrack() + post.getLastCommentTrack() + post.getLastShareTrack()) / 3);
+            }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }

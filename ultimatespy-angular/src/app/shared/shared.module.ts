@@ -14,6 +14,7 @@ import { PlanCtaDialogComponent } from './components/plan-cta-dialog/plan-cta-di
 import { MatIconModule } from '@angular/material/icon';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { RanoutDialogComponent } from './components/ranout-dialog/ranout-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RanoutDialogComponent } from './components/ranout-dialog/ranout-dialog.
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   exports: [
     FlexLayoutModule,
@@ -46,7 +48,8 @@ import { RanoutDialogComponent } from './components/ranout-dialog/ranout-dialog.
     FooterComponent,
     LoadingComponent,
     ConfirmDialogComponent,
-    PlanCtaDialogComponent
+    PlanCtaDialogComponent,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

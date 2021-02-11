@@ -1,14 +1,10 @@
 <div class="spy-page">
   <app-spy-search #spySearch
     (searchResult)="setSearchResult($event)"
-    (listSavedIds)="setListSavedIds($event)"
-    (listTrackedIds)="setListTrackedIds($event)"
     (onSearching)="onSearching($event)">
   </app-spy-search>
   <app-spy-search-result
-    [data]="searchResult" 
-    [listSavedIds]="listSavedIds" 
-    [listTrackedIds]="listTrackedIds" 
+    [data]="searchResult"
     [isSearching]="isSearching"></app-spy-search-result>
 
   <div class="pagination-wrapper" *ngIf="searchResult.pages > 1">
@@ -33,7 +29,12 @@
       </ul>
       <div *ngIf="!token || !user" class="must-signin-overlay">
         <a href="/signin">
-          <button class="btn btn-secondary">Sign in to unlock</button>
+          <button class="btn btn-secondary"><i class="fal fa-lock-alt"></i> Sign in to unlock</button>
+        </a>
+      </div>
+      <div *ngIf="token && user && user.plan==='free'" class="must-signin-overlay">
+        <a href="/#pricing">
+          <button class="btn btn-secondary"><i class="fal fa-lock-alt"></i> Upgrade your account</button>
         </a>
       </div>
     </nav>

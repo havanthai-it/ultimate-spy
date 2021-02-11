@@ -15,12 +15,11 @@ declare var $: any;
 })
 export class SpySearchResultItemComponent implements OnInit, OnChanges {
   @Input() post: any;
-  @Input() isSaved: boolean;
-  @Input() isTracked: boolean;
   @Input() isSearching: boolean = false;
 
   Moment: any = moment;
   userId: string;
+  newlyTrack: boolean = false;
 
   constructor(
     private dialog: MatDialog,
@@ -44,8 +43,7 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
   detail(): void {
     this.postService.getFacebookPost(this.post.postId).subscribe(
       data => {
-        data.isSaved = this.isSaved;
-        data.isTracked = this.isTracked;
+        console.log(data);
         const dialogRef = this.dialog.open(SpySearchResultItemDialogComponent, {
           width: '1024px',
           maxWidth: 'calc(100vw - 30px)',
@@ -56,8 +54,9 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
           if (!result) {
             result = dialogRef.componentInstance.data;
           }
-          this.isSaved = result.isSaved;
-          this.isTracked = result.isTracked;
+          console.log(result);
+          this.post.saved = result.saved;
+          this.post.tracked = result.tracked;
         });
       },
       error => {
@@ -123,7 +122,8 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
         if (result && result === 'yes') {
           this.userPostService.insert(this.userId, postId, 'tracked').subscribe(
             data => {
-              this.isTracked = true;
+              this.post.tracked = true;
+              this.newlyTrack = true;
             },
             error => {
               console.log(error);
@@ -146,7 +146,7 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
       if (result && result === 'yes') {
         this.userPostService.delete(this.userId, postId, 'tracked').subscribe(
           data => {
-            this.isTracked = false;
+            this.post.tracked = false;
           },
           error => {
             console.log(error);
@@ -169,7 +169,7 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
         if (result && result === 'yes') {
           this.userPostService.insert(this.userId, postId, 'saved').subscribe(
             data => {
-              this.isSaved = true;
+              this.post.saved = true;
             },
             error => {
               console.log(error);
@@ -192,7 +192,7 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
       if (result && result === 'yes') {
         this.userPostService.delete(this.userId, postId, 'saved').subscribe(
           data => {
-            this.isSaved = false;
+            this.post.saved = false;
           },
           error => {
             console.log(error);
@@ -251,6 +251,9 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
       return '../../../../../../assets/img/platforms/_default.png';
     }
     
+  }
+
+  getLastAvgTrack(): void {
   }
 
 }

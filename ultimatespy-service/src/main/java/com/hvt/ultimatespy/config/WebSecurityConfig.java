@@ -67,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(Constants.ROUTE_AUTHENTICATE).permitAll()
                 .antMatchers(Constants.ROUTE_USER).permitAll()
+                .antMatchers(Constants.ROUTE_SUBSCRIBER_EMAIL).permitAll()
                 .antMatchers(Constants.ROUTE_SUBSCRIPTION_PLAN).permitAll()
                 .antMatchers(Constants.ROUTE_RESET_PASSWORD).permitAll()
                 .antMatchers(Constants.ROUTE_POST_FACEBOOK).permitAll()

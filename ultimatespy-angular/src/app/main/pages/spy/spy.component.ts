@@ -12,8 +12,6 @@ export class SpyComponent implements OnInit {
   @ViewChild('spySearch') spySearchComponent: SpySearchComponent;
 
   searchResult: any = {};
-  listSavedIds: string[] = [];
-  listTrackedIds: string[] = [];
   isSearching: boolean = false;
 
   user: any;
@@ -24,20 +22,12 @@ export class SpyComponent implements OnInit {
   ngOnInit(): void {
     $('[data-toggle="tooltip"]').tooltip();
     
-    this.user = localStorage.getItem('user');
+    this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
     this.token = localStorage.getItem('token');
   }
   
   setSearchResult(searchResult: any): void {
     this.searchResult = searchResult;
-  }
-
-  setListSavedIds(listSavedIds: string[]): void {
-    this.listSavedIds = listSavedIds;
-  }
-
-  setListTrackedIds(listTrackedIds: string[]): void {
-    this.listTrackedIds = listTrackedIds;
   }
 
   onSearching(isSearching: boolean): void {

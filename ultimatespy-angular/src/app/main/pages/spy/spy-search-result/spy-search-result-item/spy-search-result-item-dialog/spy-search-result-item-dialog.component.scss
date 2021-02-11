@@ -74,6 +74,7 @@
 
       .post-origin-body {
         .post-origin-content {
+          word-break: break-all;
           .see_more_link_inner {
             display: none;
           }
@@ -152,6 +153,21 @@
               .fa-thumbs-up {
                 color: #2471A3;
               }
+            }
+
+            &.post-origin-performance-track {
+              // margin-right: 0 !important;
+              font-size: .86em;
+              margin-left: -12px !important;
+            }
+            &.post-origin-performance-track-up {
+              color: #01d001;
+            }
+            &.post-origin-performance-track-same {
+              color: #d6d600;
+            }
+            &.post-origin-performance-track-down {
+              color: #ff5050;
             }
           }
           

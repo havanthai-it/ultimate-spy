@@ -1,0 +1,63 @@
+@import '../../../../assets/scss/global.scss';
+
+.faq-page {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background-color: #fff;
+  min-height: 100vh;
+  
+  .page-title {
+    margin-bottom: 50px;
+  }
+
+  .accordion-title {
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .accordion {
+    .card {
+      .card-title {
+        padding: 0;
+        margin: 0;
+        background-color: #fbfbfb;
+        a {
+          display: block;
+          padding: 1.25rem;
+          color: $textColor1;
+          font-weight: 400;
+
+          &::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-left: 1px solid #757575;
+            border-top: 1px solid #757575;
+            float: right;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 10px;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            -webkit-transition: .2s linear;
+            transition: .2s linear;
+          }
+
+          &.collapsed::before {
+            -webkit-transform: rotate(-135deg);
+            transform: rotate(-135deg);
+          }
+        }
+      }
+    }
+  }
+
+  .bottom-text {
+    margin-top: 40px;
+    color: $textColor1;
+    font-size: 1.25rem;
+    font-style: italic;
+  }
+
+}

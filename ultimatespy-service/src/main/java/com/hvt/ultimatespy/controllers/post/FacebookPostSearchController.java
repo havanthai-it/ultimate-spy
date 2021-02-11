@@ -3,10 +3,12 @@ package com.hvt.ultimatespy.controllers.post;
 import com.hvt.ultimatespy.models.BaseList;
 import com.hvt.ultimatespy.models.post.FacebookPost;
 import com.hvt.ultimatespy.models.post.FacebookPostQuery;
+import com.hvt.ultimatespy.models.post.FacebookPostStatistic;
 import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.post.FacebookPostService;
 import com.hvt.ultimatespy.services.user.UserLimitationService;
 import com.hvt.ultimatespy.services.user.UserLogService;
+import com.hvt.ultimatespy.services.user.UserPostService;
 import com.hvt.ultimatespy.services.user.UserService;
 import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.Errors;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +35,9 @@ public class FacebookPostSearchController {
 
     @Autowired
     private FacebookPostService facebookPostService;
+
+    @Autowired
+    private UserPostService userPostService;
 
     @Autowired
     private UserLogService userLogService;
@@ -132,6 +140,37 @@ public class FacebookPostSearchController {
                     userLogService.insert(userId, ActionEnum.SEARCH.value());
                 }
             }
+
+            if (userId != null && !userId.trim().isEmpty()) {
+                List<String> listSavedIds = userPostService.listIds(userId, "saved").get();
+                List<String> listTrackedIds = userPostService.listIds(userId, "tracked").get();
+                baseList.getList().stream()
+                        .filter(p -> listSavedIds.contains(p.getPostId()))
+                        .forEach(p -> p.setSaved(true));
+                baseList.getList().stream()
+                        .filter(p -> listTrackedIds.contains(p.getPostId()))
+                        .forEach(p -> {
+                            p.setTracked(true);
+                            List<FacebookPostStatistic> statistics = null;
+                            try {
+                                statistics = facebookPostService.getStatistic(p.getPostId()).get();
+                                if (statistics.size() > 1) {
+                                    FacebookPostStatistic stats1 = statistics.get(statistics.size() - 1);
+                                    FacebookPostStatistic stats2 = statistics.get(statistics.size() - 2);
+                                    float likesChange = stats1.getLikes() - stats2.getLikes();
+                                    float commentsChange = stats1.getComments() - stats2.getComments();
+                                    float shareChange = stats1.getShares() - stats2.getShares();
+                                    p.setLastLikeTrack(stats2.getLikes() != 0 ? (likesChange / stats2.getLikes()) : likesChange);
+                                    p.setLastCommentTrack(stats2.getComments() != 0 ? (commentsChange / stats2.getComments()) : commentsChange);
+                                    p.setLastShareTrack(stats2.getShares() != 0 ? (shareChange / stats2.getShares()) : shareChange);
+                                    p.setLastAvgTrack((p.getLastLikeTrack() + p.getLastCommentTrack() + p.getLastShareTrack()) / 3);
+                                }
+                            } catch (InterruptedException | ExecutionException e) {
+                                logger.log(Level.SEVERE, "", e);
+                            }
+                        });
+            }
+
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }

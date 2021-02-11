@@ -8,10 +8,10 @@
     <div class="ssri-header-title g-float-left">
       <h5>{{post.pageName}}</h5>
       <div class="post-action">
-        <span (click)="track(post.postId)"><i [hidden]="isTracked" class="far fa-chart-bar" data-toggle="tooltip" data-placement="bottom" title="Add to Tracklist"></i></span>
-        <span (click)="unTrack(post.postId)"><i [hidden]="!isTracked" class="fas fa-chart-bar fa-active" data-toggle="tooltip" data-placement="bottom" title="Remove from Tracklist"></i></span>
-        <span (click)="save(post.postId)"><i [hidden]="isSaved" class="far fa-heart" data-toggle="tooltip" data-placement="bottom" title="Save"></i></span>
-        <span (click)="unSave(post.postId)"><i [hidden]="!isSaved" class="fas fa-heart fa-active" data-toggle="tooltip" data-placement="bottom" title="Unsave"></i></span>
+        <span (click)="track(post.postId)"><i [hidden]="post.tracked" class="far fa-chart-bar" data-toggle="tooltip" data-placement="bottom" title="Add to Tracklist"></i></span>
+        <span (click)="unTrack(post.postId)"><i [hidden]="!post.tracked" class="fas fa-chart-bar fa-active" data-toggle="tooltip" data-placement="bottom" title="Remove from Tracklist"></i></span>
+        <span (click)="save(post.postId)"><i [hidden]="post.saved" class="far fa-heart" data-toggle="tooltip" data-placement="bottom" title="Save"></i></span>
+        <span (click)="unSave(post.postId)"><i [hidden]="!post.saved" class="fas fa-heart fa-active" data-toggle="tooltip" data-placement="bottom" title="Unsave"></i></span>
       </div>
       <div class="ssri-publish-time g-text-sm g-text-blur">
         <div><mat-icon class="icon-clock">access_time</mat-icon> {{Moment(post.publishDate).fromNow()}}</div>
@@ -45,6 +45,10 @@
       <div class="ssri-performance-icon ssri-performance-like g-float-left"><i class="far fa-thumbs-up"></i> {{post.likes | number}}</div>
       <div class="ssri-performance-icon ssri-performance-comment g-float-left"><i class="far fa-comment"></i> {{post.comments | number}}</div>
       <div class="ssri-performance-icon ssri-performance-share g-float-left"><i class="far fa-share"></i> {{post.shares | number}}</div>
+      <div *ngIf="post.tracked" class="ssri-performance-icon ssri-performance-track g-float-right" 
+        [ngClass]="{'ssri-performance-track-up': post.lastAvgTrack > 0, 'ssri-performance-track-same': !post.lastAvgTrack, 'ssri-performance-track-down': post.lastAvgTrack < 0}">
+        <i class="fal" [ngClass]="{'fa-long-arrow-up': !post.lastAvgTrack || post.lastAvgTrack >= 0, 'fa-long-arrow-down': post.lastAvgTrack < 0}"></i> {{(100 * post.lastAvgTrack) | number: '1.2-2'}}%
+      </div>
     </div>
 
   </div>

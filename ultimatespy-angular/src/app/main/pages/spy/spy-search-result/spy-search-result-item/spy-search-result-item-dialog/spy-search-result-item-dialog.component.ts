@@ -23,7 +23,7 @@ export class SpySearchResultItemDialogComponent implements OnInit {
   legend: boolean = true;
   legendPosition: string = 'below';
   showLabels: boolean = true;
-  animations: boolean = true;
+  animations: boolean = false;
   xAxis: boolean = true;
   yAxis: boolean = true;
   showYAxisLabel: boolean = false;
@@ -109,7 +109,7 @@ export class SpySearchResultItemDialogComponent implements OnInit {
         if (result && result === 'yes') {
           this.userPostService.insert(this.userId, postId, 'tracked').subscribe(
             data => {
-              this.data.isTracked = true;
+              this.data.tracked = true;
             },
             error => {
               console.log(error);
@@ -132,7 +132,7 @@ export class SpySearchResultItemDialogComponent implements OnInit {
       if (result && result === 'yes') {
         this.userPostService.delete(this.userId, postId, 'tracked').subscribe(
           data => {
-            this.data.isTracked = false;
+            this.data.tracked = false;
           },
           error => {
             console.log(error);
@@ -155,7 +155,7 @@ export class SpySearchResultItemDialogComponent implements OnInit {
         if (result && result === 'yes') {
           this.userPostService.insert(this.userId, postId, 'saved').subscribe(
             data => {
-              this.data.isSaved = true;
+              this.data.saved = true;
             },
             error => {
               console.log(error);
@@ -178,7 +178,7 @@ export class SpySearchResultItemDialogComponent implements OnInit {
       if (result && result === 'yes') {
         this.userPostService.delete(this.userId, postId, 'saved').subscribe(
           data => {
-            this.data.isSaved = false;
+            this.data.saved = false;
           },
           error => {
             console.log(error);

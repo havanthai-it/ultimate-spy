@@ -96,7 +96,14 @@ public class FacebookPost {
     private Timestamp pagePublishDate;
 
     // Statistic
+    private Float lastAvgTrack;
+    private Float lastLikeTrack;
+    private Float lastCommentTrack;
+    private Float lastShareTrack;
     private List<Map<String, Object>> statistics;
+    private String searchType;
+    private boolean tracked;
+    private boolean saved;
 
     public String getId() {
         return id;
@@ -330,11 +337,67 @@ public class FacebookPost {
         this.pagePublishDate = pagePublishDate;
     }
 
+    public Float getLastAvgTrack() {
+        return lastAvgTrack;
+    }
+
+    public void setLastAvgTrack(Float lastAvgTrack) {
+        this.lastAvgTrack = lastAvgTrack;
+    }
+
+    public Float getLastLikeTrack() {
+        return lastLikeTrack;
+    }
+
+    public void setLastLikeTrack(Float lastLikeTrack) {
+        this.lastLikeTrack = lastLikeTrack;
+    }
+
+    public Float getLastCommentTrack() {
+        return lastCommentTrack;
+    }
+
+    public void setLastCommentTrack(Float lastCommentTrack) {
+        this.lastCommentTrack = lastCommentTrack;
+    }
+
+    public Float getLastShareTrack() {
+        return lastShareTrack;
+    }
+
+    public void setLastShareTrack(Float lastShareTrack) {
+        this.lastShareTrack = lastShareTrack;
+    }
+
     public List<Map<String, Object>> getStatistics() {
         return statistics;
     }
 
     public void setStatistics(List<Map<String, Object>> statistics) {
         this.statistics = statistics;
+    }
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
+
+    public boolean isTracked() {
+        return tracked;
+    }
+
+    public void setTracked(boolean tracked) {
+        this.tracked = tracked;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 }

@@ -51,17 +51,18 @@ public class FacebookPostService {
         client = RestClients.create(clientConfiguration).rest();
     }
 
-    public CompletableFuture<FacebookPost> get (String facebookPostId) {
+    public CompletableFuture<FacebookPost> get (String userId, String facebookPostId) {
         return CompletableFuture.supplyAsync(() -> {
             FacebookPost facebookPost = null;
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "{ CALL facebook_post_get(?) }";
+            String sql = "{ CALL facebook_post_get(?,?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
                 cs.setString(1, facebookPostId);
+                cs.setString(2, userId != null ? userId : "");
 
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
@@ -159,7 +160,9 @@ public class FacebookPostService {
 
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
-                    baseList.add(bind(rs));
+                    FacebookPost post = bind(rs);
+                    post.setSearchType(userPostType);
+                    baseList.add(post);
                 }
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "", e);
@@ -414,6 +417,14 @@ public class FacebookPostService {
         facebookPost.setPageLikes(rs.getObject("N_PAGE_LIKES") != null ? rs.getLong("N_PAGE_LIKES") : 0);
         facebookPost.setPageFollows(rs.getObject("N_PAGE_FOLLOWS") != null ? rs.getLong("N_PAGE_FOLLOWS") : 0);
         facebookPost.setPagePublishDate(rs.getTimestamp("D_PAGE_PUBLISH"));
+
+        // Others
+        facebookPost.setTracked(rs.getString("S_TRACKED") != null && !rs.getString("S_TRACKED").isEmpty());
+        facebookPost.setSaved(rs.getString("S_SAVED") != null && !rs.getString("S_SAVED").isEmpty());
+        facebookPost.setLastLikeTrack(0f);
+        facebookPost.setLastCommentTrack(0f);
+        facebookPost.setLastShareTrack(0f);
+        facebookPost.setLastAvgTrack(0f);
 
         return facebookPost;
     }

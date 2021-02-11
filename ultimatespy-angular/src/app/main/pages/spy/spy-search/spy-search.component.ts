@@ -16,8 +16,6 @@ import { RanoutDialogComponent } from 'src/app/shared/components/ranout-dialog/r
 })
 export class SpySearchComponent implements OnInit {
   @Output() searchResult = new EventEmitter<any>();
-  @Output() listSavedIds = new EventEmitter<string[]>();
-  @Output() listTrackedIds = new EventEmitter<string[]>();
   @Output() onSearching = new EventEmitter<boolean>();
   
   constructor(
@@ -179,9 +177,6 @@ export class SpySearchComponent implements OnInit {
         }
       }
     )
-
-    this.loadSavedPostIds(this.userId);
-    this.loadTrackedPostIds(this.userId);
   }
 
   search(page: number, scrollToTop: boolean): void {
@@ -218,32 +213,6 @@ export class SpySearchComponent implements OnInit {
     }
 
     window.location.href = '/ads?' + params;
-  }
-
-  loadSavedPostIds(userId: string): void {
-    if (userId) {
-      this.userPostService.getListFacebookPostId(userId, "saved").subscribe(
-        data => {
-          this.listSavedIds.emit(data);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }
-
-  loadTrackedPostIds(userId: string): void {
-    if (userId) {
-      this.userPostService.getListFacebookPostId(userId, "tracked").subscribe(
-        data => {
-          this.listTrackedIds.emit(data);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
   }
 
   numericOnly(event): boolean {    

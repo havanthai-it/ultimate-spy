@@ -16,6 +16,7 @@ public class Constants {
     public static final String ROUTE_PAYMENT = "/api/v1/payment";
     public static final String ROUTE_PAYMENT_ID = "/api/v1/payment/{id}";
     public static final String ROUTE_SUBSCRIPTION_PLAN = "/api/v1/subscription-plan";
+    public static final String ROUTE_SUBSCRIBER_EMAIL = "/api/v1/subscriber-email";
 
     public static final String ROUTE_ADMIN = "/api/v1/admin";
 

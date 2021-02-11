@@ -203,6 +203,19 @@
             color: #2471A3;
           }
         }
+
+        &.ssri-performance-track {
+          margin-right: 0 !important;
+        }
+        &.ssri-performance-track-up {
+          color: #01d001;
+        }
+        &.ssri-performance-track-same {
+          color: #d6d600;
+        }
+        &.ssri-performance-track-down {
+          color: #ff5050;
+        }
       }
 
     }
