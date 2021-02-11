@@ -21,19 +21,20 @@ public class UserPostService {
 
     private static final Logger logger = Logger.getLogger(UserPostService.class.getName());
 
-    public CompletableFuture<Integer> insert(String userId, String facebookPostId, String type) {
+    public CompletableFuture<Integer> insert(String userId, String facebookPostId, String type, int shouldCrawl) {
         return CompletableFuture.supplyAsync(() -> {
             Connection conn = null;
             CallableStatement cs = null;
             String sql = "INSERT INTO " +
-                    " tb_user_post(S_USER_ID, S_FACEBOOK_POST_ID, S_TYPE) " +
-                    " VALUES(?,?,?)";
+                    " tb_user_post(S_USER_ID, S_FACEBOOK_POST_ID, S_TYPE, N_SHOULD_CRAWL) " +
+                    " VALUES(?,?,?,?)";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
                 cs.setString(1, userId);
                 cs.setString(2, facebookPostId);
                 cs.setString(3, type);
+                cs.setInt(4, shouldCrawl);
                 cs.execute();
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "", e);
@@ -59,37 +60,6 @@ public class UserPostService {
                 cs = conn.prepareCall(sql);
                 cs.setString(1, userId);
                 cs.setString(2, type);
-                rs = cs.executeQuery();
-                while (rs != null && rs.next()) {
-                    list.add(rs.getString("S_FACEBOOK_POST_ID"));
-                }
-            } catch (SQLException e) {
-                logger.log(Level.SEVERE, "", e);
-            } finally {
-                Datasource.close(conn, cs, rs);
-            }
-
-            return list;
-        });
-    }
-
-    public CompletableFuture<List<String>> listIds(String userId, String type, int hours) {
-        return CompletableFuture.supplyAsync(() -> {
-            List<String> list = new ArrayList<>();
-            Connection conn = null;
-            CallableStatement cs = null;
-            ResultSet rs = null;
-            String sql = "SELECT s_facebook_post_id " +
-                    " FROM tb_user_post " +
-                    " WHERE s_user_id = ? " +
-                    "       AND s_type = ? " +
-                    "       AND d_create > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL ? HOUR)";
-            try {
-                conn = Datasource.getConnection();
-                cs = conn.prepareCall(sql);
-                cs.setString(1, userId);
-                cs.setString(2, type);
-                cs.setInt(3, hours);
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
                     list.add(rs.getString("S_FACEBOOK_POST_ID"));

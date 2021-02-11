@@ -225,7 +225,7 @@
         margin-top: 20px;
         margin-right: 8px;
         position: relative;
-        padding: 0.08em 0.35em;
+        padding: 0.08em 0.375em;
         border-radius: 3px;
 
       }
@@ -245,6 +245,18 @@
         &:hover {
           border: solid 1px $primary2;
           background-color: $primary2;
+          color: #fff;
+        }
+      }
+      .post-info-btn-unsave,
+      .post-info-btn-untrack {
+        border: solid 1px #ef5350;
+        background-color: #ef5350;
+        color: #fff;
+
+        &:hover {
+          border: solid 1px #ef5350;
+          background-color: #ef5350;
           color: #fff;
         }
       }

@@ -57,6 +57,14 @@ export class SpySearchResultItemDialogComponent implements OnInit {
     }, 0);
   }
 
+  yAxisTickFormat(val: number): string {
+    if (val % 1 === 0) {
+      return val.toLocaleString();
+    } else {
+      return '';
+    }
+  }
+
   close(): void {
     this.dialogRef.close(this.data);
   }

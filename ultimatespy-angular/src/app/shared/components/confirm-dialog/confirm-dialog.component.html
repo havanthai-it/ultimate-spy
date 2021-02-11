@@ -3,8 +3,16 @@
   <div mat-dialog-content class="dialog-content">
     <p>{{data.message}}</p>
   </div>
-  <div mat-dialog-actions class="g-text-center">
-    <button class="btn" (click)="no()">{{data.no ? data.no : 'No'}}</button>
-    <button class="btn btn-focus" (click)="yes()">{{data.yes ? data.yes : 'Yes'}}</button>
+  <div mat-dialog-actions>
+    <div class="container">
+      <div class="row" style="width: 100%; margin: 0;">
+        <div class="col-6">
+          <button class="btn g-float-right" (click)="no()">{{data.no ? data.no : 'No'}}</button>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-focus g-float-left" (click)="yes()">{{data.yes ? data.yes : 'Yes'}}</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

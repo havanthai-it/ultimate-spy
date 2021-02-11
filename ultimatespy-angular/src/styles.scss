@@ -93,6 +93,12 @@ img {
 /* END FLOAT */
 
 /* START TEXT */
+.g-text-color-0 {
+  color: $textColor0;
+}
+.g-text-color-1 {
+  color: $textColor1;
+}
 .g-text-sm {
   font-size: 0.86rem;
 }

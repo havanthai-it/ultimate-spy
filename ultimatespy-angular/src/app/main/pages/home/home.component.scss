@@ -17,7 +17,7 @@
       max-width: 800px;
       margin: auto;
       margin-top: 18vh;
-      color: $textColor1;
+      color: $textColor0;
     }
 
     p {
@@ -30,7 +30,7 @@
     }
 
     .btn-search-now {
-      background-color: $primary1;
+      background-color: #121212;
       color: #fff;
       font-weight: 500;
       font-size: 1rem;
@@ -39,7 +39,7 @@
       text-transform: uppercase;
       border-radius: 1.6em;
       &:hover {
-        background-color: $primary11;
+        background-color: #000;
       }
 
       .fa-search {
@@ -56,8 +56,8 @@
 
     .section-title {
       text-align: center;
-      color: $textColor1;
-      margin-bottom: 60px;
+      color: $textColor0;
+      margin-bottom: 80px;
     }
   }
 
@@ -178,6 +178,7 @@
     .bottom-title {
       font-size: 2.2rem;
       font-weight: 400;
+      color: $textColor0;
     }
 
     .bottom-subtitle {

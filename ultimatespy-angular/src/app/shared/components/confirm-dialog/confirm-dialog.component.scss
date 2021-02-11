@@ -4,19 +4,18 @@
   padding: 20px 30px 25px 30px;
 
   .dialog-title {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   .dialog-content {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .btn {
     border: solid 1px $borderColor;
     padding: .35em 2em;
-    margin: 0 10px;
     text-align: center;
-    width: 120px;
+    width: 100px;
 
     &:hover {
       background-color: $primary2;

@@ -34,11 +34,11 @@ public class UserPostPostController {
         Integer result = 0;
         if (type.toLowerCase().equals("saved")) {
             userLimitationService.checkLimitation(id, ActionEnum.SAVE_POST.value(), 24);
-            result = userPostService.insert(id, facebookPostId, type).get();
+            result = userPostService.insert(id, facebookPostId, type, 0).get();
             userLogService.insert(id, ActionEnum.SAVE_POST.value());
         } else if (type.toLowerCase().equals("tracked")) {
             userLimitationService.checkLimitation(id, ActionEnum.TRACK_POST.value(), 24);
-            result = userPostService.insert(id, facebookPostId, type).get();
+            result = userPostService.insert(id, facebookPostId, type, 1).get();
             userLogService.insert(id, ActionEnum.TRACK_POST.value());
         }
 

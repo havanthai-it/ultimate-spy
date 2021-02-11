@@ -98,13 +98,13 @@
           <button [hidden]="data.saved" (click)="save(data.postId)" class="post-info-btn post-info-btn-save">
             <i class="far fa-heart"></i> Save
           </button>
-          <button [hidden]="!data.saved" (click)="unSave(data.postId)" class="post-info-btn post-info-btn-save">
+          <button [hidden]="!data.saved" (click)="unSave(data.postId)" class="post-info-btn post-info-btn-unsave">
             <i class="far fa-heart"></i> Unsave
           </button>
           <button [hidden]="data.tracked" (click)="track(data.postId)" class="post-info-btn post-info-btn-track">
             <i class="far fa-chart-bar"></i> Add to Tracklist
           </button>
-          <button [hidden]="!data.tracked" (click)="unTrack(data.postId)" class="post-info-btn post-info-btn-track">
+          <button [hidden]="!data.tracked" (click)="unTrack(data.postId)" class="post-info-btn post-info-btn-untrack">
             <i class="far fa-chart-bar"></i> Remove from Tracklist
           </button>
         </div>
@@ -123,6 +123,7 @@
             [yAxis]="yAxis"
             [xAxisLabel]="xAxisLabel"
             [yAxisLabel]="yAxisLabel"
+            [yAxisTickFormatting]="yAxisTickFormat"
             [timeline]="timeline"
             [results]="data.statistics"
             [autoScale]="autoScale"
