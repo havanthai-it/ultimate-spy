@@ -1,31 +1,58 @@
 <div class="container">
 
-  <div class="row mb-4">
+  <div class="row mb-3" *ngIf="currentSubscription">
 
-    <div class="col-lg-4 col-md-4 mb-3">
+    <div class="col-lg-3 col-md-3 mb-3">
       <label class="g-text-bold">Current plan</label>
       <div class="text-primary">
-        {{user.plan?.toUpperCase()}}
+        {{currentSubscription.planId.toUpperCase()}}
       </div>
     </div>
 
-    <div class="col-lg-4 col-md-4 mb-3">
-      <label class="g-text-bold">Started Date</label>
+    <div class="col-lg-3 col-md-3 mb-3">
+      <label class="g-text-bold">Start</label>
       <div>
-        {{currentSubscription.from | date: 'yyyy-MM-dd'}}
+        {{currentSubscription.from}}
       </div>
     </div>
 
-    <div class="col-lg-4 col-md-4 mb-3">
-      <label class="g-text-bold">State</label>
+    <div class="col-lg-3 col-md-3 mb-3">
+      <label class="g-text-bold">End</label>
       <div>
-        Active
+        {{currentSubscription.to}}
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-3 mb-3">
+      <label class="g-text-bold">Status</label>
+      <div>
+        {{getCurrentPlanStatus(currentSubscription)}}
       </div>
     </div>
 
   </div>
 
-  <div class="mt-4">
+  <div class="mb-4" *ngIf="currentSubscription && getCurrentPlanStatus(currentSubscription) === 'active'">
+    <button class="btn btn-primary btn-cancel" (click)="cancelSubscription()">
+      Cancel Subscription
+    </button>
+  </div>
+
+  <div class="mb-4" *ngIf="currentSubscription && (getCurrentPlanStatus(currentSubscription) === 'expired' || getCurrentPlanStatus(currentSubscription) === 'canceled')">
+    <button class="btn btn-primary btn-renew" (click)="renewSubscription()">
+      Renew Subscription
+    </button>
+  </div>
+
+  <div class="mb-4" *ngIf="!currentSubscription">
+    <a href="/#pricing">
+      <button class="btn btn-primary btn-renew">
+        Choose Plan
+      </button>
+    </a>
+  </div>
+
+  <div style="margin-top: 50px;">
     <div>
       <div class="mb-3 g-text-bold">Payment History</div>
     </div>
@@ -38,13 +65,16 @@
             <th scope="col" class="g-text-left">Plan</th>
             <th scope="col" class="g-text-center">Amount</th>
             <th scope="col" class="g-text-center">Date</th>
-            <th scope="col" class="g-text-center">State</th>
+            <th scope="col" class="g-text-center">Status</th>
           </tr>
         </thead>
         <tbody>
+          <tr *ngIf="!payments || payments.length === 0">
+            <td colspan="5" class="g-text-blur g-text-center">There's no payment yet</td>
+          </tr>
           <tr *ngFor="let payment of payments; let i = index;">
             <th scope="row">{{i + 1}}</th>
-            <td class="g-text-left">{{payment.plan?.toUpperCase()}}</td>
+            <td class="g-text-left">{{payment.planId?.toUpperCase()}}</td>
             <td class="g-text-right">{{payment.currency}} {{payment.amount | number: '1.2-2'}}</td>
             <td class="g-text-center">{{payment.createDate | date: 'yyyy-MM-dd hh:mm a'}}</td>
             <td class="g-text-center">{{payment.status}}</td>

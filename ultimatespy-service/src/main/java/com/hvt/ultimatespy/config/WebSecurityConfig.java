@@ -10,7 +10,6 @@ import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -67,9 +66,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(Constants.ROUTE_AUTHENTICATE).permitAll()
                 .antMatchers(Constants.ROUTE_USER).permitAll()
+                .antMatchers(Constants.ROUTE_USER_CONFIRM_ID).permitAll()
                 .antMatchers(Constants.ROUTE_SUBSCRIBER_EMAIL).permitAll()
                 .antMatchers(Constants.ROUTE_SUBSCRIPTION_PLAN).permitAll()
-                .antMatchers(Constants.ROUTE_RESET_PASSWORD).permitAll()
+                .antMatchers(Constants.ROUTE_USER_FORGOT_PASSWORD).permitAll()
+                .antMatchers(Constants.ROUTE_USER_RESET_PASSWORD).permitAll()
                 .antMatchers(Constants.ROUTE_POST_FACEBOOK).permitAll()
                 .antMatchers(Constants.ROUTE_POST_FACEBOOK + "/*").permitAll()
                 .antMatchers(Constants.ROUTE_POST_FACEBOOK_SEARCH).permitAll()

@@ -51,10 +51,10 @@ public class PaymentService {
             CallableStatement cs = null;
             ResultSet rs = null;
             String sql = "SELECT " +
-                    " i.s_plan,p.s_invoice_id,p.s_id s_payment_id,p.s_user_id,p.s_currency,p.n_amount,p.d_create,p.s_status " +
-                    " FROM tb_payment p " +
-                    " INNER JOIN tb_invoice i ON i.s_id = p.s_invoice_id " +
-                    " WHERE p.s_user_id = ? ";
+                    " s_id,s_user_id,s_payment_method,n_amount,n_fee,n_tax,n_discount,n_origin_amount,s_currency,d_create,d_update,s_status,s_plan_id,s_paypal_subscription_id,s_paypal_plan_id " +
+                    " FROM tb_payment " +
+                    " WHERE s_user_id = ? AND s_status <> 'pending' " +
+                    " ORDER BY d_create DESC ";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -77,90 +77,117 @@ public class PaymentService {
         return CompletableFuture.supplyAsync(() -> {
             Connection conn = null;
             CallableStatement cs = null;
-            ResultSet rs = null;
             String sql = "INSERT INTO tb_payment ( "
+                    + " s_id, "
                     + " s_user_id, "
-                    + " s_product_id, "
-                    + " ) VALUES (?,?)"
-                    + " WHERE s_id = ?";
+                    + " s_payment_method, "
+                    + " n_amount, "
+                    + " n_fee, "
+                    + " n_tax, "
+                    + " n_discount, "
+                    + " n_origin_amount, "
+                    + " s_currency, "
+                    + " s_status, "
+                    + " s_plan_id "
+                    + " ) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
-                cs.setString(1, "");
-                cs.setString(2, "");
+                cs.setString(1, payment.getId());
+                cs.setString(2, payment.getUserId());
+                cs.setString(3, payment.getPaymentMethod());
+                cs.setDouble(4, payment.getAmount());
+                cs.setDouble(5, payment.getFee());
+                cs.setDouble(6, payment.getTax());
+                cs.setDouble(7, payment.getDiscount());
+                cs.setDouble(8, payment.getOriginAmount());
+                cs.setString(9, payment.getCurrency());
+                cs.setString(10, payment.getStatus());
+                cs.setString(11, payment.getPlanId());
                 cs.execute();
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "", e);
             } finally {
-                Datasource.close(conn, cs, rs);
+                Datasource.close(conn, cs, null);
             }
 
             return payment;
         });
     }
 
-    public CompletableFuture<Payment> update(Payment payment) {
+    public CompletableFuture<Integer> update(String id, String status, String paypalSubscriptionId, String paypalPlanId) {
         return CompletableFuture.supplyAsync(() -> {
+            int result = 0;
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "INSERT INTO tb_payment ( "
-                    + " s_user_id, "
-                    + " s_product_id, "
-                    + " ) VALUES (?,?)"
+            String sql = "UPDATE tb_payment SET "
+                    + " s_status = ?, "
+                    + " s_paypal_subscription_id = ?, "
+                    + " s_paypal_plan_id = ?, "
+                    + " d_update = CURRENT_TIMESTAMP() "
                     + " WHERE s_id = ?";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
-                cs.setString(1, "");
-                cs.setString(2, "");
+                cs.setString(1, status);
+                cs.setString(2, paypalSubscriptionId);
+                cs.setString(3, paypalPlanId);
+                cs.setString(4, id);
                 cs.execute();
+                result = 1;
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "", e);
             } finally {
                 Datasource.close(conn, cs, rs);
             }
 
-            return payment;
+            return result;
         });
     }
 
-    public CompletableFuture<Payment> updateStatus(String id, String status) {
+    public CompletableFuture<Integer> delete(String userId, String status) {
         return CompletableFuture.supplyAsync(() -> {
+            int result = 0;
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "INSERT INTO tb_payment ( "
-                    + " s_user_id, "
-                    + " s_product_id, "
-                    + " ) VALUES (?,?)"
-                    + " WHERE s_id = ?";
+            String sql = "DELETE FROM tb_payment "
+                    + " WHERE s_user_id = ? AND s_status = ? ";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
-                cs.setString(1, "");
-                cs.setString(2, "");
+                cs.setString(1, userId);
+                cs.setString(2, status);
                 cs.execute();
+                result = 1;
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "", e);
             } finally {
                 Datasource.close(conn, cs, rs);
             }
 
-            return null;
+            return result;
         });
     }
 
     private static Payment bindPayment(ResultSet rs) throws SQLException {
         Payment payment = new Payment();
-        payment.setPlan(rs.getString("S_PLAN"));
-        payment.setInvoiceId(rs.getString("S_INVOICE_ID"));
-        payment.setId(rs.getString("S_PAYMENT_ID"));
+        payment.setId(rs.getString("S_ID"));
         payment.setUserId(rs.getString("S_USER_ID"));
-        payment.setCurrency(rs.getString("S_CURRENCY"));
+        payment.setPaymentMethod(rs.getString("S_PAYMENT_METHOD"));
         payment.setAmount(rs.getDouble("N_AMOUNT"));
+        payment.setFee(rs.getDouble("N_FEE"));
+        payment.setTax(rs.getDouble("N_TAX"));
+        payment.setDiscount(rs.getDouble("N_DISCOUNT"));
+        payment.setOriginAmount(rs.getDouble("N_ORIGIN_AMOUNT"));
+        payment.setCurrency(rs.getString("S_CURRENCY"));
         payment.setCreateDate(rs.getTimestamp("D_CREATE"));
+        payment.setUpdateDate(rs.getTimestamp("D_UPDATE"));
         payment.setStatus(rs.getString("S_STATUS"));
+        payment.setPlanId(rs.getString("S_PLAN_ID"));
+        payment.setPaypalSubscriptionId(rs.getString("S_PAYPAL_SUBSCRIPTION_ID"));
+        payment.setPaypalPlanId(rs.getString("S_PAYPAL_PLAN_ID"));
         return payment;
     }
 

@@ -6,24 +6,25 @@ public class Constants {
     public static final String ROUTE_USER = "/api/v1/user";
     public static final String ROUTE_USER_ID = "/api/v1/user/{id}";
     public static final String ROUTE_USER_ID_POST = "/api/v1/user/{id}/post";
-    public static final String ROUTE_CHANGE_PASSWORD = "/api/v1/change-password/{id}";
-    public static final String ROUTE_RESET_PASSWORD = "/api/v1/reset-password/{mail}";
+    public static final String ROUTE_USER_CHANGE_PASSWORD = "/api/v1/user/{id}/change-password";
+    public static final String ROUTE_USER_FORGOT_PASSWORD = "/api/v1/forgot-password/{mail}";
+    public static final String ROUTE_USER_RESET_PASSWORD = "/api/v1/reset-password";
+    public static final String ROUTE_USER_CONFIRM_ID = "/api/v1/user/{userId}/confirm/{id}";
+    public static final String ROUTE_USER_SUBSCRIPTION = "/api/v1/user/{id}/subscription";
     public static final String ROUTE_POST_FACEBOOK = "/api/v1/facebook-post";
     public static final String ROUTE_POST_FACEBOOK_ID = "/api/v1/facebook-post/{id}";
     public static final String ROUTE_POST_FACEBOOK_SEARCH = "/api/v1/search/facebook-post";
-    public static final String ROUTE_INVOICE = "/api/v1/invoice";
-    public static final String ROUTE_INVOICE_ID = "/api/v1/invoice/{id}";
     public static final String ROUTE_PAYMENT = "/api/v1/payment";
     public static final String ROUTE_PAYMENT_ID = "/api/v1/payment/{id}";
     public static final String ROUTE_SUBSCRIPTION_PLAN = "/api/v1/subscription-plan";
     public static final String ROUTE_SUBSCRIBER_EMAIL = "/api/v1/subscriber-email";
+    public static final String ROUTE_PAYPAL_SUBSCRIPTION = "/api/v1/paypal/subscription";
+    public static final String ROUTE_PAYPAL_SUBSCRIPTION_ID = "/api/v1/paypal/subscription/{id}";
 
     public static final String ROUTE_ADMIN = "/api/v1/admin";
 
     public static final String USER_ID_PREFIX = "usr_";
-    public static final String INVOICE_ID_PREFIX = "inv_";
     public static final String PAYMENT_ID_PREFIX = "pay_";
-    public static final String PRODUCT_ID_PREFIX = "prd_";
 
     public static final String X_USER_ID = "X-User-Id";
 

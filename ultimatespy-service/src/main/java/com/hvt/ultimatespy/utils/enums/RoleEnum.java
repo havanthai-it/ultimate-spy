@@ -2,7 +2,7 @@ package com.hvt.ultimatespy.utils.enums;
 
 public enum RoleEnum {
     ADMIN("admin"),
-    NORMAL("");
+    NORMAL("normal");
 
     private String value;
 

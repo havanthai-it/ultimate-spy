@@ -14,33 +14,6 @@
         </a>
       </div>
 
-      <div *ngIf="isAppPage && !user">
-        <a href="/signin">
-          <button class="btn btn-signin my-2 my-sm-0">Sign in</button>
-        </a>
-        <a href="/signup">
-          <button class="btn btn-signup my-2 my-sm-0">Sign up</button>
-        </a>
-      </div>
-
-      <div class="dropdown profile-dropdown" *ngIf="isAppPage && user">
-        <button class="btn btn-profile dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          {{user.fullName}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="profileDropdown">
-          <a class="dropdown-item dropdown-item-top" href="#">
-            <div>{{user.fullName}}</div>
-            <div><span class="current-plan">{{user.plan.toUpperCase()}}</span></div>
-          </a>
-          <a class="dropdown-item" href="/dashboard/profile">Profile</a>
-          <a class="dropdown-item" href="/dashboard/plan">My plan</a>
-          <a class="dropdown-item" href="/ads?keyword=::saved">My saved</a>
-          <a class="dropdown-item" href="/ads?keyword=::tracked">My tracked</a>
-          <a class="dropdown-item dropdown-item-signout" (click)="signout()">Sign out</a>
-        </div>
-      </div>
-
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
@@ -58,30 +31,32 @@
         </ul>
       </div>
 
-      <div *ngIf="!isAppPage && !user">
-        <a href="/signin">
-          <button class="btn btn-signin my-2 my-sm-0">Sign in</button>
-        </a>
-        <a href="/signup">
-          <button class="btn btn-signup my-2 my-sm-0">Sign up</button>
-        </a>
-      </div>
-
-      <div class="dropdown profile-dropdown" *ngIf="!isAppPage && user">
-        <button class="btn btn-profile dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          {{user.fullName}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="profileDropdown">
-          <a class="dropdown-item dropdown-item-top" href="#">
-            <div>{{user.fullName}}</div>
-            <div><span class="current-plan">{{user.plan.toUpperCase()}}</span></div>
+      <div style="position: absolute; top: .75rem; right: 15px;">
+        <div *ngIf="!user">
+          <a href="/signin">
+            <button class="btn btn-signin">Sign in</button>
           </a>
-          <a class="dropdown-item" href="/dashboard/profile">Profile</a>
-          <a class="dropdown-item" href="/dashboard/plan">My plan</a>
-          <a class="dropdown-item" href="/ads?keyword=::saved">My saved</a>
-          <a class="dropdown-item" href="/ads?keyword=::tracked">My tracked</a>
-          <a class="dropdown-item dropdown-item-signout" (click)="signout()">Sign out</a>
+          <a href="/signup">
+            <button class="btn btn-signup">Sign up</button>
+          </a>
+        </div>
+  
+        <div *ngIf="user" class="dropdown profile-dropdown">
+          <button class="btn btn-profile dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{user.fullName}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="profileDropdown">
+            <a class="dropdown-item dropdown-item-top" href="#">
+              <div>{{user.fullName}}</div>
+              <div><span class="current-plan">{{user.plan.toUpperCase()}}</span></div>
+            </a>
+            <a class="dropdown-item" href="/dashboard/profile">Profile</a>
+            <a class="dropdown-item" href="/dashboard/plan">My plan</a>
+            <a class="dropdown-item" href="/ads?keyword=::saved">My saved</a>
+            <a class="dropdown-item" href="/ads?keyword=::tracked">My tracked</a>
+            <a class="dropdown-item dropdown-item-signout" (click)="signout()">Sign out</a>
+          </div>
         </div>
       </div>
 

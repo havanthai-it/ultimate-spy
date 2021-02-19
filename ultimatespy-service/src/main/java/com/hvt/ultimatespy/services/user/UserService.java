@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
@@ -38,11 +39,15 @@ public class UserService {
                 if (rs != null && rs.next()) {
                     user = bindUser(rs);
                     List<UserSubscription> lstUserSubscription = userSubscriptionService.list(user.getId()).get();
+                    user.setPlan(PlanEnum.FREE.value());
                     if (lstUserSubscription.size() > 0) {
                         user.setLstSubscriptions(lstUserSubscription);
-                        user.setPlan(lstUserSubscription.get(0).getPlanId());
-                    } else {
-                        user.setPlan(PlanEnum.FREE.value());
+                        UserSubscription lastSubscription = lstUserSubscription.get(0);
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+                        Date now = sdf2.parse(sdf2.format(new Date()));
+                        if (!sdf2.parse(lastSubscription.getTo()).before(now)) {
+                            user.setPlan(lastSubscription.getPlanId());
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -70,11 +75,15 @@ public class UserService {
                 if (rs != null && rs.next()) {
                     user = bindUser(rs);
                     List<UserSubscription> lstUserSubscription = userSubscriptionService.list(user.getId()).get();
+                    user.setPlan(PlanEnum.FREE.value());
                     if (lstUserSubscription.size() > 0) {
                         user.setLstSubscriptions(lstUserSubscription);
-                        user.setPlan(lstUserSubscription.get(0).getPlanId());
-                    } else {
-                        user.setPlan(PlanEnum.FREE.value());
+                        UserSubscription lastSubscription = lstUserSubscription.get(0);
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+                        Date now = sdf2.parse(sdf2.format(new Date()));
+                        if (!sdf2.parse(lastSubscription.getTo()).before(now)) {
+                            user.setPlan(lastSubscription.getPlanId());
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -125,11 +134,13 @@ public class UserService {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall("UPDATE tb_user SET " +
                         " S_FIRST_NAME = ?, " +
-                        " S_LAST_NAME = ? " +
+                        " S_LAST_NAME = ?, " +
+                        " S_PASSWORD = ? " +
                         " WHERE S_ID = ?");
                 cs.setString(1, user.getFirstName());
                 cs.setString(2, user.getLastName());
-                cs.setString(3, user.getId());
+                cs.setString(3, user.getPassword());
+                cs.setString(4, user.getId());
                 cs.execute();
 
                 result = getByEmail(user.getEmail()).get();
@@ -182,5 +193,5 @@ public class UserService {
         return user;
     }
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
 }

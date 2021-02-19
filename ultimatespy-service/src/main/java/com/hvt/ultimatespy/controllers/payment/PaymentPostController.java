@@ -22,9 +22,10 @@ public class PaymentPostController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Payment> get(@RequestBody Payment payment) throws Exception {
         if (payment.getUserId() == null || payment.getUserId().isEmpty()) throw Errors.BAD_REQUEST_EXCEPTION;
-        if (payment.getInvoiceId() == null || payment.getInvoiceId().isEmpty()) throw Errors.BAD_REQUEST_EXCEPTION;
         if (payment.getAmount() == null || payment.getAmount() < 0) throw Errors.BAD_REQUEST_EXCEPTION;
         if (payment.getPaymentMethod() == null || payment.getPaymentMethod().isEmpty()) throw Errors.BAD_REQUEST_EXCEPTION;
+
+        paymentService.delete(payment.getUserId(), "pending").get();
 
         payment.setId(Constants.PAYMENT_ID_PREFIX + UUID.randomUUID().toString().replaceAll("-", ""));
         Payment result = paymentService.insert(payment).get();

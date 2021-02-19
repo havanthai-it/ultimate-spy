@@ -4,3 +4,15 @@
     font-weight: 500 !important;
     color: $primary2 !important;
 }
+
+.btn-cancel {
+    background-color: #ef5350 !important;
+    border-color: #ef5350 !important;
+    cursor: pointer;
+}
+
+.btn-renew {
+    background-color: $primary2 !important;
+    border-color: $primary2 !important;
+    cursor: pointer;
+}

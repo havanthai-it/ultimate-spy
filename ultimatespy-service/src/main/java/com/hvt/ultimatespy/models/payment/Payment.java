@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 public class Payment {
     private String id;
     private String userId;
-    private String invoiceId;
     private String paymentMethod;
     private String cardNumber;
     private String cardExpMonth;
@@ -14,13 +13,16 @@ public class Payment {
     private String cardHolderName;
     private Double amount;
     private Double fee;
+    private Double tax;
+    private Double discount;
     private Double originAmount;
     private String currency;
-    private String status;
     private Timestamp createDate;
     private Timestamp updateDate;
-
-    private String plan;
+    private String status;
+    private String planId;
+    private String paypalSubscriptionId;
+    private String paypalPlanId;
 
     public String getId() {
         return id;
@@ -36,14 +38,6 @@ public class Payment {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(String invoiceId) {
-        this.invoiceId = invoiceId;
     }
 
     public String getPaymentMethod() {
@@ -110,6 +104,22 @@ public class Payment {
         this.fee = fee;
     }
 
+    public Double getTax() {
+        return tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
     public Double getOriginAmount() {
         return originAmount;
     }
@@ -118,20 +128,20 @@ public class Payment {
         this.originAmount = originAmount;
     }
 
-    public Timestamp getCreateDate() {
-        return createDate;
-	}
-	
-	public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
-    }
-    
     public String getCurrency() {
         return currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
     }
 
     public Timestamp getUpdateDate() {
@@ -150,11 +160,27 @@ public class Payment {
         this.status = status;
     }
 
-    public String getPlan() {
-        return plan;
+    public String getPlanId() {
+        return planId;
     }
 
-    public void setPlan(String plan) {
-        this.plan = plan;
+    public void setPlanId(String planId) {
+        this.planId = planId;
+    }
+
+    public String getPaypalSubscriptionId() {
+        return paypalSubscriptionId;
+    }
+
+    public void setPaypalSubscriptionId(String paypalSubscriptionId) {
+        this.paypalSubscriptionId = paypalSubscriptionId;
+    }
+
+    public String getPaypalPlanId() {
+        return paypalPlanId;
+    }
+
+    public void setPaypalPlanId(String paypalPlanId) {
+        this.paypalPlanId = paypalPlanId;
     }
 }

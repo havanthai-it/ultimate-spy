@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
       planName: plan.name,
       period: period.months,
       originAmount: plan.price * period.months,
-      amount: Math.round(plan.price * period.months * (1 - period.discount / 100)),
+      amount: this.toFixedIfNecessary(plan.price * period.months * (1 - period.discount / 100), 2),
       percentDiscount: period.discount,
       plan: plan
     }
@@ -63,6 +63,10 @@ export class HomeComponent implements OnInit {
 
   redirectToSignup() {
     window.location.href = '/signup';
+  }
+
+  toFixedIfNecessary(value: any, dp: number): number {
+    return +parseFloat(value).toFixed(dp);
   }
 
 }

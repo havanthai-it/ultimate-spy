@@ -1,15 +1,18 @@
 package com.hvt.ultimatespy.controllers.user;
 
 import com.hvt.ultimatespy.utils.Constants;
+import com.hvt.ultimatespy.utils.FuncUtils;
 import com.hvt.ultimatespy.utils.enums.RoleEnum;
 import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.user.UserService;
 import com.hvt.ultimatespy.utils.Errors;
-import com.hvt.ultimatespy.utils.user.UserUtils;
+import com.hvt.ultimatespy.utils.mail.MailUtils;
+import com.hvt.ultimatespy.utils.Encryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.InputStream;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -39,11 +42,20 @@ public class UserPostController {
         // Password was base64 encoded on the client side before send to server
         // Server continue encrypt with BCryptEncoder
         String rawPassword = new String(Base64.getDecoder().decode(user.getPassword().getBytes()));
-        String encryptedPassword = UserUtils.encryptPassword(rawPassword);
+        String encryptedPassword = Encryptor.encrypt(rawPassword);
         user.setPassword(encryptedPassword);
 
         User result = userService.insert(user).get();
         result.setPassword(null);
+
+        // Send mail
+        InputStream is = getClass().getClassLoader().getResourceAsStream("templates/mail/mail-sign-up.html");
+        String mailContent = FuncUtils.readFromInputStream(is);
+        mailContent = mailContent.replaceAll("\\$\\{USER_NAME\\}", result.getFirstName() + " " + result.getLastName());
+        mailContent = mailContent.replaceAll("\\$\\{USER_ID\\}", result.getId());
+        mailContent = mailContent.replaceAll("\\$\\{CONFIRM_ID\\}", Base64.getEncoder().encodeToString(result.getId().getBytes()));
+        MailUtils.send(result.getEmail(), "Welcome to AdsCrawlr!", mailContent);
+
         return ResponseEntity.ok(result);
     }
 

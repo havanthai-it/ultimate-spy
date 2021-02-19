@@ -24,4 +24,14 @@ export class PaymentService {
     return this.http.get(url, { headers: this.headers() });
   }
 
+  insert(payment: any): Observable<any> {
+    const url = `${environment.serviceUrl}/api/v1/payment`;
+    return this.http.post(url, payment, { headers: this.headers() });
+  }
+
+  update(payment: any): Observable<any> {
+    const url = `${environment.serviceUrl}/api/v1/payment/${payment.id}`;
+    return this.http.patch(url, payment, { headers: this.headers() });
+  }
+
 }

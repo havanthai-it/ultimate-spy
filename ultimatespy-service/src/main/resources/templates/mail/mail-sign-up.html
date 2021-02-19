@@ -5,15 +5,15 @@
     <title></title>
     <style>
         .container {
-            max-width: 600px;
+            max-width: 800px;
             display: block;
-            margin: auto;
             line-height: 1.6em;
+            font-size: 1.2em;
         }
         .logo {
             text-align: center;
             font-size: 2em;
-            color: #673ab7;
+            color: #86c33a;
         }
         .btn-confirm {
             padding: 12px 24px;
@@ -22,43 +22,35 @@
             outline: none;
             border-radius: 4px;
             cursor: pointer;
-            background-color: #673ab7;
+            background-color: #86c33a;
             font-size: 1.5em;
             display: block;
             margin: auto;
         }
     </style>
 </head>
-<body style="background-color: #eee;">
+<body>
 <div class="container">
     <div style="background-color: #fff; padding: 24px; 32px">
-        <h1 class="logo">ULTIMATE SPY</h1>
+        <h1 class="logo">AdsCrawlr</h1>
         <br>
         <div>
-            <h2><b>Welcome, Ha Van Thai</b></h2>
+            <h2><b>Welcome, ${USER_NAME}</b></h2>
             <p>We're excited to have you get started. First, you need to confirm your account. Just press the button below</p>
             <div>
-                <a href="#" style="text-decoration: none;"><button class="btn-confirm">Confirm Account</button></a>
+                <a href="https://adscrawlr.com/confirm/${CONFIRM_ID}" style="text-decoration: none;">
+                    <button class="btn-confirm">Confirm Account</button>
+                </a>
             </div>
-            <p>If that doesn't work, copy and paste the following link in your browser:</p>
-            <p><a href="#" style="color: #673ab7;">https://ultimatespy.com/user/abcxyz/confirm/123</a></p>
             <br>
+            <p>If that doesn't work, copy and paste the following link in your browser:</p>
+            <p><a href="https://adscrawlr.com/confirm/${CONFIRM_ID}" style="color: #86c33a;">https://adscrawlr.com/confirm/${CONFIRM_ID}</a></p>
             <p>If you have any question, just reply to this email. We always happy to help you out.</p>
             <br>
-            <p>Cheers,</p>
-            <p>The UltimateSpy Team</p>
-        </div>
-    </div>
-    <div style="font-size: 0.8em; padding: 16px; 32px">
-        <div>
-            <b><a href="#" style="color: #000; margin-right: 10px;">Home</a></b>
-            <b><a href="#" style="color: #000; margin-right: 10px;">Features</a></b>
-            <b><a href="#" style="color: #000; margin-right: 10px;">Help</a></b>
-        </div>
-        <div>
-            <p style="color: #666;">
-                You received this email because you just sign up for a new account. If it looks weird,
-                <a href="#" style="color: #000;">view it in your browser</a>.
+            <p>
+                Cheers,
+                <br>
+                <b>The AdsCrawlr Team</b>
             </p>
         </div>
     </div>

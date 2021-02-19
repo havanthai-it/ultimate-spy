@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./main/pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
   },
   {
+    path: 'reset-password',
+    loadChildren: () => import('./main/pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
+  },
+  {
     path: '',
     component: MainComponent,
     children: [
@@ -28,7 +32,8 @@ const routes: Routes = [
       { path: 'privacy', loadChildren: () => import('./main/pages/privacy/privacy.module').then(m => m.PrivacyModule) },
       { path: 'terms', loadChildren: () => import('./main/pages/terms/terms.module').then(m => m.TermsModule) },
       { path: 'checkout', loadChildren: () => import('./main/pages/checkout/checkout.module').then(m => m.CheckoutModule) },
-      { path: 'dashboard', loadChildren: () => import('./main/pages/dashboard/dashboard.module').then(m => m.DashboardModule) }
+      { path: 'dashboard', loadChildren: () => import('./main/pages/dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'confirm', loadChildren: () => import('./main/pages/confirm/confirm.module').then(m => m.ConfirmModule) }
     ]
   }
 ];

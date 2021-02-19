@@ -5,9 +5,7 @@ import com.hvt.ultimatespy.models.user.UserChangePassword;
 import com.hvt.ultimatespy.services.user.UserService;
 import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.Errors;
-import com.hvt.ultimatespy.utils.FuncUtils;
-import com.hvt.ultimatespy.utils.mail.MailUtils;
-import com.hvt.ultimatespy.utils.user.UserUtils;
+import com.hvt.ultimatespy.utils.Encryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Base64;
 
 @RestController
-@RequestMapping(value = Constants.ROUTE_CHANGE_PASSWORD)
-public class UserChangePasswordPutController {
+@RequestMapping(value = Constants.ROUTE_USER_CHANGE_PASSWORD)
+public class UserChangePasswordPatchController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> put(@PathVariable String id, @RequestBody UserChangePassword userChangePassword) throws Exception {
+    @RequestMapping(method = RequestMethod.PATCH)
+    public ResponseEntity<?> patch(@PathVariable String id, @RequestBody UserChangePassword userChangePassword) throws Exception {
         if (userChangePassword == null
             || id == null || id.isEmpty()
             || userChangePassword.getUserId() == null || userChangePassword.getUserId().isEmpty()
@@ -35,8 +33,8 @@ public class UserChangePasswordPutController {
         if (user != null) {
             String rawOldPassword = new String(Base64.getDecoder().decode(userChangePassword.getOldPassword().getBytes()));
             String rawNewPassword = new String(Base64.getDecoder().decode(userChangePassword.getNewPassword().getBytes()));
-            String encryptedNewPassword = UserUtils.encryptPassword(rawNewPassword);
-            if (UserUtils.verifyPassword(rawOldPassword, user.getPassword())) {
+            String encryptedNewPassword = Encryptor.encrypt(rawNewPassword);
+            if (Encryptor.verify(rawOldPassword, user.getPassword())) {
                 user.setPassword(encryptedNewPassword);
             }
            userService.update(user).get();

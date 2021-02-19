@@ -157,6 +157,10 @@
       width: 100%;
       min-width: 200px;
 
+      .inner.show {
+        overflow-x: hidden;
+      }
+
       li.disabled:first-child {
         display: none;
       }

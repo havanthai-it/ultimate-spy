@@ -86,6 +86,10 @@ public class FacebookPostSearchController {
                 "maxComments=" + maxComments
         );
 
+        if (platform.contains("pod")) {
+            platform = platform.replace("pod", "etsy,gearbubble,redbubble,spreadshirt,sunfrog,teehag,teespring,teepublic,teechip,teezily,teemill");
+        }
+
         FacebookPostQuery facebookPostQuery = new FacebookPostQuery(
                 fromDate,
                 toDate,

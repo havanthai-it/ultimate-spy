@@ -1,15 +1,15 @@
 package com.hvt.ultimatespy.models.user;
 
-import java.sql.Timestamp;
-
 public class UserSubscription {
     private Integer id;
     private String userId;
     private String planId;
-    private Timestamp from;
-    private Timestamp to;
+    private String from;
+    private String to;
     private String desc;
     private String status;
+    private String paypalSubscriptionId;
+    private String paypalPlanId;
 
     public Integer getId() {
         return id;
@@ -35,19 +35,19 @@ public class UserSubscription {
         this.planId = planId;
     }
 
-    public Timestamp getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Timestamp from) {
+    public void setFrom(String from) {
         this.from = from;
     }
 
-    public Timestamp getTo() {
+    public String getTo() {
         return to;
     }
 
-    public void setTo(Timestamp to) {
+    public void setTo(String to) {
         this.to = to;
     }
 
@@ -65,5 +65,21 @@ public class UserSubscription {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPaypalSubscriptionId() {
+        return paypalSubscriptionId;
+    }
+
+    public void setPaypalSubscriptionId(String paypalSubscriptionId) {
+        this.paypalSubscriptionId = paypalSubscriptionId;
+    }
+
+    public String getPaypalPlanId() {
+        return paypalPlanId;
+    }
+
+    public void setPaypalPlanId(String paypalPlanId) {
+        this.paypalPlanId = paypalPlanId;
     }
 }

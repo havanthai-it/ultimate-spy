@@ -22,11 +22,11 @@ public class MailUtils {
 
             try {
                 Properties prop = new Properties();
-                prop.put("mail.smtp.auth", Config.prop.getProperty("mail.smtp.auth"));
-                prop.put("mail.smtp.starttls.enable", Config.prop.getProperty("mail.smtp.starttls.enable"));
                 prop.put("mail.smtp.host", Config.prop.getProperty("mail.smtp.host"));
                 prop.put("mail.smtp.port", Config.prop.getProperty("mail.smtp.port"));
-                prop.put("mail.smtp.ssl.trust", Config.prop.getProperty("mail.smtp.ssl.trust"));
+                prop.put("mail.smtp.auth", Config.prop.getProperty("mail.smtp.auth"));
+                prop.put("mail.smtp.starttls.enable", Config.prop.getProperty("mail.smtp.starttls.enable"));
+                // prop.put("mail.smtp.ssl.trust", Config.prop.getProperty("mail.smtp.ssl.trust"));
 
                 Session session = Session.getInstance(prop, new Authenticator() {
                     @Override

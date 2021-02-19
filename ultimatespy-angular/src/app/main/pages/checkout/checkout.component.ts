@@ -1,7 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { User } from 'src/app/core/models/User';
+import { PaymentService } from 'src/app/core/services/payment.service';
 import { SubscriptionPlanService } from 'src/app/core/services/subscription-plan.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 declare var paypal;
 @Component({
@@ -17,9 +20,13 @@ export class CheckoutComponent implements OnInit {
   user: User;
   subscriptionPlans: any = {};
   period: any = {};
+  payment: any = {};
 
   constructor(private activatedRoute: ActivatedRoute,
-    private subscriptionPlanService: SubscriptionPlanService) { }
+    private datepipe: DatePipe,
+    private userService: UserService,
+    private subscriptionPlanService: SubscriptionPlanService,
+    private paymentService: PaymentService) { }
 
   ngOnInit(): void {
     
@@ -35,45 +42,108 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.initPaypal();
+    this.paymentService.insert({
+      userId: this.user.id,
+      paymentMethod: 'paypal',
+      amount: this.invoice.amount,
+      fee: 0,
+      tax: 0,
+      discount: this.invoice.originAmount - this.invoice.amount,
+      originAmount: this.invoice.originAmount,
+      currency: 'USD',
+      status: 'pending',
+      planId: this.invoice.planId
+    }).subscribe(
+      data => {
+        this.payment = data;
+        this.initPaypal();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    
   }
 
   initPaypal(): void {
     const self = this;
-    paypal.Buttons({  
+    paypal.Buttons({
       createSubscription: function (data, actions) {  
-        return actions.subscription.create({  
+        return actions.subscription.create({ 
           plan_id: self.getPaypalPlanId(self.invoice.planId, self.invoice.period),  
-        });  
+        });
       },  
       onApprove: function (data, actions) {  
         console.log('onApprove - transaction was approved, but not authorized', data, actions);
         // self.getSubcriptionDetails(data.subscriptionID);  
+        self.paymentService.update({
+          id: self.payment.id,
+          status: 'approved',
+          paypalSubscriptionId: data.subscriptionID,
+          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period)
+        }).subscribe(
+          data => {},
+          error => {console.log(error);}
+        );
+        let now = new Date();
+        let from = new Date();
+        let to = now.setMonth(now.getMonth() + self.invoice.period);
+        self.userService.subscribe({
+          userId: self.user.id,
+          planId: self.invoice.planId,
+          from: self.datepipe.transform(from, 'yyyy-MM-dd'),
+          to: self.datepipe.transform(to, 'yyyy-MM-dd'),
+          desc: '',
+          status: 'approved',
+          paypalSubscriptionId: data.subscriptionID,
+          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period)
+        }).subscribe(
+          data => { setTimeout(() => { window.location.href = '/dashboard/plan' }, 1000) },
+          error => {console.log(error);}
+        );
       },  
       onCancel: function (data) {  
         // Show a cancel page, or return to cart  
         console.log('OnCancel', data);
+        self.paymentService.update({
+          id: self.payment.id,
+          status: 'canceled',
+          paypalSubscriptionId: '',
+          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period)
+        }).subscribe(
+          data => {},
+          error => {console.log(error);}
+        );
       },  
       onError: function (err) {  
         // Show an error page here, when an error occurs  
         console.log('OnError', err);
+        self.paymentService.update({
+          id: self.payment.id,
+          status: 'failed',
+          paypalSubscriptionId: '',
+          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period)
+        }).subscribe(
+          data => {},
+          error => {console.log(error);}
+        );
       }  
     }).render(this.paypalElement.nativeElement);
   }
 
-  getSubcriptionDetails(subcriptionId) {  
-    const xhttp = new XMLHttpRequest();  
-    xhttp.onreadystatechange = function () {  
-      if (this.readyState === 4 && this.status === 200) {  
-        console.log(JSON.parse(this.responseText));  
-        alert(JSON.stringify(this.responseText));  
-      }  
-    };  
-    xhttp.open('GET', 'https://api.sandbox.paypal.com/v1/billing/subscriptions/' + subcriptionId, true);  
-    xhttp.setRequestHeader('Authorization', ''); // TODO:
+  // getSubcriptionDetails(subcriptionId) {  
+  //   const xhttp = new XMLHttpRequest();  
+  //   xhttp.onreadystatechange = function () {  
+  //     if (this.readyState === 4 && this.status === 200) {  
+  //       console.log(JSON.parse(this.responseText));  
+  //       alert(JSON.stringify(this.responseText));  
+  //     }  
+  //   };  
+  //   xhttp.open('GET', 'https://api.sandbox.paypal.com/v1/billing/subscriptions/' + subcriptionId, true);  
+  //   xhttp.setRequestHeader('Authorization', ''); // TODO:
   
-    xhttp.send();  
-  }
+  //   xhttp.send();  
+  // }
 
   round(x: number): number {
     return Math.round(x);
@@ -97,7 +167,7 @@ export class CheckoutComponent implements OnInit {
       planName: plan.name,
       period: period.months,
       originAmount: plan.price * period.months,
-      amount: Math.round(plan.price * period.months * (1 - period.discount / 100)),
+      amount: this.toFixedIfNecessary(plan.price * period.months * (1 - period.discount / 100), 2),
       percentDiscount: period.discount,
       plan: plan
     }
@@ -129,4 +199,7 @@ export class CheckoutComponent implements OnInit {
     return '';
   }
 
+  toFixedIfNecessary(value: any, dp: number): number {
+    return +parseFloat(value).toFixed(dp);
+  }
 }

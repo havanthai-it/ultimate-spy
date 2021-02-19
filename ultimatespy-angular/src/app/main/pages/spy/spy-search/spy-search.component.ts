@@ -136,7 +136,7 @@ export class SpySearchComponent implements OnInit {
       this.query.maxLikes = params.maxLikes ? parseInt(params.maxLikes) : this.likeRange.options.ceil;
       this.query.minComments = params.minComments ? parseInt(params.minComments) : this.commentRange.options.floor;
       this.query.maxComments = params.maxComments ? parseInt(params.maxComments) : this.commentRange.options.ceil;
-      this.query.page = params.page ? parseInt(params.page) : 0;
+      this.query.page = params.page ? parseInt(params.page) - 1 : 0;
 
       this.likeRange.from = this.query.minLikes;
       this.likeRange.to = this.query.maxLikes;
@@ -165,7 +165,7 @@ export class SpySearchComponent implements OnInit {
         console.log(error);
         this.onSearching.emit(false);
         this.isSearching = false;
-        if (error && error.status) {
+        if (error && error.status && error.status === 403) {
           const dialogRef = this.dialog.open(RanoutDialogComponent, {
             width: '540px',
             data: {}
