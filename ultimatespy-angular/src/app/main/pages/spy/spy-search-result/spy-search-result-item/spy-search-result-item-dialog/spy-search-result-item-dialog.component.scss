@@ -12,11 +12,44 @@
       font-weight: 500;
     }
 
+    .post-action {
+      position: absolute;
+      right: 36px;
+      top: 4px;
+      font-size: 20px;
+
+      .fa-chart-bar, .fa-heart {
+        cursor: pointer;
+        margin-left: 6px;
+        color: #999;
+        
+        &:hover {
+          color: $primary2;
+        }
+
+        &.fa-active {
+          color: $primary2;
+        }
+      }
+
+      a {
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .fa-facebook-square {
+        margin-left: 6px;
+        color: #3b5998;
+      }
+    }
+
     .dialog-icon-close {
       position: absolute;
-      right: 2px;
-      top: 6px;
+      right: 8px;
+      top: 0px;
       cursor: pointer;
+      font-size: 24px;
     }
   }
 
@@ -75,6 +108,11 @@
       .post-origin-body {
         .post-origin-content {
           word-break: break-all;
+          
+          a {
+            color: #2471A3;
+          }
+
           .see_more_link_inner {
             display: none;
           }
@@ -161,10 +199,10 @@
               margin-left: -12px !important;
             }
             &.post-origin-performance-track-up {
-              color: #01d001;
+              color: #01aa01;
             }
             &.post-origin-performance-track-same {
-              color: #d6d600;
+              color: #999;
             }
             &.post-origin-performance-track-down {
               color: #ff5050;
@@ -194,7 +232,7 @@
           color: #666;
 
           a {
-            // color: #2471A3;
+            color: #2471A3;
             text-decoration: none;
             word-break: break-word;
 
@@ -261,8 +299,11 @@
         }
       }
 
-      .chart-wrapper {
+      .chart-title {
         margin-top: 40px;
+        margin-bottom: 12px;
+      }
+      .chart-wrapper {
         margin-left: -15px;
         margin-right: -15px;
 

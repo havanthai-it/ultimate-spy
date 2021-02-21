@@ -65,6 +65,8 @@ public class FacebookPostSearchController {
         int maxLikes = params.containsKey(Constants.MAX_LIKES) && !params.get(Constants.MAX_LIKES).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MAX_LIKES)) : Integer.MAX_VALUE;
         int minComments = params.containsKey(Constants.MIN_COMMENTS) && !params.get(Constants.MIN_COMMENTS).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MIN_COMMENTS)) : 0;
         int maxComments = params.containsKey(Constants.MAX_COMMENTS) && !params.get(Constants.MAX_COMMENTS).trim().isEmpty() ? Integer.parseInt(params.get(Constants.MAX_COMMENTS)) : Integer.MAX_VALUE;
+        String filter = params.containsKey(Constants.FILTER) ? params.get(Constants.FILTER).trim() : Constants.BLANK;
+        String sort = params.containsKey(Constants.SORT) ? params.get(Constants.SORT).trim() : Constants.BLANK;
 
         logger.info("Search params: " +
                 "fromDate=" + (fromDate != null ? sdf.format(fromDate) : "") + ", " +
@@ -83,7 +85,9 @@ public class FacebookPostSearchController {
                 "minLikes=" + minLikes + ", " +
                 "maxLikes=" + maxLikes + ", " +
                 "minComments=" + minComments + ", " +
-                "maxComments=" + maxComments
+                "maxComments=" + maxComments + ", " +
+                "filter=" + filter + ", " +
+                "sort=" + sort
         );
 
         if (platform.contains("pod")) {
@@ -107,7 +111,9 @@ public class FacebookPostSearchController {
                 minLikes,
                 maxLikes,
                 minComments,
-                maxComments);
+                maxComments,
+                filter,
+                sort);
 
         if (userId != null && !facebookPostQuery.isEmpty()) {
             userLimitationService.checkLimitation(userId, ActionEnum.SEARCH.value(), 24);
@@ -120,9 +126,9 @@ public class FacebookPostSearchController {
 
         BaseList<FacebookPost> baseList = new BaseList<>();
         try {
-            if (userId != null && !userId.trim().isEmpty() && keyword.toLowerCase().startsWith("::saved")) {
+            if (userId != null && !userId.trim().isEmpty() && filter.equalsIgnoreCase("saved")) {
                 baseList = facebookPostService.listUserPost(userId, "saved", facebookPostQuery).get();
-            } else if (userId != null && !userId.trim().isEmpty() && keyword.toLowerCase().startsWith("::tracked")) {
+            } else if (userId != null && !userId.trim().isEmpty() && filter.equalsIgnoreCase("tracked")) {
                 baseList = facebookPostService.listUserPost(userId, "tracked", facebookPostQuery).get();
             } else if (keyword.toLowerCase().startsWith("::pixel=")) {
                 facebookPostQuery.setPixelId(keyword.substring(8).trim());

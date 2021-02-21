@@ -1,7 +1,14 @@
 <div #dialogWrapper class="dialog-wrapper" id="dialog-wrapper">
   <div mat-dialog-title class="dialog-header">
     <div><h3 class="g-text-lg">Ad Details</h3></div>
-    <div class="dialog-icon-close g-text-blur"><mat-icon (click)="close()">close</mat-icon></div>
+    <div class="post-action">
+      <span (click)="track(data.postId)"><i [hidden]="data.tracked" class="far fa-chart-bar" data-toggle="tooltip" data-placement="bottom" title="Add to Tracklist"></i></span>
+      <span (click)="unTrack(data.postId)"><i [hidden]="!data.tracked" class="fas fa-chart-bar fa-active" data-toggle="tooltip" data-placement="bottom" title="Remove from Tracklist"></i></span>
+      <span (click)="save(data.postId)"><i [hidden]="data.saved" class="far fa-heart" data-toggle="tooltip" data-placement="bottom" title="Save"></i></span>
+      <span (click)="unSave(data.postId)"><i [hidden]="!data.saved" class="fas fa-heart fa-active" data-toggle="tooltip" data-placement="bottom" title="Unsave"></i></span>
+      <span><a href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}" target="_blank"><i class="fab fa-facebook-square"></i></a></span>
+    </div>
+    <div class="dialog-icon-close g-text-blur"><i class="far fa-times" (click)="close()"></i></div>
   </div>
 
   <div class="dialog-body container-fluid">
@@ -42,20 +49,20 @@
 
           <div class="post-origin-performance g-float-wrapper">
             <div class="post-origin-performance-icon post-origin-performance-like g-float-left"><i class="far fa-thumbs-up"></i> {{data.likes | number}}</div>
-            <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
+            <!-- <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
               [ngClass]="{'post-origin-performance-track-up': data.lastLikeTrack > 0, 'post-origin-performance-track-same': data.lastLikeTrack === 0, 'post-origin-performance-track-down': data.lastLikeTrack < 0}">
-              <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastLikeTrack >= 0, 'fa-long-arrow-down': data.lastLikeTrack < 0}"></i> {{(100 * data.lastLikeTrack) | number: '1.2-2'}}%
-            </div>
+              <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastLikeTrack >= 0, 'fa-long-arrow-down': data.lastLikeTrack < 0}"></i> {{(100 * data.lastLikeTrack) | number: '1.0-0'}}%
+            </div> -->
             <div class="post-origin-performance-icon post-origin-performance-comment g-float-left"><i class="far fa-comment"></i> {{data.comments | number}}</div>
-            <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
+            <!-- <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
               [ngClass]="{'post-origin-performance-track-up': data.lastCommentTrack > 0, 'post-origin-performance-track-same': data.lastCommentTrack === 0, 'post-origin-performance-track-down': data.lastCommentTrack < 0}">
-              <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastCommentTrack >= 0, 'fa-long-arrow-down': data.lastCommentTrack < 0}"></i> {{(100 * data.lastCommentTrack) | number: '1.2-2'}}%
-            </div>
+              <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastCommentTrack >= 0, 'fa-long-arrow-down': data.lastCommentTrack < 0}"></i> {{(100 * data.lastCommentTrack) | number: '1.0-0'}}%
+            </div> -->
             <div class="post-origin-performance-icon post-origin-performance-share g-float-left"><i class="far fa-share"></i> {{data.shares | number}}</div>
-            <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
+            <!-- <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
               [ngClass]="{'post-origin-performance-track-up': data.lastShareTrack > 0, 'post-origin-performance-track-same': data.lastShareTrack === 0, 'post-origin-performance-track-down': data.lastShareTrack < 0}">
-              <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastShareTrack >= 0, 'fa-long-arrow-down': data.lastShareTrack < 0}"></i> {{(100 * data.lastShareTrack) | number: '1.2-2'}}%
-            </div>
+              <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastShareTrack >= 0, 'fa-long-arrow-down': data.lastShareTrack < 0}"></i> {{(100 * data.lastShareTrack) | number: '1.0-0'}}%
+            </div> -->
           </div>
         </div>
 
@@ -75,44 +82,26 @@
         </div>
         <div class="post-info-item g-float-wrapper" *ngIf="data.website">
           <div class="post-info-label g-float-left">Website:</div>
-          <div class="post-info-value g-float-left"><span><a href="#">{{data.website}}</a></span></div>
+          <div class="post-info-value g-float-left"><span><a href="/ads?keyword=::website={{data.website}}">{{data.website}}</a></span></div>
         </div>
         <div class="post-info-item g-float-wrapper" *ngIf="data.links">
           <div class="post-info-label g-float-left">Link:</div>
-          <div class="post-info-value g-float-left"><span><a href="#">{{data.links}}</a></span></div>
+          <div class="post-info-value g-float-left"><span><a href="{{data.links}}">{{data.links}}</a></span></div>
         </div>
         <div class="post-info-item g-float-wrapper" *ngIf="data.pixelId">
           <div class="post-info-label g-float-left">Pixel:</div>
-          <div class="post-info-value g-float-left"><span><a href="#">{{data.pixelId}}</a></span></div>
+          <div class="post-info-value g-float-left"><span><a href="/ads?keyword=::pixel={{data.pixelId}}">{{data.pixelId}}</a></span></div>
         </div>
         <div class="post-info-item g-float-wrapper" *ngIf="data.country">
           <div class="post-info-label g-float-left">Country:</div>
           <div class="post-info-value g-float-left"><span>{{data.country}}</span></div>
         </div>
-        <div>
-          <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}">
-            <button class="post-info-btn post-info-btn-detail">
-              <i class="fab fa-facebook-f"></i> See on Facebook
-            </button>
-          </a>
-          <button [hidden]="data.saved" (click)="save(data.postId)" class="post-info-btn post-info-btn-save">
-            <i class="far fa-heart"></i> Save
-          </button>
-          <button [hidden]="!data.saved" (click)="unSave(data.postId)" class="post-info-btn post-info-btn-unsave">
-            <i class="far fa-heart"></i> Unsave
-          </button>
-          <button [hidden]="data.tracked" (click)="track(data.postId)" class="post-info-btn post-info-btn-track">
-            <i class="far fa-chart-bar"></i> Add to Tracklist
-          </button>
-          <button [hidden]="!data.tracked" (click)="unTrack(data.postId)" class="post-info-btn post-info-btn-untrack">
-            <i class="far fa-chart-bar"></i> Remove from Tracklist
-          </button>
-        </div>
 
         <!-- CHART -->
+        <div class="chart-title g-text-bold">Performance:</div>
         <div #chartWrapper class="chart-wrapper">
           <ngx-charts-line-chart
-            [view]="[chartWrapper.offsetWidth, 320]"
+            [view]="[chartWrapper.offsetWidth-1, 320]"
             [scheme]="colorScheme"
             [legend]="legend"
             [legendPosition]="legendPosition"
@@ -138,6 +127,11 @@
             </ng-template> -->
           </ngx-charts-line-chart>
         </div>
+
+        <div class="g-text-blur g-text-sm" *ngIf="data.tracked">
+          <i class="fal fa-info-circle"></i> You are tracking this post. Performance statistics of this post will be updated everyday.
+        </div>
+
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="form-label-group filter-block input-search-wrapper">
         <label for="input-keyword">Keyword</label>
-        <input type="text" class="form-control input-search" id="input-keyword" [(ngModel)]="query.keyword" (keyup.enter)="search(0, false)">
+        <input type="text" class="form-control input-search" id="input-keyword" [(ngModel)]="query.keyword" (keyup.enter)="search(0)">
         <i class="fa fa-search"></i>
       </div>
     </div>
@@ -94,7 +94,7 @@
 
           <div class="col-lg-2 col-sm-12 g-text-center">
             <div class="filter-block">
-              <button class="btn btn-block btn-secondary btn-search" (click)="search(0, false)">
+              <button class="btn btn-block btn-secondary btn-search" (click)="search(0)">
                 Search 
                 <!-- <mat-spinner *ngIf="true" [diameter]="26"></mat-spinner> -->
               </button>
@@ -108,13 +108,19 @@
     <div class="container-fluid">
       <div class="g-float-wrapper bottom-row">
 
-        <div class="total-result g-float-left">
+        <!-- <div class="total-result g-float-left">
           <span>{{total | number}} results</span>
+        </div> -->
+        <div class="search-type g-float-left">
+          <label style="width: auto;">Filter</label>
+          <button type="button" class="btn btn-outline-primary" [class.btn-active]="query.filter==='all'" (click)="searchAll(0)">All</button>
+          <button type="button" class="btn btn-outline-primary" [class.btn-active]="query.filter==='saved'" (click)="searchSaved(0)">Saved</button>
+          <button type="button" class="btn btn-outline-primary" [class.btn-active]="query.filter==='tracked'" (click)="searchTracked(0)">Tracked</button>
         </div>
 
         <div class="select-sort g-float-right">
           <label for="select-sort">Sort</label>
-          <select class="selectpicker" id="select-sort" [(ngModel)]="query.sort">
+          <select class="selectpicker" id="select-sort" [(ngModel)]="query.sort" (change)="onSortChange($event.target.value)">
             <option *ngFor="let item of lstSorts" value="{{item.value}}">{{item.label}}</option>
           </select>
         </div>

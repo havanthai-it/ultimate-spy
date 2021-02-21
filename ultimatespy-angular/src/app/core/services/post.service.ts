@@ -52,6 +52,8 @@ export class PostService {
                   + '&maxLikes=' + (query.maxLikes ? query.maxLikes : '')
                   + '&minComments=' + (query.minComments ? query.minComments : '')
                   + '&maxComments=' + (query.maxComments ? query.maxComments : '')
+                  + '&sort=' + (query.sort ? query.sort : '')
+                  + '&filter=' + (query.filter ? query.filter : '')
     return this.http.get(url, { headers: this.headers() });
   }
 }

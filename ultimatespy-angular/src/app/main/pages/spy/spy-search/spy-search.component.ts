@@ -74,7 +74,8 @@ export class SpySearchComponent implements OnInit {
     maxLikes: '',
     minComments: '',
     maxComments: '',
-    sort: 'date'
+    filter: 'all',
+    sort: 'newest'
   }
 
   lstCategories: any[] = [
@@ -111,9 +112,10 @@ export class SpySearchComponent implements OnInit {
     { label: 'Hostingrocket', value: 'hostingrocket' }
   ];
   lstSorts: any[] = [
-    { label: 'Date', value: 'date' },
+    { label: 'Newest', value: 'newest' },
     { label: 'Like', value: 'like' },
-    { label: 'comment', value: 'comment' }
+    { label: 'comment', value: 'comment' },
+    { label: 'Share', value: 'share' }
   ];
 
   
@@ -136,6 +138,8 @@ export class SpySearchComponent implements OnInit {
       this.query.maxLikes = params.maxLikes ? parseInt(params.maxLikes) : this.likeRange.options.ceil;
       this.query.minComments = params.minComments ? parseInt(params.minComments) : this.commentRange.options.floor;
       this.query.maxComments = params.maxComments ? parseInt(params.maxComments) : this.commentRange.options.ceil;
+      this.query.filter = params.filter ? params.filter : 'all';
+      this.query.sort = params.sort ? params.sort : 'newest';
       this.query.page = params.page ? parseInt(params.page) - 1 : 0;
 
       this.likeRange.from = this.query.minLikes;
@@ -179,10 +183,9 @@ export class SpySearchComponent implements OnInit {
     )
   }
 
-  search(page: number, scrollToTop: boolean): void {
+  search(page: number): void {
     if (this.isSearching) return;
     console.log(this.userId);
-    if (scrollToTop)  window.scroll(0,0);
     this.onSearching.emit(true);
     this.isSearching = true;
     this.query.fromDate = this.fromDate ? this.fromDate.toISOString().split('T')[0] : '';
@@ -204,6 +207,8 @@ export class SpySearchComponent implements OnInit {
       (this.query.maxLikes ? 'maxLikes=' + this.query.maxLikes + '&' : '') +
       (this.query.minComments ? 'minComments=' + this.query.minComments + '&' : '') +
       (this.query.maxComments ? 'maxComments=' + this.query.maxComments + '&' : '') +
+      (this.query.filter ? 'filter=' + this.query.filter + '&' : '') +
+      (this.query.sort ? 'sort=' + this.query.sort + '&' : '') +
       (this.query.page ? 'page=' + this.query.page : '');
 
     if (params && !this.userId) {
@@ -213,6 +218,26 @@ export class SpySearchComponent implements OnInit {
     }
 
     window.location.href = '/ads?' + params;
+  }
+
+  searchAll(page: number): void {
+    this.query.filter = 'all';
+    this.search(page);
+  }
+
+  searchSaved(page: number): void {
+    this.query.filter = 'saved';
+    this.search(page);
+  }
+
+  searchTracked(page: number): void {
+    this.query.filter = 'tracked';
+    this.search(page);
+  }
+
+  onSortChange(sort: string) : void {
+    this.query.sort = sort;
+    this.search(0);
   }
 
   numericOnly(event): boolean {    

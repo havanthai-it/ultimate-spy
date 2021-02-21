@@ -36,7 +36,7 @@ export class SpyComponent implements OnInit {
 
   search(page: number): void {
     if (!this.user || !this.token) return;
-    this.spySearchComponent.search(page + 1, true);
+    this.spySearchComponent.search(page + 1);
   }
 
   /**

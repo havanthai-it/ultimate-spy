@@ -35,6 +35,11 @@ header {
       @media only screen and (max-width: 767px) {
         margin: 5px 0 11px 0;
       }
+
+      img {
+        vertical-align: top;
+        margin-top: 4px;
+      }
     }
 
     @media only screen and (min-width: 768px) {

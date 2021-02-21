@@ -47,7 +47,7 @@
       <div class="ssri-performance-icon ssri-performance-share g-float-left"><i class="far fa-share"></i> {{post.shares | number}}</div>
       <div *ngIf="post.tracked" class="ssri-performance-icon ssri-performance-track g-float-right" 
         [ngClass]="{'ssri-performance-track-up': post.lastAvgTrack > 0, 'ssri-performance-track-same': !post.lastAvgTrack, 'ssri-performance-track-down': post.lastAvgTrack < 0}">
-        <i class="fal" [ngClass]="{'fa-long-arrow-up': !post.lastAvgTrack || post.lastAvgTrack >= 0, 'fa-long-arrow-down': post.lastAvgTrack < 0}"></i> {{(100 * post.lastAvgTrack) | number: '1.2-2'}}%
+        <i class="fal" [ngClass]="{'fa-long-arrow-up': !post.lastAvgTrack || post.lastAvgTrack >= 0, 'fa-long-arrow-down': post.lastAvgTrack < 0}"></i> {{(100 * post.lastAvgTrack) | number: '1.0-0'}}%
       </div>
     </div>
 

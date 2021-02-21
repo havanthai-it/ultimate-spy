@@ -21,10 +21,13 @@ public class FacebookPostQuery {
     private Integer minComments;
     private Integer maxComments;
 
+    private String filter;
+    private String sort;
+
     public FacebookPostQuery() {
     }
 
-    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, Integer page, Integer pageSize, String keyword, String pixelId, String facebookPageUsername, String category, String type, String country, String language, String website, String platform, Integer minLikes, Integer maxLikes, Integer minComments, Integer maxComments) {
+    public FacebookPostQuery(Timestamp fromDate, Timestamp toDate, Integer page, Integer pageSize, String keyword, String pixelId, String facebookPageUsername, String category, String type, String country, String language, String website, String platform, Integer minLikes, Integer maxLikes, Integer minComments, Integer maxComments, String filter, String sort) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.page = page;
@@ -42,6 +45,8 @@ public class FacebookPostQuery {
         this.maxLikes = maxLikes;
         this.minComments = minComments;
         this.maxComments = maxComments;
+        this.filter = filter;
+        this.sort = sort;
     }
 
     public boolean isEmpty() {
@@ -112,7 +117,7 @@ public class FacebookPostQuery {
         return facebookPageUsername;
     }
 
-    public void setFacebookPageId(String facebookPageId) {
+    public void setFacebookPageUsername(String facebookPageUsername) {
         this.facebookPageUsername = facebookPageUsername;
     }
 
@@ -194,5 +199,21 @@ public class FacebookPostQuery {
 
     public void setMaxComments(Integer maxComments) {
         this.maxComments = maxComments;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }

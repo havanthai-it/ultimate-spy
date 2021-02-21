@@ -45,6 +45,10 @@
       @media screen and (min-width: 1200px) {
         box-shadow: 0px 0px 4px rgba(0,0,0,.2);
       }
+
+      .dropdown-menu {
+        min-width: 200px;
+      }
     }
 
     .row-two {
@@ -80,6 +84,28 @@
     .total-result {
       font-weight: 500;
       padding: .375rem 0;
+    }
+
+    .search-type {
+      .btn {
+        border-color: $borderColor;
+        color: $textColor1;
+        background-color: #fff;
+        margin-right: 2px;
+        padding: .375rem 1rem;
+
+        &:hover {
+          background-color: $primary2;
+          border-color: $primary2;
+          color: #fff;
+        }
+
+        &.btn-active {
+          background-color: $primary2;
+          border-color: $primary2;
+          color: #fff;
+        }
+      }
     }
 
     .select-sort {
@@ -155,7 +181,7 @@
     .dropdown-menu {
       // max-height: 390px !important;
       width: 100%;
-      min-width: 200px;
+      // min-width: 200px;
 
       .inner.show {
         overflow-x: hidden;
@@ -166,6 +192,8 @@
       }
       li {
         a.dropdown-item {
+          padding: .25rem .75rem;
+          
           &:focus {
             background-color: #f8f9fa;
             color: inherit;

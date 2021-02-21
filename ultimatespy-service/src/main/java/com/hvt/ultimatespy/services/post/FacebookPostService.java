@@ -84,7 +84,7 @@ public class FacebookPostService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "{ CALL facebook_post_search(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ CALL facebook_post_search(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -105,6 +105,7 @@ public class FacebookPostService {
                 cs.setInt(15, facebookPostQuery.getMaxLikes());
                 cs.setInt(16, facebookPostQuery.getMinComments());
                 cs.setInt(17, facebookPostQuery.getMaxComments());
+                cs.setString(18, facebookPostQuery.getSort());
 
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
@@ -134,7 +135,7 @@ public class FacebookPostService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "{ CALL user_post_search(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
+            String sql = "{ CALL user_post_search(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -157,6 +158,7 @@ public class FacebookPostService {
                 cs.setInt(17, facebookPostQuery.getMaxComments());
                 cs.setString(18, userId);
                 cs.setString(19, userPostType);
+                cs.setString(20, facebookPostQuery.getSort());
 
                 rs = cs.executeQuery();
                 while (rs != null && rs.next()) {
@@ -284,7 +286,16 @@ public class FacebookPostService {
 
                 builder.query(boolQueryBuilder);
                 builder.timeout(new TimeValue(ES_TIMEOUT, TimeUnit.MILLISECONDS));
-                builder.sort(new FieldSortBuilder("d_publish").order(SortOrder.DESC));
+                if (query.getSort().equals("like")) {
+                    builder.sort(new FieldSortBuilder("n_likes").order(SortOrder.DESC));
+                } else if (query.getSort().equals("comment")) {
+                    builder.sort(new FieldSortBuilder("n_comments").order(SortOrder.DESC));
+                } else if (query.getSort().equals("share")) {
+                    builder.sort(new FieldSortBuilder("n_shares").order(SortOrder.DESC));
+                } else {
+                    builder.sort(new FieldSortBuilder("d_publish").order(SortOrder.DESC));
+                }
+
                 if (query.getPage() != null && query.getPageSize() != null) {
                     builder.from(query.getPage() * query.getPageSize());
                     builder.size(query.getPageSize());

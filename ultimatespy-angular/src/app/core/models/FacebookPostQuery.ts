@@ -16,5 +16,7 @@ export class FacebookPostQuery {
   maxLikes: string;
   minComments: string;
   maxComments: string;
+
+  filter: string;
   sort: string;
 }

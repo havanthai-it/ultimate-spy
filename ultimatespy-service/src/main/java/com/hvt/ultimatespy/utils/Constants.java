@@ -46,6 +46,8 @@ public class Constants {
     public static final String MAX_LIKES = "maxLikes";
     public static final String MIN_COMMENTS = "minComments";
     public static final String MAX_COMMENTS = "maxComments";
+    public static final String FILTER = "filter";
+    public static final String SORT = "sort";
 
     public static final String BLANK = "";
     public static final String NAME = "name";
