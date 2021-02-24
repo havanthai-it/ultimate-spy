@@ -169,7 +169,9 @@ export class SpySearchComponent implements OnInit {
         console.log(error);
         this.onSearching.emit(false);
         this.isSearching = false;
-        if (error && error.status && error.status === 403) {
+        if (error && error.status && error.status === 401) {
+          window.location.href = '/signin';
+        } else if (error && error.status && error.status === 403) {
           const dialogRef = this.dialog.open(RanoutDialogComponent, {
             width: '540px',
             data: {}

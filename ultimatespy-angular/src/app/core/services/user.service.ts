@@ -21,10 +21,19 @@ export class UserService {
     });
   }
 
-  authenticate(username: string, password: string): Observable<any> {
+  signin(username: string, password: string): Observable<any> {
     const requestData = {
+      type: 'standard',
       username: username,
       password: password
+    }
+    return this.http.post(`${environment.serviceUrl}/api/v1/authenticate`, requestData);
+  }
+
+  signinGoogle(idToken: string): Observable<any> {
+    const requestData = {
+      type: 'google',
+      googleIdToken: idToken
     }
     return this.http.post(`${environment.serviceUrl}/api/v1/authenticate`, requestData);
   }

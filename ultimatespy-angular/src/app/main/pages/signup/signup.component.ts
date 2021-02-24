@@ -80,10 +80,31 @@ export class SignupComponent implements OnInit {
     );
   }
 
-  signInWithGoogle(): void {
+  signUpWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(user => {
         console.log(user);
+        this.userService.signinGoogle(user.idToken).subscribe(
+          data => {
+            const userInfo = {
+              id: data.user.id,
+              email: data.user.email,
+              firstName: data.user.firstName,
+              lastName: data.user.lastName,
+              fullName: data.user.firstName + ' ' + data.user.lastName,
+              status: data.user.status,
+              createDate: data.user.createDate,
+              plan: data.user.plan
+            };
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(userInfo));
+            window.location.href = this.redirect;
+          },
+          error => {
+            console.log(error);
+            this.errorMessage = error.error.message ? error.error.message : 'Sorry, an error occurred while processing your request';
+          }
+        );
       })
       .catch(error => {
         console.log(error);

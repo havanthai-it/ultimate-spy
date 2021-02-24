@@ -104,15 +104,17 @@ public class UserService {
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall("INSERT INTO " +
-                        " tb_user(S_ID,S_FIRST_NAME,S_LAST_NAME,S_EMAIL,S_PASSWORD,S_ROLE,S_REFERRER_ID) " +
-                        " VALUES(?,?,?,?,?,?,?)");
+                        " tb_user(S_ID,S_GOOGLE_ID,S_FIRST_NAME,S_LAST_NAME,S_EMAIL,S_PASSWORD,S_ROLE,S_REFERRER_ID,S_STATUS) " +
+                        " VALUES(?,?,?,?,?,?,?,?,?)");
                 cs.setString(1, user.getId());
-                cs.setString(2, user.getFirstName());
-                cs.setString(3, user.getLastName());
-                cs.setString(4, user.getEmail());
-                cs.setString(5, user.getPassword());
-                cs.setString(6, user.getRole());
-                cs.setString(7, user.getReferrerId());
+                cs.setString(2, user.getGoogleId());
+                cs.setString(3, user.getFirstName());
+                cs.setString(4, user.getLastName());
+                cs.setString(5, user.getEmail());
+                cs.setString(6, user.getPassword());
+                cs.setString(7, user.getRole());
+                cs.setString(8, user.getReferrerId());
+                cs.setString(9, user.getStatus());
                 cs.execute();
 
                 result = getByEmail(user.getEmail()).get();

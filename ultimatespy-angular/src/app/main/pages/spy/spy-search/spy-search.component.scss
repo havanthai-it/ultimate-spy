@@ -34,6 +34,102 @@
     }
   }
 
+  .bootstrap-select {
+    width: calc(100% - 90px) !important;
+    
+    .dropdown-toggle {
+      background-color: #fff;
+      border-color: $borderColor;
+      // padding: 0.375rem 0.75rem;
+
+      &:focus {
+        background-color: #fff;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      &.bs-placeholder {
+        color: $textColor1;
+      }
+    }
+    .dropdown-menu {
+      // max-height: 390px !important;
+      width: 100%;
+      // min-width: 200px;
+
+      .inner.show {
+        overflow-x: hidden;
+      }
+
+      li.disabled:first-child {
+        display: none;
+      }
+      li {
+        a.dropdown-item {
+          padding: .25rem .75rem;
+          
+          &:focus {
+            background-color: #f8f9fa;
+            color: inherit;
+            outline: none;
+          }
+
+          &.active, &:active {
+            color: $primary2;
+            background-color: #fff;
+          }
+
+          &.selected,
+          .check-mark:after {
+            color: $primary2;
+          }
+
+        }
+      }
+      .btn-group {
+        button {
+          border: solid 1px $borderColor;
+          background-color: #fff;
+
+          &:hover {
+            color: $primary2;
+            border-color: $primary2;
+          }
+        }
+      }
+    }
+  }
+
+  .filter-block {
+    margin: 12px 0;
+    position: relative;
+    display: inline-block;
+
+    .btn-save-search {
+      width: 100%;
+      color: $primary1;
+      background-color: #fff;
+      border: solid 1px $primary1;
+    }
+
+    .fa-search {
+      position: absolute;
+      right: 0.6em;
+      top: 0.4em;
+      font-size: 1.3em;
+      color: #ddd;
+    }
+
+    input {
+      padding-right: 2.4em;
+      color: $primary1;
+      // border: solid 1px $borderColor !important;
+    }
+
+    input::placeholder {
+      color: #999;
+    }
+  }
+
   .section-filter {
     position: relative;
   
@@ -110,39 +206,19 @@
 
     .select-sort {
       width: 240px;
+
+      @media screen and (max-width: 767.99px) {
+        width: 100px;
+
+        label {
+          display: none;
+        }
+        .bootstrap-select {
+          width: 100% !important;
+        }
+      }
     }
 
-  }
-
-  .filter-block {
-    margin: 12px 0;
-    position: relative;
-    display: inline-block;
-
-    .btn-save-search {
-      width: 100%;
-      color: $primary1;
-      background-color: #fff;
-      border: solid 1px $primary1;
-    }
-
-    .fa-search {
-      position: absolute;
-      right: 0.6em;
-      top: 0.4em;
-      font-size: 1.3em;
-      color: #ddd;
-    }
-
-    input {
-      padding-right: 2.4em;
-      color: $primary1;
-      // border: solid 1px $borderColor !important;
-    }
-
-    input::placeholder {
-      color: #999;
-    }
   }
 
   label {
@@ -158,71 +234,6 @@
     }
     @media screen and (min-width: 768px) {
       width: 33.33% !important;
-    }
-  }
-
-  .bootstrap-select {
-    width: calc(100% - 90px) !important;
-    
-    .dropdown-toggle {
-      background-color: #fff;
-      border-color: $borderColor;
-      // padding: 0.375rem 0.75rem;
-
-      &:focus {
-        background-color: #fff;
-        outline: none !important;
-        box-shadow: none !important;
-      }
-      &.bs-placeholder {
-        color: $textColor1;
-      }
-    }
-    .dropdown-menu {
-      // max-height: 390px !important;
-      width: 100%;
-      // min-width: 200px;
-
-      .inner.show {
-        overflow-x: hidden;
-      }
-
-      li.disabled:first-child {
-        display: none;
-      }
-      li {
-        a.dropdown-item {
-          padding: .25rem .75rem;
-          
-          &:focus {
-            background-color: #f8f9fa;
-            color: inherit;
-            outline: none;
-          }
-
-          &.active, &:active {
-            color: $primary2;
-            background-color: #fff;
-          }
-
-          &.selected,
-          .check-mark:after {
-            color: $primary2;
-          }
-
-        }
-      }
-      .btn-group {
-        button {
-          border: solid 1px $borderColor;
-          background-color: #fff;
-
-          &:hover {
-            color: $primary2;
-            border-color: $primary2;
-          }
-        }
-      }
     }
   }
 

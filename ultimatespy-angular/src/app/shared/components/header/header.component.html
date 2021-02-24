@@ -27,11 +27,17 @@
           <li class="nav-item">
             <a class="nav-link" (click)="scrollToView('pricing')">Pricing</a>
           </li>
+          <li *ngIf="!user" class="nav-item g-hide-on-screen-md" style="margin-top: 15px;">
+            <a class="nav-link" href="/signin">Sign in</a>
+          </li>
+          <li *ngIf="!user" class="nav-item g-hide-on-screen-md">
+            <a class="nav-link" href="/signup">Sign up</a>
+          </li>
         </ul>
       </div>
 
       <div style="position: absolute; top: .75rem; right: 15px;">
-        <div *ngIf="!user">
+        <div *ngIf="!user" class="g-hide-on-screen-sm">
           <a href="/signin">
             <button class="btn btn-signin">Sign in</button>
           </a>

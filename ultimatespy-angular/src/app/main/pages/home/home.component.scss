@@ -82,15 +82,12 @@
           padding: 26px;
         }
       }
-      .feature-item-content {
-        
-      }
     }
   }
 
   .section-testimonial {
     background-color: $bgColor;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
     .testimonial-item {
       text-align: center;
       padding-left: 20px;
@@ -109,13 +106,14 @@
         }
       }
       .testimonial-item-content {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         color: #666;
         font-style: italic;
       }
       .testimonial-item-name {
         font-weight: 500;
         font-size: 1.1em;
+        margin-bottom: 40px;
       }
     }
   }
@@ -195,7 +193,7 @@
       margin-top: 30px;
       font-weight: 500;
       font-size: 1rem;
-      padding: 0.5em 2.4em 0.6em 2.4em;
+      padding: 0.5em 2.4em 0.5em 2.4em;
       position: relative;
       text-transform: uppercase;
       border-radius: 1.6em;

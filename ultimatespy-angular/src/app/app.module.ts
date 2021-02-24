@@ -39,7 +39,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('clientId'),
+            provider: new GoogleLoginProvider('850222883858-gmug4hk3jnpc7v0tjtvgjiheq4i69fha.apps.googleusercontent.com'),
           }
         ],
       } as SocialAuthServiceConfig,

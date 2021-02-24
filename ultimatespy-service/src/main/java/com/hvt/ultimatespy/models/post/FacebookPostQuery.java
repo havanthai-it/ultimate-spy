@@ -62,6 +62,7 @@ public class FacebookPostQuery {
                 && maxComments == 10000
                 && (pixelId == null || pixelId.isEmpty())
                 && (website == null || website.isEmpty())
+                && page == 0
                 ;
     }
 

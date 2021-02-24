@@ -2,8 +2,7 @@
   <div style="height: 1px;margin-top: -1px;"></div>
   <form class="form-signup" [formGroup]="signupForm" (ngSubmit)="signup()" *ngIf="!signupComplete">
     <div class=" text-center mb-2">
-      <img class="mb-2" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="50"
-        height="50">
+      <a href="/"><img class="mb-4" src="../../../../assets/img/logo.png" alt="AdsCrawlr" height="30"></a>
       <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
     </div>
     <div class="g-float-wrapper">
@@ -36,7 +35,7 @@
 
     <div class="error-text g-text-sm mb-2">&nbsp;{{errorMessage}}</div>
 
-    <button class="btn btn-primary btn-block btn-signup" type="submit">
+    <button type="submit" class="btn btn-primary btn-block btn-signup">
       Sign up <mat-spinner *ngIf="loading" [diameter]="26"></mat-spinner>
     </button>
 
@@ -45,7 +44,7 @@
       <span>or</span>
     </div>
 
-    <button class="btn btn-google" type="submit">
+    <button type="button" class="btn btn-google" (click)="signUpWithGoogle()">
       <i class="fab fa-google"></i>
       &nbsp;
       Sign up with Google

@@ -1,5 +1,10 @@
 package com.hvt.ultimatespy.controllers.user;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.hvt.ultimatespy.config.Config;
 import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.FuncUtils;
 import com.hvt.ultimatespy.utils.enums.RoleEnum;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.UUID;
 
 @RestController
@@ -24,11 +30,15 @@ public class UserPostController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> post(@RequestBody User user) throws Exception {
+    public ResponseEntity<User> post(@RequestParam String type, @RequestBody User user) throws Exception {
+        if (type == null) {
+            throw Errors.BAD_REQUEST_EXCEPTION;
+        }
+
         if (user.getFirstName() == null || user.getFirstName().isEmpty()
-            || user.getLastName() == null || user.getLastName().isEmpty()
-            || user.getEmail() == null || user.getEmail().isEmpty()
-            || user.getPassword() == null || user.getPassword().isEmpty()) {
+                || user.getLastName() == null || user.getLastName().isEmpty()
+                || user.getEmail() == null || user.getEmail().isEmpty()
+                || user.getPassword() == null || user.getPassword().isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
 
@@ -45,6 +55,7 @@ public class UserPostController {
         String encryptedPassword = Encryptor.encrypt(rawPassword);
         user.setPassword(encryptedPassword);
 
+        user.setStatus("created");
         User result = userService.insert(user).get();
         result.setPassword(null);
 

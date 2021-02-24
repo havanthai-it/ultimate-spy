@@ -4,7 +4,7 @@ footer {
   background-color: $primary1;
   color: rgba(255,255,255,.9);
   min-height: 140px;
-  padding-top: 30px;
+  padding-top: 15px;
   padding-bottom: 15px;
 
   .row > div {
@@ -17,6 +17,11 @@ footer {
 
   .col-title {
     font-weight: 500;
+    margin-top: 15px;
+  }
+
+  .email {
+    font-style: italic;
   }
 
   a {
@@ -36,26 +41,28 @@ footer {
       background-color: rgba(255,255,255,.1);
       border: none;
       color: rgba(255,255,255,.7);
-      width: calc(100% - 90px);
+      width: calc(100% - 100px);
       float: left;
       border-radius: 0;
       // border-top-left-radius: 24px;
       // border-bottom-left-radius: 24px;
       outline: none !important;
       box-shadow: none;
-      padding: .325rem .75rem .425rem .75rem;
+      padding: .4rem .75rem;
+      height: 40px;
     }
     .btn-subscribe {
       background-color: $primary2 !important;
       border: none;
-      width: 90px;
+      width: 100px;
       float: left;
       border-radius: 0;
       // border-top-right-radius: 24px;
       // border-bottom-right-radius: 24px;
-      height: 38px;
-      font-size: .82em;
+      height: 40px;
+      font-size: .86em;
       font-weight: 500;
+      padding: .4rem 1rem;
     }
   }
 

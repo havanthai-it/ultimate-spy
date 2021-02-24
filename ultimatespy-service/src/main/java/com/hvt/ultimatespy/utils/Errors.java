@@ -14,5 +14,8 @@ public class Errors {
     public static Exception USER_NOT_FOUND_EXCEPTION = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User not found.");
     public static Exception EMAIL_EXIST_EXCEPTION = new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already in use.");
     public static Exception DAILY_LIMITATION_EXCEPTION = new ResponseStatusException(HttpStatus.FORBIDDEN, "You've reach your daily limit. Please continue after 24 hours or upgrade your plan to increase your limit.");
+    public static Exception GOOGLE_EMAIL_NOT_VERIFIED = new ResponseStatusException(HttpStatus.BAD_REQUEST, "Your google account is not verified.");
+    public static Exception GOOGLE_INVALID_ID_TOKEN = new ResponseStatusException(HttpStatus.BAD_REQUEST, "Your google id token is invalid.");
+    public static Exception GOOGLE_EMAIL_EXIST = new ResponseStatusException(HttpStatus.BAD_REQUEST, "Your email has already registered.");
 
 }

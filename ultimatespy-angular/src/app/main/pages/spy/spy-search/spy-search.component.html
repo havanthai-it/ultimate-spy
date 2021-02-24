@@ -112,7 +112,7 @@
           <span>{{total | number}} results</span>
         </div> -->
         <div class="search-type g-float-left">
-          <label style="width: auto;">Filter</label>
+          <label style="width: auto;" class="g-hide-on-screen-sm">Filter</label>
           <button type="button" class="btn btn-outline-primary" [class.btn-active]="query.filter==='all'" (click)="searchAll(0)">All</button>
           <button type="button" class="btn btn-outline-primary" [class.btn-active]="query.filter==='saved'" (click)="searchSaved(0)">Saved</button>
           <button type="button" class="btn btn-outline-primary" [class.btn-active]="query.filter==='tracked'" (click)="searchTracked(0)">Tracked</button>
