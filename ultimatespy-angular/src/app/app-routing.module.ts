@@ -33,7 +33,8 @@ const routes: Routes = [
       { path: 'terms', loadChildren: () => import('./main/pages/terms/terms.module').then(m => m.TermsModule) },
       { path: 'checkout', loadChildren: () => import('./main/pages/checkout/checkout.module').then(m => m.CheckoutModule) },
       { path: 'dashboard', loadChildren: () => import('./main/pages/dashboard/dashboard.module').then(m => m.DashboardModule) },
-      { path: 'confirm', loadChildren: () => import('./main/pages/confirm/confirm.module').then(m => m.ConfirmModule) }
+      { path: 'confirm', loadChildren: () => import('./main/pages/confirm/confirm.module').then(m => m.ConfirmModule) },
+      { path: 'referral', loadChildren: () => import('./main/pages/referral/referral.module').then(m => m.ReferralModule) }
     ]
   }
 ];

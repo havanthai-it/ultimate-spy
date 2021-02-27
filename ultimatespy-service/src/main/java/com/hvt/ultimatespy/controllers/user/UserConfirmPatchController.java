@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = Constants.ROUTE_USER_CONFIRM_ID)
 public class UserConfirmPatchController {
+    private static final Logger logger = Logger.getLogger(UserConfirmPatchController.class.getName());
 
     @Autowired
     private UserService userService;
@@ -26,11 +29,13 @@ public class UserConfirmPatchController {
     public ResponseEntity<?> patch(@PathVariable("userId") String userId, @PathVariable("id") String id) throws Exception {
         if (userId == null || userId.trim().isEmpty()
             || id == null || id.trim().isEmpty()) {
+            logger.log(Level.SEVERE, "User ID or Confirm ID is empty");
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
 
         String decodedUserId = new String(Base64.getDecoder().decode(id));
         if (!userId.equals(decodedUserId)) {
+            logger.log(Level.SEVERE, "User ID or Confirm ID is invalid");
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
 
@@ -41,6 +46,7 @@ public class UserConfirmPatchController {
                 userService.updateStatus(userId, StatusEnum.ACTIVE.value()).get();
             }
         } else {
+            logger.log(Level.SEVERE, "User not found");
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
 

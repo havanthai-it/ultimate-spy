@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
 import { UserService } from '../../../core/services/user.service';
@@ -15,9 +16,11 @@ export class SignupComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private titleService: Title,
     private userService: UserService,
     private authService: SocialAuthService
-    ) { }
+    ) {
+      this.titleService.setTitle('AdsCrawlr | Sign up');}
 
   redirect: string;
   errorMessage: string;
@@ -29,9 +32,9 @@ export class SignupComponent implements OnInit {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]), // Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$')
     confirmPassword: new FormControl('', [Validators.required])
-  });
+  }, { validators: this.checkConfirmPasswords });
 
   user: any = {
     firstName: '',
@@ -48,6 +51,13 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     // get return url from route parameters or default to '/'
     this.redirect = this.route.snapshot.queryParams['redirect'] || '/';
+  }
+
+  checkConfirmPasswords(group: FormGroup) {
+    const password = group.get('password').value;
+    const confirmPassword = group.get('confirmPassword').value;
+    
+    return password === confirmPassword ? null : { passwordNotMatch: true }     
   }
 
   signup(): void {

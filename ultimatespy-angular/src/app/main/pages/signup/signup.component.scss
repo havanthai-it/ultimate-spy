@@ -14,7 +14,7 @@
     margin: 0 auto;
 
     .form-label-group {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.72rem;
       position: relative;
 
       label {
@@ -25,6 +25,12 @@
       .form-control.error-form-control {
         border-color: $errorColor;
       }
+    }
+
+    .form-control-error-msg {
+      color: $errorColor;
+      font-size: .72rem;
+      position: absolute;
     }
 
     .error-text {

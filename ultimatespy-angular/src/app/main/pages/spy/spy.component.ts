@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { SpySearchComponent } from './spy-search/spy-search.component';
 
 declare var $: any;
@@ -17,7 +18,8 @@ export class SpyComponent implements OnInit {
   user: any;
   token: string;
 
-  constructor() { }
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('AdsCrawlr | Ads Spy');}
 
   ngOnInit(): void {
     $('[data-toggle="tooltip"]').tooltip();

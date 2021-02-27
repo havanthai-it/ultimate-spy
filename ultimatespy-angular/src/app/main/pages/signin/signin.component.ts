@@ -3,6 +3,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-signin',
@@ -15,9 +16,11 @@ export class SigninComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private titleService: Title,
     private userService: UserService,
     private authService: SocialAuthService
-    ) { }
+    ) {
+      this.titleService.setTitle('AdsCrawlr | Sign in');}
 
   username: string;
   password: string;

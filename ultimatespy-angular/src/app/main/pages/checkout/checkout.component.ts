@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { User } from 'src/app/core/models/User';
 import { PaymentService } from 'src/app/core/services/payment.service';
@@ -24,9 +25,11 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private datepipe: DatePipe,
+    private titleService: Title,
     private userService: UserService,
     private subscriptionPlanService: SubscriptionPlanService,
-    private paymentService: PaymentService) { }
+    private paymentService: PaymentService) {
+      this.titleService.setTitle('AdsCrawlr | Checkout');}
 
   ngOnInit(): void {
     

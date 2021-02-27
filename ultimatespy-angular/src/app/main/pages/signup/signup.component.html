@@ -10,27 +10,47 @@
         <label for="inputFirstName">First name</label>
         <input type="text" id="inputFirstName" class="form-control" [(ngModel)]="user.firstName" formControlName="firstName"
           required="" [ngClass]="{'error-form-control': f.firstName.touched && f.firstName.errors}">
+        <span class="form-control-error-msg" *ngIf="f.firstName.touched && f.firstName.errors">
+          <span *ngIf="f.firstName.errors.required">First name is required</span>
+        </span>
       </div>
       <div class="form-label-group g-float-right" style="width: 49%">
         <label for="inputLastName">Last name</label>
         <input type="text" id="inputLastName" class="form-control" [(ngModel)]="user.lastName" formControlName="lastName"
           required="" [ngClass]="{'error-form-control': f.lastName.touched && f.lastName.errors}">
+          <span class="form-control-error-msg" *ngIf="f.lastName.touched && f.lastName.errors">
+            <span *ngIf="f.lastName.errors.required">Last name is required</span>
+          </span>
       </div>
     </div>
     <div class="form-label-group">
       <label for="inputEmail">Email address</label>
       <input type="email" id="inputEmail" class="form-control" [(ngModel)]="user.email" formControlName="email"
         required="" [ngClass]="{'error-form-control': f.email.touched && f.email.errors}">
+      <span class="form-control-error-msg" *ngIf="f.email.touched && f.email.errors">
+        <span *ngIf="f.email.errors.required">Email is required</span>
+        <span *ngIf="f.email.errors.email">Email is invalid</span>
+      </span>
     </div>
     <div class="form-label-group">
       <label for="inputPassword" class="g-float-left">Password</label>
       <input type="password" id="inputPassword" class="form-control" [(ngModel)]="user.password"
         formControlName="password" required="" [ngClass]="{'error-form-control': f.password.touched && f.password.errors}">
+      <span class="form-control-error-msg" *ngIf="f.password.touched && f.password.errors">
+        <span *ngIf="f.password.errors.required">Password is required</span>
+        <span *ngIf="f.password.errors.minlength">Password should contain at least 8 characters</span>
+      </span>
     </div>
     <div class="form-label-group">
       <label for="inputConfirmPassword" class="g-float-left">Confirm Password</label>
       <input type="password" id="inputConfirmPassword" class="form-control" [(ngModel)]="user.confirmPassword"
         formControlName="confirmPassword" required="" [ngClass]="{'error-form-control': f.confirmPassword.touched && f.confirmPassword.errors}">
+      <span class="form-control-error-msg" *ngIf="f.confirmPassword.touched && f.confirmPassword.errors">
+        <span *ngIf="f.confirmPassword.errors.required">Confirm password is required</span>
+      </span>
+      <span class="form-control-error-msg" *ngIf="f.confirmPassword.touched && !f.confirmPassword.errors && signupForm.hasError('passwordNotMatch')">
+        <span *ngIf="signupForm.hasError('passwordNotMatch')">Confirm password does not match</span>
+      </span>
     </div>
 
     <div class="error-text g-text-sm mb-2">&nbsp;{{errorMessage}}</div>

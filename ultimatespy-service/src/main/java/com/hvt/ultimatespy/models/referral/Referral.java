@@ -3,24 +3,16 @@ package com.hvt.ultimatespy.models.referral;
 import java.sql.Timestamp;
 
 public class Referral {
-    private String id;
     private String referrerId;
-    private String action;  // CLICK|SIGNUP
     private String userId;
-    private String userPaymentAmount;
-    private String commissionPercent;
-    private String commissionAmount;
-    private String settleStatus; // SETTLED|UNSETTLED
-    private Timestamp createDate;
-    private Timestamp updateDate;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String action;  // click|signup|pay
+    private String paymentId;
+    private Double paymentAmount;
+    private Double commissionAmount;
+    private String refCode;
+    private String settlementStatus; // settled|unsettled
+    private Timestamp dateCreate;
+    private Timestamp dateSettlement;
 
     public String getReferrerId() {
         return referrerId;
@@ -28,14 +20,6 @@ public class Referral {
 
     public void setReferrerId(String referrerId) {
         this.referrerId = referrerId;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
     }
 
     public String getUserId() {
@@ -46,51 +30,67 @@ public class Referral {
         this.userId = userId;
     }
 
-    public String getUserPaymentAmount() {
-        return userPaymentAmount;
+    public String getAction() {
+        return action;
     }
 
-    public void setUserPaymentAmount(String userPaymentAmount) {
-        this.userPaymentAmount = userPaymentAmount;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public String getCommissionPercent() {
-        return commissionPercent;
+    public String getPaymentId() {
+        return paymentId;
     }
 
-    public void setCommissionPercent(String commissionPercent) {
-        this.commissionPercent = commissionPercent;
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
     }
 
-    public String getCommissionAmount() {
+    public Double getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(Double paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public Double getCommissionAmount() {
         return commissionAmount;
     }
 
-    public void setCommissionAmount(String commissionAmount) {
+    public void setCommissionAmount(Double commissionAmount) {
         this.commissionAmount = commissionAmount;
     }
 
-    public String getSettleStatus() {
-        return settleStatus;
+    public String getRefCode() {
+        return refCode;
     }
 
-    public void setSettleStatus(String settleStatus) {
-        this.settleStatus = settleStatus;
+    public void setRefCode(String refCode) {
+        this.refCode = refCode;
     }
 
-    public Timestamp getCreateDate() {
-        return createDate;
+    public String getSettlementStatus() {
+        return settlementStatus;
     }
 
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
+    public void setSettlementStatus(String settlementStatus) {
+        this.settlementStatus = settlementStatus;
     }
 
-    public Timestamp getUpdateDate() {
-        return updateDate;
+    public Timestamp getDateCreate() {
+        return dateCreate;
     }
 
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
+    public void setDateCreate(Timestamp dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+    public Timestamp getDateSettlement() {
+        return dateSettlement;
+    }
+
+    public void setDateSettlement(Timestamp dateSettlement) {
+        this.dateSettlement = dateSettlement;
     }
 }

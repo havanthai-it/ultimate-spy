@@ -30,10 +30,7 @@ public class UserPostController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> post(@RequestParam String type, @RequestBody User user) throws Exception {
-        if (type == null) {
-            throw Errors.BAD_REQUEST_EXCEPTION;
-        }
+    public ResponseEntity<User> post(@RequestHeader("X-Referrer-Id") String referrerId, @RequestBody User user) throws Exception {
 
         if (user.getFirstName() == null || user.getFirstName().isEmpty()
                 || user.getLastName() == null || user.getLastName().isEmpty()

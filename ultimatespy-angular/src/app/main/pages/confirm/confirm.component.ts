@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -12,7 +13,10 @@ export class ConfirmComponent implements OnInit {
   confirmId: string;
   userId: string;
 
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private route: ActivatedRoute,
+    private titleService: Title,
+    private userService: UserService) {
+      this.titleService.setTitle('AdsCrawlr | Confirm');}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

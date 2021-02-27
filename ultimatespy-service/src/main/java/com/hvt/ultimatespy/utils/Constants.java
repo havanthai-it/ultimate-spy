@@ -20,6 +20,7 @@ public class Constants {
     public static final String ROUTE_SUBSCRIBER_EMAIL = "/api/v1/subscriber-email";
     public static final String ROUTE_PAYPAL_SUBSCRIPTION = "/api/v1/paypal/subscription";
     public static final String ROUTE_PAYPAL_SUBSCRIPTION_ID = "/api/v1/paypal/subscription/{id}";
+    public static final String ROUTE_REFERRAL = "/api/v1/referral";
 
     public static final String ROUTE_ADMIN = "/api/v1/admin";
 

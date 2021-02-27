@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../core/models/User';
+import { CookieService } from 'src/app/core/services/cookie.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,9 @@ export class HeaderComponent implements OnInit {
   isAppPage: boolean = false;
   user: User = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private cookieService: CookieService) { }
 
   ngOnInit(): void {
     if (this.router.url.startsWith('/ads')) {
@@ -27,9 +30,16 @@ export class HeaderComponent implements OnInit {
     }
 
     if (localStorage.getItem('token') && localStorage.getItem('user')) {
-      // logged in so return true
       this.user = JSON.parse(localStorage.getItem('user'));
     }
+
+    // Referrer
+    this.activatedRoute.queryParams.subscribe(params => {
+      let referrer = params['referrer'];
+      if (referrer && (!this.user || this.user.plan === 'free')) {
+        this.cookieService.setCookie('referrer', referrer, 60);
+      }
+    });
   }
 
   signout(): void {

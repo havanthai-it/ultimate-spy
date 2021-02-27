@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 
@@ -14,8 +15,10 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private titleService: Title,
     private userService: UserService
-    ) { }
+    ) {
+      this.titleService.setTitle('AdsCrawlr | Reset password');}
 
   resetId: string;
   email: string;

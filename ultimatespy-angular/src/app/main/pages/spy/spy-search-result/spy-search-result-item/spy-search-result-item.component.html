@@ -8,10 +8,10 @@
     <div class="ssri-header-title g-float-left">
       <h5>{{post.pageName}}</h5>
       <div class="post-action">
-        <span (click)="track(post.postId)"><i [hidden]="post.tracked" class="far fa-chart-bar" data-toggle="tooltip" data-placement="bottom" title="Add to Tracklist"></i></span>
-        <span (click)="unTrack(post.postId)"><i [hidden]="!post.tracked" class="fas fa-chart-bar fa-active" data-toggle="tooltip" data-placement="bottom" title="Remove from Tracklist"></i></span>
-        <span (click)="save(post.postId)"><i [hidden]="post.saved" class="far fa-heart" data-toggle="tooltip" data-placement="bottom" title="Save"></i></span>
-        <span (click)="unSave(post.postId)"><i [hidden]="!post.saved" class="fas fa-heart fa-active" data-toggle="tooltip" data-placement="bottom" title="Unsave"></i></span>
+        <span (click)="track(post.postId)"><i [hidden]="post.tracked" class="far fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Add to Tracklist"></i></span>
+        <span (click)="unTrack(post.postId)"><i [hidden]="!post.tracked" class="fas fa-chart-bar fa-active" data-toggle="tooltip" data-placement="top" title="Remove from Tracklist"></i></span>
+        <span (click)="save(post.postId)"><i [hidden]="post.saved" class="far fa-heart" data-toggle="tooltip" data-placement="top" title="Save"></i></span>
+        <span (click)="unSave(post.postId)"><i [hidden]="!post.saved" class="fas fa-heart fa-active" data-toggle="tooltip" data-placement="top" title="Unsave"></i></span>
       </div>
       <div class="ssri-publish-time g-text-sm g-text-blur">
         <div><mat-icon class="icon-clock">access_time</mat-icon> {{Moment(post.publishDate).fromNow()}}</div>
@@ -21,10 +21,10 @@
 
   <div class="ssri-body">
     <div class="srri-content">
-      <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="bottom" title="Pixel">code</mat-icon><a href="/ads?keyword=::pixel={{post.pixelId}}">{{post.pixelId}}</a></div>
-      <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="bottom" title="Website">language</mat-icon><a href="/ads?keyword=::website={{post.website}}">{{post.website}}</a></div>
-      <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="bottom" title="Link">link</mat-icon><a href="{{post.links}}" target="_blank">{{post.links}}</a></div>
-      <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="bottom" title="Content">notes</mat-icon>{{extractContent(post.content)}}</div>
+      <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="top" title="Pixel">code</mat-icon><a href="/ads?keyword=::pixel={{post.pixelId}}">{{post.pixelId}}</a></div>
+      <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="top" title="Website">language</mat-icon><a href="/ads?keyword=::website={{post.website}}">{{post.website}}</a></div>
+      <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="top" title="Link">link</mat-icon><a href="{{post.links}}" target="_blank">{{post.links}}</a></div>
+      <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="top" title="Content">notes</mat-icon>{{extractContent(post.content)}}</div>
     </div>
 
     <div class="ssri-thumbnail" (click)="detail()">

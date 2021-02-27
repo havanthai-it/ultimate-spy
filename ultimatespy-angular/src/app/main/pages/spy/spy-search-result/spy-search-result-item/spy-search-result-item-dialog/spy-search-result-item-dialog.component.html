@@ -2,11 +2,11 @@
   <div mat-dialog-title class="dialog-header">
     <div><h3 class="g-text-lg">Ad Details</h3></div>
     <div class="post-action">
-      <span (click)="track(data.postId)"><i [hidden]="data.tracked" class="far fa-chart-bar" data-toggle="tooltip" data-placement="bottom" title="Add to Tracklist"></i></span>
-      <span (click)="unTrack(data.postId)"><i [hidden]="!data.tracked" class="fas fa-chart-bar fa-active" data-toggle="tooltip" data-placement="bottom" title="Remove from Tracklist"></i></span>
-      <span (click)="save(data.postId)"><i [hidden]="data.saved" class="far fa-heart" data-toggle="tooltip" data-placement="bottom" title="Save"></i></span>
-      <span (click)="unSave(data.postId)"><i [hidden]="!data.saved" class="fas fa-heart fa-active" data-toggle="tooltip" data-placement="bottom" title="Unsave"></i></span>
-      <span><a href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}" target="_blank"><i class="fab fa-facebook-square" data-toggle="tooltip" data-placement="bottom" title="See on facebook"></i></a></span>
+      <span (click)="track(data.postId)"><i [hidden]="data.tracked" class="far fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Add to Tracklist"></i></span>
+      <span (click)="unTrack(data.postId)"><i [hidden]="!data.tracked" class="fas fa-chart-bar fa-active" data-toggle="tooltip" data-placement="top" title="Remove from Tracklist"></i></span>
+      <span (click)="save(data.postId)"><i [hidden]="data.saved" class="far fa-heart" data-toggle="tooltip" data-placement="top" title="Save"></i></span>
+      <span (click)="unSave(data.postId)"><i [hidden]="!data.saved" class="fas fa-heart fa-active" data-toggle="tooltip" data-placement="top" title="Unsave"></i></span>
+      <span><a href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}" target="_blank"><i class="fab fa-facebook-square" data-toggle="tooltip" data-placement="top" title="See on facebook"></i></a></span>
     </div>
     <div class="dialog-icon-close g-text-blur"><i class="far fa-times" (click)="close()"></i></div>
   </div>
@@ -32,7 +32,7 @@
           <div class="post-origin-thumbnail">
             <img src="{{data.images.split(',')[0]}}">
             <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}">
-              <input *ngIf="data.type==='VIDEO'" type="button" class="icon-play" data-toggle="tooltip" data-placement="bottom" title="Play on Facebook">
+              <input *ngIf="data.type==='VIDEO'" type="button" class="icon-play" data-toggle="tooltip" data-placement="top" title="Play on Facebook">
             </a>
             <div class="ssri-platform-logo">
               <img class="ssri-platform-logo-image" src="{{bindPlatformLogo(data.platform)}}">

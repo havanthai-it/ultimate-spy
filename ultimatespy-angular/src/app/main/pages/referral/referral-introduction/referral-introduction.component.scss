@@ -1,0 +1,56 @@
+@import '../../../../../assets/scss/global.scss';
+
+.referral-page {
+    background-color: #fff;
+    min-height: 100vh;
+
+    .section-intro {
+        line-height: 2;
+        font-size: 1.2rem;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        min-height: 540px;
+
+
+        .col-left > div {
+            max-width: 460px;
+        }
+
+        .page-title {
+            margin-top: 30px;
+        }
+
+        .btn-referral {
+            font-weight: 500;
+            font-size: .92rem;
+            padding: .35rem 1.5rem;
+            border-radius: 1.6rem;
+        }
+
+        .image-wrapper {
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+
+    .section-info {
+        background-color: #f3f3f3;
+        padding-top: 50px;
+        padding-bottom: 50px;
+
+        .fa-dollar-sign,
+        .fa-cookie {
+            color: $primary2;
+        }
+    }
+
+    .section-bottom {
+        background-color: #fff;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
@@ -11,8 +12,10 @@ import { UserService } from '../../../core/services/user.service';
 export class ForgotPasswordComponent implements OnInit {
 
   constructor(
+    private titleService: Title,
     private userService: UserService
-    ) { }
+    ) {
+      this.titleService.setTitle('AdsCrawlr | Forgot password');}
 
   email: string;
   errorMessage: string;

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { User } from 'src/app/core/models/User';
 import { SubscriptionPlanService } from 'src/app/core/services/subscription-plan.service';
 
@@ -14,7 +15,9 @@ export class HomeComponent implements OnInit {
   token: string;
   subscriptionPlans: any = {};
 
-  constructor(private subscriptionPlanService: SubscriptionPlanService) { }
+  constructor(private titleService: Title,
+    private subscriptionPlanService: SubscriptionPlanService) {
+      this.titleService.setTitle('AdsCrawlr | #1 Ads Spy Tool');}
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));

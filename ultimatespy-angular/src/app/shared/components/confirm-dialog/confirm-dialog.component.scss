@@ -15,7 +15,8 @@
     border: solid 1px $borderColor;
     padding: .35em 2em;
     text-align: center;
-    width: 100px;
+    width: 120px;
+    margin-bottom: 10px;
 
     &:hover {
       background-color: $primary2;
