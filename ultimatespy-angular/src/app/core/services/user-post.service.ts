@@ -10,31 +10,22 @@ export class UserPostService {
 
   constructor(private http: HttpClient) { }
 
-  headers(): HttpHeaders {
-    let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'X-User-Id': `${user ? JSON.parse(user).id : ''}`
-    });
-  }
-
   getListFacebookPostId(userId: string, type: string): Observable<any> {
     const url = `${environment.serviceUrl}/api/v1/user/${userId}/post?type=${type}`;
-    return this.http.get(url, { headers: this.headers() });
+    return this.http.get(url, {});
   }
 
   insert(userId: string, facebookPostId: string, type: string): Observable<any> {
     const url = `${environment.serviceUrl}/api/v1/user/${userId}/post?`
                   + `facebookPostId=${facebookPostId}`
                   + `&type=${type}`;
-    return this.http.post(url, {}, { headers: this.headers() });
+    return this.http.post(url, {}, {});
   }
 
   delete(userId: string, facebookPostId: string, type: string): Observable<any> {
     const url = `${environment.serviceUrl}/api/v1/user/${userId}/post?`
                   + `facebookPostId=${facebookPostId}`
                   + `&type=${type}`;
-    return this.http.delete(url, { headers: this.headers() });
+    return this.http.delete(url, {});
   }
 }

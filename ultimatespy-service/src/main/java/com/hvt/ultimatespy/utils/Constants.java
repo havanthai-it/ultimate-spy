@@ -21,6 +21,11 @@ public class Constants {
     public static final String ROUTE_PAYPAL_SUBSCRIPTION = "/api/v1/paypal/subscription";
     public static final String ROUTE_PAYPAL_SUBSCRIPTION_ID = "/api/v1/paypal/subscription/{id}";
     public static final String ROUTE_REFERRAL = "/api/v1/referral";
+    public static final String ROUTE_REFERRER = "/api/v1/referrer";
+    public static final String ROUTE_REFERRER_ID = "/api/v1/referrer/{id}";
+    public static final String ROUTE_REFERRAL_SUMMARY = "/api/v1/referral-summary";
+    public static final String ROUTE_REFERRAL_REQUEST_PAYOUT = "/api/v1/referral-request-payout";
+    public static final String ROUTE_REFERRAL_REQUEST_PAYOUT_REFERRER_ID = "/api/v1/referral-request-payout/{referrerId}";
 
     public static final String ROUTE_ADMIN = "/api/v1/admin";
 

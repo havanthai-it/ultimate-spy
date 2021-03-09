@@ -11,26 +11,9 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  headers(): HttpHeaders {
-    let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
-
-    if (token && user) {
-      return new HttpHeaders({
-        'Authorization': `Bearer ${token}`,
-        'X-User-Id': `${user ? JSON.parse(user).id : ''}`
-      });
-    } else {
-      return new HttpHeaders({
-        'X-User-Id': `${user ? JSON.parse(user).id : ''}`
-      });
-    }
-    
-  }
-
   getFacebookPost(id: string): Observable<any> {
     const url = `${environment.serviceUrl}/api/v1/facebook-post/${id}`;
-    return this.http.get(url, { headers: this.headers() });
+    return this.http.get(url, {});
   }
 
   searchFacebookPost(query: FacebookPostQuery): Observable<any> {
@@ -54,6 +37,6 @@ export class PostService {
                   + '&maxComments=' + (query.maxComments ? query.maxComments : '')
                   + '&sort=' + (query.sort ? query.sort : '')
                   + '&filter=' + (query.filter ? query.filter : '')
-    return this.http.get(url, { headers: this.headers() });
+    return this.http.get(url, {});
   }
 }

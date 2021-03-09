@@ -30,7 +30,10 @@ public class UserService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM tb_user WHERE s_id = ?";
+            String sql = " SELECT u.*, ri.s_referrer_code, ri.s_paypal_name, ri.s_paypal_account " +
+                    " FROM tb_user u" +
+                    " LEFT JOIN tb_referral_info ri ON ri.s_referrer_id = u.s_id " +
+                    " WHERE u.s_id = ? ";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -66,7 +69,10 @@ public class UserService {
             Connection conn = null;
             CallableStatement cs = null;
             ResultSet rs = null;
-            String sql = "SELECT * FROM tb_user WHERE s_email = ?";
+            String sql = " SELECT u.*, ri.s_referrer_code, ri.s_paypal_name, ri.s_paypal_account " +
+                    " FROM tb_user u" +
+                    " LEFT JOIN tb_referral_info ri ON ri.s_referrer_id = u.s_id " +
+                    " WHERE u.s_email = ? ";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -136,13 +142,12 @@ public class UserService {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall("UPDATE tb_user SET " +
                         " S_FIRST_NAME = ?, " +
-                        " S_LAST_NAME = ?, " +
-                        " S_PASSWORD = ? " +
+                        " S_LAST_NAME = ? " +
+                        " D_UPDATE = CURRENT_TIMESTAMP() " +
                         " WHERE S_ID = ?");
                 cs.setString(1, user.getFirstName());
                 cs.setString(2, user.getLastName());
-                cs.setString(3, user.getPassword());
-                cs.setString(4, user.getId());
+                cs.setString(3, user.getId());
                 cs.execute();
 
                 result = getByEmail(user.getEmail()).get();
@@ -160,7 +165,10 @@ public class UserService {
             User result = null;
             Connection conn = null;
             CallableStatement cs = null;
-            String sql = "UPDATE tb_user SET s_status = ? WHERE s_id = ?";
+            String sql = "UPDATE tb_user SET " +
+                    " s_status = ?, " +
+                    " d_update = CURRENT_TIMESTAMP() " +
+                    " WHERE s_id = ?";
             try {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall(sql);
@@ -192,6 +200,10 @@ public class UserService {
         user.setStatus(rs.getString("S_STATUS"));
         user.setCreateDate(rs.getTimestamp("D_CREATE") != null ? sdf.format(rs.getTimestamp("D_CREATE")) : "");
         user.setUpdateDate(rs.getTimestamp("D_UPDATE") != null ? sdf.format(rs.getTimestamp("D_UPDATE")) : "");
+        user.setReferrerId(rs.getString("S_REFERRER_ID")); // ref by
+        user.setCode(rs.getString("S_REFERRER_CODE"));
+        user.setPaypalName(rs.getString("S_PAYPAL_NAME"));
+        user.setPaypalAccount(rs.getString("S_PAYPAL_ACCOUNT"));
         return user;
     }
 

@@ -6,8 +6,10 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.hvt.ultimatespy.config.Config;
 import com.hvt.ultimatespy.models.jwt.JwtRequest;
+import com.hvt.ultimatespy.models.referral.Referral;
 import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
+import com.hvt.ultimatespy.services.referral.ReferralService;
 import com.hvt.ultimatespy.services.user.UserService;
 import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.Encryptor;
@@ -23,10 +25,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sun.rmi.runtime.Log;
 
 import java.util.*;
@@ -49,8 +48,11 @@ public class JwtAuthenticationController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ReferralService referralService;
+
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> authorize(@RequestBody JwtRequest jwtRequest) throws Exception {
+    public ResponseEntity<?> authorize(@RequestHeader("X-Ref-Code") String refCode, @RequestBody JwtRequest jwtRequest) throws Exception {
 
         if (jwtRequest.getType() == null) {
             throw Errors.BAD_REQUEST_EXCEPTION;
@@ -110,8 +112,27 @@ public class JwtAuthenticationController {
                         user.setRole(RoleEnum.NORMAL.value());
                         user.setPassword(Encryptor.encrypt("AdsCrawlr@123456789"));
                         user.setStatus("active");
+
+                        // Referral
+                        if (refCode != null && !refCode.isEmpty()) {
+                            User referrer = referralService.getReferrerInfoByCode(refCode).get();
+                            if (referrer != null) {
+                                user.setReferrerId(referrer.getId());
+                            }
+                        }
+
                         user = userService.insert(user).get();
                         user.setPassword(null);
+
+                        if (user.getReferrerId() != null && !user.getReferrerId().isEmpty()
+                                && refCode != null && !refCode.isEmpty()) {
+                            Referral referral = new Referral();
+                            referral.setReferrerId(user.getReferrerId());
+                            referral.setReferrerCode(refCode);
+                            referral.setUserId(user.getId());
+                            referral.setAction("signup");
+                            referralService.insert(referral);
+                        }
                     } else if (user.getGoogleId() == null || user.getGoogleId().isEmpty()) {
                         throw Errors.GOOGLE_EMAIL_EXIST;
                     }

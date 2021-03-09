@@ -5,6 +5,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.hvt.ultimatespy.config.Config;
+import com.hvt.ultimatespy.models.referral.Referral;
+import com.hvt.ultimatespy.services.referral.ReferralService;
 import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.FuncUtils;
 import com.hvt.ultimatespy.utils.enums.RoleEnum;
@@ -29,8 +31,11 @@ public class UserPostController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ReferralService referralService;
+
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> post(@RequestHeader("X-Referrer-Id") String referrerId, @RequestBody User user) throws Exception {
+    public ResponseEntity<User> post(@RequestHeader("X-Ref-Code") String refCode, @RequestBody User user) throws Exception {
 
         if (user.getFirstName() == null || user.getFirstName().isEmpty()
                 || user.getLastName() == null || user.getLastName().isEmpty()
@@ -53,8 +58,28 @@ public class UserPostController {
         user.setPassword(encryptedPassword);
 
         user.setStatus("created");
+
+        // Referral
+        if (refCode != null && !refCode.isEmpty()) {
+            User referrer = referralService.getReferrerInfoByCode(refCode).get();
+            if (referrer != null) {
+                user.setReferrerId(referrer.getId());
+            }
+        }
+
         User result = userService.insert(user).get();
         result.setPassword(null);
+
+        if (result.getReferrerId() != null && !result.getReferrerId().isEmpty()
+            && refCode != null && !refCode.isEmpty()) {
+
+            Referral referral = new Referral();
+            referral.setReferrerId(result.getReferrerId());
+            referral.setReferrerCode(refCode);
+            referral.setUserId(result.getId());
+            referral.setAction("signup");
+            referralService.insert(referral);
+        }
 
         // Send mail
         InputStream is = getClass().getClassLoader().getResourceAsStream("templates/mail/mail-sign-up.html");

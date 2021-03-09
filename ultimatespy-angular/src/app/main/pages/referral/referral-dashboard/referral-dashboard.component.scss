@@ -1,4 +1,147 @@
 .referral-dashboard-page {
-    background-color: #fff;
     min-height: 100vh;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    .section-summary {
+        margin-bottom: 50px;
+
+        .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            color: #fff;
+            font-size: 24px;
+            border-radius: 50%;
+            margin-right: 10px;
+            margin-bottom: 15px;
+
+            &.icon-dollar-sign {
+                background-color: #239B56;
+                padding-top: 10px;
+                padding-left: 24px;
+            }
+
+            &.icon-shopping-cart{
+                background-color: #E74C3C;
+                padding-top: 12px;
+                padding-left: 16px;
+            }
+
+            &.icon-user {
+                background-color: #F1C40F;
+                padding-top: 10px;
+                padding-left: 20px;
+            }
+
+            &.icon-mouse-alt {
+                background-color: #2E86C1;
+                padding-top: 11px;
+                padding-left: 22px;
+            }
+        }
+
+        .stats-number {
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+    }
+
+    .section-details {
+
+        .referral-link-wrapper {
+            
+            .input-referral-link {
+                background-color: #fff;
+                width: calc(100% - 80px);
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+            .btn-referral-link {
+                width: 80px;
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+            }
+        }
+
+        .table-wrapper {
+            width: 100%;
+            min-width: 500px;
+            overflow-x: scroll;
+        }
+        table {
+            width: 100%;
+
+            th,td {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+
+        .mat-table-empty-msg {
+            background-color: #fff;
+            border-bottom: solid 1px #e8e8e8;
+            text-align: center;
+            padding: 15px 0;
+            color: #fe746a;
+        }
+
+        .payment-summary {
+            background-color: #fff;
+            margin-bottom: 20px;
+
+            .icon-wrapper {
+                width: 50px;
+                height: 50px;
+                padding: 5px 14px;
+                color: #fff;
+                background-color: #86c33a;
+                border-radius: 50%;
+                font-size: 24px;
+                margin-right: 10px;
+            }
+
+            .stats-number {
+                font-size: 1.25rem;
+                font-weight: 500;
+            }
+        }
+
+        .btn-payout {
+            font-weight: 500;
+        }
+
+        .form-paypal-account {
+            background-color: #fff;
+            padding: 15px;
+
+            .btn-cancel-paypal-account {
+                color: #fff;
+                background-color: #fd5e50 !important;
+
+                &:hover {
+                    background-color: #fc4a3a !important;
+                }
+            }
+        }
+    }
+}
+::placeholder {
+    color: #aaa;
+    font-weight: 300;
+}
+::-webkit-input-placeholder {
+    color: #aaa;
+    font-weight: 300;
+}
+::-moz-placeholder {
+    color: #aaa;
+    font-weight: 300;
+}
+::-ms-input-placeholder {
+    color: #bbb;
+    font-weight: 300;
+}
+:-ms-input-placeholder {
+    color: #aaa;
+    font-weight: 300;
 }

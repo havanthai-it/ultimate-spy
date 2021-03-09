@@ -74,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(Constants.ROUTE_POST_FACEBOOK).permitAll()
                 .antMatchers(Constants.ROUTE_POST_FACEBOOK + "/*").permitAll()
                 .antMatchers(Constants.ROUTE_POST_FACEBOOK_SEARCH).permitAll()
+                .antMatchers(Constants.ROUTE_REFERRAL).permitAll()
                 .antMatchers(Constants.ROUTE_ADMIN).hasRole(RoleEnum.ADMIN.value())
                 // All other requests need to be authenticated
                 .anyRequest().authenticated().and()

@@ -7,13 +7,20 @@
     .section-intro {
         line-height: 2;
         font-size: 1.2rem;
-        padding-top: 50px;
-        padding-bottom: 50px;
+        padding-top: 20px;
+        padding-bottom: 20px;
         min-height: 540px;
 
-
-        .col-left > div {
-            max-width: 460px;
+        .col-left {
+            padding-top: 30px;
+            padding-bottom: 30px;
+            div {
+                max-width: 460px;
+            }
+        }
+        .col-right {
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
 
         .page-title {
@@ -22,18 +29,20 @@
 
         .btn-referral {
             font-weight: 500;
-            font-size: .92rem;
-            padding: .35rem 1.5rem;
+            font-size: 1rem;
+            padding: .5rem 1.5rem;
             border-radius: 1.6rem;
         }
 
         .image-wrapper {
+            height: 100%;
+            width: 100%;
+            min-height: 320px;
             overflow: hidden;
+            background-image: url('../../../../../assets/img/referral-dashboard.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
 
-            img {
-                width: 100%;
-                height: auto;
-            }
         }
     }
 

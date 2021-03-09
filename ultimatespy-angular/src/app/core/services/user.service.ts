@@ -4,42 +4,37 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 import { UserSubscription } from '../models/UserSubscription';
+import { CookieService } from './cookie.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
-
-  headers(): HttpHeaders {
-    let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'X-User-Id': `${user ? JSON.parse(user).id : ''}`
-    });
-  }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   signin(username: string, password: string): Observable<any> {
+    const refCode = this.cookieService.getCookie('ac_ref');
     const requestData = {
       type: 'standard',
       username: username,
       password: password
     }
-    return this.http.post(`${environment.serviceUrl}/api/v1/authenticate`, requestData);
+    return this.http.post(`${environment.serviceUrl}/api/v1/authenticate`, requestData, { headers: new HttpHeaders({ 'X-Ref-Code': refCode }) });
   }
 
   signinGoogle(idToken: string): Observable<any> {
+    const refCode = this.cookieService.getCookie('ac_ref');
     const requestData = {
       type: 'google',
       googleIdToken: idToken
     }
-    return this.http.post(`${environment.serviceUrl}/api/v1/authenticate`, requestData);
+    return this.http.post(`${environment.serviceUrl}/api/v1/authenticate`, requestData, { headers: new HttpHeaders({ 'X-Ref-Code': refCode }) });
   }
 
   signup(user: any): Observable<any> {
-    return this.http.post(`${environment.serviceUrl}/api/v1/user`, user);
+    const refCode = this.cookieService.getCookie('ac_ref');
+    return this.http.post(`${environment.serviceUrl}/api/v1/user`, user, { headers: new HttpHeaders({ 'X-Ref-Code': refCode }) });
   }
 
   forgotPassword(email: string): Observable<any> {
@@ -47,19 +42,19 @@ export class UserService {
   }
 
   get(id: string, email: string): Observable<any> {
-    return this.http.get<User>(`${environment.serviceUrl}/api/v1/user?id=${id}&email=${email}`, { headers: this.headers() });
+    return this.http.get<User>(`${environment.serviceUrl}/api/v1/user?id=${id}&email=${email}`, {});
   }
 
   update(user: User): Observable<any> {
-    return this.http.put(`${environment.serviceUrl}/api/v1/user`, user, { headers: this.headers() });
+    return this.http.put(`${environment.serviceUrl}/api/v1/user`, user, {});
   }
 
   subscribe(userSubscription: UserSubscription): Observable<any> {
-    return this.http.post(`${environment.serviceUrl}/api/v1/user/${userSubscription.userId}/subscription`, userSubscription, { headers: this.headers() });
+    return this.http.post(`${environment.serviceUrl}/api/v1/user/${userSubscription.userId}/subscription`, userSubscription, {});
   }
 
   confirm(userId: string, confirmId: string): Observable<any> {
-    return this.http.patch(`${environment.serviceUrl}/api/v1/user/${userId}/confirm/${confirmId}`, {}, { headers: new HttpHeaders() });
+    return this.http.patch(`${environment.serviceUrl}/api/v1/user/${userId}/confirm/${confirmId}`, {}, {});
   }
 
   reset(email: string, password: string): Observable<any> {
@@ -67,7 +62,7 @@ export class UserService {
       email: email,
       password: password
     }
-    return this.http.patch(`${environment.serviceUrl}/api/v1/reset-password`, data, { headers: new HttpHeaders() });
+    return this.http.patch(`${environment.serviceUrl}/api/v1/reset-password`, data, {});
   }
 
 }

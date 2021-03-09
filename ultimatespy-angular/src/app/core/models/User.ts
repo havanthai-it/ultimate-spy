@@ -4,6 +4,7 @@ export class User {
   lastName: string;
   fullName: string;
   email: string;
+  role: string;
   address: string;
   country: string;
   state: string;
@@ -11,4 +12,8 @@ export class User {
   status: string;
   createDate: string;
   plan: string;
+
+  code: string;
+  paypalName: string;
+  paypalAccount: string;
 }

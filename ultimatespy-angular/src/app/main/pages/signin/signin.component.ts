@@ -59,9 +59,13 @@ export class SigninComponent implements OnInit {
           firstName: data.user.firstName,
           lastName: data.user.lastName,
           fullName: data.user.firstName + ' ' + data.user.lastName,
+          role: data.user.role,
           status: data.user.status,
           createDate: data.user.createDate,
-          plan: data.user.plan
+          plan: data.user.plan,
+          code: data.user.code,
+          paypalName: data.user.paypalName,
+          paypalAccount: data.user.paypalAccount
         };
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(userInfo));
@@ -92,9 +96,13 @@ export class SigninComponent implements OnInit {
               firstName: data.user.firstName,
               lastName: data.user.lastName,
               fullName: data.user.firstName + ' ' + data.user.lastName,
+              role: data.user.role,
               status: data.user.status,
               createDate: data.user.createDate,
-              plan: data.user.plan
+              plan: data.user.plan,
+              code: data.user.code,
+              paypalName: data.user.paypalName,
+              paypalAccount: data.user.paypalAccount
             };
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(userInfo));

@@ -19,6 +19,9 @@ public class User {
     private String referrerId;
     private String createDate;
     private String updateDate;
+    private String code;
+    private String paypalName;
+    private String paypalAccount;
 
     private String plan;
     private List<UserSubscription> lstSubscriptions;
@@ -149,6 +152,30 @@ public class User {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getPaypalName() {
+        return paypalName;
+    }
+
+    public void setPaypalName(String paypalName) {
+        this.paypalName = paypalName;
+    }
+
+    public String getPaypalAccount() {
+        return paypalAccount;
+    }
+
+    public void setPaypalAccount(String paypalAccount) {
+        this.paypalAccount = paypalAccount;
     }
 
     public String getPlan() {

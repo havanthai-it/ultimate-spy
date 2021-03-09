@@ -1,5 +1,204 @@
 <div class="referral-dashboard-page">
     <div class="container">
+        <h1 class="page-title mb-4">Dashboard</h1>
+
+        <div class="row section-summary">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="g-float-wrapper">
+                    <div class="g-float-left icon-wrapper icon-dollar-sign">
+                        <i class="far fa-dollar-sign"></i>
+                    </div>
+                    <div class="g-float-left">
+                        <div class="stats-number">${{data.totalRevenue | number: '1.2-2'}}</div>
+                        <div>Revenue generated</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="g-float-wrapper">
+                    <div class="g-float-left icon-wrapper icon-shopping-cart">
+                        <i class="far fa-shopping-cart"></i>
+                    </div>
+                    <div class="g-float-left">
+                        <div class="stats-number">{{data.totalCustomers | number: '1.0-0'}}</div>
+                        <div>Customers</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="g-float-wrapper">
+                    <div class="g-float-left icon-wrapper icon-user">
+                        <i class="far fa-user"></i>
+                    </div>
+                    <div class="g-float-left">
+                        <div class="stats-number">{{data.totalSignups | number: '1.0-0'}}</div>
+                        <div>Sign Ups</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="g-float-wrapper">
+                    <div class="g-float-left icon-wrapper icon-mouse-alt">
+                        <i class="fal fa-mouse-alt"></i>
+                    </div>
+                    <div class="g-float-left">
+                        <div class="stats-number">{{data.totalClicks | number: '1.0-0'}}</div>
+                        <div>Clicks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-details">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h5 class="mb-3">Customer Payment Details</h5>
+                    <div class="table-wrapper">
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="no">
+                                <th mat-header-cell *matHeaderCellDef style="width: 50px; text-align: center;"> No. </th>
+                                <td mat-cell *matCellDef="let element; let i = index" style="text-align: center;">{{i + 1}}</td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef style="width: 180px; text-align: left;"> Email </th>
+                                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                            </ng-container>
+
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="paymentAmount">
+                                <th mat-header-cell *matHeaderCellDef style="width: 100px; text-align: right;"> Amount </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: right;"> ${{element.paymentAmount | number: '1.2-2'}} </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="commissionAmount">
+                                <th mat-header-cell *matHeaderCellDef style="width: 100px; text-align: right;"> Commission </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: right;"> ${{element.commissionAmount | number: '1.2-2'}}
+                                </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="dateCreate">
+                                <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: center;"> Date </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.dateCreate | date: 'yyyy-MM-dd HH:mm a'}}
+                                </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <!-- <ng-container matColumnDef="settlementStatus">
+                                <th mat-header-cell *matHeaderCellDef> Status </th>
+                                <td mat-cell *matCellDef="let element"> {{element.settlementStatus}} </td>
+                            </ng-container> -->
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+
+                        <div class="mat-table-empty-msg" *ngIf="dataSource.data.length === 0">No records found</div>
+                        <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+                    </div>
+                    <div class="mb-4"></div>
+                    
+                    <h5 class="mb-3">Referral Link</h5>
+                    <div class="g-text-center g-text-lg mb-3">Share this referral link to your friends and followers</div>
+                    <div class="referral-link-wrapper g-float-wrapper mb-3">
+                        <input type="text" class="form-control input-referral-link g-float-left" [(ngModel)]="referralLink" 
+                        required="" [readonly]="true">
+                        <button class="btn btn-secondary btn-referral-link g-float-left" (click)="copy()">
+                            COPY
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <h5 class="mb-3">Owed & Paid</h5>
+
+                    <div class="payment-summary">
+                        <div class="g-float-wrapper" style="padding: 10px; border-bottom: solid 1px #eee;">
+                            <div class="g-float-left icon-wrapper">
+                                <!-- <i class="fal fa-dollar-sign" style="margin-left: 5px;"></i> -->
+                                <i class="fal fa-sack-dollar"></i>
+                            </div>
+                            <div class="g-float-left">
+                                <div class="stats-number">${{data.totalOwed | number: '1.2-2'}}</div>
+                                <div>Owed to Promoter</div>
+                            </div>
+                        </div>
+                        <div class="g-float-wrapper" style="padding: 10px;">
+                            <div class="g-float-left icon-wrapper">
+                                <i class="fal fa-hand-holding-usd"></i>
+                            </div>
+                            <div class="g-float-left">
+                                <div class="stats-number">${{data.totalPaid | number: '1.2-2'}}</div>
+                                <div>Paid to Promoter</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <button *ngIf="requestPayouts.length === 0" class="btn btn-block btn-secondary btn-payout mb-3" (click)="requestPayout()">
+                            REQUEST PAYOUT
+                        </button>
+                        <button *ngIf="requestPayouts.length > 0" class="btn btn-block btn-payout mb-3" style="background-color: #ffc107; color: #fff;">
+                            PAYOUT REQUEST SENT
+                        </button>
+                        <div class="g-text-sm g-text-blur">
+                            <i class="fal fa-info-circle"></i>
+                            You can request to payout when you reach the minimum threshold of $20.
+                        </div>
+                        <div class="g-text-sm g-text-blur">
+                            <i class="fal fa-info-circle"></i>
+                            Your request may take up to 72 hours to process.
+                        </div>
+                        <div class="g-text-sm g-text-blur">
+                            <i class="fal fa-info-circle"></i>
+                            By default, we will pay to promoters at the end of every month.
+                        </div>
+                    </div>
+
+
+                    <h5 class="mb-3">Your Paypal Account</h5>
+                    <form class="form-paypal-account" [formGroup]="paypalAccountForm" (ngSubmit)="savePaypalAccount()">
+                        <div class="form-label-group mb-2">
+                            <label for="inputPaypalName">Paypal Name</label>
+                            <input *ngIf="enableEditPaypalAccount" type="text" id="inputPaypalName" class="form-control" [(ngModel)]="paypalName"
+                                formControlName="paypalName" required="" placeholder="Enter Name"
+                                [ngClass]="{'error-form-control': f.paypalName.touched && f.paypalName.errors}">
+                            <div *ngIf="!enableEditPaypalAccount" class="g-text-bold">{{paypalName ? paypalName : '--'}}</div>
+                        </div>
+
+                        <div class="form-label-group mb-3">
+                            <label for="inputPaypalAccount">Paypal Account</label>
+                            <input *ngIf="enableEditPaypalAccount" type="text" id="inputPaypalAccount" class="form-control" [(ngModel)]="paypalAccount"
+                                formControlName="paypalAccount" required="" placeholder="Enter email or phone"
+                                [ngClass]="{'error-form-control': f.paypalAccount.touched && f.paypalAccount.errors}">
+                            <div *ngIf="!enableEditPaypalAccount" class="g-text-bold">{{paypalAccount ? paypalAccount : '--'}}</div>
+                        </div>
+
+                        <button *ngIf="enableEditPaypalAccount" type="submit"
+                            class="btn btn-secondary btn-block btn-save-paypal-account">
+                            Save
+                        </button>
+                        <button *ngIf="enableEditPaypalAccount" type="submit" (click)="enableEditPaypalAccount = false"
+                            class="btn btn-block btn-cancel-paypal-account">
+                            Cancel
+                        </button>
+                        <button *ngIf="!enableEditPaypalAccount" type="button" (click)="enableEditPaypalAccount = true"
+                            class="btn btn-secondary btn-block btn-save-paypal-account">
+                            Edit
+                        </button>
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
 
     </div>
 </div>

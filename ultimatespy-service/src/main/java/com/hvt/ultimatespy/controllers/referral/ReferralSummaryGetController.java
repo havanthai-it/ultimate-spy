@@ -15,23 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = Constants.ROUTE_REFERRAL)
+@RequestMapping(value = Constants.ROUTE_REFERRAL_SUMMARY)
 public class ReferralSummaryGetController {
 
     @Autowired
     private ReferralService referralService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<ReferralSummary> list(@RequestParam String userId) throws Exception {
-        if (userId == null || userId.isEmpty()) {
+    public ResponseEntity<ReferralSummary> list(@RequestParam String referrerId) throws Exception {
+        if (referrerId == null || referrerId.isEmpty()) {
             throw Errors.BAD_REQUEST_EXCEPTION;
         }
 
-        Integer totalClick = referralService.total(userId, "click").get();
-        Integer totalSignup = referralService.total(userId, "signup").get();
-        Integer totalPay = referralService.total(userId, "pay").get();
-        List<Referral> payReferrals = referralService.list(userId, "pay").get();
-        ReferralSummary referralSummary = new ReferralSummary(totalClick, totalSignup, totalPay, payReferrals);
+        List<Referral> payReferrals = referralService.list(referrerId, "pay").get();
+        ReferralSummary referralSummary = referralService.summary(referrerId).get();
+        referralSummary.setPayReferrals(payReferrals);
         return ResponseEntity.ok(referralSummary);
     }
 }

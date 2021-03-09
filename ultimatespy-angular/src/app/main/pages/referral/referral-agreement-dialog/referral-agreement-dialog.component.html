@@ -1,0 +1,33 @@
+<div class="referral-dialog">
+  <div mat-dialog-title class="dialog-header">
+    <h4>Referral Agreement</h4>
+  </div>
+  <div class="dialog-body">
+    FOREWORD
+    Thank you for signing up for the BigSpy Affiliate Program. We appreciate your involvement and pledge to do our best
+    to treat each and every one of our affiliates with the respect and fairness they deserve. We simply ask for the same
+    in return.
+    <br><br><br><br><br><br>
+    Below, you can find our Affiliate Terms and Conditions. Please take your time to carefully read these Affiliate
+    Terms and Conditions before proceeding with the registration. By completing your registration, you indicate the
+    acceptance of these Terms and Conditions which is a precursor for your acceptance into the BigSpy Affiliate Program.
+    <br><br><br><br><br><br>
+    If you have any questions pertaining to these Terms and Conditions or the BigSpy Affiliate Program in general,
+    please do not hesitate to contact us at alex@inbox.bigspy.com
+    <br><br><br><br><br><br>
+    We look forward to working with you,
+  </div>
+
+  <div mat-dialog-actions class="dialog-footer">
+    <div class="container">
+      <div class="row" style="width: 100%; margin: 0;">
+        <div class="col-6">
+          <button class="btn btn-focus g-float-right" (click)="yes()">{{data.yes ? data.yes : 'Accept'}}</button>
+        </div>
+        <div class="col-6">
+          <button class="btn g-float-left" (click)="no()">{{data.no ? data.no : 'Decline'}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,13 +4,16 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { SocialLoginModule, GoogleLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 import { MainComponent } from './main/main.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ToastrModule } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { AuthInterceptor } from 'src/app/core/interceptors/AuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -25,10 +28,22 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     CommonModule,
     SharedModule,
     CoreModule,
-    SocialLoginModule
+    SocialLoginModule,
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      positionClass: 'toast-bottom-right'
+    })
   ],
   providers: [
-    { 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: function (router: Router) {
+        return new AuthInterceptor(router);
+      },
+      multi: true,
+      deps: [Router]
+    },
+    {
       provide: MAT_DATE_LOCALE,
       useValue: 'en-GB'
     },

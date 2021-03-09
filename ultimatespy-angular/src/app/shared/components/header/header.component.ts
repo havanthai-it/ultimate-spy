@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../core/models/User';
 import { CookieService } from 'src/app/core/services/cookie.service';
+import { ReferralService } from 'src/app/core/services/referral.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router: Router, 
     private activatedRoute: ActivatedRoute,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    private referralService: ReferralService) { }
 
   ngOnInit(): void {
     if (this.router.url.startsWith('/ads')) {
@@ -33,11 +35,24 @@ export class HeaderComponent implements OnInit {
       this.user = JSON.parse(localStorage.getItem('user'));
     }
 
-    // Referrer
+    // Referral
     this.activatedRoute.queryParams.subscribe(params => {
-      let referrer = params['referrer'];
-      if (referrer && (!this.user || this.user.plan === 'free')) {
-        this.cookieService.setCookie('referrer', referrer, 60);
+      let refCode = params['ref'];
+      if (refCode) {
+        let oldRefCode = this.cookieService.getCookie('ac_ref');
+        if (oldRefCode !== refCode) {
+          const body = {
+            referrerCode: refCode,
+            userId: this.user ? this.user.id : '',
+            action: 'click'
+          };
+          this.referralService.postReferral(body).subscribe(
+            data => {
+              this.cookieService.setCookie('ac_ref', refCode, 60);
+            },
+            error => {}
+          )
+        }
       }
     });
   }

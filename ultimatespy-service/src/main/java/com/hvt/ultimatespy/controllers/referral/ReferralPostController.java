@@ -1,6 +1,7 @@
 package com.hvt.ultimatespy.controllers.referral;
 
 import com.hvt.ultimatespy.models.referral.Referral;
+import com.hvt.ultimatespy.models.user.User;
 import com.hvt.ultimatespy.services.referral.ReferralService;
 import com.hvt.ultimatespy.utils.Constants;
 import com.hvt.ultimatespy.utils.Errors;
@@ -19,10 +20,11 @@ public class ReferralPostController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Referral> post(@RequestBody Referral referral) throws Exception {
-        if (referral.getReferrerId() == null || referral.getReferrerId().isEmpty()) throw Errors.BAD_REQUEST_EXCEPTION;
-        if (referral.getUserId() == null || referral.getUserId().isEmpty()) throw Errors.BAD_REQUEST_EXCEPTION;
+        if (referral.getReferrerCode() == null || referral.getReferrerCode().isEmpty()) throw Errors.BAD_REQUEST_EXCEPTION;
         if (referral.getAction() == null || referral.getAction().isEmpty()) throw Errors.BAD_REQUEST_EXCEPTION;
 
+        User referrerInfo = referralService.getReferrerInfoByCode(referral.getReferrerCode()).get();
+        referral.setReferrerId(referrerInfo.getId());
         Referral result = referralService.insert(referral).get();
         return ResponseEntity.ok(result);
     }

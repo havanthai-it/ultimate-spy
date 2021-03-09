@@ -4,51 +4,57 @@
 
   .section-intro {
     background-image: url('../../../../assets/img/home-cover.png');
-    background-position: center top;
+    background-position: left top; // center top
     background-size: cover;
     height: 100vh;
     max-height: 768px;
     overflow: hidden;
     position: relative;
 
-    h1 {
-      font-weight: 400;
-      width: 80%;
-      max-width: 800px;
-      margin: auto;
-      margin-top: 18vh;
-      color: $textColor0;
-    }
+    .section-intro-content {
+      padding-left: 30px;
+      max-width: 500px;
 
-    p {
-      width: 90%;
-      max-width: 900px;
-      margin: auto;
-      margin-top: 20px;
-      margin-bottom: 40px;
-      font-size: 1.4em;
-    }
-
-    .btn-search-now {
-      background-color: #121212;
-      color: #fff;
-      font-weight: 500;
-      font-size: 1rem;
-      padding: 0.5em 2.4em 0.6em 3.6em;
-      position: relative;
-      text-transform: uppercase;
-      border-radius: 1.6em;
-      &:hover {
-        background-color: #000;
+      h1 {
+        font-weight: 700;
+        font-size: 3.5rem;
+        margin-top: 60px;
+        color: $textColor0;
       }
-
-      .fa-search {
-        position: absolute;
-        font-size: 0.9em;
-        left: 2.6em;
-        top: 0.9em;
+  
+      p {
+        // color: #6e6f70;
+        margin-top: 10px;
+        font-size: 1.4em;
+        span {
+          color: #121212;
+          font-weight: 500;
+        }
+      }
+  
+      .btn-search-now {
+        // margin-top: 10px;
+        background-color: #121212;
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 0.5em 2.4em 0.6em 3.6em;
+        position: relative;
+        text-transform: uppercase;
+        border-radius: 1.6em;
+        &:hover {
+          background-color: #000;
+        }
+  
+        .fa-search {
+          position: absolute;
+          font-size: 0.9em;
+          left: 2.6em;
+          top: 0.9em;
+        }
       }
     }
+    
   }
 
   .section {
@@ -74,7 +80,7 @@
         color: $primary2;
 
         .feature-item-logo-wrapper {
-          background-color: $primary21;
+          background-color: $primary20;
           width: 100px;
           height: 100px;
           border-radius: 50%;
