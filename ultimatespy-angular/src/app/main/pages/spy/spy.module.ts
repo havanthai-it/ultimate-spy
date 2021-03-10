@@ -16,6 +16,7 @@ import { SpySearchResultItemComponent } from "./spy-search-result/spy-search-res
 import { SpySearchResultComponent } from "./spy-search-result/spy-search-result.component";
 import { SpySearchComponent } from "./spy-search/spy-search.component";
 import { SpyComponent } from "./spy.component";
+import { SpyAdsDetailComponent } from './spy-ads-detail/spy-ads-detail.component';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { SpyComponent } from "./spy.component";
         SpySearchResultComponent,
         SpySearchResultItemComponent,
         SpySearchResultItemDialogComponent,
+        SpyAdsDetailComponent,
     ],
     imports: [
         SpyRoutingModule,

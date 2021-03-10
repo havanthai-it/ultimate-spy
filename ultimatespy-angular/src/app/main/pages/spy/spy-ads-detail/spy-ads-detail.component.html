@@ -1,0 +1,148 @@
+<div #dialogWrapper class="dialog-wrapper" id="dialog-wrapper">
+  <div class="container">
+
+    <div class="dialog-header">
+      <div>
+        <h2 class="g-text-lg">Ad Details</h2>
+      </div>
+      <div class="post-action">
+        <span (click)="track(data.postId)"><i [hidden]="data.tracked" class="far fa-chart-bar" data-toggle="tooltip"
+            data-placement="top" title="Add to Tracklist"></i></span>
+        <span (click)="unTrack(data.postId)"><i [hidden]="!data.tracked" class="fas fa-chart-bar fa-active"
+            data-toggle="tooltip" data-placement="top" title="Remove from Tracklist"></i></span>
+        <span (click)="save(data.postId)"><i [hidden]="data.saved" class="far fa-heart" data-toggle="tooltip"
+            data-placement="top" title="Save"></i></span>
+        <span (click)="unSave(data.postId)"><i [hidden]="!data.saved" class="fas fa-heart fa-active"
+            data-toggle="tooltip" data-placement="top" title="Unsave"></i></span>
+        <span><a href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}" target="_blank"><i
+              class="fab fa-facebook-square" data-toggle="tooltip" data-placement="top"
+              title="See on facebook"></i></a></span>
+      </div>
+    </div>
+
+    <div class="dialog-body">
+      <div class="g-float-wrapper row">
+        <div class="col-post-origin g-float-left col-lg-6">
+
+          <div class="post-origin-header g-float-wrapper">
+            <div class="post-origin-header-image g-float-left">
+              <img src="{{data.pageThumbnail}}">
+            </div>
+            <div class="post-origin-header-title g-float-left">
+              <h5>{{data.pageName}}</h5>
+              <div class="post-origin-publish-time g-text-sm g-text-blur">
+                <div>
+                  <mat-icon class="icon-clock">access_time</mat-icon> {{Moment(data.publishDate).fromNow()}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-origin-body">
+            <div class="post-origin-content mb-2" [innerHtml]="data.content"></div>
+            <div class="post-origin-thumbnail">
+              <img src="{{data.images.split(',')[0]}}">
+              <a target="_blank" href="https://facebook.com/{{data.pageUsername}}/posts/{{data.postId}}">
+                <input *ngIf="data.type==='VIDEO'" type="button" class="icon-play" data-toggle="tooltip"
+                  data-placement="top" title="Play on Facebook">
+              </a>
+              <div class="ssri-platform-logo">
+                <img class="ssri-platform-logo-image" src="{{bindPlatformLogo(data.platform)}}">
+              </div>
+              <!-- <div class="responsive-video" *ngIf="data.type==='VIDEO'">
+                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook%2Fvideos%174622487666757%2F&show_text=false&autoplay=false" 
+                  width="100%" height="100%" 
+                  style="border:none;overflow:hidden" 
+                  scrolling="no" frameborder="0" allowTransparency="true">
+                </iframe>
+              </div> -->
+
+            </div>
+
+            <div class="post-origin-performance g-float-wrapper">
+              <div class="post-origin-performance-icon post-origin-performance-like g-float-left"><i
+                  class="far fa-thumbs-up"></i> {{data.likes | number}}</div>
+              <!-- <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
+                [ngClass]="{'post-origin-performance-track-up': data.lastLikeTrack > 0, 'post-origin-performance-track-same': data.lastLikeTrack === 0, 'post-origin-performance-track-down': data.lastLikeTrack < 0}">
+                <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastLikeTrack >= 0, 'fa-long-arrow-down': data.lastLikeTrack < 0}"></i> {{(100 * data.lastLikeTrack) | number: '1.0-0'}}%
+              </div> -->
+              <div class="post-origin-performance-icon post-origin-performance-comment g-float-left"><i
+                  class="far fa-comment"></i> {{data.comments | number}}</div>
+              <!-- <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
+                [ngClass]="{'post-origin-performance-track-up': data.lastCommentTrack > 0, 'post-origin-performance-track-same': data.lastCommentTrack === 0, 'post-origin-performance-track-down': data.lastCommentTrack < 0}">
+                <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastCommentTrack >= 0, 'fa-long-arrow-down': data.lastCommentTrack < 0}"></i> {{(100 * data.lastCommentTrack) | number: '1.0-0'}}%
+              </div> -->
+              <div class="post-origin-performance-icon post-origin-performance-share g-float-left"><i
+                  class="far fa-share"></i> {{data.shares | number}}</div>
+              <!-- <div *ngIf="data.tracked" class="post-origin-performance-icon post-origin-performance-track g-float-left" 
+                [ngClass]="{'post-origin-performance-track-up': data.lastShareTrack > 0, 'post-origin-performance-track-same': data.lastShareTrack === 0, 'post-origin-performance-track-down': data.lastShareTrack < 0}">
+                <i class="fal" [ngClass]="{'fa-long-arrow-up': data.lastShareTrack >= 0, 'fa-long-arrow-down': data.lastShareTrack < 0}"></i> {{(100 * data.lastShareTrack) | number: '1.0-0'}}%
+              </div> -->
+            </div>
+          </div>
+
+        </div>
+        <div class="col-post-info g-float-right col-lg-6">
+          <div class="post-info-item g-float-wrapper post-info-platform" *ngIf="data.platform">
+            <div class="post-info-label g-float-left">Platform:</div>
+            <div class="post-info-value g-float-left"><span>{{data.platform}}</span></div>
+          </div>
+          <div class="post-info-item g-float-wrapper" *ngIf="data.category">
+            <div class="post-info-label g-float-left">Category:</div>
+            <div class="post-info-value g-float-left"><span>{{data.category}}</span></div>
+          </div>
+          <div class="post-info-item g-float-wrapper" *ngIf="data.creative">
+            <div class="post-info-label g-float-left">Creative:</div>
+            <div class="post-info-value g-float-left"><span>{{data.type}}</span></div>
+          </div>
+          <div class="post-info-item g-float-wrapper" *ngIf="data.website">
+            <div class="post-info-label g-float-left">Website:</div>
+            <div class="post-info-value g-float-left"><span><a
+                  href="/ads?keyword=::website={{data.website}}">{{data.website}}</a></span></div>
+          </div>
+          <div class="post-info-item g-float-wrapper" *ngIf="data.links">
+            <div class="post-info-label g-float-left">Link:</div>
+            <div class="post-info-value g-float-left"><span><a href="{{data.links}}">{{data.links}}</a></span></div>
+          </div>
+          <div class="post-info-item g-float-wrapper" *ngIf="data.pixelId">
+            <div class="post-info-label g-float-left">Pixel:</div>
+            <div class="post-info-value g-float-left"><span><a
+                  href="/ads?keyword=::pixel={{data.pixelId}}">{{data.pixelId}}</a></span></div>
+          </div>
+          <div class="post-info-item g-float-wrapper" *ngIf="data.country">
+            <div class="post-info-label g-float-left">Country:</div>
+            <div class="post-info-value g-float-left"><span>{{data.country}}</span></div>
+          </div>
+
+          <!-- CHART -->
+          <div class="chart-title g-text-bold">Performance:</div>
+          <div #chartWrapper class="chart-wrapper">
+            <ngx-charts-line-chart [view]="[chartWrapper.offsetWidth-1, 320]" [scheme]="colorScheme" [legend]="legend"
+              [legendPosition]="legendPosition" [animations]="animations" [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel" [yAxisTickFormatting]="yAxisTickFormat" [timeline]="timeline"
+              [results]="data.statistics" [autoScale]="autoScale" (select)="onSelect($event)"
+              (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
+              <!-- <ng-template #seriesTooltipTemplate let-model="model">
+                <div>{{model[0].series}}</div>
+                <div>{{model[1].series}}</div>
+                <div>{{model[2].series}}</div>
+              </ng-template> -->
+            </ngx-charts-line-chart>
+          </div>
+
+          <div class="g-text-blur g-text-sm" *ngIf="data.tracked">
+            <i class="fal fa-info-circle"></i> You are tracking this post. Performance statistics of this post will be
+            updated everyday.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-footer">
+
+    </div>
+
+  </div>
+</div>

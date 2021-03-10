@@ -1,0 +1,331 @@
+@import '../../../../../assets/scss/global.scss';
+
+.dialog-wrapper {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  .dialog-header {
+    background-color: #fff;
+    position: relative;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 10px 15px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+
+    h2 {
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    .post-action {
+      position: absolute;
+      right: 15px;
+      top: 4px;
+      font-size: 20px;
+
+      .fa-chart-bar, .fa-heart {
+        cursor: pointer;
+        margin-left: 6px;
+        color: #999;
+        
+        &:hover {
+          color: $primary2;
+        }
+
+        &.fa-active {
+          color: $primary2;
+        }
+      }
+
+      a {
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .fa-facebook-square {
+        margin-left: 6px;
+        color: #3b5998;
+      }
+    }
+  }
+
+  .dialog-body {
+    
+    .col-post-origin {
+      background-color: #fff;
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      @media screen and (min-width: 768px) {
+        padding-right: 15px;
+        // border-right: solid 1px rgba(0, 0, 0, 0.12);
+      }
+
+      .post-origin-header {
+        margin-bottom: 1em;
+
+        .post-origin-header-image {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+    
+        .post-origin-header-title {
+          width: calc(100% - 50px);
+          padding-left: 10px;
+    
+          h5 {
+            margin-bottom: 0;
+            font-weight: 400;
+          }
+    
+          .post-origin-publish-time {
+            margin-top: 0.5em;
+            padding-left: 24px;
+    
+            .icon-clock {
+              position: absolute;
+              margin-left: -24px;
+              margin-top: 2px;
+              font-size: 1.5em;
+            }
+          }
+        }
+      }
+
+      .post-origin-body {
+
+        .post-origin-content {
+          word-break: break-all;
+          
+          a {
+            color: #2471A3;
+          }
+
+          .see_more_link_inner {
+            display: none;
+          }
+        }
+        .post-origin-thumbnail {
+          width: 100%;
+          height: 360px;
+          position: relative;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .ssri-platform-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            opacity: .8;
+    
+            .ssri-platform-logo-image {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .icon-play {
+            position: absolute;
+            z-index: 1;
+            margin: auto;
+            top: calc(50% - 40px);
+            left: 0;
+            right: 0;
+            background-image: url('../../../../../assets/img/icon/icon-fb-01.png');
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-position: 0 0;
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 80px;
+            height: 80px;
+            outline: none;
+            padding: 0;
+          }
+
+          .responsive-video {
+            position: relative;
+            padding-bottom: 75%;
+            height: 0;
+          }
+          .responsive-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+
+        }
+    
+        .post-origin-performance {
+          padding-top: 10px;
+          color: #666;
+          user-select: none;
+    
+          .post-origin-performance-icon {
+            margin-right: 20px;
+
+            &.post-origin-performance-like {
+              .fa-thumbs-up {
+                color: #2471A3;
+              }
+            }
+
+            &.post-origin-performance-track {
+              // margin-right: 0 !important;
+              font-size: .86em;
+              margin-left: -12px !important;
+            }
+            &.post-origin-performance-track-up {
+              color: #01aa01;
+            }
+            &.post-origin-performance-track-same {
+              color: #999;
+            }
+            &.post-origin-performance-track-down {
+              color: #ff5050;
+            }
+          }
+          
+        }
+      }
+
+    }
+
+    .col-post-info {
+      background-color: #fff;
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      @media screen and (min-width: 768px) {
+        padding-left: 15px;
+      }
+
+      .post-info-item {
+
+        .post-info-label {
+          width: 25%;
+        }
+        .post-info-value {
+          width: 75%;
+          color: #666;
+
+          a {
+            color: #2471A3;
+            text-decoration: none;
+            word-break: break-word;
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+
+      .post-info-platform {
+        .post-info-value {
+          color: #000;
+          font-weight: 500;
+        }
+      }
+
+      .post-info-btn {
+        font-size: 1rem;
+        // border: solid 1px $primary1;
+        outline: none;
+        line-height: 1.8rem;
+        text-align: center;
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 20px;
+        margin-right: 8px;
+        position: relative;
+        padding: 0.08em 0.375em;
+        border-radius: 3px;
+
+      }
+
+      .post-info-btn-detail {
+        border: solid 1px #3b5998;
+        background-color: #3b5998;
+        color: #fff;
+      }
+
+      .post-info-btn-save,
+      .post-info-btn-track {
+        border: solid 1px $primary2;
+        background-color: $primary2;
+        color: #fff;
+
+        &:hover {
+          border: solid 1px $primary2;
+          background-color: $primary2;
+          color: #fff;
+        }
+      }
+      .post-info-btn-unsave,
+      .post-info-btn-untrack {
+        border: solid 1px #ef5350;
+        background-color: #ef5350;
+        color: #fff;
+
+        &:hover {
+          border: solid 1px #ef5350;
+          background-color: #ef5350;
+          color: #fff;
+        }
+      }
+
+      .chart-title {
+        margin-top: 40px;
+        margin-bottom: 12px;
+      }
+      .chart-wrapper {
+        margin-left: -15px;
+        margin-right: -15px;
+
+        .ngx-charts-outer {
+          position: relative;
+
+          .chart-legend {
+            position: absolute;
+            top: 250px;
+            left: 0;
+
+            .legend-title {
+              display: none;
+            }
+
+            .legend-labels {
+              background: none;
+              text-align: center;
+            }
+          }
+        }
+        
+      }
+    }
+  }
+}

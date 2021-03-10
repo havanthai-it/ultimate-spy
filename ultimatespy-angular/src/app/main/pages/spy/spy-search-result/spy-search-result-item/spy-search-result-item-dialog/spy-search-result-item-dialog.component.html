@@ -128,8 +128,14 @@
           </ngx-charts-line-chart>
         </div>
 
-        <div class="g-text-blur g-text-sm" *ngIf="data.tracked">
+        <div class="g-text-blur g-text-sm mb-3" *ngIf="data.tracked">
           <i class="fal fa-info-circle"></i> You are tracking this post. Performance statistics of this post will be updated everyday.
+        </div>
+
+        <div class="g-float-wrapper">
+          <a href="/ads/{{data.postId}}">
+            <button class="btn btn-secondary g-float-right">Detailed Insight <i class="fal fa-angle-double-right"></i></button>
+          </a>
         </div>
 
       </div>
