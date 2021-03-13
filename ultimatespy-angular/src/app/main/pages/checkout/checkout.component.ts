@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { User } from 'src/app/core/models/User';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { SubscriptionPlanService } from 'src/app/core/services/subscription-plan.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { environment } from 'src/environments/environment';
 
 declare var paypal;
 @Component({
@@ -26,10 +27,21 @@ export class CheckoutComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private datepipe: DatePipe,
     private titleService: Title,
+    private metaService: Meta,
     private userService: UserService,
     private subscriptionPlanService: SubscriptionPlanService,
     private paymentService: PaymentService) {
-      this.titleService.setTitle('AdsCrawlr | Checkout');}
+      this.titleService.setTitle('AdsCrawlr | Checkout');
+      this.metaService.addTags([
+        { name: 'keywords', content: 'AdsCrawlr, Ads Spy, Ads Spy Tool, Ads Crawl, Ads Crawl Tool, Facebook Ads Spy, Facebook Ads Crawl' },
+        { name: 'description', content: 'AdsCrawlr is the #1 Ads Spy Tool for POD, Shopify & Woocommerce sellers. Discover new ideas or niches tracked by thousands of users. Daily trending ads picked by big data & our intelligence.' },
+        { name: 'robots', content: 'index, follow' },
+        { name: 'og:title', content: 'AdsCrawlr | Checkout'},
+        { name: 'og:image', content: 'https://adscrawlr.com/assets/img/home-cover.png' },
+        { name: 'og:description', content: 'AdsCrawlr is the #1 Ads Spy Tool for POD, Shopify & Woocommerce sellers. Discover new ideas or niches tracked by thousands of users. Daily trending ads picked by big data & our intelligence.' },
+        { name: 'og:url', content: 'https://adscrawlr.com/' }
+      ]);
+    }
 
   ngOnInit(): void {
     
@@ -183,21 +195,21 @@ export class CheckoutComponent implements OnInit {
 
   getPaypalPlanId(plan: string, period: number) {
     if (plan === 'basic' && period === 1) {
-      return 'P-1J6726964U314624NMAQA6HQ';
+      return environment.paypal.plan.P9M1D0;
     } else if (plan === 'basic' && period === 3) {
-      return 'P-4EF61833C0475051RMAQTSWY';
+      return environment.paypal.plan.P9M3D10;
     } else if (plan === 'basic' && period === 6) {
-      return 'P-50J72259K8001514NMAQTLZA';
+      return environment.paypal.plan.P9M6D20;
     } else if (plan === 'basic' && period === 12) {
-      return 'P-3DH41113N9816535SMAQTTYQ';
+      return environment.paypal.plan.P9M12D30;
     } else if (plan === 'premium' && period === 1) {
-      return '';
+      return environment.paypal.plan.P49M1D0;
     } else if (plan === 'premium' && period === 3) {
-      return '';
+      return environment.paypal.plan.P49M3D10;
     } else if (plan === 'premium' && period === 6) {
-      return '';
+      return environment.paypal.plan.P49M6D20;
     } else if (plan === 'premium' && period === 12) {
-      return '';
+      return environment.paypal.plan.P49M12D30;
     }
     return '';
   }

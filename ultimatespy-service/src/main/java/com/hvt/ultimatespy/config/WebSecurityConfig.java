@@ -7,6 +7,7 @@ import com.hvt.ultimatespy.controllers.jwt.JwtAuthenticationEntryPoint;
 import com.hvt.ultimatespy.filters.CorsFilter;
 import com.hvt.ultimatespy.filters.JwtRequestFilter;
 import com.hvt.ultimatespy.services.jwt.JwtUserDetailsService;
+import org.elasticsearch.common.collect.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -61,7 +63,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example 
-        httpSecurity.csrf().disable()
+        httpSecurity.cors().configurationSource(
+                request -> {
+                    CorsConfiguration cors = new CorsConfiguration();
+                    cors.setAllowedOrigins(List.of("http://127.0.0.1:4200", "http://143.110.146.166:80", "https://143.110.146.166:443", "http://adscrawlr.com", "https://adscrawlr.com"));
+                    cors.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                    cors.setAllowedHeaders(List.of("*"));
+                    return cors;
+                }).and()
+                .csrf().disable()
                 // Don't authenticate this particular request
                 .authorizeRequests()
                 .antMatchers(Constants.ROUTE_AUTHENTICATE).permitAll()
