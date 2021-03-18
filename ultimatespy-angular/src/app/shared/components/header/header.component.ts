@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../core/models/User';
 import { CookieService } from 'src/app/core/services/cookie.service';
 import { ReferralService } from 'src/app/core/services/referral.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -16,10 +17,22 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, 
     private activatedRoute: ActivatedRoute,
     private cookieService: CookieService,
-    private referralService: ReferralService) { }
+    private referralService: ReferralService,
+    private userService: UserService) {
+      if (localStorage.getItem('token') && localStorage.getItem('user')) {
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.userService.get(this.user.id, '').subscribe(
+          data => {
+            this.user = data;
+            localStorage.setItem('user', JSON.stringify(this.user));
+          },
+          error => {}
+        );
+      }
+    }
 
   ngOnInit(): void {
-    if (this.router.url.startsWith('/ads')) {
+    if (this.router.url === '/ads' || this.router.url === '/ads/' || this.router.url.startsWith('/ads#') || this.router.url.startsWith('/ads/#')) {
       this.isAppPage = true;
     } else if (this.router.url.startsWith('/#feature')) {
       setTimeout(() => {
@@ -29,10 +42,6 @@ export class HeaderComponent implements OnInit {
       setTimeout(() => {
         this.scrollToView('pricing');
       }, 0);
-    }
-
-    if (localStorage.getItem('token') && localStorage.getItem('user')) {
-      this.user = JSON.parse(localStorage.getItem('user'));
     }
 
     // Referral

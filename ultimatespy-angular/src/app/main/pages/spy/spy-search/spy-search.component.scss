@@ -7,6 +7,9 @@
 
     .input-search-wrapper {
       width: 100%;
+      margin: auto;
+      margin-top: 30px;
+      margin-bottom: 15px;
 
       input {
         display: inline-block;
@@ -15,8 +18,10 @@
       }
 
       @media screen and (min-width: 960px) {
+        margin-top: 15px;
+        max-width: 740px;
         position: fixed;
-        top: 2px;
+        top: 0;
         z-index: 1000;
         width: 50%;
         left: 25%;
@@ -100,7 +105,7 @@
   }
 
   .filter-block {
-    margin: 12px 0;
+    margin: 15px 0;
     position: relative;
     display: inline-block;
 

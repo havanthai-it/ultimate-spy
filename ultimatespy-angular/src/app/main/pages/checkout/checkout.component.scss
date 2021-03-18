@@ -102,5 +102,20 @@
       
     }
   }
+
+  .toggle-promotion {
+    margin-bottom: 10px;
+    margin-top: -10px;
+
+    .toggle-promotion-text {
+      cursor: pointer;
+      color: #28a745;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
 }
 

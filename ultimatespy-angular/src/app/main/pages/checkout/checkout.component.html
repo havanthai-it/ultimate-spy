@@ -3,7 +3,7 @@
   <div class="py-5 text-center">
     <!-- <img class="d-block mx-auto mb-4" src="../../../../assets/img/favicon.png" alt="" height="60"> -->
     <h2>Checkout</h2>
-    <p class="lead">Below is an example form built entirely with Bootstrap's form controls.</p>
+    <!-- <p class="lead">Below is an example form built entirely with Bootstrap's form controls.</p> -->
   </div>
 
   <div class="row">
@@ -109,6 +109,7 @@
           </div>
           <span class="text-muted">${{invoice.originAmount}}</span>
         </li>
+
         <li class="list-group-item d-flex justify-content-between bg-light"
           *ngIf="invoice.originAmount - invoice.amount > 0">
           <div class="text-success">
@@ -117,17 +118,31 @@
           </div>
           <span class="text-success">-${{(invoice.originAmount - invoice.amount) | number: '1.0-2'}}</span>
         </li>
+
+        <li class="list-group-item d-flex justify-content-between bg-light"
+          *ngIf="promotionDiscountPercent > 0">
+          <div class="text-success">
+            <h6 class="my-0">Promotion Discount</h6>
+            <small>{{promotionDiscountPercent}}%</small>
+          </div>
+          <span class="text-success">-${{(invoice.originAmount * promotionDiscountPercent / 100) | number: '1.0-2'}}</span>
+        </li>
+
         <li class="list-group-item d-flex justify-content-between">
           <span>Total (USD)</span>
-          <strong>${{invoice.amount}}</strong>
+          <strong>${{invoice.amount - (invoice.originAmount * promotionDiscountPercent / 100)}}</strong>
         </li>
       </ul>
 
-      <form class="card p-2 mb-3">
+      <div class="toggle-promotion">
+        <span *ngIf="!hasPromotion" class="toggle-promotion-text" (click)="hasPromotion = true">Have a promotion code?</span>
+      </div>
+
+      <form *ngIf="hasPromotion" class="card p-2 mb-3">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Promo code">
+          <input name="promotionCode" type="text" class="form-control" [(ngModel)]="promotionCode" placeholder="Promo code">
           <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
+            <button type="submit" class="btn btn-secondary" (click)="getPromotionDiscountPercent()">Redeem</button>
           </div>
         </div>
       </form>

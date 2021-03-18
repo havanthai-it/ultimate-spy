@@ -142,7 +142,7 @@ public class UserService {
                 conn = Datasource.getConnection();
                 cs = conn.prepareCall("UPDATE tb_user SET " +
                         " S_FIRST_NAME = ?, " +
-                        " S_LAST_NAME = ? " +
+                        " S_LAST_NAME = ?, " +
                         " D_UPDATE = CURRENT_TIMESTAMP() " +
                         " WHERE S_ID = ?");
                 cs.setString(1, user.getFirstName());

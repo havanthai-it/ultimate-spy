@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { User } from 'src/app/core/models/User';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { SubscriptionPlanService } from 'src/app/core/services/subscription-plan.service';
+import { PromotionService } from 'src/app/core/services/promotion.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,6 +24,9 @@ export class CheckoutComponent implements OnInit {
   subscriptionPlans: any = {};
   period: any = {};
   payment: any = {};
+  hasPromotion: boolean = false;
+  promotionCode: string;
+  promotionDiscountPercent: number = 0;
 
   constructor(private activatedRoute: ActivatedRoute,
     private datepipe: DatePipe,
@@ -30,17 +34,9 @@ export class CheckoutComponent implements OnInit {
     private metaService: Meta,
     private userService: UserService,
     private subscriptionPlanService: SubscriptionPlanService,
-    private paymentService: PaymentService) {
+    private paymentService: PaymentService,
+    private promotionService: PromotionService) {
       this.titleService.setTitle('AdsCrawlr | Checkout');
-      this.metaService.addTags([
-        { name: 'keywords', content: 'AdsCrawlr, Ads Spy, Ads Spy Tool, Ads Crawl, Ads Crawl Tool, Facebook Ads Spy, Facebook Ads Crawl' },
-        { name: 'description', content: 'AdsCrawlr is the #1 Ads Spy Tool for POD, Shopify & Woocommerce sellers. Discover new ideas or niches tracked by thousands of users. Daily trending ads picked by big data & our intelligence.' },
-        { name: 'robots', content: 'index, follow' },
-        { name: 'og:title', content: 'AdsCrawlr | Checkout'},
-        { name: 'og:image', content: 'https://adscrawlr.com/assets/img/home-cover.png' },
-        { name: 'og:description', content: 'AdsCrawlr is the #1 Ads Spy Tool for POD, Shopify & Woocommerce sellers. Discover new ideas or niches tracked by thousands of users. Daily trending ads picked by big data & our intelligence.' },
-        { name: 'og:url', content: 'https://adscrawlr.com/' }
-      ]);
     }
 
   ngOnInit(): void {
@@ -85,7 +81,7 @@ export class CheckoutComponent implements OnInit {
     paypal.Buttons({
       createSubscription: function (data, actions) {  
         return actions.subscription.create({ 
-          plan_id: self.getPaypalPlanId(self.invoice.planId, self.invoice.period),  
+          plan_id: self.getPaypalPlanId(self.invoice.planId, self.invoice.period, self.promotionDiscountPercent),  
         });
       },  
       onApprove: function (data, actions) {  
@@ -95,7 +91,7 @@ export class CheckoutComponent implements OnInit {
           id: self.payment.id,
           status: 'approved',
           paypalSubscriptionId: data.subscriptionID,
-          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period)
+          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period, self.promotionDiscountPercent)
         }).subscribe(
           data => {},
           error => {console.log(error);}
@@ -111,7 +107,7 @@ export class CheckoutComponent implements OnInit {
           desc: '',
           status: 'approved',
           paypalSubscriptionId: data.subscriptionID,
-          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period)
+          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period, self.promotionDiscountPercent)
         }).subscribe(
           data => { setTimeout(() => { window.location.href = '/dashboard/plan' }, 1000) },
           error => {console.log(error);}
@@ -124,7 +120,7 @@ export class CheckoutComponent implements OnInit {
           id: self.payment.id,
           status: 'canceled',
           paypalSubscriptionId: '',
-          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period)
+          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period, self.promotionDiscountPercent)
         }).subscribe(
           data => {},
           error => {console.log(error);}
@@ -137,7 +133,7 @@ export class CheckoutComponent implements OnInit {
           id: self.payment.id,
           status: 'failed',
           paypalSubscriptionId: '',
-          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period)
+          paypalPlanId: self.getPaypalPlanId(self.invoice.planId, self.invoice.period, self.promotionDiscountPercent)
         }).subscribe(
           data => {},
           error => {console.log(error);}
@@ -193,23 +189,42 @@ export class CheckoutComponent implements OnInit {
     this.invoice = this.initInvoice(this.invoice.plan, p.months);
   }
 
-  getPaypalPlanId(plan: string, period: number) {
-    if (plan === 'basic' && period === 1) {
+  getPromotionDiscountPercent(): void {
+    if (this.promotionCode) {
+      this.promotionService.get(this.promotionCode.toUpperCase()).subscribe(
+        data => {
+          this.promotionDiscountPercent = data;
+          this.invoice.amount = this.invoice.amount - this.invoice.originAmount * this.promotionDiscountPercent / 100
+        },
+        error => {}
+      );
+    }
+  }
+
+  getPaypalPlanId(plan: string, period: number, discountPercent: number) {
+    if (plan === 'basic' && period === 1 && discountPercent === 0) {
       return environment.paypal.plan.P9M1D0;
-    } else if (plan === 'basic' && period === 3) {
+    } else if (plan === 'basic' && period === 3 && discountPercent === 0) {
       return environment.paypal.plan.P9M3D10;
-    } else if (plan === 'basic' && period === 6) {
+    } else if (plan === 'basic' && period === 6 && discountPercent === 0) {
       return environment.paypal.plan.P9M6D20;
-    } else if (plan === 'basic' && period === 12) {
+    } else if (plan === 'basic' && period === 12 && discountPercent === 0) {
       return environment.paypal.plan.P9M12D30;
-    } else if (plan === 'premium' && period === 1) {
+    } else if (plan === 'premium' && period === 1 && discountPercent === 0) {
       return environment.paypal.plan.P49M1D0;
-    } else if (plan === 'premium' && period === 3) {
+    } else if (plan === 'premium' && period === 3 && discountPercent === 0) {
       return environment.paypal.plan.P49M3D10;
-    } else if (plan === 'premium' && period === 6) {
+    } else if (plan === 'premium' && period === 6 && discountPercent === 0) {
       return environment.paypal.plan.P49M6D20;
-    } else if (plan === 'premium' && period === 12) {
+    } else if (plan === 'premium' && period === 12 && discountPercent === 0) {
       return environment.paypal.plan.P49M12D30;
+    }
+
+    // Testing
+    else if (period === 1 && discountPercent >= 89) {
+      return environment.paypal.plan.P1M1D0;
+    } else if (period === 3 && discountPercent >= 89) {
+      return environment.paypal.plan.P1M3D0;
     }
     return '';
   }
