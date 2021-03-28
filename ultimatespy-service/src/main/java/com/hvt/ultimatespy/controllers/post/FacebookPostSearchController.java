@@ -115,7 +115,7 @@ public class FacebookPostSearchController {
                 filter,
                 sort);
 
-        if (userId != null && !facebookPostQuery.isEmpty()) {
+        if (userId != null && !facebookPostQuery.isEmpty() && !filter.equalsIgnoreCase("saved") && !filter.equalsIgnoreCase("tracked")) {
             userLimitationService.checkLimitation(userId, ActionEnum.SEARCH.value(), 24);
         }
 

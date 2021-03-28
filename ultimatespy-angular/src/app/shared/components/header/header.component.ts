@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    if (this.router.url === '/ads' || this.router.url === '/ads/' || this.router.url.startsWith('/ads#') || this.router.url.startsWith('/ads/#')) {
+    if (this.router.url === '/ads' || this.router.url === '/ads/' || this.router.url.startsWith('/ads#') || this.router.url.startsWith('/ads/#') || this.router.url.startsWith('/ads?') || this.router.url.startsWith('/ads/?')) {
       this.isAppPage = true;
     } else if (this.router.url.startsWith('/#feature')) {
       setTimeout(() => {

@@ -241,7 +241,7 @@ public class FacebookPostService {
                 if (query.getCategory() != null && !query.getCategory().trim().isEmpty()) {
                     BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
                     for (String category : query.getCategory().split(",")) {
-                        boolQuery.should(QueryBuilders.termQuery("s_category.keyword", category));
+                        boolQuery.should(QueryBuilders.termQuery("s_page_category.keyword", category));
                     }
                     boolQuery.minimumShouldMatch(1);
                     boolQueryBuilder.filter(boolQuery);

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Meta, Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
@@ -100,6 +100,7 @@ export class ReferralDashboardComponent implements OnInit {
       data => {
         this.data = data;
         this.dataSource = new MatTableDataSource<any>(data.payReferrals);
+        this.dataSource.paginator = this.paginator;
       },
       error => { }
     );

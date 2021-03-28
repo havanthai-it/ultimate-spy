@@ -53,7 +53,7 @@ public class PaymentService {
             String sql = "SELECT " +
                     " s_id,s_user_id,s_payment_method,n_amount,n_fee,n_tax,n_discount,n_origin_amount,s_currency,d_create,d_update,s_status,s_plan_id,s_paypal_subscription_id,s_paypal_plan_id " +
                     " FROM tb_payment " +
-                    " WHERE s_user_id = ? AND s_status <> 'pending' " +
+                    " WHERE s_user_id = ? AND s_status = 'approved' " +
                     " ORDER BY d_create DESC ";
             try {
                 conn = Datasource.getConnection();

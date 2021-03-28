@@ -86,6 +86,9 @@ public class FacebookPost {
     @SerializedName(value = "s_page_thumbnail")
     private String pageThumbnail;
 
+    @SerializedName(value = "s_page_category")
+    private String pageCategory;
+
     @SerializedName(value = "n_page_likes")
     private Long pageLikes;
 
@@ -311,6 +314,14 @@ public class FacebookPost {
 
     public void setPageThumbnail(String pageThumbnail) {
         this.pageThumbnail = pageThumbnail;
+    }
+
+    public String getPageCategory() {
+        return pageCategory;
+    }
+
+    public void setPageCategory(String pageCategory) {
+        this.pageCategory = pageCategory;
     }
 
     public Long getPageLikes() {

@@ -79,8 +79,30 @@ export class SpySearchComponent implements OnInit {
   }
 
   lstCategories: any[] = [
-    { label: 'Clothes', value: 'Clothes' },
-    { label: 'Technology', value: 'Technology' }
+    { label: 'Artist', value: 'Artist' },
+    { label: 'Athlete', value: 'Athlete' },
+    { label: 'Clothing (brand)', value: 'Clothing (brand)' },
+    { label: 'Community', value: 'Community' },
+    { label: 'Company', value: 'Company' },
+    { label: 'Entertainment website', value: 'Entertainment website' },
+    { label: 'Film', value: 'Film' },
+    { label: 'Health/beauty', value: 'Health/beauty' },
+    { label: 'Interest', value: 'Interest' },
+    { label: 'Jewellery/watches', value: 'Jewellery/watches' },
+    { label: 'Just for fun', value: 'Just for fun' },
+    { label: 'Local business', value: 'Local business' },
+    { label: 'Magazine', value: 'Magazine' },
+    { label: 'Media/news company', value: 'Media/news company' },
+    { label: 'Musician/band', value: 'Musician/band' },
+    { label: 'News and media website', value: 'News and media website' },
+    { label: 'Non-profit organisation', value: 'Non-profit organisation' },
+    { label: 'Personal blog', value: 'Personal blog' },
+    { label: 'Product/service', value: 'Product/service' },
+    { label: 'Public Figure', value: 'Public Figure' },
+    { label: 'Retail company', value: 'Retail company' },
+    { label: 'Shopping & retail', value: 'Shopping & retail' },
+    { label: 'TV programme', value: 'TV programme' },
+    { label: 'Website', value: 'Website' }
   ];
   lstTypes: any[] = [
     { label: 'Image', value: 'IMAGE' },
