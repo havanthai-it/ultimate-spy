@@ -27,17 +27,28 @@
       <div class="ssri-content-line"><mat-icon data-toggle="tooltip" data-placement="top" title="Content">notes</mat-icon>{{extractContent(post.content)}}</div>
     </div>
 
-    <div class="ssri-thumbnail" (click)="detail()">
-      <img class="ssri-thumbnail-image lazyload" [attr.data-src]="post.images.split(',')[0]">
+    <div class="ssri-thumbnail">
+      <img class="ssri-thumbnail-image lazyload" [class.blur]="!isSubscribed() && index >= 4" [attr.data-src]="post.images.split(',')[0]">
       <input *ngIf="post.type==='VIDEO'" type="button" class="icon-play">
       <div class="ssri-platform-logo">
         <img class="ssri-platform-logo-image" src="{{bindPlatformLogo(post.platform)}}">
       </div>
-      <div class="ssri-thumbnail-overlay">
+      <div *ngIf="isSubscribed() || index < 4" class="ssri-thumbnail-overlay" (click)="detail()">
         <div>
           <mat-icon class="icon-view-more">visibility</mat-icon>
         </div>
         <div class="text-view-more">View more</div>
+      </div>
+      <div *ngIf="!isSubscribed() && index >= 4" class="ssri-thumbnail-lock">
+        <div>
+          <div>
+            <i class="far fa-lock-alt fa-5x icon-lock"></i>
+          </div>
+          <div>
+            <a href="/#pricing"><button *ngIf="user && userId" class="btn btn-get-access">Get access</button></a>
+            <a href="/signin"><button *ngIf="!user || !userId" class="btn btn-get-access">Sign in</button></a>
+          </div>
+        </div>
       </div>
     </div>
 

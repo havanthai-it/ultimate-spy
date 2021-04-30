@@ -16,8 +16,10 @@ declare var $: any;
 export class SpySearchResultItemComponent implements OnInit, OnChanges {
   @Input() post: any;
   @Input() isSearching: boolean = false;
+  @Input() index: number;
 
   Moment: any = moment;
+  user: any;
   userId: string;
   newlyTrack: boolean = false;
 
@@ -29,8 +31,9 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     $('[data-toggle="tooltip"]').tooltip();
 
-    let user = localStorage.getItem('user');
-    this.userId = user ? JSON.parse(user).id : '';
+    let userStr = localStorage.getItem('user');
+    this.user = userStr ? JSON.parse(userStr) : null;
+    this.userId = this.user ? this.user.id : '';
   }
 
   ngOnChanges(): void {
@@ -38,6 +41,10 @@ export class SpySearchResultItemComponent implements OnInit, OnChanges {
     if (this.post.videos && this.post.videos.substr(0, 5) === 'blob:') {
       this.post.videos = encodeURI(this.post.videos.substr(5));
     }
+  }
+
+  isSubscribed(): boolean {
+    return this.user && this.userId && (this.user.plan === 'basic' || this.user.plan === 'premium')
   }
 
   detail(): void {

@@ -119,6 +119,11 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+
+        &.blur {
+          filter: blur(10px);
+          -webkit-filter: blur(10px);
+        }
       }
 
       .ssri-platform-logo {
@@ -185,6 +190,34 @@
         .ssri-thumbnail-overlay {
           background-color: rgba(0,0,0,0.36);
           color: rgba(255,255,255,1);
+        }
+      }
+
+      .ssri-thumbnail-lock {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0);
+        color: $primary2;
+        z-index: 2;
+        padding: 60px 0;
+        text-align: center;
+        user-select: none;
+        cursor: initial;
+
+        .icon-lock {
+          width: 100px;
+          height: auto;
+        }
+        .btn-get-access {
+          background-color: $primary2;
+          color: #fff;
+          padding: 2px 8px;
+          margin-top: 10px;
+          min-width: 80px;
+          text-align: center;
         }
       }
     }

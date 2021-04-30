@@ -90,6 +90,7 @@ public class FacebookPostSearchController {
                 "sort=" + sort
         );
 
+        String originalPlatform = platform.trim();
         if (platform.contains("pod")) {
             platform = platform.replace("pod", "etsy,gearbubble,redbubble,spreadshirt,sunfrog,teehag,teespring,teepublic,teechip,teezily,teemill");
         }
@@ -120,7 +121,8 @@ public class FacebookPostSearchController {
         }
 
         // When not signed in, can only search with default params
-        if ((userId == null || userId.isEmpty()) && !facebookPostQuery.isEmpty()) {
+        if ((userId == null || userId.isEmpty()) && !facebookPostQuery.isEmpty()
+                && !originalPlatform.equals("") && !originalPlatform.equals("pod")) {
             throw Errors.USER_UNAUTHORIZED;
         }
 

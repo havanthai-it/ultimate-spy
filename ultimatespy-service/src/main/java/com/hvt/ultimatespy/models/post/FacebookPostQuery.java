@@ -50,7 +50,7 @@ public class FacebookPostQuery {
     }
 
     public boolean isEmpty() {
-        return (keyword == null || keyword.isEmpty())
+        return (keyword == null || keyword.isEmpty() || keyword.equals("pod"))
                 && (category == null || category.isEmpty())
                 && (type == null || type.isEmpty() )
                 && (platform == null || platform.isEmpty())
