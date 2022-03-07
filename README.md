@@ -14,4 +14,4 @@ Referal page:
 
 ## System Design
 
-![image](https://drive.google.com/uc?export=view&id=1FG05nxEZpW3PPyFOYO8ZybyIQjih50vW)
+![image](https://drive.google.com/uc?export=view&id=16l7a0monpOyFUAk9MOOsyqbTc6fidMAk)
